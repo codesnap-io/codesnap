@@ -1,0 +1,22 @@
+{
+  "name": "technical-blog",
+  "version": "1.0.0",
+  "description": "Blogging platform for software engineers",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlaseBallerina/tog.git"
+  },
+  "author": "Ben Steinberg, Chris Clayman, Michael Arnold, Sat Khalsa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlaseBallerina/tog/issues"
+  },
+  "homepage": "https://github.com/BlaseBallerina/tog/tog#readme"
+}
