@@ -18,5 +18,17 @@
   "bugs": {
     "url": "https://github.com/BlaseBallerina/tog/issues"
   },
-  "homepage": "https://github.com/BlaseBallerina/tog/tog#readme"
+  "homepage": "https://github.com/BlaseBallerina/tog/tog#readme",
+  "devDependencies": {
+    "browser-sync": "^2.7.13",
+    "gulp-eslint": "^0.15.0",
+    "gulp-mocha": "^2.1.2",
+    "gulp-sass": "^2.0.3"
+  },
+  "dependencies": {
+    "chai": "^3.0.0",
+    "eslint": "^0.24.0",
+    "gulp": "^3.9.0",
+    "mocha": "^2.2.5"
+  }
 }
