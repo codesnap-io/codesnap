@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
-	jade: ['client/**/*.jade', 'client/*.jade'],
+	jade: ['client/**/*.jade', 'client/*.jade']
 };
 
 
@@ -65,7 +65,7 @@ gulp.task('scripts', function() {
       .pipe(uglify())
       .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./dist/js'))
+    .pipe(gulp.dest('./dist/js'));
 });
 
 
@@ -90,7 +90,7 @@ gulp.task('sass', function() {
 	.pipe(sourcemaps.write())
 	.pipe(gulp.dest("./client/assets/css"))
 	.pipe(browserSync.stream());
-})
+});
 
 
 /* browser sync initialization */
@@ -116,7 +116,7 @@ gulp.task('html', [], function() {
 	gulp.src(paths.jade)
 	.pipe(jade())
 	.pipe(gulp.dest('./dist/'));
-})
+});
 
 /* testing call */
 gulp.task('test', [], function() {
@@ -133,7 +133,7 @@ gulp.task('test', [], function() {
     }));
 });
 
-/* eslint task */
+// /* eslint task */
 gulp.task('lint', function () {
 	console.log('*****LINTING*****');
     return gulp.src(['server/**/*.js', 'client/**/*.js', './gulpfile.js'])
