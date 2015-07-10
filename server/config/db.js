@@ -7,9 +7,10 @@
   var knex = require('knex')({
     client: 'mysql',
     connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
+      host: process.env.RDS_HOSTNAME,
+      user: process.env.RDS_USERNAME,
+      password: process.env.RDS_PASSWORD,
+      port: process.env.RDS_PORT,
       database: process.env.DB_NAME,
       charset: 'utf8'
     }
