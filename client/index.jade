@@ -1,0 +1,28 @@
+html(ng-app="crouton")
+  head
+    title Crouton
+
+    //---BASICS---
+    //angular
+    script(src="assets/lib/angular/angular.js")
+    script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
+    script(src="app/app.js")
+
+    //styles
+    link(href="assets/css/styles.min.css" rel="stylesheet")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
+
+    //---COMPONENTS---
+    //home
+    script(src="components/home/homeController.js")
+    script(src="components/home/homeView.js")
+
+    //---SHARED---
+    //navbar
+    script(src="shared/navbar/navbarDirective.js")
+    script(src="shared/navbar/navbarView.js")
+
+  body
+    .grid-frame.vertical
+      navbar
+      .view(ui-view)
