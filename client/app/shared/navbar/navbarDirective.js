@@ -1,7 +1,7 @@
 angular.module('crouton', [])
   .directive('navbar', function () {
     return {
-      templateUrl: 'navbar.html',
+      templateUrl: 'app/shared/navbar/navbar.html',
       scope: {
         current: '@'
       },
