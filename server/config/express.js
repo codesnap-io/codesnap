@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   // var config = require('./config.js');
@@ -6,7 +6,7 @@
   var morgan = require('morgan');
   var bodyParser = require('body-parser');
 
-  module.exports = function() {
+  module.exports = function () {
     var app = express();
 
     if (process.env.NODE_ENV === 'development') {
@@ -19,13 +19,13 @@
     app.use(bodyParser.json());
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
-    app.use(express.static('client/assets'));
+    app.use(express.static('client'));
 
 
     /* Required Routes */
     require('../routes/users.server.routes')(app);
 
-  return app;
+    return app;
   };
 
 })();

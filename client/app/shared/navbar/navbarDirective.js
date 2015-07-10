@@ -1,6 +1,12 @@
 angular.module('crouton', [])
   .directive('navbar', function () {
     return {
-      template: 'navbar.html'
+      templateUrl: 'navbar.html',
+      scope: {
+        current: '@'
+      },
+      link: function ($scope, element, attrs) {
+        //DOM manipulation stuff goes here
+      }
     }
   });
