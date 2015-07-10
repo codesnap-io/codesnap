@@ -1,6 +1,7 @@
 #Folders to ignore
 node_modules/
 dist/
+.idea/
 
 #Files to ignore
 .DS_Store
