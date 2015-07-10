@@ -140,7 +140,7 @@ gulp.task('test', [], function () {
 // /* eslint task */
 gulp.task('lint', function () {
   console.log('*****LINTING*****');
-  return gulp.src(['server/**/*.js', 'client/**/*.js', './gulpfile.js'])
+  return gulp.src(['server/**/*.js', 'client/**/*.js', '!client/assets/**', './gulpfile.js'])
     .pipe(eslint())
     .pipe(eslint.format());
 });
