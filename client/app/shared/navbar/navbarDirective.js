@@ -1,5 +1,5 @@
 angular.module('crouton', [])
-  .directive('navbar', function () {
+  .directive('crNavbar', function () {
     return {
       templateUrl: 'app/shared/navbar/navbar.html',
       scope: {

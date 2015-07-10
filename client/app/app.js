@@ -2,12 +2,30 @@
 Handle setup of app, load in Angular dependencies, routing, etc.
 */
 
-var crouton = angular.module('crouton', ['ui.router']);
+//TODO: use $templateCache to speed template loading
 
-crouton.config(['$stateProvider', '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
+
+(function () {
+  'use strict';
+  angular.module('crouton', [
+    // Angular libraries
+    'ui.router',
+    'ngAnimate',
+    // Foundation UI components
+    'foundation',
+    // Routing with front matter
+    'foundation.dynamicRouting',
+    // Transitioning between views
+    'foundation.dynamicRouting.animations'
+  ])
+    .config(config)
+    .run(run);
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+
+  function config($stateProvider, $urlRouterProvider) {
+    // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
-
+    //TODO: html5mode?
     $stateProvider
       .state('home', {
         url: '/',
@@ -15,6 +33,9 @@ crouton.config(['$stateProvider', '$urlRouterProvider',
         controller: 'homeController'
       });
   }
-]);
 
-//TODO: use $templateCache to speed template loading
+  function run() {
+    // Enable FastClick to remove the 300ms click delay on touch devices
+    FastClick.attach(document.body);
+  }
+})();
