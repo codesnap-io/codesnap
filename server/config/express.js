@@ -19,7 +19,7 @@
     app.use(bodyParser.json());
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
-    app.use(express.static('public'));
+    app.use(express.static('client/assets'));
 
 
     /* Required Routes */
