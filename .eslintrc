@@ -11,6 +11,7 @@
    'no-underscore-dangle': 0,
    'new-cap' : 0,
    'quotes': 0,
-   'strict': 0
+   'strict': 0,
+   'eol-last': 0
   }
 }
