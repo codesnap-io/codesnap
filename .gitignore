@@ -6,4 +6,4 @@ client/assets/lib
 
 #Files to ignore
 .DS_Store
-client/index.html
+client/**/*.html

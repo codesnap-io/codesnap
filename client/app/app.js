@@ -16,3 +16,5 @@ crouton.config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
+
+//TODO: use $templateCache to speed template loading
