@@ -16,11 +16,12 @@ var gulp = require('gulp'),
   // sh = require('shelljs');
 
 
-gulp.task('default', ['test'], function () {
+//gulp default task
+gulp.task('default', ['lint','test'], function () {
     console.log('READDDDY TO RUMMMMBLE')
 });
 
-
+//browser sync initialization
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
@@ -29,7 +30,7 @@ gulp.task('browser-sync', function() {
     });
 });
 
-
+//sass compiliation. Also browsersync called.
 gulp.task('sass', function() {
     return gulp.src("path/too/scss/*.scss")
         .pipe(sass())
@@ -38,7 +39,8 @@ gulp.task('sass', function() {
 });
 
 
-gulp.task('test', ['lint'], function() {
+//testing call
+gulp.task('test', [], function() {
 	console.log('*****TESTING*****');
   return gulp.src(['test/**/*.js'], { read: false })
     .pipe(mocha({
@@ -52,7 +54,7 @@ gulp.task('test', ['lint'], function() {
     }));
 });
 
-
+//eslint task
 gulp.task('lint', function () {
 	console.log('*****LINTING*****');
     return gulp.src(['**/*.js'])
@@ -65,7 +67,7 @@ gulp.task('lint', function () {
 
 
 
-
+//integrate instructions
 gulp.task('integrate', function() {
 	console.log('\n');
 	console.log('*****DEV TEAM TASKS******');
