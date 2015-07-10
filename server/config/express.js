@@ -5,6 +5,7 @@
   var express = require('express');
   var morgan = require('morgan');
   var bodyParser = require('body-parser');
+  var passport = require('passport');
 
   module.exports = function () {
     var app = express();
@@ -20,6 +21,10 @@
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
     app.use(express.static('client'));
+
+
+    /* initialize passport for authentication */
+    app.use(passport.initialize());
 
 
     /* Required Routes */
