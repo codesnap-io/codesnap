@@ -1,10 +1,14 @@
-console.log("hello!!!");
+(function(){ 
+  'use strict'; 
+  console.log("hello!!!");
 
 
-var global = 10;
+  var global = 10;
 
-function sample(num) {
-  return num;
-}
+  function sample(num) {
+    return num;
+  }
 
-sample(global);
+  sample(global);
+
+})();

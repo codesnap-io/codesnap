@@ -76,7 +76,7 @@
 
   - Minimize the number of commits so that upstream master branch is as clean as possible
   - "git log" and copy hash from commit BEFORE the last one you intend to squash
-  - "git rebase -i <paste hash>
+  - "git rebase -i <paste hash> OR git rebase -i HEAD~<#>
   - Replace the word "pick" with "squash" on commits you want to merge with the commit above
   - For additional reference, check out this article:
 
