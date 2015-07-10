@@ -1,5 +1,5 @@
-(function(){ 
-  'use strict'; 
+(function(){
+  'use strict';
 
   // var config = require('./config.js');
   var express = require('express');
@@ -22,8 +22,8 @@
     app.use(express.static('public'));
 
 
-    // Required Routes
-    // require('../routes/users')
+    /* Required Routes */
+    require('../routes/users.server.routes')(app);
 
   return app;
   };

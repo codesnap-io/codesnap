@@ -1,5 +1,5 @@
-(function(){ 
-  'use strict'; 
+(function(){
+  'use strict';
 
   /* Sets the NODE_ENV variable equal to development if it is otherwise undefined.  In a production environment, NODE_ENV will be assigned a value from our host */
 
@@ -11,6 +11,5 @@
   var app = express();
   app.listen(process.env.PORT);
   module.exports = app;
-
   console.log('Server running at http://localhost:3000/');
 })();
