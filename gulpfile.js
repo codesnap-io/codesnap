@@ -14,6 +14,7 @@ var gulp = require('gulp'),
 	minifyCss = require('gulp-minify-css'),
 	sourcemaps = require('gulp-sourcemaps'),
 	concatCss = require('gulp-concat'),
+	ngAnnotate = require('gulp-ng-annotate'),
   sass = require('gulp-sass');
   // rename = require('gulp-rename'),
   // sh = require('shelljs');
@@ -21,11 +22,9 @@ var gulp = require('gulp'),
 /* asset paths */
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
-  css: 'client/scss/*.scss',
-	jade: ['client/**/*.jade', 'client/*.jade']
+  css: 'client/assets/scss/*.scss',
+	jade: ['client/**/*.jade', 'client/*.jade'],
 };
-
-
 
 
 /* gulp default task */
@@ -34,15 +33,17 @@ gulp.task('default', ['lint', 'test'], function () {
 });
 
 
-/* main watch task which will build dist folder and refresh */
+/* main watch task which will compile assets and refresh */
 gulp.task('watch', ['browser-sync'], function() {
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.css, ['css']);
+  gulp.watch(paths.css, ['sass']);
 	gulp.watch(paths.jade, ['jade']);
 });
 
+
+
+
 /* build task, which will properly build entire client */
-gulp.task('build', ['scripts', 'css', 'jade'], function() {
+gulp.task('build', ['scripts', 'css', 'html'], function() {
 	console.log('app built');
 });
 
@@ -59,16 +60,16 @@ gulp.task('scripts', function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
+		.pipe(ngAnnotate())
     .pipe(sourcemaps.init())
       .pipe(uglify())
       .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist/js'))
-		.pipe(browserSync.stream());
 });
 
 
-/* sass compiliation. Also browsersync called */
+/* css compiliation for production. Also browsersync called */
 gulp.task('css', function() {
   return gulp.src(paths.css)
 		.pipe(sourcemaps.init())
@@ -76,26 +77,46 @@ gulp.task('css', function() {
 		.pipe(minifyCss())
 		.pipe(concatCss("styles.min.css"))
 		.pipe(sourcemaps.write())
-    .pipe(gulp.dest("./dist/css"))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest("./dist/css"));
 });
+
+/* simply compile sass to css */
+gulp.task('sass', function() {
+	return gulp.src(paths.css)
+	.pipe(sourcemaps.init())
+	.pipe(sass())
+	.pipe(minifyCss())
+	.pipe(concatCss("styles.min.css"))
+	.pipe(sourcemaps.write())
+	.pipe(gulp.dest("./client/assets/css"))
+	.pipe(browserSync.stream());
+})
+
 
 /* browser sync initialization */
 gulp.task('browser-sync', function() {
   browserSync.init({
     server: {
-      baseDir: "./dist"
+      baseDir: "./client"
     }
   });
+	gulp.watch(["./client/**/*.js", "./client/assets/css/*.css", "./client/**/*.html", "./client/index.html"]).on('change', browserSync.reload);
 });
 
 /* jade compiliation */
 gulp.task('jade', [], function() {
   gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./dist/'))
+    .pipe(gulp.dest('./client/'))
 		.pipe(browserSync.stream());
 });
+
+/* html build */
+gulp.task('html', [], function() {
+	gulp.src(paths.jade)
+	.pipe(jade())
+	.pipe(gulp.dest('./dist/'));
+})
 
 /* testing call */
 gulp.task('test', [], function() {
