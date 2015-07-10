@@ -1,4 +1,4 @@
-"use strict";
+(function(){ 'use strict'; })();
 
 var gulp = require('gulp'),
 	mocha = require('gulp-mocha'),
@@ -18,7 +18,7 @@ var gulp = require('gulp'),
   // rename = require('gulp-rename'),
   // sh = require('shelljs');
 
-//all assets paths
+/* asset paths */
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
   css: 'client/scss/*.scss',
@@ -28,33 +28,33 @@ var paths = {
 
 
 
-//gulp default task
+/* gulp default task */
 gulp.task('default', ['lint', 'test'], function () {
-    console.log('READDDDY TO RUMMMMBLE');
+  console.log('READDDDY TO RUMMMMBLE');
 });
 
 
-//main watch task which will build dist folder and refresh
+/* main watch task which will build dist folder and refresh */
 gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.css, ['css']);
 	gulp.watch(paths.jade, ['jade']);
 });
 
-//build task, which will properly build entire client
+/* build task, which will properly build entire client */
 gulp.task('build', ['scripts', 'css', 'jade'], function() {
 	console.log('app built');
 });
 
 
 
-//clean dist folder
+/* clean dist folder */
 gulp.task('clean', function(cb) {
   del(['dist'], cb);
 });
 
 
-//minify and concat js files
+/* minify and concat js files */
 gulp.task('scripts', function() {
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
@@ -68,34 +68,28 @@ gulp.task('scripts', function() {
 });
 
 
-//sass compiliation. Also browsersync called.
+/* sass compiliation. Also browsersync called */
 gulp.task('css', function() {
-    return gulp.src(paths.css)
-				.pipe(sourcemaps.init())
-				.pipe(sass())
-				.pipe(minifyCss())
-				.pipe(concatCss("styles.min.css"))
-				.pipe(sourcemaps.write())
-        .pipe(gulp.dest("./dist/css"))
-        .pipe(browserSync.stream());
+  return gulp.src(paths.css)
+		.pipe(sourcemaps.init())
+		.pipe(sass())
+		.pipe(minifyCss())
+		.pipe(concatCss("styles.min.css"))
+		.pipe(sourcemaps.write())
+    .pipe(gulp.dest("./dist/css"))
+    .pipe(browserSync.stream());
 });
 
-
-
-
-
-//browser sync initialization
+/* browser sync initialization */
 gulp.task('browser-sync', function() {
-    browserSync.init({
-        server: {
-            baseDir: "./dist"
-        }
-    });
-
+  browserSync.init({
+    server: {
+      baseDir: "./dist"
+    }
+  });
 });
 
-//jade compiliation
-
+/* jade compiliation */
 gulp.task('jade', [], function() {
   gulp.src(paths.jade)
     .pipe(jade())
@@ -103,9 +97,7 @@ gulp.task('jade', [], function() {
 		.pipe(browserSync.stream());
 });
 
-
-
-//testing call
+/* testing call */
 gulp.task('test', [], function() {
 	console.log('*****TESTING*****');
   return gulp.src(['test/**/*.js'], { read: false })
@@ -120,17 +112,15 @@ gulp.task('test', [], function() {
     }));
 });
 
-//eslint task
+/* eslint task */
 gulp.task('lint', function () {
 	console.log('*****LINTING*****');
     return gulp.src(['server/**/*.js', 'client/**/*.js', './gulpfile.js'])
-        .pipe(eslint())
-        .pipe(eslint.format());
+      .pipe(eslint())
+      .pipe(eslint.format());
 });
 
-
-
-//integrate instructions
+/* integrate instructions */
 gulp.task('integrate', function() {
 	console.log('\n');
 	console.log('*****DEV TEAM TASKS******');

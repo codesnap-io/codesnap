@@ -1,4 +1,4 @@
-'use strict';
+(function(){ 'use strict'; })();
 
 // var config = require('./config.js');
 var express = require('express');

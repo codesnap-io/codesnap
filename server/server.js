@@ -1,4 +1,4 @@
-"use strict";
+(function(){ 'use strict'; })();
 
 /* Sets the NODE_ENV variable equal to development if it is otherwise undefined.  In a production environment, NODE_ENV will be assigned a value from our host */
 
