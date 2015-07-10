@@ -2,7 +2,7 @@
   "name": "technical-blog",
   "version": "1.0.0",
   "description": "Blogging platform for software engineers",
-  "main": "index.js",
+  "main": "server/server.js",
   "directories": {
     "test": "tests"
   },
