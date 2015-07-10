@@ -1,6 +1,6 @@
-[![Circle CI](https://circleci.com/gh/BlaseBallerina/tog.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/tog)
 
-# tog
+
+# Crouton
 GitHub-based technical blogging platform
 
 
