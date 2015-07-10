@@ -1,2 +1,6 @@
 angular.module('crouton', [])
-  .directive('navbarDirective')
+  .directive('navbar', function () {
+    return {
+      template: 'navbar.html'
+    }
+  });

@@ -23,12 +23,6 @@ html(ng-app="crouton")
     script(src="shared/navbar/navbarView.js")
 
   body
-    //navbar
     .grid-frame.vertical
-      .dark.title-bar
-        span.left.title Crouton
-        span.left Home
-        span.right Profile
-        span.right View Post
-      //angular app lives here
-      div(ui-view)
+      .dark.title-bar(navbar)
+      .view(ui-view)
