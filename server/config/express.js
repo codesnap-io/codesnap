@@ -1,4 +1,6 @@
-var config = require('./config.js');
+'use strict';
+
+// var config = require('./config.js');
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -24,4 +26,4 @@ module.exports = function() {
   // require('../routes/users')
 
 return app;
-}
+};
