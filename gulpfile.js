@@ -17,6 +17,7 @@ var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps'),
   concatCss = require('gulp-concat'),
   ngAnnotate = require('gulp-ng-annotate'),
+  nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass');
 // rename = require('gulp-rename'),
 // sh = require('shelljs');
@@ -96,14 +97,41 @@ gulp.task('sass', function () {
 
 
 /* browser sync initialization */
-gulp.task('browser-sync', function () {
+gulp.task('browser-sync', ['nodemon'], function () {
   browserSync.init({
-    server: {
-      baseDir: "./client"
-    }
+    proxy: "localhost:3000",  // local node app address
+    port: 5000,  // use *different* port than above
+    notify: true
   });
   gulp.watch(["./client/**/*.js", "./client/assets/css/*.css", "./client/**/*.html", "./client/index.html"]).on('change', browserSync.reload);
 });
+
+
+/* run nodemon server */
+gulp.task('nodemon', function (cb) {
+  var called = false;
+  return nodemon({
+    script: 'server/server.js',
+    ignore: [
+      'gulpfile.js',
+      'node_modules/'
+    ],
+    ext: 'js',
+    env: { 'NODE_ENV': 'development' }
+  })
+  .on('start', function () {
+    if (!called) {
+      called = true;
+      cb();
+    }
+  })
+  .on('restart', function () {
+    setTimeout(function () {
+      browserSync.reload({ stream: false });
+    }, 1000);
+  });
+});
+
 
 /* jade compiliation */
 gulp.task('jade', [], function () {
