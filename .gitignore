@@ -2,6 +2,8 @@
 node_modules/
 dist/
 .idea/
+client/assets/lib
 
 #Files to ignore
 .DS_Store
+index.html

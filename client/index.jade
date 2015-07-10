@@ -1,7 +1,27 @@
 html
   head
+    title Crouton
+
+    //---BASICS---
+    //styles
     link(href="assets/css/styles.min.css" rel="stylesheet")
-  body
-    h1 hi mom
-    ul
-      li.item hello!!
+    script(src="assets/lib/foundation-apps/dist/foundation-apps.js")
+
+    //angular
+    script(src="assets/lib/angular/angular.js")
+    script(src="assets/lib/angular-ui-router/angular-ui-router.js")
+    script(src="app/app.js")
+
+    //---COMPONENTS---
+    //home
+    script(src="components/home/homeController.js")
+    script(src="components/home/homeView.js")
+
+    //---SHARED---
+    //navbar
+    script(src="shared/navbar/navbarDirective.js")
+    script(src="shared/navbar/navbarView.js")
+  body(ng-app="crouton")
+    //navbar goes here
+    div(ui-view)
+
