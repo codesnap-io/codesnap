@@ -1,2 +1,12 @@
-
-p yo yo yo
+.grid-frame
+  .grid-frame.vertical Choose a Category:
+    .grid-block.align-left.shrink(ng-repeat="topic in topics")
+      span {{topic}}
+  .grid-frame.vertical
+    .grid-block.shrink
+      span The latest in {{selectTopic}}.
+    .grid-block.align-center(ng-repeat="post in posts")
+      span {{post.title}}
+      span {{post.author}}
+      p {{post.content}}
+  .grid-frame.vertical

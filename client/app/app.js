@@ -25,23 +25,23 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   ])
     .config(config)
     .run(run);
-  config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-  /*
-  dynamicRouting version:
-    function config($urlProvider, $locationProvider) {
-    // Default to the index view if the URL loaded is not found
-    $urlProvider.otherwise('/');
-    // Use this to enable HTML5 mode
-    $locationProvider.html5Mode({
-      enabled: false,
-      requireBase: false
-    });
-    // Use this to set the prefix for hash-bangs
-    // Example: example.com/#!/page
-    $locationProvider.hashPrefix('!');
-  }
-  */
+  // config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  // //dynamicRouting version:
+  // function config($urlProvider, $locationProvider) {
+  //   // Default to the index view if the URL loaded is not found
+  //   $urlProvider.otherwise('/');
+  //   // Use this to enable HTML5 mode
+  //   $locationProvider.html5Mode({
+  //     enabled: false,
+  //     requireBase: false
+  //   });
+  //   // Use this to set the prefix for hash-bangs
+  //   // Example: example.com/#!/page
+  //   $locationProvider.hashPrefix('!');
+  // }
+
+  config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
   function config($stateProvider, $urlRouterProvider) {
     // Default to the index view if the URL loaded is not found
