@@ -7,24 +7,33 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'test/**/*.js'
+      'test/**/*.js',
+      // 'client/app/**/**/*.js',
+      // 'client/app/app.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-    'karma.conf.js'
+      'karma.conf.js',
+      'test/coverage/**'
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'client/app/**/**/*.js': 'coverage'
+    },
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'test/coverage/'
     },
 
 
@@ -68,13 +77,11 @@ module.exports = function(config) {
 
     // any additional plugins needed for testing
     plugins: [
-      // 'karma-coverage',
+      'karma-coverage',
       'karma-mocha',
       'karma-chai',
-      // 'karma-sinon',
+      'karma-sinon',
       'karma-chrome-launcher'
     ]
-
-
   });
 };
