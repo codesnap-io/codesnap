@@ -4,6 +4,9 @@ var passport = require("passport");
 var User = require('../models/user.server.model.js');
 
 exports.githubStrategy = function() {
+  console.log(process.env.githubClientID);
+  console.log(process.env.githubClientSecret);
+  console.log(process.env.githubCallbackUrl);
   passport.use(new GitHubStrategy({
       /* These variables are tied to our application's account.  By including them here, we gain access to the users we authenticate */
       clientID: process.env.githubClientID,
@@ -11,6 +14,7 @@ exports.githubStrategy = function() {
       callbackURL: process.env.githubCallbackUrl
     },
     function(accessToken, refreshToken, profile, done) {
+      console.log(profile);
       User.where({
           github_id: profile.id
       })
