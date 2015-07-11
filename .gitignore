@@ -9,3 +9,4 @@ test/coverage/**
 #Files to ignore
 .DS_Store
 client/**/*.html
+npm-debug.log
