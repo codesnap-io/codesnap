@@ -4,7 +4,7 @@ dist/
 .idea/
 client/assets/lib
 server/config/env
-
+test/coverage/**
 
 #Files to ignore
 .DS_Store

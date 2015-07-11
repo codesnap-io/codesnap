@@ -4,8 +4,50 @@ angular.module('homeController', [])
   $scope.posts = [{
     title: "The Best Title Ever!",
     author: "Michael Arnold",
-    content: "sample post content yadda yadda yadday lkajsdglag adslkgjasdlkgjdlkagj"
-  }]
-  $scope.selectTopic = 'Ruby'
-  $scope.topics = ['Ruby', 'Javascript']
+    content: "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content. "
+  }, {
+    title: "The Best Title Ever!",
+    author: "Michael Arnold",
+    content: "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content. "
+  }, {
+    title: "The Best Title Ever!",
+    author: "Michael Arnold",
+    content: "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content " +
+      "sample post content sample post content sample post content sample post content. "
+  }];
+  $scope.topicFilter = 'latest';
+  $scope.selectTopic = 'Ruby';
+  $scope.topics = ['Ruby', 'Javascript'];
 });
