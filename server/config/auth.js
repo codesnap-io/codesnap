@@ -45,8 +45,9 @@ passport.deserializeUser(function(obj, done) {
 
 
 
+/* this function can be used if we choose to run sessions */
 
-exports.authenticate = function(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-};
+// exports.authenticate = function(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/login');
+// };
