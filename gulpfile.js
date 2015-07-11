@@ -16,7 +16,8 @@ var gulp = require('gulp'),
   concatCss = require('gulp-concat'),
   ngAnnotate = require('gulp-ng-annotate'),
   nodemon = require('gulp-nodemon'),
-  sass = require('gulp-sass');
+  sass = require('gulp-sass'),
+  path = require('path');
 
 /* asset paths */
 var paths = {
@@ -148,7 +149,7 @@ gulp.task('html', [], function () {
 gulp.task('test', [], function (done) {
   console.log('*****TESTING*****');
   karma.start({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: path.join(__dirname, '/karma.conf.js'),
     singleRun: true
   }, done);
   // return gulp.src(['test/**/*.js'], {
