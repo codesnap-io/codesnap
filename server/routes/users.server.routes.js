@@ -8,9 +8,6 @@
   module.exports = function(app) {
     auth.githubStrategy();
 
-    // app.post('/signup', users.signup);
-    // app.post('/login', users.login);
-
     // GET /auth/github
     //   Use passport.authenticate() as route middleware to authenticate the
     //   request.  The first step in GitHub authentication will involve redirecting
@@ -29,19 +26,6 @@
       function(req, res) {
         res.redirect('/');
     });
-
-
-
-
-  // app.get('/auth/github',
-  //   passport.authenticate('github', { scope: [ 'user:email' ] }));
-  //
-  // app.get('/auth/github/callback',
-  //   passport.authenticate('github', { failureRedirect: '/login' }),
-  //   function(req, res) {
-  //     // Successful authentication, redirect home.
-  //     res.redirect('/');
-  // });
 };
 
 

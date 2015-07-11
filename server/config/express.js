@@ -12,7 +12,6 @@
     var app = express();
 
     if (process.env.NODE_ENV === 'development') {
-
       /* morgan is middleware that logs server activity to the console.  We only want to use it in a development setting */
       app.use(morgan('dev'));
     }
@@ -23,11 +22,10 @@
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
     app.use(express.static('client'));
 
-
-    /* initialize passport for authentication */
+    /* Initialize passport for authentication */
     app.use(passport.initialize());
 
-    /* serve static files */
+    /* Serve static files */
     app.use(express.static(path.join(__dirname, '../../client')));
 
     /* Required Routes */
