@@ -21,7 +21,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //navbar
     'navbarDirective',
     //home
-    'homeController'
+    'homeController',
+    //signup and login controller
+    'signupController'
   ])
     .config(config)
     .run(run);
@@ -52,6 +54,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/',
         templateUrl: 'app/components/home/home.html',
         controller: 'homeController'
+      })
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'app/components/signup/signup.html',
+        controller: 'signupController'
       });
   }
 

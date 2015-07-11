@@ -13,7 +13,7 @@
     //   request.  The first step in GitHub authentication will involve redirecting
     //   the user to github.com.  After authorization, GitHubwill redirect the user
     //   back to this application at /auth/github/callback
-    app.get('/auth/github',
+    app.get('/auth/github', app.cors(app.corsOptions),
       passport.authenticate('github', { scope: [ 'user', 'public_repo' ] }));
 
     // GET /auth/github/callback
@@ -21,7 +21,7 @@
     //   request.  If authentication fails, the user will be redirected back to the
     //   login page.  Otherwise, the primary route function function will be called,
     //   which, in this example, will redirect the user to the home page.
-    app.get('/auth/github/callback',
+    app.get('/auth/github/callback', app.cors(app.corsOptions),
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
         res.redirect('/');
