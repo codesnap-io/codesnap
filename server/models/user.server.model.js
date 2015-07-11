@@ -7,7 +7,6 @@
     tableName: 'users'
   });
 
-
   db.knex.schema.hasTable('users').then(function(exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
     // if (exists) {
