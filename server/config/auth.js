@@ -25,8 +25,7 @@ exports.githubStrategy = function() {
           User.forge({
             github_id: profile.id,
             username: profile.username,
-            first_name: profile.displayName.split(" ")[0],
-            last_name: profile.displayName.split(" ")[1],
+            name: profile.displayName,
             email: profile._json.email,
             token: accessToken
           }).save().then(function(newUser) {
