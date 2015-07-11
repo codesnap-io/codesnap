@@ -1,6 +1,6 @@
 html(ng-app="crouton")
   head
-    title Crouton
+    title Crouton!
 
     //---BASICS---
     //angular + foundation
@@ -12,17 +12,21 @@ html(ng-app="crouton")
     script(src="app/app.js")
 
     //styles
+    link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")    
     link(href="assets/css/styles.min.css" rel="stylesheet")
 
     //---COMPONENTS---
     //home
     script(src="app/components/home/homeController.js")
+    
+    //signup
+    script(src="app/components/signup/signupController.js")
+    script(src="app/components/signup/signupFactory.js")
 
     //---SHARED---
     //navbar
     script(src="app/shared/navbar/navbarDirective.js")
 
   body
-    .grid-frame.vertical
       cr-navbar
-      ui-view
+      ui-view.grid-frame

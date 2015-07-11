@@ -32,6 +32,8 @@ exports.githubStrategy = function() {
           }).save().then(function(newUser) {
             return done(null, newUser);
           });
+        } else {
+          return done(null, user);
         }
     }).catch(function(err) {
         console.log(err);

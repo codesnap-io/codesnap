@@ -7,6 +7,7 @@
   var bodyParser = require('body-parser');
   var passport = require('passport');
   var path = require('path');
+  var cors = require('cors');
 
   module.exports = function () {
     var app = express();
@@ -15,6 +16,20 @@
       /* morgan is middleware that logs server activity to the console.  We only want to use it in a development setting */
       app.use(morgan('dev'));
     }
+
+    /* cors initialization and options for whitelist */
+    app.cors = cors;
+
+
+    /* whitelist of CORS available origins */
+    // TODO: change these origins for production
+    var whitelist = ['http://localhost:8000', 'http://localhost:5000'];
+    app.corsOptions = {
+      origin: function(origin, callback){
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+      }
+    };
 
     /* body-parser converts data receive in POST requests into JSON */
     app.use(bodyParser.json());

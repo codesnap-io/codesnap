@@ -20,6 +20,7 @@
   "dependencies": {
     "angular-ui-router": "~0.2.15",
     "foundation-apps": "~1.1.0",
-    "ngAnimate": "*"
+    "ngAnimate": "*",
+    "css3-social-signin-buttons": "necolas/css3-social-signin-buttons"
   }
 }
