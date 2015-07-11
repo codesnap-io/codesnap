@@ -34,7 +34,7 @@ gulp.task('default', ['lint', 'test'], function () {
 
 
 /* main watch task which will compile assets and refresh */
-gulp.task('watch', ['browser-sync'], function () {
+gulp.task('watch', ['jade', 'sass', 'browser-sync'], function () {
   gulp.watch(paths.css, ['sass']);
   gulp.watch(paths.jade, ['jade']);
 });
