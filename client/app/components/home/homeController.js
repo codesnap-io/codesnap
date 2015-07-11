@@ -1,5 +1,5 @@
-angular.module('crouton', [])
+angular.module('homeController', [])
 
-.controller('homeCtrl', function () {
+.controller('homeController', function () {
 
-})
+});

@@ -7,6 +7,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
 (function () {
   'use strict';
+  window.foundationRoutes = [];
   angular.module('crouton', [
     // Angular libraries
     'ui.router',
@@ -16,11 +17,31 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // Routing with front matter
     'foundation.dynamicRouting',
     // Transitioning between views
-    'foundation.dynamicRouting.animations'
+    'foundation.dynamicRouting.animations',
+    //navbar
+    'navbarDirective',
+    //home
+    'homeController'
   ])
     .config(config)
     .run(run);
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$stateProvider', '$urlRouterProvider'];
+
+  /*
+  dynamicRouting version:
+    function config($urlProvider, $locationProvider) {
+    // Default to the index view if the URL loaded is not found
+    $urlProvider.otherwise('/');
+    // Use this to enable HTML5 mode
+    $locationProvider.html5Mode({
+      enabled: false,
+      requireBase: false
+    });
+    // Use this to set the prefix for hash-bangs
+    // Example: example.com/#!/page
+    $locationProvider.hashPrefix('!');
+  }
+  */
 
   function config($stateProvider, $urlRouterProvider) {
     // Default to the index view if the URL loaded is not found
@@ -29,7 +50,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'component/home/home.html',
+        templateUrl: 'app/components/home/home.html',
         controller: 'homeController'
       });
   }

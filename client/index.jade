@@ -3,14 +3,16 @@ html(ng-app="crouton")
     title Crouton
 
     //---BASICS---
-    //angular
+    //angular + foundation
     script(src="assets/lib/angular/angular.js")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
     script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
+    script(src="assets/lib/ngAnimate/js/angular-animate.min.js")
+    script(src="assets/lib/fastclick/lib/fastclick.js")
     script(src="app/app.js")
 
     //styles
     link(href="assets/css/styles.min.css" rel="stylesheet")
-    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
 
     //---COMPONENTS---
     //home
@@ -23,4 +25,4 @@ html(ng-app="crouton")
   body
     .grid-frame.vertical
       cr-navbar
-      .grid-block.ng-scope.ui-animation(ng-class="['ui-animation']" ui-view)
+      ui-view.grid-block.ng-scope.ui-animation(ng-class="['ui-animation']")
