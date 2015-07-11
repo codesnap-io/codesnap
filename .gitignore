@@ -4,6 +4,8 @@ dist/
 .idea/
 client/assets/lib
 
+
 #Files to ignore
 .DS_Store
 client/**/*.html
+server/config/env/development.js

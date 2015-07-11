@@ -22,7 +22,8 @@ exports.githubStrategy = function() {
             username: profile.username,
             first_name: profile.displayName.split(" ")[0],
             last_name: profile.displayName.split(" ")[1],
-            email: profile.emails[1].value
+            email: profile.emails[1].value,
+            token: accessToken
           }).save().then(function(newUser) {
             return done(null, newUser);
           });

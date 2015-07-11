@@ -26,6 +26,7 @@
         user.string('email', 30);
         user.string('username', 30);
         user.integer('github_id');
+        user.string('token', 80)
         user.timestamps(); /* Creates created_at, updated_at */
       }).then(function(table) {
         console.log('Created Users Table');
