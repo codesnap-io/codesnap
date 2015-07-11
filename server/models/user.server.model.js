@@ -3,14 +3,9 @@
 
   var db = require('../config/db');
 
-<<<<<<< HEAD
   var User = db.Model.extend({
     tableName: 'users'
   });
-
-=======
-  
->>>>>>> (test) Add testing functionality (incomplete)
 
   db.knex.schema.hasTable('users').then(function(exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
