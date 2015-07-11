@@ -33,17 +33,13 @@
     "gulp-sass": "^2.0.3",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
-<<<<<<< HEAD
-    "morgan": "^1.6.1",
-    "karma": "^0.12.37"
-=======
     "karma": "^0.12.37",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.0",
     "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.2.0",
-    "karma-safari-launcher": "^0.1.1"
->>>>>>> (test) Add testing functionality (incomplete)
+    "karma-safari-launcher": "^0.1.1",
+    "morgan": "^1.6.1"
   },
   "dependencies": {
     "body-parser": "^1.13.2",
