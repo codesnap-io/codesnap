@@ -26,7 +26,8 @@
     /* initialize passport for authentication */
     app.use(passport.initialize());
 
-
+    /* serve static files */
+    app.use(express.static(__dirname + '../../client'));
     /* Required Routes */
     require('../routes/users.server.routes')(app);
 

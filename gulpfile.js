@@ -99,7 +99,7 @@ gulp.task('sass', function () {
 /* browser sync initialization */
 gulp.task('browser-sync', ['nodemon'], function () {
   browserSync.init({
-    proxy: "localhost:3000",  // local node app address
+    proxy: "localhost:8000",  // local node app address
     port: 5000,  // use *different* port than above
     notify: true
   });
