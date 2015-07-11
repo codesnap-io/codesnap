@@ -10,9 +10,9 @@
 
   module.exports = {
     // jwtSecret: process.env.JWT_SECRET || 'abc'
-    githubClientID: "13957cc9f5c21070a6b3",
-    githubClientSecret: "220526326332a9ef271501c28adbdfe26be50e78",
-    githubCallbackUrl: "http://127.0.0.1:3000/auth/github/callback"
+    githubClientID: "7d292489ff2489c0dc96",
+    githubClientSecret: "e71a0bab4e85e531adf7957fcef9db4b54ea8d98",
+    githubCallbackUrl: "http://127.0.0.1:8000/auth/github/callback"
   };
 
 })();

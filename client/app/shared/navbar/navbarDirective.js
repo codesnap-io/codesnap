@@ -8,5 +8,5 @@ angular.module('crouton', [])
       link: function ($scope, element, attrs) {
         //DOM manipulation stuff goes here
       }
-    }
+    };
   });

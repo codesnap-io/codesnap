@@ -7,9 +7,6 @@ var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   browserSync = require('browser-sync').create(),
   uglify = require('gulp-uglify'),
-  // clean = require('gulp-clean'),
-  // gutil = require('gulp-util'),
-  // bower = require('bower'),
   concat = require('gulp-concat'),
   del = require('del'),
   jade = require('gulp-jade'),
@@ -19,8 +16,6 @@ var gulp = require('gulp'),
   ngAnnotate = require('gulp-ng-annotate'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass');
-// rename = require('gulp-rename'),
-// sh = require('shelljs');
 
 /* asset paths */
 var paths = {
