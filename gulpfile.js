@@ -4,6 +4,7 @@
 
 var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
+  karma = require('karma').server,
   eslint = require('gulp-eslint'),
   browserSync = require('browser-sync').create(),
   uglify = require('gulp-uglify'),
@@ -144,21 +145,27 @@ gulp.task('html', [], function () {
 });
 
 /* testing call */
-gulp.task('test', [], function () {
+gulp.task('test', [], function (done) {
   console.log('*****TESTING*****');
-  return gulp.src(['test/**/*.js'], {
-      read: false
-    })
-    .pipe(mocha({
-      reporter: 'spec',
-      globals: {
-        chai: require('chai'),
-        assert: require('chai').assert,
-        expect: require('chai').expect,
-        should: require('chai').should()
-      }
-    }));
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+  // return gulp.src(['test/**/*.js'], {
+  //     read: false
+  //   })
+  //   .pipe(mocha({
+  //     reporter: 'spec',
+  //     globals: {
+  //       chai: require('chai'),
+  //       assert: require('chai').assert,
+  //       expect: require('chai').expect,
+  //       should: require('chai').should()
+  //     }
+  //   }));
 });
+
+
 
 // /* eslint task */
 gulp.task('lint', function () {

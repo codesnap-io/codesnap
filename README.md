@@ -10,3 +10,8 @@ GitHub-based technical blogging platform
 `gulp`: test and lint code
 `gulp watch`: run browsersync and watch client folders for compiliation
 `gulp build`: manually build dist folder
+
+
+### Testing
+
+$ npm install -g karma-cli
