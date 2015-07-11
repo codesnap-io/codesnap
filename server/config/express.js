@@ -5,6 +5,7 @@
   var express = require('express');
   var morgan = require('morgan');
   var bodyParser = require('body-parser');
+  var passport = require('passport');
 
   module.exports = function () {
     var app = express();
@@ -22,6 +23,11 @@
     app.use(express.static('client'));
 
 
+    /* initialize passport for authentication */
+    app.use(passport.initialize());
+
+    /* serve static files */
+    app.use(express.static(__dirname + '../../client'));
     /* Required Routes */
     require('../routes/users.server.routes')(app);
 
