@@ -12,6 +12,7 @@
    'new-cap' : 0,
    'quotes': 0,
    'strict': 0,
-   'eol-last': 0
+   'eol-last': 0,
+   'camelcase': 0
   }
 }
