@@ -15,7 +15,6 @@ html(ng-app="crouton")
     //---COMPONENTS---
     //home
     script(src="app/components/home/homeController.js")
-    script(src="app/components/home/homeView.js")
 
     //---SHARED---
     //navbar
@@ -23,5 +22,5 @@ html(ng-app="crouton")
 
   body
     .grid-frame.vertical
-      navbar
-      .view(ui-view)
+      cr-navbar
+      .grid-block.ng-scope.ui-animation(ng-class="['ui-animation']" ui-view)
