@@ -29,7 +29,9 @@
         res.redirect('/');
     });
 
-    app.get('/user/profile', users.userProfile);
+    /* Paramenters: user_id
+       Data returned: all user info [WILL BE UPDATED] */
+    app.get('/user/info', users.userInfo);
 
 };
 

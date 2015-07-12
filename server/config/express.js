@@ -47,9 +47,6 @@
     require('../routes/posts.server.routes')(app);
     require('../routes/users.server.routes')(app);
 
-    var User = require('../models/user.server.model');
-    var Post = require('../models/post.server.model');
-
     return app;
   };
 
