@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
-  jade: ['client/**/*.jade', 'client/*.jade']
+  jade: ['client/app/**/*.jade', 'client/*.jade']
 };
 
 
@@ -34,7 +34,7 @@ gulp.task('default', ['lint', 'test'], function () {
 
 
 /* main watch task which will compile assets and refresh */
-gulp.task('watch', ['browser-sync'], function () {
+gulp.task('watch', ['jade', 'sass', 'browser-sync'], function () {
   gulp.watch(paths.css, ['sass']);
   gulp.watch(paths.jade, ['jade']);
 });
