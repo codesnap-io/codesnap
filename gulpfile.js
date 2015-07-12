@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
-  jade: ['client/app/**/*.jade', 'client/*.jade']
+  jade: ['client/**/*.jade']
 };
 
 
@@ -96,8 +96,8 @@ gulp.task('sass', function () {
 /* browser sync initialization */
 gulp.task('browser-sync', ['nodemon'], function () {
   browserSync.init({
-    proxy: "localhost:8000",  // local node app address
-    port: 5000,  // use *different* port than above
+    proxy: "localhost:8000", // local node app address
+    port: 5000, // use *different* port than above
     notify: true
   });
   gulp.watch(["./client/**/*.js", "./client/assets/css/*.css", "./client/**/*.html", "./client/index.html"]).on('change', browserSync.reload);
@@ -108,25 +108,29 @@ gulp.task('browser-sync', ['nodemon'], function () {
 gulp.task('nodemon', function (cb) {
   var called = false;
   return nodemon({
-    script: 'server/server.js',
-    ignore: [
-      'gulpfile.js',
-      'node_modules/'
-    ],
-    ext: 'js',
-    env: { 'NODE_ENV': 'development' }
-  })
-  .on('start', function () {
-    if (!called) {
-      called = true;
-      cb();
-    }
-  })
-  .on('restart', function () {
-    setTimeout(function () {
-      browserSync.reload({ stream: false });
-    }, 1000);
-  });
+      script: 'server/server.js',
+      ignore: [
+        'gulpfile.js',
+        'node_modules/'
+      ],
+      ext: 'js',
+      env: {
+        'NODE_ENV': 'development'
+      }
+    })
+    .on('start', function () {
+      if (!called) {
+        called = true;
+        cb();
+      }
+    })
+    .on('restart', function () {
+      setTimeout(function () {
+        browserSync.reload({
+          stream: false
+        });
+      }, 1000);
+    });
 });
 
 
