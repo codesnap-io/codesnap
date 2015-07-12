@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 var paths = {
   scripts: ['client/js/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
-  jade: ['client/**/*.jade', 'client/*.jade']
+  jade: ['client/app/**/*.jade', 'client/*.jade']
 };
 
 

@@ -4,3 +4,15 @@
   font-size: 30px;
   color: blue;
 }
+
+// signup styles
+
+.introduction-box {
+  background: #aa85c7;
+  background-image: url("../img/zenbg-1.png"), url("../img/zenbg-2.png");
+  background-repeat: repeat-x, repeat;
+  h2 {
+    margin-top: 60px;
+    color: #FFFFFF;
+  }
+}
