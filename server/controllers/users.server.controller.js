@@ -4,16 +4,19 @@
   var User = require('../models/user.server.model');
 
 
+  exports.userInfo = function(req, res) {
+    var userId = req.query.user_id;
 
-
-  /* Checks to see if user account already exists.  If it does not, create user account and login user.  If it does not, return error message. */
-  exports.signup = function(req, res, next) {
+    User.profileInfo(userId, function(error, user) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        res.json(user);
+      }
+    });
 
   };
 
-  /* Attemps to log user in with provided credentials.  If credentials are invalid, return an error message.  If the credentials are valid, authenticate user and redirect them back to the page they were on. */
-  exports.login = function(req, res, next) {
-
-  };
 
 })();

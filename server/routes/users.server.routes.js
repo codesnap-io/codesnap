@@ -13,8 +13,10 @@
     //   request.  The first step in GitHub authentication will involve redirecting
     //   the user to github.com.  After authorization, GitHubwill redirect the user
     //   back to this application at /auth/github/callback
+
     app.get('/auth/github', app.cors(app.corsOptions),
       passport.authenticate('github', { scope: [ 'user', 'public_repo' ] }));
+
 
     // GET /auth/github/callback
     //   Use passport.authenticate() as route middleware to authenticate the
@@ -26,6 +28,11 @@
       function(req, res) {
         res.redirect('/');
     });
+
+    /* Paramenters: user_id
+       Data returned: all user info [WILL BE UPDATED] */
+    app.get('/user/info', users.userInfo);
+
 };
 
 

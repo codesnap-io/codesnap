@@ -44,6 +44,7 @@
     app.use(express.static(path.join(__dirname, '../../client')));
 
     /* Required Routes */
+    require('../routes/posts.server.routes')(app);
     require('../routes/users.server.routes')(app);
 
     return app;

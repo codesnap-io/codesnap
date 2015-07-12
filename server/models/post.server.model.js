@@ -1,22 +1,24 @@
 (function(){
   'use strict';
-  var User = require('../config/schema').User;
+  var db = require('../config/db');
+  var Post = require('../config/schema').Post;
 
-  User.profileInfo = function(userId, callback) {
-    /* Create a user object which we call
+  Post.postInfo = function(postId, callback) {
+    /* Create a post object which we call
     .fetch() on to search the database to see
-    if that user already exists */
-    new User({'id': userId})
+    if that post already exists */
+    new Post({'id': postId})
     .fetch()
     /* .fetch() returns a promise so we call .then() */
-    .then(function(user) {
-      /* If the user doesn't exist, return error message. Otherwise return profile information */
-      if (!user) {
-        callback("Invalid user id.\n");
+    .then(function(post) {
+      /* If the post doesn't exist, return error message. Otherwise return profile information */
+      if (!post) {
+        callback("Invalid post id.\n");
       } else {
+        
         db.knex.raw(' \
           SELECT \
-            users.id AS user_id, \
+            posts.id AS post_id, \
             posts.title AS post_title, \
             posts.url AS post_url, \
             users.name AS author \
@@ -30,7 +32,5 @@
     });
   };
 
-
-
-  module.exports = User;
+  module.exports = Post;
 })();
