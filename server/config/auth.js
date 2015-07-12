@@ -2,11 +2,9 @@ var GitHubStrategy = require('passport-github2').Strategy;
 // var development = require('../config/env/development.js');
 var passport = require("passport");
 var User = require('../models/user.server.model.js');
+var repo = require('../services/repo.server.service.js');
 
 exports.githubStrategy = function() {
-  console.log(process.env.githubClientID);
-  console.log(process.env.githubClientSecret);
-  console.log(process.env.githubCallbackUrl);
   passport.use(new GitHubStrategy({
       /* These variables are tied to our application's account.  By including them here, we gain access to the users we authenticate */
       clientID: process.env.githubClientID,
@@ -14,7 +12,6 @@ exports.githubStrategy = function() {
       callbackURL: process.env.githubCallbackUrl
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log(profile);
       User.where({
           github_id: profile.id
       })
@@ -29,6 +26,8 @@ exports.githubStrategy = function() {
             email: profile._json.email,
             token: accessToken
           }).save().then(function(newUser) {
+            /* Create a new repo in the user's GitHub account */
+            repo.addRepo(accessToken, profile.username);
             return done(null, newUser);
           });
         } else {
