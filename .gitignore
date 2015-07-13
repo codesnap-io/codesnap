@@ -5,8 +5,10 @@ dist/
 client/assets/lib
 server/config/env
 test/coverage/**
+.elasticbeanstalk/
 
 #Files to ignore
 .DS_Store
 client/**/*.html
 npm-debug.log
+
