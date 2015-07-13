@@ -28,8 +28,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     .config(config)
     .run(run);
 
-  // config.$inject = ['$urlRouterProvider', '$locationProvider'];
   // //dynamicRouting version:
+  // config.$inject = ['$urlRouterProvider', '$locationProvider'];
   // function config($urlProvider, $locationProvider) {
   //   // Default to the index view if the URL loaded is not found
   //   $urlProvider.otherwise('/');

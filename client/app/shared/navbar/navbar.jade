@@ -1,5 +1,7 @@
 .dark.title-bar
-  a.left.title(ui-sref="home") Crouton
-  span.left {{current}}
-  span.right Profile
-  span.right View Post
+  .left
+    a.title(ui-sref="home") Crouton
+  .center
+  .right
+    a.button.small New Post
+    img(src="{{user.pic}}")

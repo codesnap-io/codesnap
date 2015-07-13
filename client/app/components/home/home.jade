@@ -2,13 +2,31 @@
   .grid-content
     h5 Choose a Category:
     ul
-      li(ng-repeat="topic in topics") {{topic}}
+      li(ng-repeat="topic in topics")
+        a(href="#") {{topic}}
 .grid-block.vertical
-  h4 The {{topicFilter}} in {{selectTopic}}
+  h4
+    span The #{''}
+      div(zf-action-sheet="")
+        div(zf-as-button="" title="{{topicFilter}}")
+        div(zf-as-content="" position="bottom")
+          ul
+            li(ng-repeat="topicFilter in topicFilters")
+              a(href="#") {{topicFilter}}
+    span #{''} in #{''}
+      div(zf-action-sheet="")
+        div(zf-as-button="" title="{{topic}}")
+        div(zf-as-content="" position="bottom")
+          ul
+            li(ng-repeat="topic in topics")
+              a(href="#") {{topic}}
   div(ng-repeat="post in posts")
     hr
     h4.grid-content {{post.title}}
-    h5.grid-content {{post.author}}
+    .grid-block
+      img(src="{{post.authorPic}}")
+      h5.grid-content {{post.author}}
     p.grid-content {{post.content}}
     button Keep Reading
-.grid-block.vertical.medium-3
+.grid-block.vertical.medium-1
+
