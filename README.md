@@ -1,4 +1,4 @@
-[ ![Codeship Status for BlaseBallerina/crouton](https://codeship.com/projects/d93ce0b0-0960-0133-a4c9-521d3b82cdba/status?branch=master)](https://codeship.com/projects/90580)
+[![Circle CI](https://circleci.com/gh/BlaseBallerina/crouton.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/crouton)
 
 # Crouton
 GitHub-based technical blogging platform
