@@ -1,5 +1,34 @@
 html.no-js(ng-app="crouton" lang="en")
   head
+    //---BASICS---
+    //angular + foundation
+    script(src="assets/lib/angular/angular.js")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.js")
+    script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
+    script(src="assets/lib/ngAnimate/js/angular-animate.min.js")
+    script(src="assets/lib/fastclick/lib/fastclick.js")
+    script(src="app/app.js")
+
+    //styles
+    link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
+    link(href="assets/css/styles.min.css" rel="stylesheet")
+
+    //---COMPONENTS---
+    //home
+    script(src="app/components/home/homeController.js")
+
+    //post
+    script(src="app/components/post/postController.js")
+
+    //signup
+    script(src="app/components/signup/signupController.js")
+    script(src="app/components/signup/signupFactory.js")
+
+    //---SHARED---
+    //navbar
+    script(src="app/shared/navbar/navbarDirective.js")
+
     title Crouton
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
@@ -7,32 +36,4 @@ html.no-js(ng-app="crouton" lang="en")
     cr-navbar
     ui-view.grid-frame
 
-//---BASICS---
-//angular + foundation
-script(src="assets/lib/angular/angular.js")
-script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
-script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.js")
-script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
-script(src="assets/lib/ngAnimate/js/angular-animate.min.js")
-script(src="assets/lib/fastclick/lib/fastclick.js")
-script(src="app/app.js")
-
-//styles
-link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
-link(href="assets/css/styles.min.css" rel="stylesheet")
-
-//---COMPONENTS---
-//home
-script(src="app/components/home/homeController.js")
-
-//post
-script(src="app/components/post/postController.js")
-
-//signup
-script(src="app/components/signup/signupController.js")
-script(src="app/components/signup/signupFactory.js")
-
-//---SHARED---
-//navbar
-script(src="app/shared/navbar/navbarDirective.js")
 
