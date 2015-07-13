@@ -24,7 +24,7 @@
     /* This callback gets run after the repo is created */
     var callback = function(error, response, body) {
       if (error) {
-        console.log('ERROR: ', error)
+        console.log('ERROR: ', error);
       } else {
 
         /* Add first dummy post */
@@ -42,7 +42,7 @@
         /* This callback gets run after the first post is created */
         var callback = function(error, response, body) {
           if (error) {
-            console.log('ERROR: ', error)
+            console.log('ERROR: ', error);
           }
         };
 
