@@ -14,7 +14,28 @@
         res.json(post);
       }
     });
+  };
 
+  exports.addPost = function(req, res) {
+    /* Create new post with data from request body */
+    Post.add(req.body, function(error, post) {
+      if (error) {
+        res.send("Error adding new post");
+      } else {
+        res.json(post);
+      }
+    });
+
+  };
+
+  exports.editPost = function(req, res) {
+    Post.edit(req.body, function(error, post) {
+      if (error) {
+        res.send("Error adding new post");
+      } else {
+        res.json(post);
+      }
+    });
   };
 
 })();
