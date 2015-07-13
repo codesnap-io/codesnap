@@ -15,7 +15,6 @@
       if (!post) {
         callback("Invalid post id.\n");
       } else {
-        
         db.knex.raw(' \
           SELECT \
             posts.id AS post_id, \

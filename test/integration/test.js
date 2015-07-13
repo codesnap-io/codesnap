@@ -7,9 +7,6 @@ describe('API integration', function() {
                            { name: 'Test3',  done: true}]};
   });
 
-  // after(function() {
-
-  // });
 
   it('should exist', function() {
      expect(3).to.equal(3);

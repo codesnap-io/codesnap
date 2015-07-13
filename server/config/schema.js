@@ -180,7 +180,7 @@
       return this.hasMany(Vote);
     }
   });
-  
+
   var Post = exports.Post = db.Model.extend({
     tableName: 'posts',
     user: function() {
