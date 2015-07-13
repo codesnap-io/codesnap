@@ -7,7 +7,7 @@
 
   Documentation: http://chaijs.com/
   */
- 
+
 
 
 describe('An Example Suite', function() {
@@ -20,3 +20,9 @@ describe('An Example Suite', function() {
 
 
 
+
+
+
+// successfully directs to github
+// revieves access token on github callback
+//saves user in DB if not found

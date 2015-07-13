@@ -31,6 +31,7 @@
     "gulp-mocha": "^2.1.2",
     "gulp-ng-annotate": "^1.0.0",
     "gulp-nodemon": "^2.0.3",
+    "gulp-protractor": "^1.0.0",
     "gulp-sass": "^2.0.3",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
@@ -57,6 +58,7 @@
     "mysql": "^2.7.0",
     "passport": "^0.2.2",
     "passport-github2": "^0.1.9",
+    "protractor": "^2.1.0",
     "request": "^2.58.0"
   }
 }
