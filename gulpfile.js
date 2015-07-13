@@ -139,7 +139,7 @@ gulp.task('nodemon', function (cb) {
 gulp.task('jade', [], function () {
   gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./client/app/'))
+    .pipe(gulp.dest('./client/'))
     .pipe(browserSync.stream());
 });
 
@@ -147,11 +147,11 @@ gulp.task('jade', [], function () {
 gulp.task('html', [], function () {
   gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(paths.jade));
 });
 
 /* testing call */
-gulp.task('test', ['protractor'], function (done) {
+gulp.task('test', function (done) {
   console.log('*****TESTING*****');
   karma.start({
     configFile: path.join(__dirname, '/karma.conf.js'),
@@ -173,16 +173,14 @@ gulp.task('test', ['protractor'], function (done) {
 
 /* protractor task */
 
-gulp.task('protractor', function() {
-  gulp.src(["./test/e2e/*.js"])
+gulp.task('protractor', function(cb) {
+  gulp.src(["./test/e2e/specs/*.js"])
       .pipe(protractor({
           configFile: "test/e2e/conf.js",
           args: ['--baseUrl', 'http://127.0.0.1:8000']
       }))
       .on('error', function(e) { throw e })
 })
-
-
 
 
 

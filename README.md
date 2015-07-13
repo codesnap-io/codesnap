@@ -15,3 +15,9 @@ GitHub-based technical blogging platform
 ### Testing
 
 $ npm install -g karma-cli
+$ npm install -g protractor
+
+To run end-to-end protractor tests:
+$ webdriver-manager update
+$ webdriver-manager start
+`gulp protractor`

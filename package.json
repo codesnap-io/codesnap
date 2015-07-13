@@ -45,6 +45,7 @@
     "karma-sinon": "^1.0.4",
     "mocha": "^2.2.5",
     "morgan": "^1.6.1",
+    "protractor": "^2.1.0",
     "sinon": "^1.15.4"
   },
   "dependencies": {
@@ -58,7 +59,6 @@
     "mysql": "^2.7.0",
     "passport": "^0.2.2",
     "passport-github2": "^0.1.9",
-    "protractor": "^2.1.0",
     "request": "^2.58.0"
   }
 }

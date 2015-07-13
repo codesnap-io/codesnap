@@ -1,10 +1,8 @@
 // conf.js
 exports.config = {
-  seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.45.0.jar',
-  specs: ['spec.js'],
-  multiCapabilities: [{
-    browserName: 'firefox'
-  }, {
-    browserName: 'chrome'
-  }]
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+  specs: ['specs/home.js', 'specs/signup.js'],
+  multiCapabilities: [
+    {browserName: 'chrome'}
+  ]
 }
