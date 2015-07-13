@@ -1,0 +1,18 @@
+.grid-block.vertical
+  .grid-block.shrink
+    .grid-block.medium-2
+    .grid-block.align-center
+      h3.grid-content {{post.title}}
+    .grid-block
+      img(src="{{post.authorPic}}")
+      h5.grid-content {{post.author}}
+    .grid-block
+      a.button Propose a Change
+  hr
+  .grid-block.shrink
+    .grid-block.medium-2
+    .grid-block
+      p.grid-content {{post.content}}
+    .grid-block.medium-1
+
+

@@ -18,12 +18,12 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'foundation.dynamicRouting',
     // Transitioning between views
     'foundation.dynamicRouting.animations',
-    //navbar
+    //shared
     'navbarDirective',
-    //home
+    //components
     'homeController',
-    //signup and login controller
-    'signupController'
+    'signupController',
+    'postController'
   ])
     .config(config)
     .run(run);
@@ -54,6 +54,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/',
         templateUrl: 'app/components/home/home.html',
         controller: 'homeController'
+      })
+      .state('post', {
+        url: '/post/{id:int}',
+        templateUrl: 'app/components/post/post.html',
+        controller: 'postController'
       })
       .state('signup', {
         url: '/signup',
