@@ -86,7 +86,7 @@ gulp.task('sass', function () {
     .pipe(minifyCss())
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./client/assets/css"))
+    .pipe(gulp.dest("./client/assets/css"));
 });
 
 
@@ -137,7 +137,7 @@ gulp.task('nodemon', function (cb) {
 gulp.task('jade', [], function () {
   gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./client/'))
+    .pipe(gulp.dest('./client/'));
 });
 
 /* html build */
@@ -150,11 +150,11 @@ gulp.task('html', [], function () {
 /* testing call */
 gulp.task('test', function (done) {
   console.log('*****TESTING*****');
-  var karma = require('karma').server;
-  karma.start({
-    configFile: path.join(__dirname, '/karma.conf.js'),
-    singleRun: true
-  }, done);
+  // var karma = require('karma').server;
+  // karma.start({
+  //   configFile: path.join(__dirname, '/karma.conf.js'),
+  //   singleRun: true
+  // }, done);
   // return gulp.src(['test/**/*.js'], {
   //     read: false
   //   })
@@ -177,8 +177,8 @@ gulp.task('protractor', function(cb) {
           configFile: "test/e2e/conf.js",
           args: ['--baseUrl', 'http://127.0.0.1:8000']
       }))
-      .on('error', function(e) { throw e })
-})
+      .on('error', function(e) { throw e; });
+});
 
 
 
