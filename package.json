@@ -24,6 +24,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.13",
     "chai": "^3.0.0",
+    "gulp-protractor": "^1.0.0",
     "karma": "^0.12.37",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.0",
