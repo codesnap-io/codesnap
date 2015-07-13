@@ -2,8 +2,8 @@
   .grid-content
     h5 Choose a Category:
     ul
-      li.topic(ng-repeat="topic in topics")
-        a(href="#") {{topic}}
+      li(ng-repeat="topic in topics")
+        a(ui-sref="#") {{topic}}
 .grid-block.vertical
   h4
     span The #{''}
@@ -12,14 +12,14 @@
         div(zf-as-content="" position="bottom")
           ul
             li(ng-repeat="topicFilter in topicFilters")
-              a(href="#") {{topicFilter}}
+              a(ui-sref="#") {{topicFilter}}
     span #{''} in #{''}
       div(zf-action-sheet="")
         div#topic-title(zf-as-button="" title="{{topic}}")
         div(zf-as-content="" position="bottom")
           ul
             li(ng-repeat="topic in topics")
-              a(href="#") {{topic}}
+              a(ui-sref="#") {{topic}}
   a(ng-repeat="post in posts" ui-sref="post({id: {{post.id}} })")
     hr
     h4.grid-content {{post.title}}
