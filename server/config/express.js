@@ -40,8 +40,8 @@
     /* Initialize passport for authentication */
     app.use(passport.initialize());
 
-    /* Serve static files */
-    app.use(express.static(path.join(__dirname, '../../client')));
+    ///* Serve static files */
+    //app.use(express.static(path.join(__dirname, '../../client')));
 
     /* Required Routes */
     require('../routes/posts.server.routes')(app);

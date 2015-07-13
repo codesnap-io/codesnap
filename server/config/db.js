@@ -6,7 +6,7 @@
 
   var knex = require('knex')({
     client: 'mysql',
-    connection: {
+    connection: process.env.CLEARDB_DATABASE_URL || {
       host: process.env.RDS_HOSTNAME,
       user: process.env.RDS_USERNAME,
       password: process.env.RDS_PASSWORD,

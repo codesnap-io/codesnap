@@ -4,12 +4,9 @@
 
 var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
-  karma = require('karma').server,
   eslint = require('gulp-eslint'),
-  browserSync = require('browser-sync').create(),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
-  del = require('del'),
   jade = require('gulp-jade'),
   minifyCss = require('gulp-minify-css'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -89,12 +86,12 @@ gulp.task('sass', function () {
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("./client/assets/css"))
-    .pipe(browserSync.stream());
 });
 
 
 /* browser sync initialization */
 gulp.task('browser-sync', ['nodemon'], function () {
+  var browserSync = require('browser-sync').create();
   browserSync.init({
     proxy: "localhost:8000", // local node app address
     port: 5000, // use *different* port than above
@@ -106,6 +103,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 
 /* run nodemon server */
 gulp.task('nodemon', function (cb) {
+  var browserSync = require('browser-sync').create();
   var called = false;
   return nodemon({
       script: 'server/server.js',
@@ -139,7 +137,6 @@ gulp.task('jade', [], function () {
   gulp.src(paths.jade)
     .pipe(jade())
     .pipe(gulp.dest('./client/'))
-    .pipe(browserSync.stream());
 });
 
 /* html build */
@@ -152,6 +149,7 @@ gulp.task('html', [], function () {
 /* testing call */
 gulp.task('test', [], function (done) {
   console.log('*****TESTING*****');
+  var karma = require('karma').server;
   karma.start({
     configFile: path.join(__dirname, '/karma.conf.js'),
     singleRun: true
