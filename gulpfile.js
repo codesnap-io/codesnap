@@ -14,7 +14,8 @@ var gulp = require('gulp'),
   ngAnnotate = require('gulp-ng-annotate'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass'),
-  path = require('path');
+  path = require('path'),
+  protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
 var paths = {
@@ -143,11 +144,11 @@ gulp.task('jade', [], function () {
 gulp.task('html', [], function () {
   gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(paths.jade));
 });
 
 /* testing call */
-gulp.task('test', [], function (done) {
+gulp.task('test', function (done) {
   console.log('*****TESTING*****');
   var karma = require('karma').server;
   karma.start({
@@ -167,6 +168,17 @@ gulp.task('test', [], function (done) {
   //     }
   //   }));
 });
+
+/* protractor task */
+
+gulp.task('protractor', function(cb) {
+  gulp.src(["./test/e2e/specs/*.js"])
+      .pipe(protractor({
+          configFile: "test/e2e/conf.js",
+          args: ['--baseUrl', 'http://127.0.0.1:8000']
+      }))
+      .on('error', function(e) { throw e })
+})
 
 
 

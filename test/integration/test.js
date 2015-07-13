@@ -12,3 +12,9 @@ describe('API integration', function() {
      expect(3).to.equal(3);
   });
 });
+
+
+
+//gets information on post
+  //creates new post in db
+//
