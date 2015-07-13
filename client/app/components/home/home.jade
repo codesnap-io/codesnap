@@ -20,13 +20,13 @@
           ul
             li(ng-repeat="topic in topics")
               a(href="#") {{topic}}
-  a(ng-repeat="post in posts" href="#/post/{{post.id}}")
+  a(ng-repeat="post in posts" ui-sref="post({id: {{post.id}} })")
     hr
     h4.grid-content {{post.title}}
     .grid-block
       img(src="{{post.authorPic}}")
       h5.grid-content {{post.author}}
     p.grid-content {{post.content}}
-    a(href="#") Keep Reading
+    //- a(ui-sref="post({id: {{post.id}}})") Keep Reading...
 .grid-block.vertical.medium-1
 
