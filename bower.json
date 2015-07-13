@@ -23,5 +23,8 @@
     "ngAnimate": "*",
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
     "angular-mocks": "~1.4.2"
+  },
+  "resolutions": {
+    "angular": "1.4.2"
   }
 }
