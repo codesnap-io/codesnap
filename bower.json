@@ -21,6 +21,7 @@
     "angular-ui-router": "~0.2.15",
     "foundation-apps": "~1.1.0",
     "ngAnimate": "*",
-    "css3-social-signin-buttons": "necolas/css3-social-signin-buttons"
+    "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
+    "angular-mocks": "~1.4.2"
   }
 }

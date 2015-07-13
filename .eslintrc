@@ -13,6 +13,11 @@
    'quotes': 0,
    'strict': 0,
    'eol-last': 0,
-   'camelcase': 0
+   'camelcase': 0,
+   'no-unused-vars': 0,
+   'no-use-before-define': 0,
+   'no-multi-str': 0,
+   'space-infix-ops': 0,
+   'no-shadow': 0
   }
 }
