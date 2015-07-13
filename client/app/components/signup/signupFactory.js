@@ -1,4 +1,4 @@
-angular.module('signupFactory', [])
+angular.module('signupFactory', []);
 
 // .factory('signupFactory', function($http) {
 //   return {
