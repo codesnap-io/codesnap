@@ -23,7 +23,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //components
     'homeController',
     'signupController',
-    'postController'
+    'postController',
+    'userController'
   ])
     .config(config)
     .run(run);
@@ -64,6 +65,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/signup',
         templateUrl: 'app/components/signup/signup.html',
         controller: 'signupController'
+      })
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'app/components/user/user.html',
+        controller: 'userController'
       });
   }
 
