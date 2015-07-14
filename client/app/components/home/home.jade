@@ -1,31 +1,21 @@
-.grid-block.vertical.medium-3
+.grid-block.vertical.medium-3.show-for-large
   .grid-content
-    h5 Choose a Category:
-    ul
-      li(ng-repeat="topic in topics")
-        a(ui-sref="#") {{topic}}
+    section.block-list
+      header Choose a Category
+      ul
+        li.topic-bar(ng-repeat="topic in topics" ng-class="{active: isSelectedTopic(topic)}")
+          a(href="#" ng-click="chooseTopic(topic)") {{topic}}
+            span.block-list-label {{posts.length}}
 .grid-block.vertical
-  h4
-    span The #{''}
-      div(zf-action-sheet="")
-        div(zf-as-button="" title="{{topicFilter}}")
-        div(zf-as-content="" position="bottom")
-          ul
-            li(ng-repeat="topicFilter in topicFilters")
-              a(ui-sref="#") {{topicFilter}}
-    span #{''} in #{''}
-      div(zf-action-sheet="")
-        div#topic-title(zf-as-button="" title="{{topic}}")
-        div(zf-as-content="" position="bottom")
-          ul
-            li(ng-repeat="topic in topics")
-              a(ui-sref="#") {{topic}}
-  a(ng-repeat="post in posts" ui-sref="post({id: {{post.id}} })")
-    hr
-    h4.grid-content {{post.title}}
-    .grid-block
+  h2.topic-line The 
+    select(name="" ng-model="topicFilter")
+      option(ng-repeat="filter in topicFilters" value="{{filter}}") {{filter}}
+    |  in 
+    span.topic-name {{topic}}.
+  .grid-content
+    .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.id}} })")
+      hr
+      h2 {{post.title}}
       img(src="{{post.authorPic}}")
-      h5.grid-content {{post.author}}
-      p.grid-content {{post.content}}
-    //- a(ui-sref="post({id: {{post.id}}})") Keep Reading...
-.grid-block.vertical.medium-1
+      h5 {{post.author}}
+      p {{post.content}}
