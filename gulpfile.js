@@ -92,19 +92,19 @@ gulp.task('sass', function () {
 
 /* browser sync initialization */
 gulp.task('browser-sync', ['nodemon'], function () {
-  var browserSync = require('browser-sync').create();
-  browserSync.init({
+  var browserSync = require('browser-sync');
+  browserSync({
     proxy: "localhost:8000", // local node app address
     port: 5000, // use *different* port than above
     notify: true
   });
-  gulp.watch(["./client/**/*.js", "./client/assets/css/*.css", "./client/**/*.html", "./client/index.html"]).on('change', browserSync.reload);
+  gulp.watch(["./client/assets/css/*.css", "./client/**/*.html", "./client/index.html"]).on('change', browserSync.reload);
 });
 
 
 /* run nodemon server */
 gulp.task('nodemon', function (cb) {
-  var browserSync = require('browser-sync').create();
+  var browserSync = require('browser-sync');
   var called = false;
   return nodemon({
       script: 'server/server.js',

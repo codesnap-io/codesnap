@@ -53,8 +53,22 @@ angular.module('homeController', [])
       "sample post content sample post content sample post content sample post content " +
       "sample post content sample post content sample post content sample post content. "
   }];
+
+  $scope.chooseTopic = function(topic) {
+    $scope.topic = topic;
+  };
+
+  $scope.isSelectedTopic = function(topic) {
+    return topic === $scope.topic;
+  };
+
+  $scope.chooseFilter = function(filter) {
+    $scope.topicFiler = filter;
+  };
+
   $scope.topicFilter = 'latest';
   $scope.topic = 'Ruby';
-  $scope.topics = ['Ruby', 'Javascript'];
-  $scope.topicFilters = ['latest', 'best', 'hot', 'oldest'];
+  $scope.topics = ['Ruby', 'Javascript', 'Haskell', 'Rust', 'Python',
+  'C++', 'Lisp', "Swift", "C#", "CSS", "TDD", "Git"].sort();
+  $scope.topicFilters = ['latest', 'best', 'hottest', 'oldest'];
 });

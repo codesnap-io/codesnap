@@ -1,11 +1,60 @@
 @import '../lib/foundation-apps/scss/foundation';
 
+//
+
+.profile-picture {
+  height: 30px;
+  width: auto;
+  border-radius: 100%;
+}
+
+.button-newpost {
+  margin: 0 5px;
+}
+
 .item {
   font-size: 30px;
   color: blue;
 }
 
-// signup styles
+//home
+
+.topic-bar {
+  &.active {
+    background-color: $success-color;
+  }
+}
+
+.topic-line {
+  .topic-name {
+    color: $primary-color;
+  };
+  select {
+    width: 100px;
+    display: inline-block;
+  }
+
+};
+
+.post-item {
+  h2 {
+    margin-top: 0;
+  }
+  img {
+    height: 50px;
+    width: auto;
+    border: 2px solid $primary-color;
+    border-radius: 100%;
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+
+
+
+//signup
+
 
 .introduction-box {
   background: #aa85c7;
