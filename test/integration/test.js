@@ -1,20 +1,10 @@
-describe('API integration', function() {
-  var server, setupStub, JSONresponse;
+var assert = require("assert");
 
-  before(function() {
-    JSONresponse = {todos: [{ name: 'Test1',  done: true},
-                           { name: 'Test2',  done: false},
-                           { name: 'Test3',  done: true}]};
-  });
-
-
-  it('should exist', function() {
-     expect(3).to.equal(3);
+describe('Array', function() {
+  describe('#indexOf()', function () {
+    it('should return -1 when the value is not present', function () {
+      assert.equal(-1, [1,2,3].indexOf(5));
+      assert.equal(-1, [1,2,3].indexOf(0));
+    });
   });
 });
-
-
-
-//gets information on post
-  //creates new post in db
-//

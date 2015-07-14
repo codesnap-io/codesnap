@@ -6,6 +6,7 @@
 
   exports.userInfo = function(req, res) {
     var userId = req.query.user_id;
+    console.log(userId);
 
     User.profileInfo(userId, function(error, user) {
       if (error) {

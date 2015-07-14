@@ -15,17 +15,22 @@
       if (!user) {
         callback("Invalid user id.\n");
       } else {
+        var returnData = {};
+        returnData.name = user.get('name');
+        returnData.username = user.get('username');
+        returnData.id = user.get('id');
+
+        console.log(user);
         db.knex.raw(' \
           SELECT \
-            users.id AS user_id, \
             posts.title AS post_title, \
-            posts.url AS post_url, \
-            users.name AS author \
+            posts.url AS post_url \
           FROM posts, users \
           WHERE posts.user_id = users.id \
             AND users.id = ' + userId
         ).then(function(data) {
-          callback(null, data[0]);
+          returnData.posts = data[0];
+          callback(null, returnData);
         });
       }
     });

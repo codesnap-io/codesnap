@@ -4,7 +4,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
 //TODO: use $templateCache to speed template loading
 
-
 (function () {
   'use strict';
   window.foundationRoutes = [];

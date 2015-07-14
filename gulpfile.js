@@ -151,22 +151,24 @@ gulp.task('html', [], function () {
 gulp.task('test', function (done) {
   console.log('*****TESTING*****');
   // var karma = require('karma').server;
+  // console.log('*****TESTING*****');
   // karma.start({
   //   configFile: path.join(__dirname, '/karma.conf.js'),
   //   singleRun: true
   // }, done);
-  // return gulp.src(['test/**/*.js'], {
-  //     read: false
-  //   })
-  //   .pipe(mocha({
-  //     reporter: 'spec',
-  //     globals: {
-  //       chai: require('chai'),
-  //       assert: require('chai').assert,
-  //       expect: require('chai').expect,
-  //       should: require('chai').should()
-  //     }
-  //   }));
+
+  return gulp.src(['test/unit/*.js', 'test/integration/*.js'], {
+      read: false
+    })
+    .pipe(mocha({
+      reporter: 'spec',
+      globals: {
+        chai: require('chai'),
+        assert: require('chai').assert,
+        expect: require('chai').expect,
+        should: require('chai').should()
+      }
+    }));
 });
 
 /* protractor task */
