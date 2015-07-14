@@ -1,5 +1,5 @@
 deployment:
-  production:
+  staging:
     branch: master
     heroku:
       appname: croutonio
