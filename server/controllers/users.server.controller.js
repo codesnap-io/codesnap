@@ -16,6 +16,23 @@
       }
     });
 
+
+
+  };
+
+  exports.deleteUser = function(req, res) {
+    var userId = req.query.user_id;
+
+    User.remove(userId, function(error, user) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        res.json(user);
+      }
+    });
+
+
   };
 
 

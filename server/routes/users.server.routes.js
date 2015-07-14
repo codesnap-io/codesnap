@@ -33,6 +33,10 @@
        Data returned: all user info [WILL BE UPDATED] */
     app.get('/user/info', users.userInfo);
 
+    /* Parameters: user_id
+      deletes user from DB */
+    app.delete('/user/info', users.deleteUser);
+
 };
 
 
