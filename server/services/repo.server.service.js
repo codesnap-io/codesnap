@@ -9,7 +9,7 @@
     var homepage = 'http://www.crouton.io';
     var description = 'A technical blogging platform';
 
-    /* Create repo */
+    /*  STEP 1: Create repo */
     var options = {
       url: 'https://api.github.com/user/repos',
       method: 'POST',
@@ -27,7 +27,7 @@
         console.log('ERROR: ', error);
       } else {
 
-        /* Add first dummy post */
+        /* STEP 2: Add first dummy post */
         var options = {
           url: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/posts/myFirstPost.md',
           method: 'PUT',
@@ -43,6 +43,29 @@
         var callback = function(error, response, body) {
           if (error) {
             console.log('ERROR: ', error);
+          } else {
+
+            /* STEP 3: Create webhook on repo - I'm doing this after the dummy post is created so that
+             * the dummy post doesn't get added to our database */
+            var options = {
+              url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
+                  method: 'POST',
+                  body: '{ "name": "web", "config": {"url": "http://www.crouton.io/postreceive/github", "content_type": "json"} }',
+                  headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': 'token ' + token,
+                    'User-Agent': 'Crouton'
+                  }
+            };
+
+            /* This callback gets run after the webhook is added to the repo */
+            var callback = function(error, response, body) {
+              if (error) {
+                console.log('ERROR: ', error)
+              }
+            };
+
+            request(options, callback);
           }
         };
 
