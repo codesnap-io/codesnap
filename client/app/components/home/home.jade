@@ -7,10 +7,10 @@
           a(href="#" ng-click="chooseTopic(topic)") {{topic}}
             span.block-list-label {{posts.length}}
 .grid-block.vertical
-  h2.topic-line The 
+  h2.topic-line The
     select(name="" ng-model="topicFilter")
       option(ng-repeat="filter in topicFilters" value="{{filter}}") {{filter}}
-    |  in 
+    |  in
     span.topic-name {{topic}}.
   .grid-content
     .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.id}} })")
