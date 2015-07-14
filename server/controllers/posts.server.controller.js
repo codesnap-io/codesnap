@@ -7,14 +7,17 @@
 
   exports.postReceive = function (req, res) {
 
-    var repoName = req.body.repository.full_name;
+    res.sendStatus(201);
+
+    var repoName = req.body.repository.name;
     var filesAdded = req.body.head_commit.added;
     var filesRemoved = req.body.head_commit.removed;
     var filesModified = req.body.head_commit.modified;
     var username = req.body.repository.owner.name;
 
-    var downloadUrl = function (file) {
-      return "https://raw.githubusercontent.com/" + repoName + "/master/" + file;
+    // helper function that returns download URL for a particular file
+    var downloadUrl = function(file){
+      return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
     };
 
     var addPosts = function (filesToAdd, username) {
@@ -55,7 +58,6 @@
     removePosts(filesRemoved, username);
     modifyPosts(filesModified, username);
 
-    res.sendStatus(201);
   };
 
   exports.postInfo = function (req, res) {
