@@ -25,7 +25,6 @@
         res.json(post);
       }
     });
-
   };
 
   exports.editPost = function(req, res) {
