@@ -15,7 +15,7 @@
     var filesModified = req.body.head_commit.modified;
     var username = req.body.repository.owner.name;
 
-    // helper function that returns download URL for a particular file
+    /* helper function that returns download URL for a particular file */
     var downloadUrl = function(file){
       return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
     };
