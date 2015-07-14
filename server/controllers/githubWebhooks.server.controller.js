@@ -3,7 +3,7 @@
 
   var Post = require('../models/post.server.model');
 
-  exports.postInfo = function(req, res) {
+  exports.postreceive = function(req, res) {
     //var postId = req.query.post_id;
     //
     //Post.postInfo(postId, function(error, post) {
