@@ -6,7 +6,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
 (function () {
   'use strict';
-  window.foundationRoutes = [];
   angular.module('crouton', [
     // Angular libraries
     'ui.router',
@@ -23,7 +22,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'homeController',
     'signupController',
     'postController',
-    'userController'
+    'userController',
+    //markdown parser
+    'mdParserDirective'
   ])
     .config(config)
     .run(run);
@@ -76,4 +77,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
   }
+
+  //hacky fix because we're not using Foundation's routing system
+  window.foundationRoutes = [];
 })();

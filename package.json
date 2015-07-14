@@ -24,7 +24,6 @@
   "devDependencies": {
     "browser-sync": "^2.7.13",
     "chai": "^3.0.0",
-    "gulp-protractor": "^1.0.0",
     "karma": "^0.12.37",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.0",
@@ -57,7 +56,6 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "knex": "^0.8.6",
-    "markdown": "^0.5.0",
     "morgan": "^1.6.1",
     "mysql": "^2.7.0",
     "passport": "^0.2.2",
