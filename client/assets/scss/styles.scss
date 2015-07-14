@@ -1,12 +1,20 @@
 @import '../lib/foundation-apps/scss/foundation';
 @import '../lib/highlightjs/styles/default.css';
 
-//
+// nav
+#profile-picture-action-sheet {
+  .action-sheet {
+    li a, li a:hover {
+      color: #000;
+    }
+  }
+  .profile-picture {
+      height: 30px;
+      width: auto;
+      border-radius: 100%;
+    }
 
-.profile-picture {
-  height: 30px;
-  width: auto;
-  border-radius: 100%;
+
 }
 
 .button-newpost {

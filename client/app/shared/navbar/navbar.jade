@@ -3,5 +3,12 @@
     a.title(ui-sref="home") Crouton
   .center
   .right
-    img.profile-picture(src="{{user.pic}}")
+    zf-action-sheet#profile-picture-action-sheet
+      zf-as-button
+        img.profile-picture(src="{{user.pic}}")
+      zf-as-content(position="bottom")
+        ul
+          li
+            a(ui-sref="profile" zf-hard-toggle="#profile-picture-action-sheet") Profile
+            a(ui-sref="logout" zf-hard-toggle="#profile-picture-action-sheet") Logout
     a.button.small.button-newpost New Post

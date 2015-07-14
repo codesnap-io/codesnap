@@ -1,7 +1,17 @@
-.grid-content
-  h3 We'd hate to see you leave your crutons behind.
-.grid-content
-  h4.subheader But if you must, there's a button for that.
-  a.button.warning(ng-click="removeUser()") 
-    img.iconic-color-danger(zf-iconic="" icon="ban" size="medium")
-    | Delete My Profile!
+.grid-block.vertical
+  .grid-content
+    h2 {{user.username}}
+    h3 {{user.name}}
+  .grid-content
+    h3 Posts:
+    h4(ng-hide="user.posts.length > 0") You don't have any posts yet!
+    .post(ng-repeat="post in user.posts")
+      p {{post}}
+
+.grid-block
+  .grid-content
+    h3 We'd hate to see you leave your crutons behind.
+    h4.subheader But if you must, there's a button for that.
+    a.button.warning(ng-click="removeUser()") 
+      img.iconic-color-danger(zf-iconic="" icon="ban" size="medium")
+      | Delete My Profile!
