@@ -22,6 +22,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'homeController',
     'signupController',
     'postController',
+    'postFactory',
     'userController',
     //markdown parser
     'mdParserDirective'
