@@ -26,6 +26,7 @@
     app.get('/auth/github/callback', app.cors(),
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
+        console.log("AAAAAAAAA");
         res.redirect('/');
     });
 
