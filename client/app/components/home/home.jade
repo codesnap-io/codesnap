@@ -1,10 +1,19 @@
+zf-panel#categoryPanel.fixed-panel
+  a.close-button(zf-close="") ×
+  .block-list
+    header Choose a Category
+    ul
+      li(ng-repeat="topic in topics" ng-class="{active: isSelectedTopic(topic)}")
+        a.topic-btn(href="#" ng-click="chooseTopic(topic)" zf-close="") {{topic}}
+          span.block-list-label {{posts.length}}
+
 .grid-block.vertical.medium-3.show-for-large
   .grid-content
     section.block-list
       header Choose a Category
       ul
         li.topic-bar(ng-repeat="topic in topics" ng-class="{active: isSelectedTopic(topic)}")
-          a(href="#" ng-click="chooseTopic(topic)") {{topic}}
+          a.topic-btn(href="#" ng-click="chooseTopic(topic)") {{topic}}
             span.block-list-label {{posts.length}}
 .grid-block.vertical
   h2.topic-line The #{' '}
