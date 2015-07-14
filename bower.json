@@ -22,9 +22,13 @@
     "foundation-apps": "~1.1.0",
     "ngAnimate": "*",
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
-    "angular-mocks": "~1.4.2"
+    "angular-mocks": "~1.4.2",
+    "marked": "~0.3.3",
+    "highlightjs": "~8.6.0"
   },
   "resolutions": {
-    "angular": "1.4.2"
+    "angular": ">= 1.0.8",
+    "angular-mocks": "~1.4.2",
+    "marked": "~0.3.3"
   }
 }
