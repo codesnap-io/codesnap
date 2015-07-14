@@ -53,23 +53,43 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'app/components/home/home.html',
-        controller: 'homeController'
+        views: {
+          content: {
+            templateUrl: 'app/components/home/home.html',
+            controller: 'homeController'
+          },
+          subnav: {
+            templateUrl: 'app/shared/subnavs/homeSubnav.html',
+            controller: 'homeController'
+          }
+        }
       })
       .state('post', {
         url: '/post/{id:int}',
-        templateUrl: 'app/components/post/post.html',
-        controller: 'postController'
+        views: {
+          content: {
+            templateUrl: 'app/components/post/post.html',
+            controller: 'postController'
+          }
+        }
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: 'app/components/signup/signup.html',
-        controller: 'signupController'
+        views: {
+          content: {
+            templateUrl: 'app/components/signup/signup.html',
+            controller: 'signupController'
+          }
+        }
       })
       .state('profile', {
         url: '/profile',
-        templateUrl: 'app/components/user/user.html',
-        controller: 'userController'
+        views: {
+          content: {
+            templateUrl: 'app/components/user/user.html',
+            controller: 'userController'
+          }
+        }
       });
   }
 

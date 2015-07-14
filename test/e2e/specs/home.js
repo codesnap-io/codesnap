@@ -10,16 +10,18 @@ describe('Crouton homepage', function() {
   });
 
   it('should select the appropriate topic when clicking the side bar buttons', function() {
-    var topics = element.all(by.repeater('topic in topics'));
-    topics.each(function(item, index) {
-      item.getText().then(function(text) {
-        var button = element(by.cssContainingText('.topic', text));
-        button.click();
-        var title = $('#topic-title').getAttribute('title');
-        expect(title).toEqual(text);
-      })
-    })
-    element(by.id('topics-bar'))
+    element.all(by.css('.topic-btn'))
+      .each(function(item, index) {
+            item.click().then(function() {
+              item.getText()
+              .then(function(topicText) {
+                $('.topic-name').getText()
+                  .then(function(text) {
+                    expect(topicText + ".").toEqual(text);
+                  });
+              });
+            });
+        });
   });
 
   it('should show logged in user information in the navbar', function() {
