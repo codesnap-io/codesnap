@@ -37,7 +37,22 @@
     });
   };
 
-  User.remove = function (userId, callback) {
+
+
+  User.findByGithubId = function(githubId, callback) {
+    new User({'github_id': githubId})
+    .fetch()
+    .then(function(user) {
+      if (!user) {
+        callback("Invalid github id");
+      } else {
+        callback(null, user);
+      }
+    });
+  };
+
+
+  User.remove = function(userId, callback) {
     /* Create a user object which we call
     .fetch() on to search the database to see
     if that user already exists */
