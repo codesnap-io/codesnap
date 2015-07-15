@@ -20,7 +20,6 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
-    
 
     /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
     var downloadUrl = function (file) {
@@ -45,7 +44,9 @@
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.add(postData, function(error) {
-            if (error) console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
         }
       };
