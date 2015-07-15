@@ -3,11 +3,14 @@
   var Promise = require('bluebird');
   var request = require('request');
 
+  /* Make a GET request to a file's Github raw download url to retrieve the post's markdown data.  */
   module.exports.getFile = function (url, cb) {
     var options = {
       url: url,
       method: 'GET'
     };
+
+    /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
     var callback = function (error, response, body, url) {
       if (error) {
         console.log('ERROR: error');
