@@ -66,11 +66,14 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
-    var userId = null; //TODO: make this equal userID from db
 
-    exports.addPosts(filesAdded, username, userId, repoName);
-    exports.removePosts(filesRemoved, username, repoName);
-    exports.modifyPosts(filesModified, username, repoName);
+    /* Get github userId from username */
+    service.getUserId(username, function(userId) {
+      exports.addPosts(filesAdded, username, userId, repoName);
+      exports.removePosts(filesRemoved, username, repoName);
+      exports.modifyPosts(filesModified, username, repoName);
+    });
+
   };
 
   exports.postInfo = function (req, res) {
