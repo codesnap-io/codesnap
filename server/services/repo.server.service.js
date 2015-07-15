@@ -119,6 +119,7 @@
 
   };
 
+  /* This function takes a github username and returns a callback whose first argument is the user's github ID */
   module.exports.getUser = function (username, cb) {
     var options = {
       url: "https://api.github.com/users/" + username,
@@ -129,22 +130,21 @@
       }
     };
 
-    /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
     var callback = function (error, response, body) {
       if (error) {
         console.log('ERROR: error');
       } else {
+<<<<<<< HEAD
         console.log(body);
         var userId = body.id;
         console.log('UserId: ', userId);
         return cb(userId, error);
+=======
+        return cb(JSON.parse(body).id);
+>>>>>>> (feat) Add service to pull github id using github username
       }
     };
     request(options, callback);
   };
-
-  // module.exports.getUser("smkhalsa", function(userId, error) {
-  //   console.log(userId);
-  // });
 
 })();
