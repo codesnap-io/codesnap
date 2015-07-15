@@ -25,7 +25,6 @@
         user.string('email', 30);
         user.string('username', 30);
         user.integer('github_id');
-        user.string('token', 80);
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Users Table');
@@ -84,28 +83,28 @@
       }).then(function (table) {
         console.log('Created Posts Table');
 
-        if (process.env.NODE_ENV === 'development') {
-          new Post({
-            title: "Javascript is cool",
-            url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
-            user_id: 1
-          }).save();
-          new Post({
-            title: "The inner workings of backbone",
-            url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
-            user_id: 2
-          }).save();
-          new Post({
-            title: "Navigating Asynchronous Callbacks",
-            url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
-            user_id: 3
-          }).save();
-          new Post({
-            title: "The Keyword this",
-            url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
-            user_id: 4
-          }).save();
-        }
+        // if (process.env.NODE_ENV === 'development') {
+        //   new Post({
+        //     title: "Javascript is cool",
+        //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+        //     user_id: 1
+        //   }).save();
+        //   new Post({
+        //     title: "The inner workings of backbone",
+        //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+        //     user_id: 2
+        //   }).save();
+        //   new Post({
+        //     title: "Navigating Asynchronous Callbacks",
+        //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+        //     user_id: 3
+        //   }).save();
+        //   new Post({
+        //     title: "The Keyword this",
+        //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+        //     user_id: 4
+        //   }).save();
+        // }
 
       });
     }
@@ -226,44 +225,44 @@
 
   var User = exports.User = db.Model.extend({
     tableName: 'users',
-    posts: function() {
+    posts: function () {
       return this.hasMany(Post);
     },
-    comments: function() {
+    comments: function () {
       return this.hasMany(Comment);
     },
-    votes: function() {
+    votes: function () {
       return this.hasMany(Vote);
     }
   });
 
   var Post = exports.Post = db.Model.extend({
     tableName: 'posts',
-    user: function() {
+    user: function () {
       return this.belongsTo(User, 'user_id');
     },
-    tags: function() {
+    tags: function () {
       return this.belongsToMany(Tag, 'tag_id');
     }
   });
 
   var Comment = exports.Comment = db.Model.extend({
     tableName: 'comments',
-    user: function() {
+    user: function () {
       return this.belongsTo(User, 'user_id');
     }
   });
 
   var Tag = exports.Tag = db.Model.extend({
     tableName: 'tags',
-    posts: function() {
+    posts: function () {
       return this.belongsToMany(Post, 'post_id');
     }
   });
 
   var Vote = exports.Vote = db.Model.extend({
     tableName: 'votes',
-    user: function() {
+    user: function () {
       this.belongsto(User, 'user_id');
     }
   });
