@@ -71,22 +71,21 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         templateUrl: 'app/components/home/home.html',
         controller: 'homeController',
         resolve: {
-          authUser: function($stateParams, $location, authFactory) {
-            if (!!$stateParams.token) {
+          authUser: function ($stateParams, $location, authFactory) {
+            if (Boolean($stateParams.token)) {
               /* Check for valid token */
-              authFactory.checkNewToken($stateParams.token, function(valid) {
+              authFactory.checkNewToken($stateParams.token, function (valid) {
                 /* If token is valid, set it to local storage */
                 if (valid) {
                   localStorage.jwtToken = $stateParams.token;
-                /* If token is not valid, remove existing token if it exists as a security measure */
+                  /* If token is not valid, remove existing token if it exists as a security measure */
                 } else {
                   authFactory.removeToken();
-                }      
-
+                }
                 /* Redirect back to home page so user never sees parameters */
-                window.location = "/";          
+                window.location = "/";
               });
-            }            
+            }
           }
         }
       })
@@ -130,14 +129,14 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     /* Event listener for state change, and checks for authentication via authFactory
     Redirects is false returned  */
     $rootScope.$on("$stateChangeStart",
-        function(event, toState, toParams, fromState, fromParams) {
-            $rootScope.loggedIn = true;
-            if (toState.authenticate && !authFactory.loggedIn()) {
-                $rootScope.loggedIn = false;
-                $state.go("signup");
-                event.preventDefault();
-            }
-    });
+      function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.loggedIn = true;
+        if (toState.authenticate && !authFactory.loggedIn()) {
+          $rootScope.loggedIn = false;
+          $state.go("signup");
+          event.preventDefault();
+        }
+      });
   }
 
   //hacky fix because we're not using Foundation's routing system

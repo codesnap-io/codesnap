@@ -12,3 +12,5 @@ test/coverage/**
 client/**/*.html
 npm-debug.log
 client/assets/css/*.css
+client/assets/css/styles.min.css
+
