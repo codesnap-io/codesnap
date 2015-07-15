@@ -21,7 +21,6 @@
       return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
     };
 
-
     var addPosts = function (filesToAdd, username) {
       var addCallback = function (error) {
         if (error) {
@@ -29,7 +28,7 @@
         }
       };
 
-      var gfCallback = function (data, err) {
+      var gfCallback = function (data, err, url) {
         if (err) {
           console.log("ERROR: ", err);
         } else {
@@ -37,7 +36,7 @@
           var date = new Date();
           var postData = {
             title: metadata.title || "Default Title",
-            url: 'https://raw.githubusercontent.com/m-arnold/crouton.io/master/posts/myFirstPost.md'
+            url: url
             // user_id: username
             // update_at: date,
             // tags: metadata.tags || ""
@@ -101,6 +100,7 @@
     }
   };
 
+  //return front matter metadata
   exports.getMetadata = function (file) {
     var data = fm(file);
     return data.attributes;

@@ -8,11 +8,11 @@
       url: url,
       method: 'GET'
     };
-    var callback = function (error, response, body) {
+    var callback = function (error, response, body, url) {
       if (error) {
         console.log('ERROR: error');
       } else {
-        return cb(body, error);
+        return cb(body, error, url);
       }
     };
     request(options, callback);
