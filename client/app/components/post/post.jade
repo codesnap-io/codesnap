@@ -1,17 +1,17 @@
 .grid-block.vertical
-  .grid-block.shrink
-    .grid-block.medium-2
-    .grid-block.align-center
-      h3.grid-content {{post.title}}
-    .grid-block
+  .grid-block.shrink.vertical.medium-horizontal.title-box
+    .grid-content
+      h1.post-title {{post.title}}
+    .grid-content.shrink.author-picture
       img(src="{{post.authorPic}}")
-      h5.grid-content {{post.author}}
-    .grid-block
-      a.button Propose a Change
+    .grid-content.author-info
+      h5 {{post.author}}
+      h6
+        small Tagged as:
+    .btn-change
+        a.button Propose a Change
   hr
   .grid-block.shrink
-    .grid-block.medium-2
-    .grid-block
-      md.grid-content(ng-model="post")
-      //- md.grid-content(ng-include="'assets/sample/sample.md'")
-    .grid-block.medium-1
+    .grid-block.small-6.small-offset-3
+      //- md.grid-content(ng-model="post.content")
+      md.grid-content(ng-include="'assets/sample/sample.md'")
