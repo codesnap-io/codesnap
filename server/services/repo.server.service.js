@@ -120,7 +120,7 @@
   };
 
   /* This function takes a github username and returns a callback whose first argument is the user's github ID */
-  module.exports.getUserId = function (username, cb) {
+  module.exports.getGithubUserId = function (username, cb) {
     var options = {
       url: "https://api.github.com/users/" + username,
       method: 'GET',
@@ -132,9 +132,9 @@
 
     var getUserIdCallback = function (error, response, body) {
       if (error) {
-        console.log('ERROR: error');
+        return cb('ERROR: ', error);
       } else {
-        return cb(JSON.parse(body).id);
+        return cb(null, JSON.parse(body).id);
       }
     };
     request(options, getUserIdCallback);
