@@ -25,7 +25,6 @@ exports.githubStrategy = function () {
               username: profile.username,
               name: profile.displayName,
               email: profile._json.email,
-              token: accessToken
             }).save().then(function (newUser) {
 
               //determine whether crouton.io repo exists
@@ -37,13 +36,23 @@ exports.githubStrategy = function () {
 
                     //get all markdown files within post folder
                     repo.getFileFromAPI(accessToken, 'https://api.github.com/repos/' + profile.username + '/crouton.io/contents/posts', function (body, error, url) {
-                      var files = JSON.parse(body).map(function (item) {
+                      var files = JSON.parse(body);
+                      var fileNames = files.map(function (item) {
                         console.log(item.name);
                         return "posts/" + item.name;
                       });
-
-                      //add posts to db
-                      postCtrl.addPosts(files, profile.username, newUser.id, "crouton.io");
+                      if (files.length === 0 || !files) {
+                        repo.addFirstPost(accessToken, profile.username, function (err, resp, body) {
+                          if (err) {
+                            console.log("ERROR: ", err);
+                          } else {
+                            console.log("body: ", body);
+                          }
+                        });
+                      } else {
+                        //add posts to db
+                        postCtrl.addPosts(fileNames, profile.username, newUser.id, "crouton.io");
+                      }
                     });
                   }
                 });
