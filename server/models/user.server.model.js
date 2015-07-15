@@ -57,6 +57,18 @@
     });
   };
 
+  User.find = function(githubId, callback) {
+    new User({'github_id': githubId})
+    .fetch()
+    .then(function(user) {
+      if (!user) {
+        callback("Invalid Github id");
+      } else {
+        callback(null, user);
+      }
+    });
+  };
+
 
 
   module.exports = User;

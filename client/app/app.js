@@ -22,10 +22,15 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'homeController',
     'signupController',
     'postController',
+<<<<<<< HEAD
     'postFactory',
     'userController',
     //markdown parser
     'mdParserDirective'
+=======
+    'userController',
+    'authFactory'
+>>>>>>> # This is a combination of 2 commits.
   ])
     .config(config)
     .run(run);
@@ -53,6 +58,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //TODO: html5mode?
     $stateProvider
       .state('home', {
+<<<<<<< HEAD
         url: '/',
         views: {
           content: {
@@ -62,6 +68,28 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           subnav: {
             templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'homeController'
+=======
+        url: '/?token',
+        templateUrl: 'app/components/home/home.html',
+        controller: 'homeController',
+        resolve: {
+          authUser: function($stateParams, $location, authFactory) {
+            if (!!$stateParams.token) {
+              /* Check for valid token */
+              authFactory.checkNewToken($stateParams.token, function(valid) {
+                /* If token is valid, set it to local storage */
+                if (valid) {
+                  localStorage.jwtToken = $stateParams.token;
+                /* If token is not valid, remove existing token if it exists as a security measure */
+                } else {
+                  authFactory.removeToken();
+                }      
+
+                /* Redirect back to home page so user never sees parameters */
+                window.location = "/";          
+              });
+            }            
+>>>>>>> # This is a combination of 2 commits.
           }
         }
       })
@@ -97,6 +125,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   function run() {
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
+
   }
 
   //hacky fix because we're not using Foundation's routing system
