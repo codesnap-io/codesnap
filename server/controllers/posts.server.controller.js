@@ -79,16 +79,26 @@
   };
 
   exports.postInfo = function (req, res) {
-    var postId = req.query.post_id;
-
-    Post.postInfo(postId, function (error, post) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.json(post);
-      }
-    });
+    if (req.query.post_id) {
+      var postId = req.query.post_id;
+      Post.postInfo(postId, function (error, post) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        } else {
+          res.json(post);
+        }
+      });
+    } else {
+      Post.getAllPosts(function (error, post) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        } else {
+          res.json(post);
+        }
+      });
+    }
   };
 
   exports.getMetadata = function (file) {

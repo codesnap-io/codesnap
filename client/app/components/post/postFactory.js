@@ -2,6 +2,14 @@ angular.module('postFactory', [])
 
 .factory('postFactory', function ($http) {
   return {
+    getPostsData: function () {
+      return $http({
+        method: 'GET',
+        url: '/post/info'
+      }).then(function (resp) {
+        return resp.data;
+      });
+    },
     getPostData: function (id) {
       console.log("id: ", id);
       return $http({

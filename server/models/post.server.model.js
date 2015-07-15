@@ -67,5 +67,17 @@
     });
   };
 
+  Post.getAllPosts = function (callback, options) {
+    db.knex.raw(' \
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        users.name AS author \
+      FROM posts, users').then(function (data) {
+      callback(null, data[0]);
+    });
+  };
+
   module.exports = Post;
 })();
