@@ -26,7 +26,6 @@
         user.integer('github_id');
         user.string('token', 80);
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        user.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Users Table');
         if (process.env.NODE_ENV === 'development') {
@@ -65,7 +64,6 @@
         post.string('url', 255);
         post.integer('user_id').unsigned().references('users.id');
         post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        post.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Posts Table');
 
@@ -100,7 +98,6 @@
         tag.increments('id').primary();
         tag.string('title', 50);
         tag.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        tag.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Tags Table');
       });
@@ -127,7 +124,6 @@
         post_tag_join.integer('post_id').unsigned().references('posts.id');
         post_tag_join.integer('tag_id').unsigned().references('tags.id');
         post_tag_join.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        post_tag_join.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Post Tag Join Table');
       });
@@ -155,7 +151,6 @@
         comment.string('text', 255);
         comment.integer('user_id').unsigned().references('users.id');
         comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        comment.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Comments Table');
       });
