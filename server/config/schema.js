@@ -35,29 +35,25 @@
             email: 'ben@gmail.com',
             github_id: 1111111,
             token: '12oi312o3joqwiejqwoiej1oi3j41oij131oi3j'
-          })
-            .save();
+          }).save();
           new User({
             name: 'Sat Khalsa',
             email: 'sat@gmail.com',
             github_id: 2222222,
             token: '1312o3joqdoasidjosoiej1oi3j41oij131oi3j'
-          })
-            .save();
+          }).save();
           new User({
             name: 'Michael Arnold',
             email: 'michael@gmail.com',
             github_id: 3333333,
             token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'
-          })
-            .save();
+          }).save();
           new User({
             name: 'Chris Clayman',
             email: 'chris@gmail.com',
             github_id: 4444444,
             token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'
-          })
-            .save();
+          }).save();
         }
       });
     }
@@ -225,123 +221,49 @@
 
 
   ////////////////////////////////////////////////
-  /// Posts Table Schema
-  ////////////////////////////////////////////////
-
-  db.knex.schema.hasTable('posts').then(function (exists) {
-    // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('posts').then(function() {
-    //     console.log("Removed Post Table");
-    //   });
-    //   exists = false;
-    // }
-
-    /* Create users table if it doesn't exist. */
-    if (!exists) {
-      db.knex.schema.createTable('posts', function (post) {
-        post.increments('id').primary();
-        post.string('title', 255);
-        post.string('url', 255);
-        post.integer('user_id').unsigned().references('users.id');
-        post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        post.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
-      }).then(function (table) {
-        console.log('Created Posts Table');
-
-        // new Post({title: "Javascript is cool", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 1}).save();
-        // new Post({title: "The inner workings of backbone", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 2}).save();
-        // new Post({title: "Navigating Asynchronous Callbacks", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 3}).save();
-        // new Post({title: "The Keyword this", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 4}).save();
-
-      });
-    }
-  });
-
-
-  ////////////////////////////////////////////////
-  /// Users Table Schema
-  ////////////////////////////////////////////////
-
-  db.knex.schema.hasTable('users').then(function (exists) {
-    // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('users').then(function() {
-    //     console.log("Removed User Table");
-    //   });
-    //   exists = false;
-    // }
-
-    /* Create users table if it doesn't exist. */
-    if (!exists) {
-      db.knex.schema.createTable('users', function (user) {
-        user.increments('id').primary();
-        user.string('name', 60);
-        user.string('email', 30);
-        user.string('username', 30);
-        user.integer('github_id');
-        user.string('token', 80);
-        user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
-        user.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
-      }).then(function (table) {
-        console.log('Created Users Table');
-
-        // new User({name: 'Ben Steinberg', email: 'ben@gmail.com', github_id: 1111111, token: '12oi312o3joqwiejqwoiej1oi3j41oij131oi3j'})
-        // .save();
-        // new User({name: 'Sat Khalsa', email: 'sat@gmail.com', github_id: 2222222, token: '1312o3joqdoasidjosoiej1oi3j41oij131oi3j'})
-        // .save();
-        // new User({name: 'Michael Arnold', email: 'michael@gmail.com', github_id: 3333333, token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'})
-        // .save();
-        // new User({name: 'Chris Clayman', email: 'chris@gmail.com', github_id: 4444444, token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'})
-        // .save();
-      });
-    }
-  });
-
-  ////////////////////////////////////////////////
   /// Relationships
   ////////////////////////////////////////////////
 
   var User = exports.User = db.Model.extend({
     tableName: 'users',
-    posts: function () {
+    posts: function() {
       return this.hasMany(Post);
     },
-    comments: function () {
+    comments: function() {
       return this.hasMany(Comment);
     },
-    votes: function () {
+    votes: function() {
       return this.hasMany(Vote);
     }
   });
 
   var Post = exports.Post = db.Model.extend({
     tableName: 'posts',
-    user: function () {
+    user: function() {
       return this.belongsTo(User, 'user_id');
     },
-    tags: function () {
+    tags: function() {
       return this.belongsToMany(Tag, 'tag_id');
     }
   });
 
   var Comment = exports.Comment = db.Model.extend({
     tableName: 'comments',
-    user: function () {
+    user: function() {
       return this.belongsTo(User, 'user_id');
     }
   });
 
   var Tag = exports.Tag = db.Model.extend({
     tableName: 'tags',
-    posts: function () {
+    posts: function() {
       return this.belongsToMany(Post, 'post_id');
     }
   });
 
   var Vote = exports.Vote = db.Model.extend({
     tableName: 'votes',
-    user: function () {
+    user: function() {
       this.belongsto(User, 'user_id');
     }
   });
