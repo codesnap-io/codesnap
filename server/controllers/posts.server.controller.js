@@ -61,7 +61,26 @@
 
   exports.modifyPosts = function (filesToModify, username, repoName) {
     for (var i = 0; i < filesToModify.length; i++) {
-      console.log(downloadUrl(filesToModify[i], username, repoName));
+      service.getRawFile(downloadUrl(filesToModify[i], username, repoName), function (data, err, url) {
+        if (err) {
+          console.log("ERROR: ", err);
+        } else {
+          /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
+          var metadata = exports.getMetadata(data);
+          var postData = {
+            title: metadata.title,
+            url: url,
+            updated_at: new Date()
+          };
+
+          /* Add post to the database.  Log an error if there was a problem. */
+          Post.modify(postData, function (error) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
+      });
     }
   };
 
@@ -161,8 +180,8 @@
    //    },
    //    head_commit: {
    //      added: [],
-   //      removed: ['posts/myPost.md'],
-   //      modified: []
+   //      removed: [],
+   //      modified: ['posts/myFirstPost.md']
    //    }
    //  };
    //

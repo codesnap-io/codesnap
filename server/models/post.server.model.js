@@ -38,15 +38,15 @@
         });
   };
 
-  Post.edit = function (postData, callback) {
+  Post.modify = function (postData, callback) {
     new Post({
-      'id': postData.id
+      'url': postData.url
     })
       .fetch()
       .then(function (post) {
         /* If post doesn't exist, return error message */
         if (!post) {
-          callback("Invalid post id");
+          callback("Invalid post url");
         } else {
           /* If post exists, update all of its attributes with the data passed in from the POST request */
           for (var key in postData) {
