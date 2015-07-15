@@ -18,6 +18,7 @@
    'no-use-before-define': 0,
    'no-multi-str': 0,
    'space-infix-ops': 0,
-   'no-shadow': 0
+   'no-shadow': 1,
+   'no-loop-func': 0
   }
 }
