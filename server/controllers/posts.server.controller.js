@@ -90,6 +90,7 @@
 
   exports.postInfo = function (req, res) {
     if (req.query.post_id) {
+      console.log(req.query.post_id);
       var postId = req.query.post_id;
       Post.postInfo(postId, function (error, post) {
         if (error) {
@@ -100,15 +101,19 @@
         }
       });
     } else {
-      Post.getAllPosts(function (error, post) {
-        if (error) {
-          console.log(error);
-          res.send(error);
-        } else {
-          res.json(post);
-        }
-      });
+      res.send(error);
     }
+  };
+
+  exports.allPostsInfo = function(req, res) {
+    Post.getAllPosts(function (error, posts) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        res.json(posts);
+      }
+    });
   };
 
   /* Parses metadata from markdown file using the front-matter library. */

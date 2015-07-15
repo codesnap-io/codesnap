@@ -52,6 +52,7 @@
       if (!post) {
         callback("Invalid post id.\n");
       } else {
+        console.log(postId);
         db.knex.raw(' \
           SELECT \
             posts.id AS post_id, \
@@ -59,8 +60,10 @@
             posts.url AS post_url, \
             users.name AS author \
           FROM posts, users \
-          WHERE posts.id = ' + postId)
+          WHERE posts.user_id = users.id \
+          AND posts.id = ' + postId)
         .then(function (data) {
+          console.log(data[0]);
           callback(null, data[0]);
         });
       }
