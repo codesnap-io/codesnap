@@ -74,7 +74,8 @@
         posts.title AS post_title, \
         posts.url AS post_url, \
         users.name AS author \
-      FROM posts, users').then(function (data) {
+      FROM posts, users \
+      WHERE posts.user_id = users.id').then(function (data) {
       callback(null, data[0]);
     });
   };
