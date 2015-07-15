@@ -10,5 +10,6 @@
   process.env.githubClientID = "FILL THIS IN";
   process.env.githubClientSecret = "FILL THIS IN";
   process.env.githubCallbackUrl = "FILL THIS IN";
+  process.env.jwtSecret = "asodij23oije";
 
 })();

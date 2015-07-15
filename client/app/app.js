@@ -26,7 +26,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'userController',
     'authFactory',
     //markdown parser
-    'mdParserDirective'
+    'mdParserDirective',
+    'userController',
+    'authFactory'
   ])
     .config(config)
     .run(run);
@@ -54,7 +56,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //TODO: html5mode?
     $stateProvider
       .state('home', {
-        url: '/',
+        url: '/?token',
         authenticate: false,
         views: {
           content: {
@@ -64,6 +66,27 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           subnav: {
             templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'homeController'
+          }
+        },
+        templateUrl: 'app/components/home/home.html',
+        controller: 'homeController',
+        resolve: {
+          authUser: function($stateParams, $location, authFactory) {
+            if (!!$stateParams.token) {
+              /* Check for valid token */
+              authFactory.checkNewToken($stateParams.token, function(valid) {
+                /* If token is valid, set it to local storage */
+                if (valid) {
+                  localStorage.jwtToken = $stateParams.token;
+                /* If token is not valid, remove existing token if it exists as a security measure */
+                } else {
+                  authFactory.removeToken();
+                }      
+
+                /* Redirect back to home page so user never sees parameters */
+                window.location = "/";          
+              });
+            }            
           }
         }
       })
@@ -104,7 +127,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     FastClick.attach(document.body);
 
 
-
     /* Event listener for state change, and checks for authentication via authFactory
     Redirects is false returned  */
     $rootScope.$on("$stateChangeStart",
@@ -116,9 +138,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
                 event.preventDefault();
             }
     });
-
-
-
   }
 
   //hacky fix because we're not using Foundation's routing system
