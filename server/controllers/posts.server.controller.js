@@ -114,4 +114,30 @@
   // }
   //end testing
 
+  /* Dummy Data */
+  // if (process.env.NODE_ENV === 'development') {
+  //   console.log("AAAAAA");
+  //   var req = {};
+  //   var res = {
+  //     sendStatus: function() {
+  //       return;
+  //     }
+  //   };
+  //   req.body = {
+  //     repository: {
+  //       name: 'crouton.io',
+  //       owner: {
+  //         name: 'smkhalsa'
+  //       }
+  //     },
+  //     head_commit: {
+  //       added: ['posts/myPost.md'],
+  //       removed: [],
+  //       modified: []
+  //     }
+  //   };
+
+  //   exports.postReceive(req, res);
+  // }
+
 })();

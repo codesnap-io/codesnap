@@ -11,7 +11,7 @@
     };
 
     /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
-    var callback = function (error, response, body, url) {
+    var callback = function (error, response, body) {
       if (error) {
         console.log('ERROR: error');
       } else {
