@@ -4,61 +4,60 @@
   var db = require('./db');
 
   ////////////////////////////////////////////////
-  /// Users Table Schema
+  /// Post Tags Table Schema
   ////////////////////////////////////////////////
 
-  db.knex.schema.hasTable('users').then(function (exists) {
+  db.knex.schema.hasTable('post_tag_join').then(function (exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('users').then(function() {
-    //     console.log("Removed User Table");
-    //   });
-    //   exists = false;
-    // }
+    if (exists) {
+      db.knex.schema.dropTable('post_tag_join').then(function() {
+        console.log("Removed Post Tag Join Table");
+      });
+      exists = false;
+    }
 
-    /* Create users table if it doesn't exist. */
     if (!exists) {
-      db.knex.schema.createTable('users', function (user) {
-        user.increments('id').primary();
-        user.string('name', 60);
-        user.string('email', 30);
-        user.string('username', 30);
-        user.integer('github_id');
-        user.string('token', 80);
-        user.timestamps(); /* Creates created_at, updated_at */
+      db.knex.schema.createTable('post_tag_join', function (post_tag_join) {
+        post_tag_join.increments('id').primary();
+        post_tag_join.integer('post_id').unsigned().references('posts.id');
+        post_tag_join.integer('tag_id').unsigned().references('tags.id');
+        post_tag_join.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        post_tag_join.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
-        console.log('Created Users Table');
+        console.log('Created Post Tag Join Table');
       });
     }
   });
 
 
+
+
   ////////////////////////////////////////////////
-  /// Posts Table Schema
+  /// Tags Table Schema
   ////////////////////////////////////////////////
 
-  db.knex.schema.hasTable('posts').then(function (exists) {
+  db.knex.schema.hasTable('tags').then(function (exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('posts').then(function() {
-    //     console.log("Removed Post Table");
-    //   });
-    //   exists = false;
-    // }
+    if (exists) {
+      db.knex.schema.dropTable('tags').then(function() {
+        console.log("Removed Tags Table");
+      });
+      exists = false;
+    }
 
     /* Create users table if it doesn't exist. */
     if (!exists) {
-      db.knex.schema.createTable('posts', function (post) {
-        post.increments('id').primary();
-        post.string('title', 255);
-        post.string('url', 255);
-        post.integer('user_id').unsigned().references('users.id');
-        post.timestamps(); /* Creates created_at, updated_at */
+      db.knex.schema.createTable('tags', function (tag) {
+        tag.increments('id').primary();
+        tag.string('title', 50);
+        tag.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        tag.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
-        console.log('Created Posts Table');
+        console.log('Created Tags Table');
       });
     }
   });
+
 
 
   ////////////////////////////////////////////////
@@ -67,12 +66,12 @@
 
   db.knex.schema.hasTable('comments').then(function (exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('comments').then(function() {
-    //     console.log("Removed Comments Table");
-    //   });
-    //   exists = false;
-    // }
+    if (exists) {
+      db.knex.schema.dropTable('comments').then(function() {
+        console.log("Removed Comments Table");
+      });
+      exists = false;
+    }
 
     /* Create users table if it doesn't exist. */
     if (!exists) {
@@ -80,63 +79,15 @@
         comment.increments('id').primary();
         comment.string('text', 255);
         comment.integer('user_id').unsigned().references('users.id');
-        comment.timestamps(); /* Creates created_at, updated_at */
+        comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        comment.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Comments Table');
       });
     }
   });
 
-  ////////////////////////////////////////////////
-  /// Tags Table Schema
-  ////////////////////////////////////////////////
 
-  db.knex.schema.hasTable('tags').then(function (exists) {
-    /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('tags').then(function() {
-    //     console.log("Removed Tags Table");
-    //   });
-    //   exists = false;
-    // }
-
-    /* Create users table if it doesn't exist. */
-    if (!exists) {
-      db.knex.schema.createTable('tags', function (tag) {
-        tag.increments('id').primary();
-        tag.string('title', 50);
-        tag.integer('user_id').unsigned().references('users.id');
-        tag.timestamps(); /* Creates created_at, updated_at */
-      }).then(function (table) {
-        console.log('Created Tags Table');
-      });
-    }
-  });
-
-  ////////////////////////////////////////////////
-  /// Post Tags Table Schema
-  ////////////////////////////////////////////////
-
-  db.knex.schema.hasTable('post_tag_join').then(function (exists) {
-    /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('post_tag_join').then(function() {
-    //     console.log("Removed Post Tag Join Table");
-    //   });
-    //   exists = false;
-    // }
-
-    if (!exists) {
-      db.knex.schema.createTable('post_tag_join', function (post_tag_join) {
-        post_tag_join.increments('id').primary();
-        post_tag_join.integer('post_id').unsigned().references('posts.id');
-        post_tag_join.integer('tag_id').unsigned().references('tags.id');
-        post_tag_join.timestamps(); /* Creates created_at, updated_at */
-      }).then(function (table) {
-        console.log('Created Post Tag Join Table');
-      });
-    }
-  });
 
   ////////////////////////////////////////////////
   /// Votes Table Schema
@@ -144,12 +95,12 @@
 
   db.knex.schema.hasTable('votes').then(function (exists) {
     /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
-    // if (exists) {
-    //   db.knex.schema.dropTable('votes').then(function() {
-    //     console.log("Removed Votes Table");
-    //   });
-    //   exists = false;
-    // }
+    if (exists) {
+      db.knex.schema.dropTable('votes').then(function() {
+        console.log("Removed Votes Table");
+      });
+      exists = false;
+    }
 
     if (!exists) {
       db.knex.schema.createTable('votes', function (vote) {
@@ -163,6 +114,80 @@
     }
   });
 
+
+  ////////////////////////////////////////////////
+  /// Posts Table Schema
+  ////////////////////////////////////////////////
+
+  db.knex.schema.hasTable('posts').then(function (exists) {
+    /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
+    if (exists) {
+      db.knex.schema.dropTable('posts').then(function() {
+        console.log("Removed Post Table");
+      });
+      exists = false;
+    }
+
+    /* Create users table if it doesn't exist. */
+    if (!exists) {
+      db.knex.schema.createTable('posts', function (post) {
+        post.increments('id').primary();
+        post.string('title', 255);
+        post.string('url', 255);
+        post.integer('user_id').unsigned().references('users.id');
+        post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        post.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
+      }).then(function (table) {
+        console.log('Created Posts Table');
+
+        new Post({title: "Javascript is cool", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 1}).save();
+        new Post({title: "The inner workings of backbone", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 2}).save();
+        new Post({title: "Navigating Asynchronous Callbacks", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 3}).save();
+        new Post({title: "The Keyword this", url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md", user_id: 4}).save();
+
+      });
+    }
+  });
+
+
+  ////////////////////////////////////////////////
+  /// Users Table Schema
+  ////////////////////////////////////////////////
+
+  db.knex.schema.hasTable('users').then(function (exists) {
+    /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
+    if (exists) {
+      db.knex.schema.dropTable('users').then(function() {
+        console.log("Removed User Table");
+      });
+      exists = false;
+    }
+
+    /* Create users table if it doesn't exist. */
+    if (!exists) {
+      db.knex.schema.createTable('users', function (user) {
+        user.increments('id').primary();
+        user.string('name', 60);
+        user.string('email', 30);
+        user.string('username', 30);
+        user.integer('github_id');
+        user.string('token', 80);
+        user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        user.timestamp('updated_at').notNullable().defaultTo(db.knex.raw('now()'));
+      }).then(function (table) {
+        console.log('Created Users Table');
+
+        new User({name: 'Ben Steinberg', email: 'ben@gmail.com', github_id: 1111111, token: '12oi312o3joqwiejqwoiej1oi3j41oij131oi3j'})
+        .save();
+        new User({name: 'Sat Khalsa', email: 'sat@gmail.com', github_id: 2222222, token: '1312o3joqdoasidjosoiej1oi3j41oij131oi3j'})
+        .save();
+        new User({name: 'Michael Arnold', email: 'michael@gmail.com', github_id: 3333333, token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'})
+        .save();
+        new User({name: 'Chris Clayman', email: 'chris@gmail.com', github_id: 4444444, token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'})
+        .save();
+      });
+    }
+  });
 
   ////////////////////////////////////////////////
   /// Relationships
@@ -200,9 +225,6 @@
 
   var Tag = exports.Tag = db.Model.extend({
     tableName: 'tags',
-    user: function () {
-      return this.belongsTo(User, 'user_id');
-    },
     posts: function () {
       return this.belongsToMany(Post, 'post_id');
     }
