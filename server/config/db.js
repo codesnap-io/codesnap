@@ -18,3 +18,5 @@
 
   module.exports = require('bookshelf')(knex);
 })();
+
+
