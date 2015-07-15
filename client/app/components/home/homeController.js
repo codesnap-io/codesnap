@@ -8,7 +8,6 @@ angular.module('homeController', [])
         console.log("err: ", err);
       } else {
         $scope.posts = posts;
-        console.log("posts: ", $scope.posts);
       }
     });
 
