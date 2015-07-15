@@ -2,7 +2,7 @@
   .left
     a.title(ui-sref="home") Crouton
   .center
-  .right
+  .right(ng-show="$rootScope.loggedIn")
     zf-action-sheet#profile-picture-action-sheet
       zf-as-button
         img.profile-picture(src="{{user.pic}}")

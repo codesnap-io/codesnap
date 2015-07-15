@@ -11,4 +11,4 @@ test/coverage/**
 .DS_Store
 client/**/*.html
 npm-debug.log
-
+client/assets/css/*.css

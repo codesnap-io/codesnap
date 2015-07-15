@@ -24,6 +24,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'postController',
     'postFactory',
     'userController',
+    'authFactory',
     //markdown parser
     'mdParserDirective'
   ])
@@ -54,6 +55,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     $stateProvider
       .state('home', {
         url: '/',
+        authenticate: false,
         views: {
           content: {
             templateUrl: 'app/components/home/home.html',
@@ -67,6 +69,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       })
       .state('post', {
         url: '/post/{id:int}',
+        authenticate: false,
         views: {
           content: {
             templateUrl: 'app/components/post/post.html',
@@ -75,6 +78,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       })
       .state('signup', {
+        authenticate: false,
         url: '/signup',
         views: {
           content: {
@@ -84,6 +88,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       })
       .state('profile', {
+        authenticate: true,
         url: '/profile',
         views: {
           content: {
@@ -94,9 +99,26 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       });
   }
 
-  function run() {
+  function run($rootScope, $state, authFactory) {
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
+
+
+
+    /* Event listener for state change, and checks for authentication via authFactory
+    Redirects is false returned  */
+    $rootScope.$on("$stateChangeStart",
+        function(event, toState, toParams, fromState, fromParams) {
+            $rootScope.loggedIn = true;
+            if (toState.authenticate && !authFactory.loggedIn()) {
+                $rootScope.loggedIn = false;
+                $state.go("signup");
+                event.preventDefault();
+            }
+    });
+
+
+
   }
 
   //hacky fix because we're not using Foundation's routing system
