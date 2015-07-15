@@ -24,10 +24,9 @@
       login page.  Otherwise, the primary route function function will be called,
       which, in this example, will redirect the user to the home page. */
     app.get('/auth/github/callback', app.cors(),
-      passport.authenticate('github', { failureRedirect: '/login' }),
-      function(req, res) {
-        res.redirect('/');
-    });
+      passport.authenticate('github', { failureRedirect: '/login' }), users.githubRedirect);
+
+    app.post('/auth/checktoken', users.checkToken);
 
     /* Paramenters: user_id
        Data returned: all user info [WILL BE UPDATED] */
@@ -36,6 +35,7 @@
     /* Parameters: user_id
       deletes user from DB */
     app.delete('/user/info', users.deleteUser);
+
 
 };
 
