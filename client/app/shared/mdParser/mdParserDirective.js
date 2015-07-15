@@ -1,17 +1,17 @@
 angular.module('mdParserDirective', [])
   .directive('md', function () {
-    if (typeof hljs !== 'undefined') {
-      marked.setOptions({
-        gfm: true,
-        highlight: function (code, lang) {
-          if (lang) {
-            return hljs.highlight(lang, code).value;
-          } else {
-            return hljs.highlightAuto(code).value;
-          }
+  if (typeof hljs !== 'undefined') {
+    marked.setOptions({
+      gfm: true,
+      highlight: function (code, lang) {
+        if (lang) {
+          return hljs.highlight(lang, code).value;
+        } else {
+          return hljs.highlightAuto(code).value;
         }
-      });
-    }
+      }
+    });
+  }
     return {
       restrict: 'E',
       require: '?ngModel',

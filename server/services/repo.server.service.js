@@ -4,21 +4,44 @@
   var request = require('request');
 
   /* Make a GET request to a file's Github raw download url to retrieve the post's markdown data.  */
-  module.exports.getFile = function (url, cb) {
+  module.exports.getRawFile = function (url, cb) {
+    console.log(url);
     var options = {
       url: url,
       method: 'GET'
     };
 
     /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
-    var callback = function (error, response, body) {
+
+    request(options, function (error, response, body) {
+      if (error) {
+        console.log('ERROR: error');
+      } else {
+        console.log("callback body: ", body);
+        return cb(body, error, url);
+      }
+    });
+  };
+
+  module.exports.getFileFromAPI = function (token, url, cb) {
+    var options = {
+      url: url,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': 'token ' + token,
+        'User-Agent': 'Crouton'
+      }
+    };
+
+    /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
+    request(options, function (error, response, body, url) {
       if (error) {
         console.log('ERROR: error');
       } else {
         return cb(body, error, url);
       }
-    };
-    request(options, callback);
+    });
   };
 
   module.exports.addRepo = function (token, username) {
@@ -112,7 +135,7 @@
         console.log('ERROR: error');
       } else {
         console.log(body);
-        var userId = body['id'];
+        var userId = body.id;
         console.log('UserId: ', userId);
         return cb(userId, error);
       }

@@ -6,6 +6,52 @@
   var fs = require('fs');
   var service = require('../services/repo.server.service.js');
 
+  /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
+  var downloadUrl = function (file, username, repoName) {
+    return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
+  };
+
+  /* Adds all new posts to the database. */
+  exports.addPosts = function (filesToAdd, username, userId, repoName) {
+
+    /* Go to the url of each file, get the file from Github, and add the title to the database */
+    for (var i = 0; i < filesToAdd.length; i++) {
+      service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function (data, err, url) {
+        if (err) {
+          console.log("ERROR: ", err);
+        } else {
+          /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
+          var metadata = exports.getMetadata(data);
+          var date = new Date();
+          var postData = {
+            title: metadata.title || "Default Title",
+            url: url,
+            user_id: userId
+          };
+
+          /* Add post to the database.  Log an error if there was a problem. */
+          Post.add(postData, function (error) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
+      });
+    }
+  };
+
+  exports.removePosts = function (filesToRemove, username, repoName) {
+    for (var i = 0; i < filesToRemove.length; i++) {
+      console.log(downloadUrl(filesToRemove[i], username, repoName));
+    }
+  };
+
+  exports.modifyPosts = function (filesToModify, username, repoName) {
+    for (var i = 0; i < filesToModify.length; i++) {
+      console.log(downloadUrl(filesToModify[i], username, repoName));
+    }
+  };
+
   /* Gets post data from Github */
   exports.postReceive = function (req, res) {
 
@@ -20,59 +66,11 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
+    var userId = null; //TODO: make this equal userID from db
 
-    /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
-    var downloadUrl = function (file) {
-      return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
-    };
-
-    /* Adds all new posts to the database. */
-    var addPosts = function (filesToAdd, username) {
-
-      /* This is the callback function that gets run once the data is resolved from the http request we make to Github for post's markdown content. */
-      var getFileCallback = function (data, err, url) {
-        if (err) {
-          console.log("ERROR: ", err);
-        } else {
-          /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
-          var metadata = exports.getMetadata(data);
-          var date = new Date();
-          var postData = {
-            title: metadata.title || "Default Title",
-            url: url
-          };
-
-          /* Add post to the database.  Log an error if there was a problem. */
-          Post.add(postData, function(error) {
-            if (error) {
-              console.log(error);
-            }
-          });
-        }
-      };
-
-      /* Go to the url of each file, get the file from Github, and add the title to the database */
-      for (var i = 0; i < filesToAdd.length; i++) {
-        service.getFile(downloadUrl(filesToAdd[i]), getFileCallback);
-      }
-    };
-
-    var removePosts = function (filesToRemove, username) {
-      for (var i = 0; i < filesToRemove.length; i++) {
-        console.log(downloadUrl(filesToRemove[i]));
-      }
-    };
-
-    var modifyPosts = function (filesToModify, username) {
-      for (var i = 0; i < filesToModify.length; i++) {
-        console.log(downloadUrl(filesToModify[i]));
-      }
-    };
-
-    addPosts(filesAdded, username);
-    removePosts(filesRemoved, username);
-    modifyPosts(filesModified, username);
-
+    exports.addPosts(filesAdded, username, userId, repoName);
+    exports.removePosts(filesRemoved, username, repoName);
+    exports.modifyPosts(filesModified, username, repoName);
   };
 
   exports.postInfo = function (req, res) {
