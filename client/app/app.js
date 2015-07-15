@@ -58,8 +58,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //TODO: html5mode?
     $stateProvider
       .state('home', {
-<<<<<<< HEAD
-        url: '/',
+        url: '/?token',
         views: {
           content: {
             templateUrl: 'app/components/home/home.html',
@@ -68,8 +67,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           subnav: {
             templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'homeController'
-=======
-        url: '/?token',
+          }
+        },
         templateUrl: 'app/components/home/home.html',
         controller: 'homeController',
         resolve: {
@@ -89,7 +88,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
                 window.location = "/";          
               });
             }            
->>>>>>> # This is a combination of 2 commits.
           }
         }
       })
