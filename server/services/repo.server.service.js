@@ -120,7 +120,7 @@
   };
 
   /* This function takes a github username and returns a callback whose first argument is the user's github ID */
-  module.exports.getUser = function (username, cb) {
+  module.exports.getUserId = function (username, cb) {
     var options = {
       url: "https://api.github.com/users/" + username,
       method: 'GET',
@@ -130,21 +130,14 @@
       }
     };
 
-    var callback = function (error, response, body) {
+    var getUserIdCallback = function (error, response, body) {
       if (error) {
         console.log('ERROR: error');
       } else {
-<<<<<<< HEAD
-        console.log(body);
-        var userId = body.id;
-        console.log('UserId: ', userId);
-        return cb(userId, error);
-=======
         return cb(JSON.parse(body).id);
->>>>>>> (feat) Add service to pull github id using github username
       }
     };
-    request(options, callback);
+    request(options, getUserIdCallback);
   };
 
 })();
