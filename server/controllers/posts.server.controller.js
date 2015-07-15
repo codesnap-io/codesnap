@@ -5,6 +5,7 @@
   var fm = require('front-matter');
   var fs = require('fs');
   var service = require('../services/repo.server.service.js');
+  var User = require('../models/user.server.model');
 
   /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
   var downloadUrl = function (file, username, repoName) {
@@ -68,10 +69,21 @@
     var filesModified = req.body.head_commit.modified;
 
     /* Get github userId from username */
-    service.getUserId(username, function(userId) {
-      exports.addPosts(filesAdded, username, userId, repoName);
-      exports.removePosts(filesRemoved, username, repoName);
-      exports.modifyPosts(filesModified, username, repoName);
+    service.getGithubUserId(username, function(error, githubUserId) {
+      if (error) {
+        console.log(error);
+      } else {
+        /* Lookup user by github ID in database */
+        User.findByGithubId(githubUserId, function(error, user) {
+          if (error) {
+            console.log("ERROR: ", error);
+          } else {
+            exports.addPosts(filesAdded, username, user.id, repoName);
+            exports.removePosts(filesRemoved, username, repoName);
+            exports.modifyPosts(filesModified, username, repoName);
+          }
+        });
+      }
     });
 
   };
@@ -116,29 +128,28 @@
   //end testing
 
   /* Dummy Data */
-  // if (process.env.NODE_ENV === 'development') {
-  //   console.log("AAAAAA");
-  //   var req = {};
-  //   var res = {
-  //     sendStatus: function() {
-  //       return;
-  //     }
-  //   };
-  //   req.body = {
-  //     repository: {
-  //       name: 'crouton.io',
-  //       owner: {
-  //         name: 'smkhalsa'
-  //       }
-  //     },
-  //     head_commit: {
-  //       added: ['posts/myPost.md'],
-  //       removed: [],
-  //       modified: []
-  //     }
-  //   };
+   if (process.env.NODE_ENV === 'development') {
+     var req = {};
+     var res = {
+       sendStatus: function() {
+         return;
+       }
+     };
+     req.body = {
+       repository: {
+         name: 'crouton.io',
+         owner: {
+           name: 'smkhalsa'
+         }
+       },
+       head_commit: {
+         added: ['posts/myPost.md'],
+         removed: [],
+         modified: []
+       }
+     };
 
-  //   exports.postReceive(req, res);
-  // }
+     exports.postReceive(req, res);
+   }
 
 })();
