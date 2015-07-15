@@ -22,15 +22,12 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'homeController',
     'signupController',
     'postController',
-<<<<<<< HEAD
     'postFactory',
     'userController',
     //markdown parser
-    'mdParserDirective'
-=======
+    'mdParserDirective',
     'userController',
     'authFactory'
->>>>>>> # This is a combination of 2 commits.
   ])
     .config(config)
     .run(run);
