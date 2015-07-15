@@ -59,8 +59,8 @@
             posts.url AS post_url, \
             users.name AS author \
           FROM posts, users \
-          WHERE posts.user_id = users.id \
-            AND posts.id = ' + postId).then(function (data) {
+          WHERE posts.id = ' + postId).then(function (data) {
+          console.log(data)
           callback(null, data[0]);
         });
       }
