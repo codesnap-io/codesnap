@@ -1,22 +1,18 @@
 angular.module('postController', [])
 
-.controller('postController', function ($scope) {
-  $scope.post = {
-    id: 1,
-    title: "The Best Title Ever!",
-    authorPic: "https://d262ilb51hltx0.cloudfront.net/fit/c/80/80/0*xZl_kLRGSfBND02C.jpg",
-    author: "Michael Arnold",
-    content: "##sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content " +
-      "sample post content sample post content sample post content sample post content. "
-  };
+.controller('postController', function ($scope, $stateParams, postFactory) {
+  $scope.post_id = $stateParams.id;
+  postFactory.getPostData($scope.post_id)
+    .then(function (post, err) {
+      if (err) {
+        console.log(err);
+      }
+      postFactory.getPost(post[0].post_url)
+        .then(function (post, err) {
+          if (err) {
+            console.log(err);
+          }
+          $scope.post = post;
+        });
+    });
 });

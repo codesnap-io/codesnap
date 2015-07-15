@@ -1,8 +1,24 @@
-(function(){
+(function () {
 
+  var Promise = require('bluebird');
   var request = require('request');
 
-  module.exports.addRepo = function(token, username){
+  module.exports.getFile = function (url, cb) {
+    var options = {
+      url: url,
+      method: 'GET'
+    };
+    var callback = function (error, response, body) {
+      if (error) {
+        console.log('ERROR: error');
+      } else {
+        return cb(body, error);
+      }
+    };
+    request(options, callback);
+  };
+
+  module.exports.addRepo = function (token, username) {
 
     /* These are the details for the repo that's created */
     var repoName = 'crouton.io';
@@ -13,7 +29,7 @@
     var options = {
       url: 'https://api.github.com/user/repos',
       method: 'POST',
-      body: '{ "name": "' + repoName +'", "homepage": "' + homepage + '", "description": "' + description + '" }',
+      body: '{ "name": "' + repoName + '", "homepage": "' + homepage + '", "description": "' + description + '" }',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
@@ -22,7 +38,7 @@
     };
 
     /* This callback gets run after the repo is created */
-    var callback = function(error, response, body) {
+    var callback = function (error, response, body) {
       if (error) {
         console.log('ERROR: ', error);
       } else {
@@ -40,7 +56,7 @@
         };
 
         /* This callback gets run after the first post is created */
-        var callback = function(error, response, body) {
+        var callback = function (error, response, body) {
           if (error) {
             console.log('ERROR: ', error);
           } else {
@@ -49,19 +65,19 @@
              * the dummy post doesn't get added to our database */
             var options = {
               url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
-                  method: 'POST',
-                  body: '{ "name": "web", "config": {"url": "http://www.crouton.io/postreceive/github", "content_type": "json"} }',
-                  headers: {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Authorization': 'token ' + token,
-                    'User-Agent': 'Crouton'
-                  }
+              method: 'POST',
+              body: '{ "name": "web", "config": {"url": "http://www.crouton.io/postreceive/github", "content_type": "json"} }',
+              headers: {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': 'token ' + token,
+                'User-Agent': 'Crouton'
+              }
             };
 
             /* This callback gets run after the webhook is added to the repo */
-            var callback = function(error, response, body) {
+            var callback = function (error, response, body) {
               if (error) {
-                console.log('ERROR: ', error)
+                console.log('ERROR: ', error);
               }
             };
 
