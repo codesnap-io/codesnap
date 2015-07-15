@@ -15,6 +15,29 @@
       });
   };
 
+  Post.remove = function(postUrl, callback) {
+    /* Create a post object which we call
+     .fetch() on to search the database to see
+     if that post already exists */
+    new Post({
+      'url': postUrl
+    })
+        .fetch()
+      /* .fetch() returns a promise so we call .then() */
+        .then(function (post) {
+          /* If the user doesn't exist, return error message. Otherwise return profile information */
+          if (!post) {
+            callback("Invalid post url.\n");
+          } else {
+            db.knex('posts').where('url', postUrl)
+                .del()
+                .then(function () {
+                  callback(null, post);
+                });
+          }
+        });
+  };
+
   Post.edit = function (postData, callback) {
     new Post({
       'id': postData.id

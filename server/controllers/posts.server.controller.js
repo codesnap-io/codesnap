@@ -23,7 +23,6 @@
         } else {
           /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
           var metadata = exports.getMetadata(data);
-          var date = new Date();
           var postData = {
             title: metadata.title || "Default Title",
             url: url,
@@ -42,8 +41,21 @@
   };
 
   exports.removePosts = function (filesToRemove, username, repoName) {
+
+    /* Go to the url of each file, get the file from Github, and add the title to the database */
     for (var i = 0; i < filesToRemove.length; i++) {
-      console.log(downloadUrl(filesToRemove[i], username, repoName));
+      service.getRawFile(downloadUrl(filesToRemove[i], username, repoName), function (data, err, url) {
+        if (err) {
+          console.log("ERROR: ", err);
+        } else {
+          /* Add post to the database.  Log an error if there was a problem. */
+          Post.remove(url, function (error) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
+      });
     }
   };
 
@@ -133,28 +145,28 @@
   //end testing
 
   /* Dummy Data */
-   if (process.env.NODE_ENV === 'development') {
-     var req = {};
-     var res = {
-       sendStatus: function() {
-         return;
-       }
-     };
-     req.body = {
-       repository: {
-         name: 'crouton.io',
-         owner: {
-           name: 'smkhalsa'
-         }
-       },
-       head_commit: {
-         added: ['posts/myPost.md'],
-         removed: [],
-         modified: []
-       }
-     };
-
-     exports.postReceive(req, res);
-   }
+   //if (process.env.NODE_ENV === 'development') {
+   //  var req = {};
+   //  var res = {
+   //    sendStatus: function() {
+   //      return;
+   //    }
+   //  };
+   //  req.body = {
+   //    repository: {
+   //      name: 'crouton.io',
+   //      owner: {
+   //        name: 'smkhalsa'
+   //      }
+   //    },
+   //    head_commit: {
+   //      added: [],
+   //      removed: ['posts/myPost.md'],
+   //      modified: []
+   //    }
+   //  };
+   //
+   //  exports.postReceive(req, res);
+   //}
 
 })();
