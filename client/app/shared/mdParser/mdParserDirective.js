@@ -25,6 +25,13 @@ angular.module('mdParserDirective', [])
           var textWithMetadata = ngModel.$viewValue || '';
           var html = marked(extractor(textWithMetadata).body);
           $elem.html(html);
+          //parses relative paths in html and makes them absolute
+          $('md').find('img').each(function() {
+            var src = $(this).attr('src');
+            if (src.substring(0, 7) === 'images/') {
+              $(this).attr('src', 'https://raw.githubusercontent.com/' + $scope.postData.username + '/crouton.io/master/' + src);
+            }
+          });
         };
       }
     };
