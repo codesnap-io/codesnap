@@ -14,31 +14,36 @@
 
   /* Adds all new posts to the database. */
   exports.addPosts = function (filesToAdd, username, userId, repoName) {
-
-    /* Go to the url of each file, get the file from Github, and add the title to the database */
+    console.log("AAAAA");
+    /* Go to the url of each file, get the file from Github, and add the title to the database. */
     for (var i = 0; i < filesToAdd.length; i++) {
       var file = filesToAdd[i];
-      service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function (data, err, url) {
-        if (err) {
-          console.log("ERROR: ", err);
-        } else {
-          /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
-          var metadata = exports.getMetadata(data);
-          var postData = {
-            title: metadata.title || "Default Title",
-            url: url,
-            user_id: userId,
-            file: file
-          };
 
-          /* Add post to the database.  Log an error if there was a problem. */
-          Post.add(postData, function (error) {
-            if (error) {
-              console.log(error);
-            }
-          });
-        }
-      });
+      /* Check to make sure that the file is in the posts folder and that the file is a markdown file. */
+      if (file.slice(0, 6) === 'posts/' && file.slice(-3) === '.md') {
+        service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function (data, err, url) {
+          if (err) {
+            // console.log("ERROR: ", err);
+            console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN addPosts");
+          } else {
+            /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
+            var metadata = exports.getMetadata(data);
+            var postData = {
+              title: metadata.title || "Default Title",
+              url: url,
+              user_id: userId,
+              file: file
+            };
+
+            /* Add post to the database.  Log an error if there was a problem. */
+            Post.add(postData, function (error) {
+              if (error) {
+                console.log(error);
+              }
+            });
+          }
+        });
+      }
     }
   };
 
@@ -48,7 +53,8 @@
     for (var i = 0; i < filesToRemove.length; i++) {
       service.getRawFile(downloadUrl(filesToRemove[i], username, repoName), function (data, err, url) {
         if (err) {
-          console.log("ERROR: ", err);
+          // console.log("ERROR: ", err);
+          console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN removePosts");
         } else {
           /* Add post to the database.  Log an error if there was a problem. */
           Post.remove(url, function (error) {
@@ -65,7 +71,8 @@
     for (var i = 0; i < filesToModify.length; i++) {
       service.getRawFile(downloadUrl(filesToModify[i], username, repoName), function (data, err, url) {
         if (err) {
-          console.log("ERROR: ", err);
+          // console.log("ERROR: ", err);
+          console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN modifyPosts");
         } else {
           /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
           var metadata = exports.getMetadata(data);
@@ -103,12 +110,14 @@
     /* Get github userId from username */
     service.getGithubUserId(username, function (error, githubUserId) {
       if (error) {
-        console.log(error);
+        // console.log(error);
+        console.log("ERROR: CAN'T GET GITHUB USER ID FROM GITHUB IN postReceive");
       } else {
         /* Lookup user by github ID in database */
         User.findByGithubId(githubUserId, function (error, user) {
           if (error) {
-            console.log("ERROR: ", error);
+            // console.log("ERROR: ", error);
+            console.log("ERROR: INVALID GITHUB USER ID IN postReceive");
           } else {
             exports.addPosts(filesAdded, username, user.id, repoName);
             exports.removePosts(filesRemoved, username, repoName);
@@ -164,28 +173,27 @@
   //end testing
 
   /* Dummy Data */
-  //if (process.env.NODE_ENV === 'development') {
-  //  var req = {};
-  //  var res = {
-  //    sendStatus: function() {
-  //      return;
-  //    }
-  //  };
-  //  req.body = {
-  //    repository: {
-  //      name: 'crouton.io',
-  //      owner: {
-  //        name: 'smkhalsa'
-  //      }
-  //    },
-  //    head_commit: {
-  //      added: ['posts/myFirstPost.md'],
-  //      removed: [],
-  //      modified: []
-  //    }
-  //  };
-  //
-  //  exports.postReceive(req, res);
-  //}
+  if (process.env.NODE_ENV === 'development') {
+   var req = {};
+   var res = {
+     sendStatus: function() {
+       return;
+     }
+   };
+   req.body = {
+     repository: {
+       name: 'crouton.io',
+       owner: {
+         name: 'bdstein33'
+       }
+     },
+     head_commit: {
+       added: ['posts/myFirstPost.md'],
+       removed: [],
+       modified: []
+     }
+   };
+   exports.postReceive(req, res);
+  }
 
 })();

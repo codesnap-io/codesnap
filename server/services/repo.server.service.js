@@ -5,19 +5,16 @@
 
   /* Make a GET request to a file's Github raw download url to retrieve the post's markdown data.  */
   module.exports.getRawFile = function (url, cb) {
-    console.log(url);
     var options = {
       url: url,
       method: 'GET'
     };
 
     /* This function runs a callback on the contents retrieved from the http request to Github for the file's markdown. This function is used in various functions in the post controller. */
-
     request(options, function (error, response, body) {
       if (error) {
-        console.log('ERROR: error');
+        console.log("ERROR: CAN'T GET RAW FILE FROM GITHUB");
       } else {
-        console.log("callback body: ", body);
         return cb(body, error, url);
       }
     });
@@ -130,7 +127,6 @@
                 console.error(err);
               } else {
                 console.log('saved image');
-                console.log(body);
               }
             });
 
