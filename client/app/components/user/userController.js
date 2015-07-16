@@ -9,7 +9,7 @@ angular.module('userController', ['userFactory'])
     });
 
   $scope.removeUser = function () {
-    userFactory.removeUser($scope.userID)
+    userFactory.removeUser($scope.user.id)
       .then(function (user) {
       });
   };

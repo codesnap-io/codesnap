@@ -26,6 +26,7 @@
     app.get('/auth/github/callback', app.cors(),
       passport.authenticate('github', { failureRedirect: '/login' }), users.githubRedirect);
 
+    /* Verifies that the token passed as a parameter in the client is valid */
     app.post('/auth/checktoken', users.checkToken);
 
     /* Paramenters: user_id
