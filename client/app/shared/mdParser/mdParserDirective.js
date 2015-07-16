@@ -23,15 +23,7 @@ angular.module('mdParserDirective', [])
         }
         ngModel.$render = function () {
           var textWithMetadata = ngModel.$viewValue || '';
-          var lexedText = marked.lexer(textWithMetadata);
-          var stripMeta = function (lex) {
-            lex.shift();
-            lex.shift();
-            lex.shift();
-            return lex;
-          };
-          var textContent = stripMeta(lexedText);
-          var html = marked(marked.parser(textContent));
+          var html = marked(extractor(textWithMetadata).body);
           $elem.html(html);
         };
       }
