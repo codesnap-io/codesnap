@@ -1,10 +1,9 @@
 angular.module('userController', ['userFactory'])
 
 .controller('userController', function ($scope, userFactory) {
-  //TODO: how to get a user?
-  $scope.userID = 3;
+  $scope.userId = localStorage.userId;
 
-  userFactory.getUser($scope.userID)
+  userFactory.getUser($scope.userId)
     .then(function (user) {
       $scope.user = user;
     });
