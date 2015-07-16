@@ -80,7 +80,9 @@
             posts.id AS post_id, \
             posts.title AS post_title, \
             posts.url AS post_url, \
-            users.name AS author \
+            posts.file AS file, \
+            users.name AS author, \
+            users.username AS username \
           FROM posts, users \
           WHERE posts.user_id = users.id \
           AND posts.id = ' + postId)

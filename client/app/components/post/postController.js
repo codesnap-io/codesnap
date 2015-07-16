@@ -10,6 +10,8 @@ angular.module('postController', [])
       if (err) {
         console.log(err);
       } else {
+        /* The Url to propose changes to the post on github */
+        $scope.editUrl = "https://github.com/" + post[0].username + "/crouton.io/edit/master/" + post[0].file;
         /* If post data is successfully retrieved, get the markdown file at it's specified url */
         postFactory.getPostMarkdown(post[0].post_url)
         .then(function (post, err) {
