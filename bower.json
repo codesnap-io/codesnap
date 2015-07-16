@@ -21,7 +21,8 @@
     "foundation-apps": "~1.1.0",
     "highlightjs": "~8.6.0",
     "marked": "~0.3.3",
-    "ngAnimate": "*"
+    "ngAnimate": "*",
+    "jquery": "~2.1.4"
   },
   "resolutions": {
     "angular": ">= 1.0.8"
