@@ -23,10 +23,12 @@ zf-panel#categoryPanel.fixed-panel
       |  in #{' '}
       span.topic-name {{topic}}:
   .grid-container
-    .grid-content
+    .grid-block.vertical
       .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.post_id}} })")
         hr
-        h2 {{post.post_title}}
-        //- img(src="{{post.authorPic}}")
-        h5 {{post.author}}
+        .grid-content
+          h2 {{post.post_title}}
+        .grid-content
+          img(src="{{post.profile_photo_url}}")
+          h5 {{post.author}}
         //- p {{post.post_content}}

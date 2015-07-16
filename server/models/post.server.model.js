@@ -82,7 +82,8 @@
             posts.url AS post_url, \
             posts.file AS file, \
             users.name AS author, \
-            users.username AS username \
+            users.username AS username, \
+            users.profile_photo_url AS profile_photo_url \
           FROM posts, users \
           WHERE posts.user_id = users.id \
           AND posts.id = ' + postId)
@@ -99,7 +100,8 @@
         posts.id AS post_id, \
         posts.title AS post_title, \
         posts.url AS post_url, \
-        users.name AS author \
+        users.name AS author, \
+        users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
       WHERE posts.user_id = users.id')
     .then(function (data) {

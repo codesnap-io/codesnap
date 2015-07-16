@@ -12,7 +12,6 @@ angular.module('navbarDirective', ['authFactory', 'userFactory'])
         userFactory.getUser(localStorage.userId)
           .then(function (user) {
             $scope.user = user;
-            console.log($scope.user);
           });
 
       },
