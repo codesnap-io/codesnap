@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "postinstall": "bower install && gulp sass && gulp jade"
+    "postinstall": "bower update && bower install && gulp sass && gulp jade"
   },
   "repository": {
     "type": "git",
