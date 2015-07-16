@@ -22,5 +22,8 @@
     "highlightjs": "~8.6.0",
     "marked": "~0.3.3",
     "ngAnimate": "*"
+  },
+  "resolutions": {
+    "angular": ">= 1.0.8"
   }
 }
