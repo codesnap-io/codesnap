@@ -14,6 +14,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'foundation.dynamicRouting',
     // Transitioning between views
     'foundation.dynamicRouting.animations',
+    //markdown parser
+    'mdParserDirective',
     //shared
     'navbarDirective',
     //components
@@ -23,8 +25,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'postFactory',
     'userController',
     'authFactory',
-    //markdown parser
-    'mdParserDirective',
     'userController',
     'authFactory'
   ])

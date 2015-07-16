@@ -33,8 +33,9 @@ html.no-js(ng-app="crouton" lang="en")
     //navbar
     script(src="app/shared/navbar/navbarDirective.js")
     //markdown directive
+    script(src="app/shared/mdParser/fm.js")
     script(src="app/shared/mdParser/mdParserDirective.js")
-    //auth factory 
+    //auth factory
     script(src="app/shared/auth/authFactory.js")
 
 
@@ -43,8 +44,9 @@ html.no-js(ng-app="crouton" lang="en")
     link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
     link(href="assets/css/styles.min.css" rel="stylesheet")
 
-    //markdown parser lib
+    //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
+
     //code highlighter
     script(src="assets/lib/highlightjs/highlight.pack.js")
     script hljs.initHighlightingOnLoad();

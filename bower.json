@@ -1,34 +1,26 @@
 {
-  "name": "technical-blog",
+  "name": "Crouton",
   "version": "0.0.0",
-  "homepage": "https://github.com/bdstein33/tog",
+  "homepage": "https://github.com/m-arnold/tog",
   "authors": [
-    "Ben Steinberg",
-    "Chris Clayman",
-    "Michael Arnold",
-    "Sat Khalsa"
+    "m-arnold <michaelaarnold@gmail.com>"
   ],
-  "description": "Blogging platform for software engineers",
+  "description": "A technical blogging platform",
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "client/assets/lib",
     "test",
     "tests"
   ],
   "dependencies": {
-    "angular-ui-router": "~0.2.15",
-    "foundation-apps": "~1.1.0",
-    "ngAnimate": "*",
+    "angular-mocks": "~1.4.2",
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
-    "angular-mocks": "~1.4.2",
+    "foundation-apps": "~1.1.0",
+    "highlightjs": "~8.6.0",
     "marked": "~0.3.3",
-    "highlightjs": "~8.6.0"
-  },
-  "resolutions": {
-    "angular": ">= 1.0.8",
-    "angular-mocks": "~1.4.2",
-    "marked": "~0.3.3"
+    "ngAnimate": "*"
   }
 }
