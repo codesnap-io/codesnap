@@ -120,7 +120,6 @@
 
   exports.postInfo = function (req, res) {
     if (req.query.post_id) {
-      console.log(req.query.post_id);
       var postId = req.query.post_id;
       Post.postInfo(postId, function (error, post) {
         if (error) {

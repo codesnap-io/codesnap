@@ -11,7 +11,6 @@ angular.module('userFactory', [])
       });
     },
     removeUser: function(user) {
-        console.log(user);
         return $http({
           method: 'DELETE',
           url: '/user/info/?user_id=' + user
