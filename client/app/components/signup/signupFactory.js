@@ -7,7 +7,6 @@ angular.module('signupFactory', []);
 //         method: 'GET',
 //         url: 'auth/github'
 //       }).then(function(resp) {
-//         console.log(resp);
 //         return;
 //       });
 //     }

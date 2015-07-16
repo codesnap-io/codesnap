@@ -7,13 +7,11 @@ angular.module('userController', ['userFactory'])
   userFactory.getUser($scope.userID)
     .then(function (user) {
       $scope.user = user;
-      console.log(user);
     });
 
   $scope.removeUser = function () {
     userFactory.removeUser($scope.userID)
       .then(function (user) {
-        console.log($scope.user);
       });
   };
 

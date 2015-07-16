@@ -22,7 +22,6 @@
         returnData.username = user.get('username');
         returnData.id = user.get('id');
 
-        console.log(user);
         db.knex.raw(' \
           SELECT \
             posts.title AS post_title, \

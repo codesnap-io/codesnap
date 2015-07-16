@@ -4,7 +4,6 @@ angular.module('authFactory', [])
   return {
     /* Validates a token before saving it to localStorage and potentially overwriting an existing token.  This is to prevent users from typing in invalid parameters into the url */
     checkNewToken: function(token, callback) {
-      console.log("Checking token");
       $http({
         method: 'POST',
         url: 'auth/checktoken',

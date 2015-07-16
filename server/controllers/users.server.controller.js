@@ -13,10 +13,7 @@
   };
 
   exports.checkToken = function (req, res) {
-    // console.log(req.body);
-    // console.log(req.body.jwtToken);
     try {
-      console.log(req.body.jwtToken);
       var github_id = jwt.decode(req.body.jwtToken, process.env.jwtSecret);
       User.find(github_id, function (error, user) {
         if (error) {
@@ -34,8 +31,6 @@
 
   exports.userInfo = function (req, res) {
     var userId = req.query.user_id;
-    console.log(userId);
-
     User.profileInfo(userId, function (error, user) {
       if (error) {
         console.log(error);

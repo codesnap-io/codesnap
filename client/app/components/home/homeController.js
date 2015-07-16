@@ -5,7 +5,7 @@ angular.module('homeController', [])
   postFactory.getPostsData()
     .then(function (posts, err) {
       if (err) {
-        console.log("err: ", err);
+        console.log("Error: ", err);
       } else {
         $scope.posts = posts;
       }
