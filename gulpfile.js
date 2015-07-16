@@ -15,11 +15,12 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass'),
   path = require('path'),
+  usemin = require('gulp-usemin'),
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
 var paths = {
-  scripts: ['client/js/**/*.js', '!client/lib/**/*'],
+  scripts: ['client/app/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
   jade: ['client/**/*.jade']
 };
@@ -141,11 +142,19 @@ gulp.task('jade', [], function () {
 });
 
 /* html build */
-gulp.task('html', [], function () {
-  gulp.src(paths.jade)
-    .pipe(jade())
-    .pipe(gulp.dest(paths.jade));
+
+/* replace unoptimized scripts with minified */
+gulp.task('html', function () {
+  return gulp.src('paths.jade')
+      .pipe(jade())
+      .pipe(usemin({
+        css: [minifyCss()],
+        js: [uglify()]
+      }))
+      .pipe(gulp.dest('./dist/'));
 });
+
+
 
 /* testing call */
 gulp.task('test', function (done) {

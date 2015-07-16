@@ -1,13 +1,17 @@
 html.no-js(ng-app="crouton" lang="en")
   head
+    
     //---BASICS---
     //angular + foundation
-    script(src="assets/lib/angular/angular.js")
-    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
-    script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.js")
-    script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
+    script(src="assets/lib/angular/angular.min.js")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.min.js")
+    script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.min.js")
+    script(src="assets/lib/angular-ui-router/release/angular-ui-router.min.js")
     //- script(src="assets/lib/ngAnimate/js/angular-animate.min.js")
     script(src="assets/lib/fastclick/lib/fastclick.js")
+    
+    
+    <!-- build:js js/app.min.js -->
     script(src="app/app.js")
 
     //---COMPONENTS---
@@ -37,13 +41,16 @@ html.no-js(ng-app="crouton" lang="en")
     script(src="app/shared/mdParser/mdParserDirective.js")
     //auth factory
     script(src="app/shared/auth/authFactory.js")
-
+    <!-- endbuild -->
 
     //---MARKDOWN STUFF---
     //styles
     link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
+    
+    <!-- build:css css/styles.min.css -->
     link(href="assets/css/styles.min.css" rel="stylesheet")
-
+    <!-- endbuild -->  
+      
     //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
 
@@ -54,7 +61,7 @@ html.no-js(ng-app="crouton" lang="en")
     title Crouton
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-
+      
   body
     cr-navbar.navbar
     ui-view(name="subnav")
