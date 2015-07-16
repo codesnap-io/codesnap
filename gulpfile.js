@@ -15,7 +15,7 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass'),
   path = require('path'),
-  usemin = require('gulp-usemin'),
+  // usemin = require('gulp-usemin'),
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
@@ -147,10 +147,10 @@ gulp.task('jade', [], function () {
 gulp.task('html', function () {
   return gulp.src('paths.jade')
       .pipe(jade())
-      .pipe(usemin({
-        css: [minifyCss()],
-        js: [uglify()]
-      }))
+      // .pipe(usemin({
+      //   css: [minifyCss()],
+      //   js: [uglify()]
+      // }))
       .pipe(gulp.dest('./dist/'));
 });
 
