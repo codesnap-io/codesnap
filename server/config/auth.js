@@ -26,7 +26,7 @@ exports.githubStrategy = function () {
               username: profile.username,
               name: profile.displayName,
               email: profile._json.email,
-              profile_photo_url: 'something'
+              profile_photo_url: profile._json.avatar_url
             }).save().then(function (newUser) {
 
               //determine whether crouton.io repo exists

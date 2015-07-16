@@ -5,7 +5,7 @@
   .right(ng-show="loggedIn")
     zf-action-sheet#profile-picture-action-sheet
       zf-as-button
-        img.profile-picture(src="{{user.pic}}")
+        img.profile-picture(ng-src="{{user.profile_photo_url}}")
       zf-as-content(position="bottom")
         ul
           li
