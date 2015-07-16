@@ -41,6 +41,25 @@
     request(options, callback);
   }
 
+
+  //add first image to repo on signup
+  module.exports.addFirstImage = function (token, username, cb) {
+    /* These are the details for the repo that's created */
+    var repoName = 'crouton.io';
+
+    var options = {
+      url: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/sample.txt',
+      method: 'PUT',
+      body: '{ "message": "(init) add first image", "content": "UHV0IGltYWdlcyBpbnRvIHRoaXMgZm9sZGVyLg=="}',
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': 'token ' + token,
+        'User-Agent': 'Crouton'
+      }
+    };
+    request(options, cb);
+  }
+
   module.exports.getFileFromAPI = function (token, url, cb) {
     var options = {
       url: url,
@@ -106,6 +125,15 @@
             console.log('ERROR: ', error);
           } else {
 
+            module.exports.addFirstImage(token, username, function (err, resp, body) {
+              if (err) {
+                console.error(err);
+              } else {
+                console.log('saved image');
+                console.log(body);
+              }
+            });
+
             /* STEP 3: Create webhook on repo - I'm doing this after the dummy post is created so that
              * the dummy post doesn't get added to our database */
             var options = {
@@ -129,7 +157,6 @@
             request(options, callback);
           }
         };
-
         request(options, callback);
       }
     };
