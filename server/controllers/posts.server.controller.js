@@ -17,6 +17,7 @@
 
     /* Go to the url of each file, get the file from Github, and add the title to the database */
     for (var i = 0; i < filesToAdd.length; i++) {
+      var file = filesToAdd[i];
       service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function (data, err, url) {
         if (err) {
           console.log("ERROR: ", err);
@@ -26,7 +27,8 @@
           var postData = {
             title: metadata.title || "Default Title",
             url: url,
-            user_id: userId
+            user_id: userId,
+            file: file
           };
 
           /* Add post to the database.  Log an error if there was a problem. */
@@ -177,9 +179,9 @@
   //      }
   //    },
   //    head_commit: {
-  //      added: [],
+  //      added: ['posts/myFirstPost.md'],
   //      removed: [],
-  //      modified: ['posts/myFirstPost.md']
+  //      modified: []
   //    }
   //  };
   //

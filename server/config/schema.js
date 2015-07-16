@@ -77,6 +77,7 @@
       db.knex.schema.createTable('posts', function (post) {
         post.increments('id').primary();
         post.string('title', 255);
+        post.string('file', 255);
         post.string('url', 255);
         post.integer('user_id').unsigned().references('users.id');
         post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
