@@ -24,37 +24,33 @@
         user.string('name', 60);
         user.string('email', 30);
         user.string('username', 30);
-        user.string('profile_photo_url', 50);
+        user.string('profile_photo_url', 200);
         user.integer('github_id');
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Users Table');
-        if (process.env.NODE_ENV === 'development') {
-          new User({
-            name: 'Ben Steinberg',
-            email: 'ben@gmail.com',
-            github_id: 1111111,
-            token: '12oi312o3joqwiejqwoiej1oi3j41oij131oi3j'
-          }).save();
-          new User({
-            name: 'Sat Khalsa',
-            email: 'sat@gmail.com',
-            github_id: 2222222,
-            token: '1312o3joqdoasidjosoiej1oi3j41oij131oi3j'
-          }).save();
-          new User({
-            name: 'Michael Arnold',
-            email: 'michael@gmail.com',
-            github_id: 3333333,
-            token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'
-          }).save();
-          new User({
-            name: 'Chris Clayman',
-            email: 'chris@gmail.com',
-            github_id: 4444444,
-            token: 'osaijdoasdjoasidjoasjdsaoidjasdodo'
-          }).save();
-        }
+        // if (process.env.NODE_ENV === 'development') {
+        //   new User({
+        //     name: 'Ben Steinberg',
+        //     email: 'ben@gmail.com',
+        //     github_id: 1111111,
+        //   }).save();
+        //   new User({
+        //     name: 'Sat Khalsa',
+        //     email: 'sat@gmail.com',
+        //     github_id: 2222222,
+        //   }).save();
+        //   new User({
+        //     name: 'Michael Arnold',
+        //     email: 'michael@gmail.com',
+        //     github_id: 3333333,
+        //   }).save();
+        //   new User({
+        //     name: 'Chris Clayman',
+        //     email: 'chris@gmail.com',
+        //     github_id: 4444444,
+        //   }).save();
+        // }
       });
     }
   });
