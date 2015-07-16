@@ -3,6 +3,7 @@
     a.title(ui-sref="home") Crouton
   .center
   .right(ng-show="loggedIn")
+    a.button.small.button-newpost() New Post
     zf-action-sheet#profile-picture-action-sheet
       zf-as-button
         img.profile-picture(ng-src="{{user.profile_photo_url}}")
@@ -13,6 +14,5 @@
             a(ng-click="logout()" zf-hard-toggle="#profile-picture-action-sheet") Logout
   .right(ng-hide="loggedIn")
     a.button.small(ui-sref="signup") Signup or log in
-
-
-  a.button.small.button-newpost New Post
+            
+  
