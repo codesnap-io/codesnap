@@ -1,12 +1,13 @@
 .grid-block.vertical
   .grid-content
+    img(src="{{user.profile_photo_url}}")
     h2 {{user.username}}
     h3 {{user.name}}
   .grid-content
     h3 Posts:
     h4(ng-hide="user.posts.length > 0") You don't have any posts yet!
     .post(ng-repeat="post in user.posts")
-      p {{post}}
+      a(ng-href="{{post.post_url}}") {{post.post_title}}
 
 .grid-block
   .grid-content

@@ -24,6 +24,7 @@
         user.string('name', 60);
         user.string('email', 30);
         user.string('username', 30);
+        user.string('profile_photo_url', 50);
         user.integer('github_id');
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {

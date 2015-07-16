@@ -5,11 +5,13 @@
 
 
   exports.githubRedirect = function (req, res) {
+
     /* Create a token by encoding the user's github_id */
     var token = jwt.encode(req.user.attributes.github_id, process.env.jwtSecret);
 
     /* Sends token as a parameter to the home page.  The home page handles this parameter in the resolve */
-    res.redirect('/#/?token=' + token);
+    /* also sends the id to store locally */
+    res.redirect('/#/?token=' + token + '&userid=' + req.user.attributes.id);
   };
 
   exports.checkToken = function (req, res) {
@@ -23,7 +25,6 @@
         }
       });
     } catch (error) {
-      console.log("Invalid token3");
       res.json(false);
     }
 

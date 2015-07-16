@@ -21,6 +21,7 @@
         returnData.name = user.get('name');
         returnData.username = user.get('username');
         returnData.id = user.get('id');
+        returnData.profile_photo_url = user.get('profile_photo_url');
 
         db.knex.raw(' \
           SELECT \

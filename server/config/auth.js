@@ -13,6 +13,7 @@ exports.githubStrategy = function () {
       callbackURL: process.env.githubCallbackUrl
     },
     function (accessToken, refreshToken, profile, done) {
+      console.log(profile);
       User.where({
         github_id: profile.id
       })
@@ -24,7 +25,8 @@ exports.githubStrategy = function () {
               github_id: profile.id,
               username: profile.username,
               name: profile.displayName,
-              email: profile._json.email
+              email: profile._json.email,
+              profile_photo_url: profile._json.avatar_url
             }).save().then(function (newUser) {
 
               //determine whether crouton.io repo exists

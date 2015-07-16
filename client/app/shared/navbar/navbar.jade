@@ -2,13 +2,17 @@
   .left
     a.title(ui-sref="home") Crouton
   .center
-  .right(ng-show="$rootScope.loggedIn")
+  .right(ng-show="loggedIn")
     zf-action-sheet#profile-picture-action-sheet
       zf-as-button
-        img.profile-picture(src="{{user.pic}}")
+        img.profile-picture(ng-src="{{user.profile_photo_url}}")
       zf-as-content(position="bottom")
         ul
           li
             a(ui-sref="profile" zf-hard-toggle="#profile-picture-action-sheet") Profile
-            a(ui-sref="logout" zf-hard-toggle="#profile-picture-action-sheet") Logout
-    a.button.small.button-newpost New Post
+            a(ng-click="logout()" zf-hard-toggle="#profile-picture-action-sheet") Logout
+  .right(ng-hide="loggedIn")
+    a.button.small(ui-sref="signup") Signup or log in
+            
+  
+  a.button.small.button-newpost New Post

@@ -39,7 +39,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //TODO: html5mode?
     $stateProvider
       .state('home', {
-        url: '/?token',
+        url: '/?token&userid',
         authenticate: false,
         views: {
           content: {
@@ -55,12 +55,15 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         controller: 'homeController',
         resolve: {
           authUser: function ($stateParams, $location, authFactory) {
+
+
             if (Boolean($stateParams.token)) {
               /* Check for valid token */
               authFactory.checkNewToken($stateParams.token, function (valid) {
-                /* If token is valid, set it to local storage */
+                /* If token is valid, set it to local storage  and userId */
                 if (valid) {
                   localStorage.jwtToken = $stateParams.token;
+                  localStorage.userId = $stateParams.userid;
                   /* If token is not valid, remove existing token if it exists as a security measure */
                 } else {
                   authFactory.removeToken();
@@ -113,9 +116,14 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     Redirects is false returned  */
     $rootScope.$on("$stateChangeStart",
       function (event, toState, toParams, fromState, fromParams) {
-        $rootScope.loggedIn = true;
+
+        //let the client know at the root scope whether user is actually logged in.
+        //This will allow certain elements to hide and show based on user status
+        $rootScope.loggedIn = authFactory.loggedIn();
+
+
+        //redirect to signup if state destination needs auth and if user is not logged in.
         if (toState.authenticate && !authFactory.loggedIn()) {
-          $rootScope.loggedIn = false;
           $state.go("signup");
           event.preventDefault();
         }
