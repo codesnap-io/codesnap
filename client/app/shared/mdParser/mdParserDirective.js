@@ -1,17 +1,17 @@
 angular.module('mdParserDirective', [])
   .directive('md', function () {
-  if (typeof hljs !== 'undefined') {
-    marked.setOptions({
-      gfm: true,
-      highlight: function (code, lang) {
-        if (lang) {
-          return hljs.highlight(lang, code).value;
-        } else {
-          return hljs.highlightAuto(code).value;
+    if (typeof hljs !== 'undefined') {
+      marked.setOptions({
+        gfm: true,
+        highlight: function (code, lang) {
+          if (lang) {
+            return hljs.highlight(lang, code).value;
+          } else {
+            return hljs.highlightAuto(code).value;
+          }
         }
-      }
-    });
-  }
+      });
+    }
     return {
       restrict: 'E',
       require: '?ngModel',
@@ -22,7 +22,16 @@ angular.module('mdParserDirective', [])
           return;
         }
         ngModel.$render = function () {
-          var html = marked(ngModel.$viewValue || '');
+          var textWithMetadata = ngModel.$viewValue || '';
+          var lexedText = marked.lexer(textWithMetadata);
+          var stripMeta = function (lex) {
+            lex.shift();
+            lex.shift();
+            lex.shift();
+            return lex;
+          };
+          var textContent = stripMeta(lexedText);
+          var html = marked(marked.parser(textContent));
           $elem.html(html);
         };
       }

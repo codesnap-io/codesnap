@@ -39,7 +39,7 @@
       }
     };
     request(options, callback);
-  }
+  };
 
 
   //add first image to repo on signup
@@ -58,7 +58,7 @@
       }
     };
     request(options, cb);
-  }
+  };
 
   module.exports.getFileFromAPI = function (token, url, cb) {
     var options = {
