@@ -11,6 +11,7 @@
 
     /* Sends token as a parameter to the home page.  The home page handles this parameter in the resolve */
     /* also sends the id to store locally */
+
     res.redirect('/#/?token=' + token + '&userid=' + req.user.attributes.id);
   };
 

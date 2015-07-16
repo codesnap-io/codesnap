@@ -1,11 +1,11 @@
 .grid-block.vertical
   .grid-block.shrink.vertical.medium-horizontal.title-box
     .grid-content
-      h1.post-title {{post.title}}
+      h1.post-title {{postData.post_title}}
     .grid-content.shrink.author-picture
-      img(src="{{post.authorPic}}")
+      img(src="{{postData.profile_photo_url}}" alt="profile photo")
     .grid-content.author-info
-      h5 {{post.author}}
+      h5 {{postData.author}}
       h6
         small Tagged as:
     .btn-change
