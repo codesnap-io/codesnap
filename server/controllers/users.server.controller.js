@@ -43,20 +43,16 @@
 
   };
 
+  /* Remove user and all associated posts, post comments, post tags and post votes from the database */
   exports.deleteUser = function (req, res) {
     var userId = req.query.user_id;
-
     User.remove(userId, function (error, user) {
       if (error) {
-        console.log(error);
-        res.send(error);
+        res.json(true);
       } else {
-        res.json(user);
+        res.json(false);
       }
     });
-
-
   };
-
 
 })();

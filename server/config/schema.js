@@ -76,7 +76,7 @@
         post.string('title', 255);
         post.string('file', 255);
         post.string('url', 255);
-        post.integer('user_id').unsigned().references('users.id');
+        post.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
         post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Posts Table');
@@ -152,8 +152,8 @@
     if (!exists) {
       db.knex.schema.createTable('post_tag_join', function (post_tag_join) {
         post_tag_join.increments('id').primary();
-        post_tag_join.integer('post_id').unsigned().references('posts.id');
-        post_tag_join.integer('tag_id').unsigned().references('tags.id');
+        post_tag_join.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
+        post_tag_join.integer('tag_id').unsigned().references('tags.id').onDelete('CASCADE');
         post_tag_join.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Post Tag Join Table');
@@ -181,7 +181,8 @@
       db.knex.schema.createTable('comments', function (comment) {
         comment.increments('id').primary();
         comment.string('text', 255);
-        comment.integer('user_id').unsigned().references('users.id');
+        comment.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
+        comment.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
         comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function (table) {
         console.log('Created Comments Table');
@@ -207,6 +208,7 @@
     if (!exists) {
       db.knex.schema.createTable('votes', function (vote) {
         vote.increments('id').primary();
+        vote.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
         vote.integer('user_id').unsigned().references('users.id');
         vote.integer('rank');
         vote.timestamps(); /* Creates created_at, updated_at */
@@ -223,45 +225,57 @@
 
   var User = exports.User = db.Model.extend({
     tableName: 'users',
-    posts: function () {
+    posts: function() {
       return this.hasMany(Post);
     },
-    comments: function () {
+    comments: function() {
       return this.hasMany(Comment);
     },
-    votes: function () {
+    votes: function() {
       return this.hasMany(Vote);
     }
   });
 
   var Post = exports.Post = db.Model.extend({
     tableName: 'posts',
-    user: function () {
+    user: function() {
       return this.belongsTo(User, 'user_id');
     },
-    tags: function () {
+    tags: function() {
       return this.belongsToMany(Tag, 'tag_id');
+    },
+    comments: function() {
+      return this.hasMany(Comment);
+    },
+    votes: function() {
+      return this.hasMany(Vote);
     }
   });
 
   var Comment = exports.Comment = db.Model.extend({
     tableName: 'comments',
-    user: function () {
+    user: function() {
       return this.belongsTo(User, 'user_id');
+    },
+    post: function() {
+      return this.belongsTo(Post, 'post_id');
     }
   });
 
   var Tag = exports.Tag = db.Model.extend({
     tableName: 'tags',
-    posts: function () {
+    posts: function() {
       return this.belongsToMany(Post, 'post_id');
     }
   });
 
   var Vote = exports.Vote = db.Model.extend({
     tableName: 'votes',
-    user: function () {
+    user: function() {
       this.belongsto(User, 'user_id');
+    },
+    post: function() {
+      this.belongsTo(Post, 'post_id');
     }
   });
 })();

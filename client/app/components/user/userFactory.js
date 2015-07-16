@@ -1,21 +1,29 @@
 angular.module('userFactory', [])
 
-.factory('userFactory', function($http) {
+.factory('userFactory', function($http, authFactory) {
   return {
-    getUser: function(user) {
+    /* Get user information from server including:
+       name, username, id, profile_photo_url, posts */
+    getUser: function(userId) {
       return $http({
       method: 'GET',
-      url: '/user/info/?user_id=' + user
+      url: '/user/info/?user_id=' + userId
     }).then(function(resp) {
         return resp.data;
       });
     },
-    removeUser: function(user) {
+
+    /* Send user id to server to remove user and associated posts from database */
+    removeUser: function(userId) {
         return $http({
           method: 'DELETE',
-          url: '/user/info/?user_id=' + user
+          url: '/user/info/?user_id=' + userId
         }).then(function(resp) {
-        return resp;
+          if (resp.data) {
+            console.log("Error deleting user");
+          } else {
+            authFactory.logout();
+          }
         });
     }
   };
