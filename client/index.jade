@@ -1,20 +1,19 @@
 html.no-js(ng-app="crouton" lang="en")
   head
-    
+
     //---BASICS---
     //angular + foundation
-    script(src="assets/lib/angular/angular.min.js")
-    script(src="assets/lib/foundation-apps/dist/js/foundation-apps.min.js")
-    script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.min.js")
-    script(src="assets/lib/angular-ui-router/release/angular-ui-router.min.js")
-    //- script(src="assets/lib/ngAnimate/js/angular-animate.min.js")
-    script(src="assets/lib/fastclick/lib/fastclick.js")
-    
-    script(src="assets/lib/jquery/dist/jquery.min.js")
-
-    
-    
-    <!-- build:js js/app.min.js -->
+    //- script(src="assets/lib/angular/angular.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js")
+    //- script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
+    script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-1.1.0.min.js")
+    //- script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.js")
+    script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-templates-1.1.0.min.js")
+    //- script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js")
+    //- script(src="assets/lib/fastclick/lib/fastclick.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     script(src="app/app.js")
 
     //---COMPONENTS---
@@ -49,22 +48,23 @@ html.no-js(ng-app="crouton" lang="en")
     //---MARKDOWN STUFF---
     //styles
     link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
-    
+
     <!-- build:css css/styles.min.css -->
     link(href="assets/css/styles.min.css" rel="stylesheet")
-    <!-- endbuild -->  
-      
+    <!-- endbuild -->
+
     //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
 
     //code highlighter
-    script(src="assets/lib/highlightjs/highlight.pack.js")
-    script hljs.initHighlightingOnLoad();
+    //- script(src="assets/lib/highlightjs/highlight.pack.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js")
+    //- script hljs.initHighlightingOnLoad();
 
     title Crouton
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-      
+
   body
     cr-navbar.navbar
     ui-view(name="subnav")
