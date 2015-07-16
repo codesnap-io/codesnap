@@ -86,7 +86,6 @@
 
   /* Gets post data from Github */
   exports.postReceive = function (req, res) {
-
     res.sendStatus(201);
 
     /* The data points we're receiving from the Github webhook.  It's possible that one or many of the filename arrays will contain data */
@@ -100,12 +99,12 @@
     var filesModified = req.body.head_commit.modified;
 
     /* Get github userId from username */
-    service.getGithubUserId(username, function(error, githubUserId) {
+    service.getGithubUserId(username, function (error, githubUserId) {
       if (error) {
         console.log(error);
       } else {
         /* Lookup user by github ID in database */
-        User.findByGithubId(githubUserId, function(error, user) {
+        User.findByGithubId(githubUserId, function (error, user) {
           if (error) {
             console.log("ERROR: ", error);
           } else {
@@ -136,7 +135,7 @@
     }
   };
 
-  exports.allPostsInfo = function(req, res) {
+  exports.allPostsInfo = function (req, res) {
     Post.getAllPosts(function (error, posts) {
       if (error) {
         console.log(error);
@@ -164,28 +163,28 @@
   //end testing
 
   /* Dummy Data */
-   //if (process.env.NODE_ENV === 'development') {
-   //  var req = {};
-   //  var res = {
-   //    sendStatus: function() {
-   //      return;
-   //    }
-   //  };
-   //  req.body = {
-   //    repository: {
-   //      name: 'crouton.io',
-   //      owner: {
-   //        name: 'smkhalsa'
-   //      }
-   //    },
-   //    head_commit: {
-   //      added: [],
-   //      removed: [],
-   //      modified: ['posts/myFirstPost.md']
-   //    }
-   //  };
-   //
-   //  exports.postReceive(req, res);
-   //}
+  //if (process.env.NODE_ENV === 'development') {
+  //  var req = {};
+  //  var res = {
+  //    sendStatus: function() {
+  //      return;
+  //    }
+  //  };
+  //  req.body = {
+  //    repository: {
+  //      name: 'crouton.io',
+  //      owner: {
+  //        name: 'smkhalsa'
+  //      }
+  //    },
+  //    head_commit: {
+  //      added: [],
+  //      removed: [],
+  //      modified: ['posts/myFirstPost.md']
+  //    }
+  //  };
+  //
+  //  exports.postReceive(req, res);
+  //}
 
 })();

@@ -34,6 +34,16 @@ exports.githubStrategy = function () {
                 repos.forEach(function (item) {
                   if (item.name === "crouton.io") {
 
+                    //add first 'image' to repo
+                    repo.addFirstImage(accessToken, profile.username, function (err, resp, body) {
+                      if (err) {
+                        console.error(err);
+                      } else {
+                        console.log(body);
+                        console.log('success?');
+                      }
+                    });
+
                     //get all markdown files within post folder
                     repo.getFileFromAPI(accessToken, 'https://api.github.com/repos/' + profile.username + '/crouton.io/contents/posts', function (body, error, url) {
                       var files = JSON.parse(body);
