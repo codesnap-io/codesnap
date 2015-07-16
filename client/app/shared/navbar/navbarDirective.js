@@ -12,9 +12,8 @@ angular.module('navbarDirective', ['authFactory', 'userFactory'])
         userFactory.getUser(localStorage.userId)
           .then(function (user) {
             $scope.user = user;
-            console.log($scope.user);
+            $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
           });
-
       },
       link: function ($scope, element, attrs) {
         //DOM manipulation stuff goes here
