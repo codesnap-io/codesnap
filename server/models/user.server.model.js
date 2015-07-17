@@ -4,6 +4,7 @@
   var User = require('../config/schema').User;
 
   User.profileInfo = function (userId, callback) {
+    console.log("\n\nIN PROFILEINFO USERID IS: ", userId);
     /* Create a user object which we call
     .fetch() on to search the database to see
     if that user already exists */
@@ -12,7 +13,7 @@
     })
       .fetch()
     /* .fetch() returns a promise so we call .then() */
-    .then(function (user) {
+    .then(function (user, error) {
       /* If the user doesn't exist, return error message. Otherwise return profile information */
       if (!user) {
         callback("Invalid user id.\n");

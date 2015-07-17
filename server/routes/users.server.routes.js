@@ -24,7 +24,7 @@
       login page.  Otherwise, the primary route function function will be called,
       which, in this example, will redirect the user to the home page. */
     app.get('/auth/github/callback', app.cors(),
-      passport.authenticate('github', { failureRedirect: '/login' }), users.githubRedirect);
+      passport.authenticate('github', { failureRedirect: '/#/signup' }), users.githubRedirect);
 
     /* Passes encoded user id token to client if a session exists.  HTTP request is made to this url in the home page resolve if there is no jwtToken saved in localStorage.  This is a workaround for the difficulty we had passing authentication information to the client from the auth/github/callback */
     app.get('/auth/checkauth', users.checkAuth);
