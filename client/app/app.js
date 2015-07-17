@@ -39,7 +39,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //TODO: html5mode?
     $stateProvider
       .state('home', {
-        url: '/?token&userid',
+        url: '/',
         authenticate: false,
         views: {
           nav: {
@@ -57,22 +57,15 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         templateUrl: 'app/components/home/home.html',
         controller: 'homeController',
         resolve: {
+          /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
           authUser: function ($stateParams, $location, authFactory) {
-
-
-            if (Boolean($stateParams.token)) {
-              /* Check for valid token */
-              authFactory.checkNewToken($stateParams.token, function (valid) {
-                /* If token is valid, set it to local storage  and userId */
-                if (valid) {
-                  localStorage.jwtToken = $stateParams.token;
-                  localStorage.userId = $stateParams.userid;
-                  /* If token is not valid, remove existing token if it exists as a security measure */
-                } else {
-                  authFactory.removeToken();
+            console.log("jwtToken exists: ", !!localStorage.jwtToken);
+            if (!localStorage.jwtToken) {
+              authFactory.checkAuth(function(token) {
+                if (!!token) {
+                  localStorage.jwtToken = token;
+                  console.log("SUCCESS");
                 }
-                /* Redirect back to home page so user never sees parameters */
-                window.location = "/";
               });
             }
           }
@@ -129,7 +122,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         //let the client know at the root scope whether user is actually logged in.
         //This will allow certain elements to hide and show based on user status
         $rootScope.loggedIn = authFactory.loggedIn();
-
+        console.log($rootScope.loggedIn);
 
         //redirect to signup if state destination needs auth and if user is not logged in.
         if (toState.authenticate && !authFactory.loggedIn()) {

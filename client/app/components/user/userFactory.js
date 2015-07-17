@@ -4,27 +4,27 @@ angular.module('userFactory', [])
   return {
     /* Get user information from server including:
        name, username, id, profile_photo_url, posts */
-    getUser: function(userId) {
+    getUser: function() {
       return $http({
       method: 'GET',
-      url: '/user/info/?user_id=' + userId
+      url: '/user/info/?user_id=' + localStorage.jwtToken
     }).then(function(resp) {
         return resp.data;
       });
     },
 
     /* Send user id to server to remove user and associated posts from database */
-    removeUser: function(userId) {
-        return $http({
-          method: 'DELETE',
-          url: '/user/info/?user_id=' + userId
-        }).then(function(resp) {
-          if (resp.data) {
-            console.log("Error deleting user");
-          } else {
-            authFactory.logout();
-          }
-        });
+    removeUser: function() {
+      return $http({
+        method: 'DELETE',
+        url: '/user/info/?user_id=' + localStorage.jwtToken
+      }).then(function(resp) {
+        if (resp.data) {
+          console.log("Error deleting user");
+        } else {
+          authFactory.logout();
+        }
+      });
     }
   };
 });

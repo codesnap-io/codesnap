@@ -14,13 +14,12 @@
 
   /* Adds all new posts to the database. */
   exports.addPosts = function (filesToAdd, username, userId, repoName) {
-    console.log("AAAAA");
     /* Go to the url of each file, get the file from Github, and add the title to the database. */
     for (var i = 0; i < filesToAdd.length; i++) {
       var file = filesToAdd[i];
 
       /* Check to make sure that the file is in the posts folder and that the file is a markdown file. */
-      if (file.slice(0, 6) === 'posts/' && file.slice(-3) === '.md') {
+      if (file.slice(0, 6) === 'posts/' && file.slice(-3).toLowerCase() === '.md') {
         service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function (data, err, url) {
           if (err) {
             // console.log("ERROR: ", err);
@@ -173,27 +172,27 @@
   //end testing
 
   /* Dummy Data */
-  if (process.env.NODE_ENV === 'development') {
-   var req = {};
-   var res = {
-     sendStatus: function() {
-       return;
-     }
-   };
-   req.body = {
-     repository: {
-       name: 'crouton.io',
-       owner: {
-         name: 'bdstein33'
-       }
-     },
-     head_commit: {
-       added: ['posts/myFirstPost.md'],
-       removed: [],
-       modified: []
-     }
-   };
-   exports.postReceive(req, res);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //  var req = {};
+  //  var res = {
+  //    sendStatus: function() {
+  //      return;
+  //    }
+  //  };
+  //  req.body = {
+  //    repository: {
+  //      name: 'crouton.io',
+  //      owner: {
+  //        name: 'bdstein33'
+  //      }
+  //    },
+  //    head_commit: {
+  //      added: ['posts/myFirstPost.md'],
+  //      removed: [],
+  //      modified: []
+  //    }
+  //  };
+  //  exports.postReceive(req, res);
+  // }
 
 })();

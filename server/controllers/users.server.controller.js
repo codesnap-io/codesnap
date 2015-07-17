@@ -3,50 +3,42 @@
   var jwt = require('jwt-simple');
   var User = require('../models/user.server.model');
 
-
-  exports.githubRedirect = function (req, res) {
-
-    /* Create a token by encoding the user's github_id */
-    var token = jwt.encode(req.user.attributes.github_id, process.env.jwtSecret);
+  exports.githubRedirect = function(req, res) {
+    req.session.user = req.user;
 
     /* Sends token as a parameter to the home page.  The home page handles this parameter in the resolve */
-    /* also sends the id to store locally */
-
-    res.redirect('/#/?token=' + token + '&userid=' + req.user.attributes.id);
+    res.redirect('/');
   };
 
-  exports.checkToken = function (req, res) {
-    try {
-      var github_id = jwt.decode(req.body.jwtToken, process.env.jwtSecret);
-      User.find(github_id, function (error, user) {
-        if (error) {
-          res.json(false);
-        } else {
-          res.json(true);
-        }
-      });
-    } catch (error) {
+  /* If user exists in the session, passes encoded user id to the front end. */
+  exports.checkAuth = function(req, res) {
+    if (!!req.session.user) {
+      /* Create a token by encoding the user's id */
+      var token = jwt.encode(req.session.user.id, process.env.jwtSecret);
+      console.log(jwt.decode(token, process.env.jwtSecret));
+      res.json(token);
+    } else {
       res.json(false);
     }
-
   };
 
-  exports.userInfo = function (req, res) {
-    var userId = req.query.user_id;
+  /* Takes the encoded user id from the client and returns:
+     name, username, profile_pic_url and user's posts */
+  exports.userInfo = function(req, res) {
+    var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
+    console.log("USER ID: ", userId);
     User.profileInfo(userId, function (error, user) {
       if (error) {
-        console.log(error);
         res.send(error);
       } else {
         res.json(user);
       }
     });
-
   };
 
-  /* Remove user and all associated posts, post comments, post tags and post votes from the database */
-  exports.deleteUser = function (req, res) {
-    var userId = req.query.user_id;
+  /* Takes encoded user id token and removes user and all associated posts, post comments, post tags and post votes from the database */
+  exports.deleteUser = function(req, res) {
+    var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
     User.remove(userId, function (error, user) {
       if (error) {
         res.json(true);
