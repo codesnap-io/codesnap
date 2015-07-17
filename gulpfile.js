@@ -72,7 +72,7 @@ gulp.task('scripts', function () {
 
 
 /* css compiliation for production. Also browsersync called */
-gulp.task('css', function () {
+gulp.task('css', ['sass'], function () {
   return gulp.src(paths.css)
     .pipe(sourcemaps.init())
     .pipe(sass())
