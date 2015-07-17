@@ -31,6 +31,7 @@
       if (error) {
         res.send(error);
       } else {
+        console.log("IN USERINFO USER IS: ", user);
         res.json(user);
       }
     });
