@@ -41,8 +41,6 @@ exports.githubStrategy = function () {
                       if (err) {
                         console.error(err);
                       } else {
-                        console.log(body);
-                        console.log('success?');
                       }
                     });
 

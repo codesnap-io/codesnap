@@ -146,17 +146,17 @@
                 console.error(err);
               } else {
                 console.log('saved image');
+                module.exports.addReadme(token, username, function (err, resp, body) {
+                  if (err) {
+                    console.error(err);
+                  } else {
+                    console.log('saved readme');
+                    console.log(body);
+                  }
+                });
               }
             });
 
-            module.exports.addReadme(token, username, function (err, resp, body) {
-              if (err) {
-                console.error(err);
-              } else {
-                console.log('saved readme');
-                console.log(body);
-              }
-            });
 
             /* STEP 3: Create webhook on repo - I'm doing this after the dummy post is created so that
              * the dummy post doesn't get added to our database */
