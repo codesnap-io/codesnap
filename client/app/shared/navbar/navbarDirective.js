@@ -1,14 +1,16 @@
 angular.module('navbarDirective', ['authFactory', 'userFactory'])
   .directive('crNavbar', function () {
     return {
-      templateUrl: 'app/shared/navbar/navbar.html',
       controller: function ($scope, $rootScope, authFactory, userFactory) {
+
+        /* determines whether user is logged in. see app.js for root scope assignment */
         $scope.loggedIn = $rootScope.loggedIn;
 
         $scope.logout = function() {
           return authFactory.logout();
         };
 
+        /* sets new post url for link according to logged in user */
         userFactory.getUser(localStorage.userId)
           .then(function (user) {
             $scope.user = user;

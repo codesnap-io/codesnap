@@ -42,6 +42,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/?token&userid',
         authenticate: false,
         views: {
+          nav: {
+            templateUrl: 'app/shared/navbar/navbar.html'
+          },
           content: {
             templateUrl: 'app/components/home/home.html',
             controller: 'homeController'
@@ -79,6 +82,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/post/{id:int}',
         authenticate: false,
         views: {
+          nav: {
+            templateUrl: 'app/shared/navbar/navbar.html'
+          },
           content: {
             templateUrl: 'app/components/post/post.html',
             controller: 'postController'
@@ -99,6 +105,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: true,
         url: '/profile',
         views: {
+          nav: {
+            templateUrl: 'app/shared/navbar/navbar.html'
+          },
           content: {
             templateUrl: 'app/components/user/user.html',
             controller: 'userController'
