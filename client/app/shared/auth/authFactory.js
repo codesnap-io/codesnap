@@ -7,7 +7,6 @@ angular.module('authFactory', [])
         method: 'GET',
         url: 'auth/checkauth'
       }).then(function(res) {
-        console.log(res.data);
         callback(res.data);
       });
     },

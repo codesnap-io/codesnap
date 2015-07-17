@@ -12,18 +12,23 @@ angular.module('navbarDirective', ['authFactory', 'userFactory'])
         };
 
 
-        // $scope.$watch('$rootScope.loggedIn', function() {
-          $scope.loggedIn = $rootScope.loggedIn;
-          if ($rootScope.loggedIn) {
+        $scope.$watch(function() {
+          return  window.localStorage.jwtToken;
+        }, function(token) {
+
+          if (!$scope.user && !!token) {
             userFactory.getUser()
             .then(function (user) {
-              console.log(user);
+
               $scope.user = user;
+              $scope.loggedIn = !!user;
+              // console.log($scope.user);
+              // console.log("Logged In: ", $scope.loggedIn);
 
               $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
             });
           }
-        // });
+        });
 
       },
       link: function ($scope, element, attrs) {

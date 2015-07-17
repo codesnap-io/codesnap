@@ -59,12 +59,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         resolve: {
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
           authUser: function ($stateParams, $location, authFactory) {
-            console.log("jwtToken exists: ", !!localStorage.jwtToken);
             if (!localStorage.jwtToken) {
               authFactory.checkAuth(function(token) {
                 if (!!token) {
                   localStorage.jwtToken = token;
-                  console.log("SUCCESS");
                 }
               });
             }
@@ -122,7 +120,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         //let the client know at the root scope whether user is actually logged in.
         //This will allow certain elements to hide and show based on user status
         $rootScope.loggedIn = authFactory.loggedIn();
-        console.log($rootScope.loggedIn);
 
         //redirect to signup if state destination needs auth and if user is not logged in.
         if (toState.authenticate && !authFactory.loggedIn()) {
