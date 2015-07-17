@@ -11,5 +11,6 @@
   process.env.githubClientSecret = "FILL THIS IN";
   process.env.githubCallbackUrl = "FILL THIS IN";
   process.env.jwtSecret = "FILL THIS IN";
+  process.env.CLIENT_FILES = "FILL THIS IN";
 
 })();
