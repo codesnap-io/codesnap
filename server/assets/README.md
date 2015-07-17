@@ -1,5 +1,4 @@
 # Welcome to Crouton.io
------------------------
 
 Below are a few instructions and other information about your crouton.
 
