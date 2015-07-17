@@ -14,6 +14,9 @@ html.no-js(ng-app="crouton" lang="en")
     //- script(src="assets/lib/fastclick/lib/fastclick.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+    
+    
+    <!-- build:js(./client/) js/app.min.js -->
     script(src="app/app.js")
 
     //---COMPONENTS---
@@ -49,7 +52,7 @@ html.no-js(ng-app="crouton" lang="en")
     //styles
     link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
 
-    <!-- build:css css/styles.min.css -->
+    <!-- build:css(./client/) css/styles.min.css -->
     link(href="assets/css/styles.min.css" rel="stylesheet")
     <!-- endbuild -->
 
