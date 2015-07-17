@@ -7,7 +7,10 @@ angular.module('userFactory', [])
     getUser: function() {
       return $http({
       method: 'GET',
-      url: '/user/info/?user_id=' + localStorage.jwtToken
+      url: '/user/info/',
+      params: {
+        user_id: localStorage.jwtToken
+      }
     }).then(function(resp) {
         return resp.data;
       });
@@ -17,7 +20,10 @@ angular.module('userFactory', [])
     removeUser: function() {
       return $http({
         method: 'DELETE',
-        url: '/user/info/?user_id=' + localStorage.jwtToken
+        url: '/user/info/',
+        params: {
+          user_id: localStorage.jwtToken
+        }
       }).then(function(resp) {
         if (resp.data) {
           console.log("Error deleting user");

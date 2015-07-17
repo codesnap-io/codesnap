@@ -38,6 +38,7 @@
 
   /* Takes encoded user id token and removes user and all associated posts, post comments, post tags and post votes from the database */
   exports.deleteUser = function(req, res) {
+    console.log(req.query.user_id);
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
     User.remove(userId, function (error, user) {
       if (error) {
