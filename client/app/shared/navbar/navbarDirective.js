@@ -24,7 +24,6 @@
               $scope.loggedIn = !!user;
               // console.log($scope.user);
               // console.log("Logged In: ", $scope.loggedIn);
-              console.log(user);
               $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
               });
             }
