@@ -16,13 +16,14 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   path = require('path'),
   usemin = require('gulp-usemin'),
-  clean = require('gulp-clean'),
+  del = require('del'),
+  imagemin = require('gulp-imagemin'),
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
 var paths = {
-  scripts: ['client/app/**/*.js', '!client/lib/**/*'],
-  css: 'client/assets/scss/*.scss',
+  scripts: ['client/app/**/*.js', '!client/lib/**/*', "client/assets/lib/marked/lib/marked.js"],
+  css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
   html: ['client/**/*.html', '!client/lib/**/*']
 };
@@ -44,7 +45,7 @@ gulp.task('watch', ['jade', 'sass', 'browser-sync'], function () {
 
 
 /* build task, which will properly build entire client */
-gulp.task('build', ['scripts', 'css', 'usemin'], function () {
+gulp.task('build', ['scripts', 'css', 'usemin', 'images'], function () {
   console.log('app built');
 });
 
@@ -52,8 +53,7 @@ gulp.task('build', ['scripts', 'css', 'usemin'], function () {
 
 /* clean dist folder */
 gulp.task('clean', function (cb) {
-  return gulp.src('./dist', {read: false})
-        .pipe(clean());
+  del('./dist', cb)
 });
 
 
@@ -67,7 +67,7 @@ gulp.task('scripts', function () {
     .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist/assets/js'));
 });
 
 
@@ -79,7 +79,7 @@ gulp.task('css', function () {
     .pipe(minifyCss())
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./dist/css"));
+    .pipe(gulp.dest("./dist/assets/css"));
 });
 
 /* simply compile sass to css */
@@ -156,7 +156,21 @@ gulp.task('usemin', ['html'], function() {
     return gulp.src('./dist/index.html')
       .pipe(usemin())
       .pipe(gulp.dest('./dist/'));
-})
+});
+
+
+/* minify and move images */
+gulp.task('images', function () {
+    return gulp.src('./client/assets/img/**/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+
+        }))
+        .pipe(gulp.dest('dist/assets/img'));
+});
+
+
 
 
 /* testing call */

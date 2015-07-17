@@ -1,4 +1,6 @@
-angular.module('userFactory', [])
+(function() {
+  'use strict';
+  angular.module('userFactory', [])
 
 .factory('userFactory', function($http, authFactory) {
   return {
@@ -24,13 +26,9 @@ angular.module('userFactory', [])
         params: {
           user_id: localStorage.jwtToken
         }
-      }).then(function(resp) {
-        if (resp.data) {
-          console.log("Error deleting user");
-        } else {
-          authFactory.logout();
-        }
       });
     }
-  };
-});
+
+    };
+  });
+})();

@@ -1,4 +1,10 @@
-angular.module('signupFactory', []);
+(function() {
+  'use strict';
+
+  angular.module('signupFactory', []);
+
+})();
+
 
 // .factory('signupFactory', function($http) {
 //   return {

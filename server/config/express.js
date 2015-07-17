@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  // var config = require('./config.js');
+  var config = require('./config.js');
   var express = require('express');
   var morgan = require('morgan');
   var bodyParser = require('body-parser');
@@ -25,7 +25,7 @@
 
     /* whitelist of CORS available origins */
     // TODO: change these origins for production
-    var whitelist = ['http://localhost:8000', 'http://localhost:5000'];
+    var whitelist = ['http://www.crouton.io'];
     app.corsOptions = {
       origin: function(origin, callback){
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
@@ -37,7 +37,8 @@
     app.use(bodyParser.json());
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
-    app.use(express.static('client'));
+    console.log(process.env.CLIENT_FILES);
+    app.use(express.static(process.env.CLIENT_FILES));
 
     /* Initialize passport for authentication */
     app.use(passport.initialize());

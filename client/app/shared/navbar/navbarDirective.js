@@ -1,10 +1,10 @@
-angular.module('navbarDirective', ['authFactory', 'userFactory'])
-  .directive('crNavbar', function () {
-    return {
-      controller: function ($scope, $rootScope, authFactory, userFactory) {
+(function() {
+  'use strict';
 
-        /* determines whether user is logged in. see app.js for root scope assignment */
-        $scope.loggedIn = $rootScope.loggedIn;
+  angular.module('navbarDirective', ['authFactory', 'userFactory'])
+    .directive('crNavbar', function () {
+      return {
+        controller: function ($scope, $rootScope, authFactory, userFactory) {
 
 
         $scope.logout = function() {
@@ -25,14 +25,16 @@ angular.module('navbarDirective', ['authFactory', 'userFactory'])
               // console.log($scope.user);
               // console.log("Logged In: ", $scope.loggedIn);
 
-              $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
-            });
-          }
-        });
+                $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
+              });
+            }
+          });
 
-      },
-      link: function ($scope, element, attrs) {
-        //DOM manipulation stuff goes here
-      }
-    };
-  });
+        },
+        link: function ($scope, element, attrs) {
+          //DOM manipulation stuff goes here
+        }
+      };
+    });
+
+})();
