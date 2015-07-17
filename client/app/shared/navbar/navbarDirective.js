@@ -6,16 +6,30 @@ angular.module('navbarDirective', ['authFactory', 'userFactory'])
         /* determines whether user is logged in. see app.js for root scope assignment */
         $scope.loggedIn = $rootScope.loggedIn;
 
+
         $scope.logout = function() {
           return authFactory.logout();
         };
 
-        /* sets new post url for link according to logged in user */
-        userFactory.getUser(localStorage.userId)
-          .then(function (user) {
-            $scope.user = user;
-            $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
-          });
+
+        $scope.$watch(function() {
+          return  window.localStorage.jwtToken;
+        }, function(token) {
+
+          if (!$scope.user && !!token) {
+            userFactory.getUser()
+            .then(function (user) {
+
+              $scope.user = user;
+              $scope.loggedIn = !!user;
+              // console.log($scope.user);
+              // console.log("Logged In: ", $scope.loggedIn);
+
+              $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
+            });
+          }
+        });
+
       },
       link: function ($scope, element, attrs) {
         //DOM manipulation stuff goes here

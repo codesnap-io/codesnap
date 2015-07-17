@@ -26,10 +26,10 @@
     app.get('/auth/github/callback', app.cors(),
       passport.authenticate('github', { failureRedirect: '/login' }), users.githubRedirect);
 
-    /* Verifies that the token passed as a parameter in the client is valid */
-    app.post('/auth/checktoken', users.checkToken);
+    /* Passes encoded user id token to client if a session exists.  HTTP request is made to this url in the home page resolve if there is no jwtToken saved in localStorage.  This is a workaround for the difficulty we had passing authentication information to the client from the auth/github/callback */
+    app.get('/auth/checkauth', users.checkAuth);
 
-    /* Paramenters: user_id
+    /* Parameters: user_id
        Data returned: all user info [WILL BE UPDATED] */
     app.get('/user/info', users.userInfo);
 

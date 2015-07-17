@@ -13,7 +13,6 @@ exports.githubStrategy = function () {
       callbackURL: process.env.githubCallbackUrl
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
       User.where({
         github_id: profile.id
       })
@@ -90,11 +89,3 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
-
-
-/* this function can be used if we choose to run sessions */
-
-// exports.authenticate = function(req, res, next) {
-//   if (req.isAuthenticated()) { return next(); }
-//   res.redirect('/login');
-// };

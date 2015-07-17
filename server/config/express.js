@@ -8,9 +8,11 @@
   var passport = require('passport');
   var path = require('path');
   var cors = require('cors');
+  var session = require('express-session');
 
   module.exports = function () {
     var app = express();
+    app.use(session({ secret: 'qoiwej2o3iej23', cookie: { maxAge: 60000 }}));
 
     if (process.env.NODE_ENV === 'development') {
       /* morgan is middleware that logs server activity to the console.  We only want to use it in a development setting */
