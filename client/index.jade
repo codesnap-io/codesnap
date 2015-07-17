@@ -16,7 +16,7 @@ html.no-js(ng-app="crouton" lang="en")
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     
     
-    <!-- build:js(./client/) js/app.min.js -->
+    <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
 
     //---COMPONENTS---
@@ -46,18 +46,18 @@ html.no-js(ng-app="crouton" lang="en")
     script(src="app/shared/mdParser/mdParserDirective.js")
     //auth factory
     script(src="app/shared/auth/authFactory.js")
+    
+    //markdown parser libs
+    script(src="assets/lib/marked/lib/marked.js")
     <!-- endbuild -->
 
     //---MARKDOWN STUFF---
-    //styles
-    link(href="assets/lib/css3-social-signin-buttons/auth-buttons.css" rel="stylesheet")
 
-    <!-- build:css(./client/) css/styles.min.css -->
+    <!-- build:css(./client/) assets/css/styles.min.css -->
+    //styles
     link(href="assets/css/styles.min.css" rel="stylesheet")
     <!-- endbuild -->
 
-    //markdown parser libs
-    script(src="assets/lib/marked/lib/marked.js")
 
     //code highlighter
     //- script(src="assets/lib/highlightjs/highlight.pack.js")
