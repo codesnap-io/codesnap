@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-})();
+
 
 var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
@@ -15,14 +15,16 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass'),
   path = require('path'),
-  // usemin = require('gulp-usemin'),
+  usemin = require('gulp-usemin'),
+  clean = require('gulp-clean'),
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
 var paths = {
   scripts: ['client/app/**/*.js', '!client/lib/**/*'],
   css: 'client/assets/scss/*.scss',
-  jade: ['client/**/*.jade']
+  jade: ['client/**/*.jade'],
+  html: ['client/**/*.html', '!client/lib/**/*']
 };
 
 
@@ -42,7 +44,7 @@ gulp.task('watch', ['jade', 'sass', 'browser-sync'], function () {
 
 
 /* build task, which will properly build entire client */
-gulp.task('build', ['scripts', 'css', 'html'], function () {
+gulp.task('build', ['scripts', 'css', 'usemin'], function () {
   console.log('app built');
 });
 
@@ -50,7 +52,8 @@ gulp.task('build', ['scripts', 'css', 'html'], function () {
 
 /* clean dist folder */
 gulp.task('clean', function (cb) {
-  del(['dist'], cb);
+  return gulp.src('./dist', {read: false})
+        .pipe(clean());
 });
 
 
@@ -144,16 +147,16 @@ gulp.task('jade', [], function () {
 /* html build */
 
 /* replace unoptimized scripts with minified */
-gulp.task('html', function () {
-  return gulp.src('paths.jade')
-      .pipe(jade())
-      // .pipe(usemin({
-      //   css: [minifyCss()],
-      //   js: [uglify()]
-      // }))
-      .pipe(gulp.dest('./dist/'));
+gulp.task('html', ['jade'], function () {
+  return gulp.src(paths.html)
+      .pipe(gulp.dest('dist'));
 });
 
+gulp.task('usemin', ['html'], function() {
+    return gulp.src('./dist/index.html')
+      .pipe(usemin())
+      .pipe(gulp.dest('./dist/'));
+})
 
 
 /* testing call */
@@ -216,3 +219,5 @@ gulp.task('integrate', function () {
   console.log('\n');
   console.log('*****YOU DID IT******');
 });
+
+})();
