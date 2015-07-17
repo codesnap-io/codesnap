@@ -7,7 +7,7 @@
     h3 Posts:
     h4(ng-hide="user.posts.length > 0") You don't have any posts yet!
     .post(ng-repeat="post in user.posts")
-      a(ng-href="{{post.post_url}}") {{post.post_title}}
+      a(ui-sref="post({id: {{post.post_id}} })") {{post.post_title}}
 
 .grid-block
   .grid-content

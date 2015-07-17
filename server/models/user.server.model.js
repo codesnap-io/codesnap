@@ -26,7 +26,8 @@
         db.knex.raw(' \
           SELECT \
             posts.title AS post_title, \
-            posts.url AS post_url \
+            posts.url AS post_url, \
+            posts.id AS post_id \
           FROM posts, users \
           WHERE posts.user_id = users.id \
             AND users.id = ' + userId).then(function (data) {
