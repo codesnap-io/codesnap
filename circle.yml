@@ -3,6 +3,3 @@ deployment:
     branch: master
     heroku:
       appname: croutonio
-    commands:
-      - gulp clean
-      - gulp build
