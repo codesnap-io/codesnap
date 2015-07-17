@@ -13,7 +13,7 @@
 
 
         $scope.$watch(function() {
-          return  window.localStorage.jwtToken;
+          return window.localStorage.jwtToken;
         }, function(token) {
 
           if (!$scope.user && !!token) {
@@ -24,8 +24,8 @@
               $scope.loggedIn = !!user;
               // console.log($scope.user);
               // console.log("Logged In: ", $scope.loggedIn);
-
-                $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
+              console.log(user);
+              $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
               });
             }
           });

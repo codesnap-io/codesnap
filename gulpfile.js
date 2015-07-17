@@ -53,7 +53,7 @@ gulp.task('build', ['scripts', 'css', 'usemin', 'images'], function () {
 
 /* clean dist folder */
 gulp.task('clean', function (cb) {
-  del('./dist', cb)
+  del('./dist', cb);
 });
 
 
@@ -164,8 +164,7 @@ gulp.task('images', function () {
     return gulp.src('./client/assets/img/**/*')
         .pipe(imagemin({
             progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-
+            svgoPlugins: [{removeViewBox: false}]
         }))
         .pipe(gulp.dest('dist/assets/img'));
 });
