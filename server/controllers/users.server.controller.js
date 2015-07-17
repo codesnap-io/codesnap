@@ -15,7 +15,6 @@
     if (!!req.session.user) {
       /* Create a token by encoding the user's id */
       var token = jwt.encode(req.session.user.id, process.env.jwtSecret);
-      console.log(jwt.decode(token, process.env.jwtSecret));
       res.json(token);
     } else {
       res.json(false);
@@ -26,7 +25,6 @@
      name, username, profile_pic_url and user's posts */
   exports.userInfo = function(req, res) {
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
-    console.log("USER ID: ", userId);
     User.profileInfo(userId, function (error, user) {
       if (error) {
         res.send(error);
