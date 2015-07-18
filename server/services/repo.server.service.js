@@ -9,7 +9,7 @@
   //Promise versions:
 
   /*
-  put files in repo -- takes username, token, and a path obj:
+  put file in repo -- takes username, token, and a path obj:
   {
     uri: "REPO PATH",
     serverPath: "SERVER PATH",
@@ -123,7 +123,7 @@
     //add repo
     rp(addRepoOptions)
       .then(function(body) {
-        // console.log("repo added");
+        console.log("repo added");
       })
       //add various files to repo
       .then(function(body) {
@@ -136,20 +136,11 @@
         // console.log("ready to add webhook");
         rp(addWebhookOptions);
       })
-      .catch(function(error) {
-        console.error(error.message);
+      .catch(function(e) {
+        if (e.name.statusCode !== 422) {
+          console.error("Error in addGHRepo: ", e);
+        }
       });
   };
 
-  // module.exports.getFileFromAPI = function(token, url, cb) {
-  //   var options = {
-  //     url: url,
-  //     method: 'GET',
-  //     headers: {
-  //       'Accept': 'application/vnd.github.v3+json',
-  //       'Authorization': 'token ' + token,
-  //       'User-Agent': 'Crouton'
-  //     }
-  //   };
-  // };
 })();

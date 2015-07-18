@@ -4,7 +4,7 @@
   var User = require('../config/schema').User;
 
   User.profileInfo = function (userId, callback) {
-    console.log("\n\nIN PROFILEINFO USERID IS: ", userId);
+    // console.log("\n\nIN PROFILEINFO USERID IS: ", userId);
     /* Create a user object which we call
     .fetch() on to search the database to see
     if that user already exists */
