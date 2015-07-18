@@ -7,6 +7,8 @@
   var express = require('./config/express');
   var app = express();
 
+  require('./config/tagScraper');
+
 
   app.listen(process.env.PORT);
   module.exports = app;

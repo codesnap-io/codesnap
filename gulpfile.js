@@ -212,7 +212,7 @@ gulp.task('protractor', function(cb) {
 // /* eslint task */
 gulp.task('lint', function () {
   console.log('*****LINTING*****');
-  return gulp.src(['server/**/*.js', 'client/**/*.js', '!client/assets/**', '!client/app/shared/mdParser/fm.js', './gulpfile.js'])
+  return gulp.src(['server/**/*.js', 'client/**/*.js', '!client/assets/**', '!client/app/shared/mdParser/fm.js', './gulpfile.js', '!server/assets/**'])
     .pipe(eslint())
     .pipe(eslint.format());
 });
