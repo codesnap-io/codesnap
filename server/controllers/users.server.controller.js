@@ -26,7 +26,7 @@
     if (!!req.session) {
       req.session.destroy(function(err) {
         if (err) {
-          console.log(err);
+          console.error("Error on user session delete: ", err);
         }
       });
       res.json(true);

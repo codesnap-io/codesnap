@@ -12,8 +12,6 @@
     return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
   };
 
-  //----------PROMISE VERSION------------
-
   //adds posts to db
   exports.addPostsToDb = function(filesToAdd, username, userId, repoName) {
     //go to URI of each file, add title to db
@@ -36,12 +34,12 @@
             /* Add post to the database.  Log an error if there was a problem. */
             Post.add(postData, function(error) {
               if (error) {
-                console.error(error);
+                console.error("Error during Post add: ", error);
               }
             });
           })
           .catch(function(error) {
-            console.error(error);
+            console.error("Error during add Posts to db: ", error);
           });
       }
     });
@@ -52,7 +50,7 @@
     filesToRemove.forEach(function(file) {
       url = downloadUrl(filesToRemove[i], username, repoName);
       Post.remove(url, function(error) {
-        console.error(error);
+        console.error("Error during post remove: ", error);
       });
     });
   };
@@ -72,12 +70,12 @@
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error) {
             if (error) {
-              console.error(error);
+              console.error("Error during post modify: ", error);
             }
           });
         })
         .catch(function(error) {
-          throw new Error("Error: ", error);
+          console.error("Error during modify posts in db: ", error);
         });
     });
   };
@@ -100,14 +98,16 @@
     service.getGHUser(username)
       .then(function(user) {
         var githubUserId = JSON.parse(user).id;
+        //find user by github userId and add/remove/modify as needed
         User.findByGithubId(githubUserId, function(error, user) {
           if (error) {
             // console.log("ERROR: ", error);
             console.log("ERROR: INVALID GITHUB USER ID IN postReceive");
           } else {
-            exports.addPosts(filesAdded, username, user.id, repoName);
-            exports.removePosts(filesRemoved, username, repoName);
-            exports.modifyPosts(filesModified, username, repoName);
+            console.log("user found, adding / removing / modifying files");
+            exports.addPostsToDb(filesAdded, username, user.id, repoName);
+            exports.removePostsfromDb(filesRemoved, username, repoName);
+            exports.modifyPostsInDb(filesModified, username, repoName);
           }
         });
       })
@@ -115,127 +115,6 @@
         throw new Error("Error: ", error);
       });
   };
-
-
-  //----------END PROMISE VERSION--------
-
-
-  // /* Adds all new posts to the database. */
-  // exports.addPosts = function(filesToAdd, username, userId, repoName) {
-  //   console.log("AAAAA");
-  //   /* Go to the url of each file, get the file from Github, and add the title to the database. */
-  //   for (var i = 0; i < filesToAdd.length; i++) {
-  //     var file = filesToAdd[i];
-
-  //     /* Check to make sure that the file is in the posts folder and that the file is a markdown file. */
-  //     if (file.slice(0, 6) === 'posts/' && file.slice(-3) === '.md') {
-  //       service.getRawFile(downloadUrl(filesToAdd[i], username, repoName), function(data, err, url) {
-  //         if (err) {
-  //           // console.log("ERROR: ", err);
-  //           console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN addPosts");
-  //         } else {
-  //           /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
-  //           var metadata = exports.getMetadata(data);
-  //           var postData = {
-  //             title: metadata.title || "Default Title",
-  //             url: url,
-  //             user_id: userId,
-  //             file: file
-  //           };
-
-  //           /* Add post to the database.  Log an error if there was a problem. */
-  //           Post.add(postData, function(error) {
-  //             if (error) {
-  //               console.log(error);
-  //             }
-  //           });
-  //         }
-  //       });
-  //     }
-  //   }
-  // };
-
-  // exports.removePosts = function(filesToRemove, username, repoName) {
-
-  //   /* Go to the url of each file, get the file from Github, and add the title to the database */
-  //   for (var i = 0; i < filesToRemove.length; i++) {
-  //     service.getRawFile(downloadUrl(filesToRemove[i], username, repoName), function(data, err, url) {
-  //       if (err) {
-  //         // console.log("ERROR: ", err);
-  //         console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN removePosts");
-  //       } else {
-  //         /* Add post to the database.  Log an error if there was a problem. */
-  //         Post.remove(url, function(error) {
-  //           if (error) {
-  //             console.log(error);
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // };
-
-  // exports.modifyPosts = function(filesToModify, username, repoName) {
-  //   for (var i = 0; i < filesToModify.length; i++) {
-  //     service.getRawFile(downloadUrl(filesToModify[i], username, repoName), function(data, err, url) {
-  //       if (err) {
-  //         // console.log("ERROR: ", err);
-  //         console.log("ERROR: CAN'T DOWNLOAD RAW FILE IN modifyPosts");
-  //       } else {
-  //         /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
-  //         var metadata = exports.getMetadata(data);
-  //         var postData = {
-  //           title: metadata.title,
-  //           url: url,
-  //           updated_at: new Date()
-  //         };
-
-  //         /* Add post to the database.  Log an error if there was a problem. */
-  //         Post.modify(postData, function(error) {
-  //           if (error) {
-  //             console.log(error);
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // };
-
-  // /* Gets post data from Github */
-  // exports.postReceive = function(req, res) {
-  //   res.sendStatus(201);
-
-  //   /* The data points we're receiving from the Github webhook.  It's possible that one or many of the filename arrays will contain data */
-  //   var username = req.body.repository.owner.name;
-  //   var repoName = req.body.repository.name;
-  //   /* An array of the names of files that were added to user's repo */
-  //   var filesAdded = req.body.head_commit.added;
-  //   /* An array of the names of files that were removed from user's repo */
-  //   var filesRemoved = req.body.head_commit.removed;
-  //   /* An array of the names of files that were modified in a user's repo */
-  //   var filesModified = req.body.head_commit.modified;
-
-  //   /* Get github userId from username */
-  //   service.getGithubUserId(username, function(error, githubUserId) {
-  //     if (error) {
-  //       // console.log(error);
-  //       console.log("ERROR: CAN'T GET GITHUB USER ID FROM GITHUB IN postReceive");
-  //     } else {
-  //       /* Lookup user by github ID in database */
-  //       User.findByGithubId(githubUserId, function(error, user) {
-  //         if (error) {
-  //           // console.log("ERROR: ", error);
-  //           console.log("ERROR: INVALID GITHUB USER ID IN postReceive");
-  //         } else {
-  //           exports.addPosts(filesAdded, username, user.id, repoName);
-  //           exports.removePosts(filesRemoved, username, repoName);
-  //           exports.modifyPosts(filesModified, username, repoName);
-  //         }
-  //       });
-  //     }
-  //   });
-
-  // };
 
   exports.postInfo = function(req, res) {
     if (req.query.post_id) {
