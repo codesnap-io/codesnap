@@ -82,6 +82,7 @@
 
 
   exports.postReceive = function(req, res) {
+    console.log("------------Post received----------------");
     res.sendStatus(201);
 
     /* The data points we're receiving from the Github webhook.  It's possible that one or many of the filename arrays will contain data */
@@ -112,7 +113,7 @@
         });
       })
       .catch(function(error) {
-        throw new Error("Error: ", error);
+        console.error("Error in getGHUser: ", error);
       });
   };
 

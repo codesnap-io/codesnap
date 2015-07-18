@@ -107,7 +107,7 @@
 
         });
       }
-    })
+    });
   })
 
 
@@ -136,7 +136,7 @@
           console.log('Created Tags Table');
         });
       }
-    })
+    });
   })
 
 
@@ -164,7 +164,7 @@
           console.log('Created Post Tag Join Table');
         });
       }
-    })
+    });
   })
 
 
@@ -195,7 +195,7 @@
           console.log('Created Comments Table');
         });
       }
-    })
+    });
   })
 
 
@@ -225,8 +225,8 @@
           console.log('Created Votes Table');
         });
       }
-    })
-  })
+    });
+  });
 
 
   ////////////////////////////////////////////////
