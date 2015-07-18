@@ -1,5 +1,5 @@
 (function () {
-  'use strict';  
+  'use strict';
   var Tag = require('../models/tag.server.model');
   var request = require('request');
   var cheerio = require('cheerio');

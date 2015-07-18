@@ -7,7 +7,4 @@ angular.module('tagController', ['tagFactory'])
     .then(function(tags) {
       $scope.tags = tags;
     });
-
-  
-
 });

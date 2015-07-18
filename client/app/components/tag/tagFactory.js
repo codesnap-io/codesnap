@@ -7,7 +7,7 @@
     getTags: function() {
       return $http({
       method: 'GET',
-      url: '/tags/',
+      url: '/tags/'
     }).then(function(resp) {
         return resp.data;
       });
