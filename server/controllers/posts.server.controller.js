@@ -30,7 +30,7 @@
               title: metadata.title || "Default Title",
               url: url,
               user_id: userId,
-              file: rawFile
+              file: file
             };
 
             /* Add post to the database.  Log an error if there was a problem. */

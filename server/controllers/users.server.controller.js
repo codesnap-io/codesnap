@@ -29,7 +29,7 @@
       if (error) {
         res.send(error);
       } else {
-        console.log("IN USERINFO USER IS: ", user);
+        // console.log("IN USERINFO USER IS: ", user);
         res.json(user);
       }
     });
@@ -37,12 +37,15 @@
 
   /* Takes encoded user id token and removes user and all associated posts, post comments, post tags and post votes from the database */
   exports.deleteUser = function(req, res) {
-    console.log(req.query.user_id);
+    // console.log(req.query.user_id);
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
     User.remove(userId, function (error, user) {
       if (error) {
+        console.log("CAN'T DELETE");
         res.json(true);
       } else {
+        console.log("SUCCESSFLY DELETED");
+        delete req.session.user;
         res.json(false);
       }
     });
