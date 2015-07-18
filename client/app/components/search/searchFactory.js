@@ -5,7 +5,7 @@
     .factory('searchFactory', function($http) {
       return {
         searchPosts: function(searchQuery, searchType) {
-          console.log('searching posts with ' + searchQuery + " and " + searchType)
+          console.log('searching posts with ' + searchQuery + " and " + searchType);
           return $http({
             method: 'GET',
             url: '/post/search',
@@ -15,9 +15,9 @@
             }
           }).then(function(resp) {
             return resp.data;
-          })
+          });
         }
-      }
-    })
+      };
+    });
 
 })();

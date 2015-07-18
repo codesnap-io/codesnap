@@ -17,7 +17,7 @@
           $rootScope.searchQuery = query;
           $rootScope.searchType = "title";
           $state.go('searchResults');
-        }
+        };
 
 
 
