@@ -37,7 +37,6 @@
     app.use(bodyParser.json());
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
-    console.log(process.env.CLIENT_FILES);
     app.use(express.static(process.env.CLIENT_FILES));
 
     /* Initialize passport for authentication */
