@@ -137,8 +137,8 @@
         rp(addWebhookOptions);
       })
       .catch(function(e) {
-        if (e.name.statusCode !== 422) {
-          console.error("Error in addGHRepo: ", e);
+        if (e.statusCode !== 422) {
+          console.error("Error in addGHRepo: ");
         }
       });
   };

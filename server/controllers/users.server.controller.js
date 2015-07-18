@@ -13,17 +13,19 @@
   /* If user exists in the session, passes encoded user id to the front end. */
   exports.checkAuth = function(req, res) {
     if (!!req.session.user) {
+      console.log("user is logged in")
       /* Create a token by encoding the user's id */
       var token = jwt.encode(req.session.user.id, process.env.jwtSecret);
       res.json(token);
     } else {
+      console.log("user is not logged in")
       res.json(false);
     }
   };
 
   /* Responds with true if user session is successfully deleted  */
   exports.logout = function(req, res) {
-    if (!!req.session) {
+    if (!!req.session.user) {
       req.session.destroy(function(err) {
         if (err) {
           console.error("Error on user session delete: ", err);
