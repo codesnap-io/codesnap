@@ -21,6 +21,20 @@
     }
   };
 
+  /* Responds with true if user session is successfully deleted  */
+  exports.logout = function(req, res) {
+    if (!!req.session) {
+      req.session.destroy(function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  };
+
   /* Takes the encoded user id from the client and returns:
      name, username, profile_pic_url and user's posts */
   exports.userInfo = function(req, res) {

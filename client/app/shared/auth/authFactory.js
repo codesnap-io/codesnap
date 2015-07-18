@@ -21,9 +21,17 @@
         delete window.localStorage.jwtToken;
       },
 
+      /* When user logs out, remove the session from the server.  Upon successfully removing session, remove token from localStorage and redirect to signup page. */
       logout: function() {
-        delete window.localStorage.jwtToken;
-        $state.go('signup');
+        $http({
+          method: 'GET',
+          url: 'auth/logout'
+        }).then(function(res) {
+          if(res.data) {
+            delete window.localStorage.jwtToken;
+            $state.go('signup');
+          }
+        });
       }
     };
   });
