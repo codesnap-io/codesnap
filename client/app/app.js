@@ -26,7 +26,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'userController',
     'authFactory',
     'userController',
-    'authFactory'
+    'authFactory',
+    'searchFactory',
+    'searchController'
   ])
     .config(config)
     .run(run);
@@ -54,8 +56,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             controller: 'homeController'
           }
         },
-        templateUrl: 'app/components/home/home.html',
-        controller: 'homeController',
         resolve: {
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
           authUser: function ($stateParams, $location, authFactory) {
@@ -102,6 +102,24 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           content: {
             templateUrl: 'app/components/user/user.html',
             controller: 'userController'
+          }
+        }
+      })
+      .state('searchResults', {
+        authenticate: false,
+        url: '/searchresults',
+        views: {
+          nav: {
+            templateUrl: 'app/shared/navbar/navbar.html'
+          },
+          content: {
+            templateUrl: 'app/components/search/searchresults.html',
+            controller: 'searchController'
+          }
+        },
+        resolve: {
+          searchResults: function(searchFactory, $rootScope) {
+            return searchFactory.searchPosts($rootScope.searchQuery, $rootScope.searchType);
           }
         }
       });
