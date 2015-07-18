@@ -17,9 +17,9 @@
   }
   */
   module.exports.addFileToGHRepo = function(token, username, path) {
-    console.log("in addFileToGHRepo...");
+    // console.log("in addFileToGHRepo...");
     var file = fs.readFileSync(path.serverPath);
-    console.log("file read...");
+    // console.log("file read...");
     var content = file.toString('base64');
     var options = {
       uri: path.repoPath,
@@ -31,7 +31,7 @@
         'User-Agent': 'Crouton'
       }
     };
-    console.log("options created, uri is: ", options.uri);
+    // console.log("options created, uri is: ", options.uri);
     return rp(options);
   };
 
@@ -123,7 +123,7 @@
     //add repo
     rp(addRepoOptions)
       .then(function(body) {
-        console.log("repo added");
+        // console.log("repo added");
       })
       //add various files to repo
       .then(function(body) {
@@ -133,7 +133,7 @@
       })
       .then(function(body) {
         //add webhook
-        console.log("ready to add webhook");
+        // console.log("ready to add webhook");
         rp(addWebhookOptions);
       })
       .catch(function(error) {

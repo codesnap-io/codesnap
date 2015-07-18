@@ -8,11 +8,11 @@
   ////////////////////////////////////////////////
 
 
-  db.knex.schema.hasTable('post_tag_join').then(function (exists) {
+  db.knex.schema.hasTable('users').then(function (exists) {
     // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
     // if (exists) {
-    //   db.knex.schema.dropTable('post_tag_join').then(function() {
-    //     console.log("Removed Post Tag Join Table");
+    //   db.knex.schema.dropTable('users').then(function() {
+    //     console.log("Removed Users Table");
     //   });
     //   exists = false;
     // }

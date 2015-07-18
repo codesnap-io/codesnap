@@ -19,11 +19,8 @@
           if (!$scope.user && !!token) {
             userFactory.getUser()
             .then(function (user) {
-
               $scope.user = user;
               $scope.loggedIn = !!user;
-              // console.log($scope.user);
-              // console.log("Logged In: ", $scope.loggedIn);
               $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
               });
             }
