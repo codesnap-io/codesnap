@@ -45,6 +45,8 @@
     /* Required Routes */
     require('../routes/posts.server.routes')(app);
     require('../routes/users.server.routes')(app);
+    require('../routes/search.server.routes')(app);
+    require('../routes/tags.server.routes')(app);
     require('../routes/githubWebhooks.server.routes')(app);
 
     return app;

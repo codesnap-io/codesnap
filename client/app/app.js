@@ -28,7 +28,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'userController',
     'authFactory',
     'searchFactory',
-    'searchController'
+    'searchController',
+    'tagController',
+    'tagFactory'
   ])
     .config(config)
     .run(run);
@@ -122,7 +124,14 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             return searchFactory.searchPosts($rootScope.searchQuery, $rootScope.searchType);
           }
         }
+      })
+      .state('tag', {
+        authenticate: true,
+        url: '/tags',
+        templateUrl: 'app/components/tag/tag.html',
+        controller: 'tagController'
       });
+    
   }
 
   function run($rootScope, $state, authFactory) {
