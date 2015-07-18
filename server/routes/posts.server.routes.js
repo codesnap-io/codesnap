@@ -15,7 +15,6 @@
        Data returned: post_id, post_title, post_url, post_author */
     app.get('/post/search', posts.postSearch);
 
-
     //app.post('/post/add', posts.addPost);
     //app.post('/post/edit', posts.editPost);
   };
