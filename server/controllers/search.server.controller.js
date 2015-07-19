@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var Fuse = require('../assets/fuse/src/fuse');
+  var Fuse = require('../services/fuse.js');
 
   var options = {
     caseSensitive: false,
