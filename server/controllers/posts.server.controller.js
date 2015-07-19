@@ -16,7 +16,6 @@
   exports.addPostsToDb = function(filesToAdd, username, userId, repoName) {
     //go to URI of each file, add title to db
     filesToAdd.forEach(function(file) {
-      console.log(file);
       // make sure file is in posts and is markdown
       if (file.slice(0, 6) === 'posts/' && file.slice(-3).toLowerCase() === '.md') {
         var url = downloadUrl(file, username, repoName);
@@ -25,6 +24,7 @@
           .then(function(rawFile) {
             // retreive front-matter metadata
             var metadata = exports.getMetadata(rawFile);
+
             var postData = {
               title: metadata.title || "Default Title",
               url: url,
@@ -38,6 +38,14 @@
                 console.error("Error during Post add: ", error);
               }
             });
+
+            /* Pull post's tags from metadata */
+            var tags = metadata.tags.replace(/,/g , "").split(" ");
+
+
+
+
+
           })
           .catch(function(error) {
             console.error("Error during add Posts to db: ", error);
