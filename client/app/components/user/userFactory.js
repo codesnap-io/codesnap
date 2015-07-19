@@ -14,12 +14,11 @@
             user_id: localStorage.jwtToken
           }
         }).then(function(resp) {
-          console.log(resp.data)
           //address issue where database dropped while logged in, causing token to be out of date.
           if (resp.data === "Invalid User Id") { //not sure if correct string
             delete window.localStorage.jwtToken;
             $state.go('signup');
-          };
+          }
           return resp.data;
         });
       },

@@ -13,12 +13,12 @@
   /* If user exists in the session, passes encoded user id to the front end. */
   exports.checkAuth = function(req, res) {
     if (!!req.session.user) {
-      console.log("user is logged in")
+      console.log("user is logged in");
       /* Create a token by encoding the user's id */
       var token = jwt.encode(req.session.user.id, process.env.jwtSecret);
       res.json(token);
     } else {
-      console.log("user is not logged in")
+      console.log("user is not logged in");
       res.json(false);
     }
   };
