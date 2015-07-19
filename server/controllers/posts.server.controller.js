@@ -16,6 +16,7 @@
   exports.addPostsToDb = function(filesToAdd, username, userId, repoName) {
     //go to URI of each file, add title to db
     filesToAdd.forEach(function(file) {
+      console.log(file);
       // make sure file is in posts and is markdown
       if (file.slice(0, 6) === 'posts/' && file.slice(-3).toLowerCase() === '.md') {
         var url = downloadUrl(file, username, repoName);
@@ -94,6 +95,7 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
+
 
     /* Get github userId from username */
     service.getGHUser(username)
