@@ -24,6 +24,7 @@
   //    span.topic-name {{topic}}:
   .grid-container
     .grid-block.vertical
+      button(ng-click="loadData()") load posts
       .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.post_id}} })")
         hr
         .grid-content
