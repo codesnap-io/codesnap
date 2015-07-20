@@ -40,7 +40,7 @@
               } else {
                 /* Pull post's tags from metadata */
                 var tags = cleanTagMetaData(metadata.tags);
-                
+
                 tagHandler.addTags(post.get('id'), tags);
 
               }

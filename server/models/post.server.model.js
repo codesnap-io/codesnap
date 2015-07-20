@@ -86,9 +86,23 @@
             users.profile_photo_url AS profile_photo_url \
           FROM posts, users \
           WHERE posts.user_id = users.id \
-          AND posts.id = ' + postId)
+            AND posts.id = ' + postId)
         .then(function (data) {
-          callback(null, data[0]);
+          var postData = data[0][0];
+
+          db.knex.raw(' \
+            SELECT \
+            tags.title AS title, \
+            tags.id AS id \
+            FROM posts, tags, post_tag_join \
+            WHERE posts.id = post_tag_join.post_id \
+              AND post_tag_join.tag_id = tags.id \
+              AND posts.id = ' + postId)
+          .then(function(data) {
+            postData.tags = data[0];
+            callback(null, postData);
+
+          });
         });
       }
     });

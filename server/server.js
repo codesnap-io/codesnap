@@ -11,13 +11,4 @@
   module.exports = app;
   console.log('Server running at port: ' + process.env.PORT);
 
-
-  var tagHandler = require('./services/tagHandler');
-  tagHandler.addTags(40, ["Anglr", "Backbone", "Javascript", "j", "net", "angluar-dir", "angulr", "a", "java", "errorhandling", "c"]);
-  // tagHandler.addTags(40, ["js"]);
-
-
- 
-
-
 })();

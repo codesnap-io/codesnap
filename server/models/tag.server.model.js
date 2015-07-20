@@ -15,23 +15,19 @@
   };
 
   Tag.createOrSave = function(tagTitle, callback) {
-    new Tag({
-        'title': tagTitle
-      })
-      .fetch()
-      .then(function(tag) {
-        if (!tag) {
-          new Tag({
-              'title': tagTitle
-            })
-            .save()
-            .then(function(tag) {
-              callback(null, tag);
-            });
-        } else {
-          callback("Already exists");
-        }
-      });
+    new Tag({'title': tagTitle})
+    .fetch()
+    .then(function(tag) {
+      if (!tag) {
+        new Tag({'title': tagTitle})
+        .save()
+        .then(function(tag) {
+          callback(tag);
+        });
+      } else {
+        callback(tag);
+      }
+    });
   };
 
   module.exports = Tag;

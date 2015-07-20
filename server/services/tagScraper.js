@@ -13,10 +13,8 @@
 //       if (!error) {
 //         var $ = cheerio.load(html);
 //         $('.post-tag').each(function() {
-//           Tag.createOrSave($(this).text(), function(error, tag) {
-//             if (!error) {
-//               console.log(tag.get('title'));
-//             }
+//           Tag.createOrSave($(this).text(), function(tag) {
+//             console.log(tag.get('title'));
 //           });
 //         });
 //       }

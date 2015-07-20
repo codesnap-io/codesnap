@@ -13,7 +13,7 @@
 
         /* Populate FuzzySet with list of all tags from database */
         var tagArray = new FuzzySet();
-        for (var i = 0; i < tags.length; i ++) {
+        for (var i = 0; i < tags.length; i++) {
           tagArray.add(tags[i].tag_title);
         }
 
@@ -22,22 +22,17 @@
           /* Set results equal to fuzzy serch results in order from best to worst match */
           var results = tagArray.get(postTags[j]);
           /* matchThreshold determines how strict the matching requirements are.  The lower this threshold, the more strict the match must be */
-          var matchThreshold = 0.35; 
+          var matchThreshold = 0.40;
 
-          /* Check to see if the first (best) result meets our matching standards.  If it does we create a new tag for the pos */
+          /* Check to see if the first (best) result meets our matching standards.  If it does we create a new PostTagJoin with matching tag*/
           if (results && results[0][0] >= matchThreshold) {
-
-          } 
-          /* If the result does not meet our matching standard, create a new tag */
-          else {
-            
+            PostTagJoin.createOrAdd(postId, results[0][1]);
           }
-        
-
-          // console.log("RESULT ", tagArray.get(postTags[i])[0] || null);
+          /* If the result does not meet our matching standard, create new PostTagJoin with new tag */
+          else {
+            PostTagJoin.createOrAdd(postId, postTags[j]);
+          }
         }
-
-
       }
     });
 
