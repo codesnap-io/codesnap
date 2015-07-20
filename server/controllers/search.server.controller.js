@@ -3,6 +3,7 @@
   var Fuse = require('../services/fuse.js');
   var search = require('../models/search.server.model');
   var tag = require('../models/tag.server.model');
+  var Promise = require('bluebird');
 
   var options = {
     caseSensitive: false,
@@ -40,35 +41,31 @@
 
   //return all metadata in form {titles: [], authors: [], tags: []}
   exports.getAllMetadata = function(req, res) {
-    console.log("search: ", search);
     var metadata = {};
     //grab all titles from db
-    search.getAllTitles(function(titles) {
-        metadata.titles = titles;
-        //grab authors
-        search.getAllAuthors(function(authors) {
-          metadata.authors = authors;
-          //grab tags
-          tag.getAll(function(tags) {
-            metadata.tags = tags;
-            //return all
-            console.log("sending back metadata: ", metadata);
-            res.json(metadata);
+    //Promise.join allows us to wait for several concurrent promises to finish
+    //before firing "then"
+    Promise.join(
+        search.getAllTitles(),
+        search.getAllAuthors(),
+        tag.getAllPromise(),
+        function(titleData, authorData, tagData) {
+          metadata.titles = titleData.map(function(title) {
+            return title.title;
           });
-        });
+          metadata.authors = authorData.map(function(author) {
+            return author.username;
+          });
+          metadata.tags = tagData.map(function(tag) {
+            return tag.title;
+          });
+          return metadata;
+        })
+      .then(function(metadata) {
+        //after all db retreival done, send search info back
+        console.log("METADATA: ", metadata);
+        res.json(metadata);
       });
-      //grab all authors from db
-      // search.getAllAuthors(function(authors, error) {
-      //   if (error) {
-      //     console.log("error getting authors: ", error);
-      //   } else {
-      //     metadata.authors = authors;
-      //   }
-      // });
-      // //grab all tags from db
-      // tag.getAll(function(tags) {
-      //   metadata.tags = tags;
-      // })
   };
 
 })();

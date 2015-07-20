@@ -102,8 +102,7 @@
         //find user by github userId and add/remove/modify as needed
         User.findByGithubId(githubUserId, function(error, user) {
           if (error) {
-            // console.log("ERROR: ", error);
-            console.log("ERROR: INVALID GITHUB USER ID IN postReceive");
+            console.log("ERROR: ", error, " with id: ", githubUserId);
           } else {
             console.log("user found, adding / removing / modifying files");
             exports.addPostsToDb(filesAdded, username, user.id, repoName);
