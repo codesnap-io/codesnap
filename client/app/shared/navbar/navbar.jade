@@ -2,8 +2,12 @@
   .left
     a.title(ui-sref="home") Crouton
   .center.search-box
-    form(ng-submit="search(query)")
-      input(ng-model="query" placeholder="search croutons")
+    ui-select(cr-searchbar id="search-box" multiple ng-model="query" on-select="search(query)")
+      ui-select-match(placeholder="Search croutons") {{$item}}
+      ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
+        div(ng-bind-html="result.name | highlight: $select.search")
+    //- form(ng-submit="search(query)")
+    //-   input(ng-model="query" placeholder="search croutons")
   .right(ng-show="loggedIn")
     a.button.small.button-newpost(href="{{newPostUrl}}", target="_blank") New Post
     zf-action-sheet#profile-picture-action-sheet

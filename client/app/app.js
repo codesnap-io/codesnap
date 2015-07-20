@@ -16,6 +16,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'foundation.dynamicRouting.animations',
     //markdown parser
     'mdParserDirective',
+    //select for search
+    'ui.select',
+    'ngSanitize',
     //shared
     'navbarDirective',
     //components
@@ -29,6 +32,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'authFactory',
     'searchFactory',
     'searchController',
+    'searchbarDirective',
     'tagController',
     'tagFactory'
   ])
