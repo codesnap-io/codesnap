@@ -4,6 +4,9 @@
 
   module.exports = function(app) {
 
+    //return all post metadata to client for frontend searching
+    app.get('/search/all', search.getAllMetadata);
+
   };
 
 })();
