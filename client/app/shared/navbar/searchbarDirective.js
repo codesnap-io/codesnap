@@ -1,21 +1,48 @@
 (function() {
   'use strict';
 
-  angular.module('searchbarDirective', [])
-    .directive('crSearchbar', function () {
+  angular.module('searchbarDirective', ['searchFactory'])
+    .directive('crSearchbar', function (searchFactory) {
       return {
         restrict: 'A',
-        controller: function ($scope, $rootScope, $state) {
+        controller: function ($scope, $rootScope, $state, searchFactory) {
+
+        $scope.results = [];
         $scope.query = {};
 
+
+        /* determine groupings in search bar by type */
         $scope.searchType = function (item){
           if (item.searchType === 'title')
               return 'Titles';
           if (item.searchType === 'tag')
               return 'Tags';
-          if (item.searchType === 'author')
+          if (item.searchType === 'users.name')
               return 'Author';
         };
+
+
+
+        /* Get all metadata and map properly */
+        searchFactory.getAllData(function(results) {
+            var authors = results.authors.map(function(item) {
+              return {name: item, searchType: 'users.name'};
+            });
+
+            var titles = results.titles.map(function(item) {
+              return {name: item, searchType: 'title'};
+            });
+
+            var tags = results.titles.map(function(item) {
+              return {name: item, searchType: 'tag'};
+            });
+
+            $scope.results = authors.concat(titles, tags);
+        });
+
+
+        /* TODO: one future option for search autocomplete will be to request objects
+        every few seconds. this ui element has a refresh delay attr built in. */
 
         // $scope.refreshSearch = function(query) {
         //   var params = {query: query};
@@ -36,15 +63,6 @@
           $state.go('searchResults');
         };
 
-
-        $scope.results = [{name: "Javascript", searchType: "tag"},
-        {name: "Ruby", searchType: "tag"},
-        {name: "Lisp", searchType: "tag"},
-        {name: "Chris Clayman", searchType: "users.name"},
-        {name: "Michael A.", searchType: "users.name"},
-        {name: "Sat K.", searchType: "users.name"},
-        {name: "Ben S.", searchType: "users.name"},
-        {name: "Default Title", searchType: "title"}];
 
         },
         link: function ($scope, element, attrs) {
