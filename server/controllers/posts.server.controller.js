@@ -39,9 +39,11 @@
                 console.error("Error during Post add: ", error);
               } else {
                 /* Pull post's tags from metadata */
-                var tags = cleanTagMetaData(metadata.tags);
-
-                tagHandler.addTags(post.get('id'), tags);
+                console.log("TAGS: ", tags);
+                if (metadata.tags !== undefined) {
+                  var tags = cleanTagMetaData(metadata.tags);
+                  tagHandler.addTags(post.get('id'), tags);
+                }
 
               }
             });
@@ -56,7 +58,10 @@
   };
 
   var cleanTagMetaData = function(tags) {
+    console.log(tags);
+    console.log("AAAA")
     tags = tags.replace(/,\s/g, ",").replace(/\s/, "-").toLowerCase().split(",");
+    console.log("BBB");
     console.log(tags);
     for (var i = tags.length - 1; i >= 0; i--) {
       if (tags[i].length === 0) {

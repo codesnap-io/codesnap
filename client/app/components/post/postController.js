@@ -13,11 +13,11 @@
           console.log(err);
         } else {
           /* post data for author information */
-          $scope.postData = post[0];
+          $scope.postData = post;
           /* The Url to propose changes to the post on github */
-          $scope.editUrl = "https://github.com/" + post[0].username + "/crouton.io/edit/master/" + post[0].file;
+          $scope.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
           /* If post data is successfully retrieved, get the markdown file at it's specified url */
-          postFactory.getPostMarkdown(post[0].post_url)
+          postFactory.getPostMarkdown(post.post_url)
           .then(function (post, err) {
             if (err) {
               console.log(err);
