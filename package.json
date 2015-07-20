@@ -48,6 +48,7 @@
     "express": "^4.13.1",
     "express-session": "^1.11.3",
     "front-matter": "^1.0.0",
+    "fuzzyset.js": "0.0.1",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-eslint": "^0.15.0",
