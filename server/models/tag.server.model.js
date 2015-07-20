@@ -6,7 +6,6 @@
   Tag.getAll = function(callback) {
     db.knex.raw(' SELECT title AS tag_title FROM tags')
       .then(function(data, error) {
-        console.log(data[0]);
         callback(error, data[0]);
       });
   };

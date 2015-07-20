@@ -7,10 +7,17 @@
   var express = require('./config/express');
   var app = express();
 
-  require('./config/tagScraper');
-
-
   app.listen(process.env.PORT);
   module.exports = app;
   console.log('Server running at port: ' + process.env.PORT);
+
+
+  var tagHandler = require('./services/tagHandler');
+  tagHandler.addTags(40, ["Anglr", "Backbone", "Javascript", "j", "net", "angluar-dir", "angulr", "a", "java", "errorhandling", "c"]);
+  // tagHandler.addTags(40, ["js"]);
+
+
+ 
+
+
 })();

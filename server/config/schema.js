@@ -288,4 +288,8 @@
       this.belongsTo(Post, 'post_id');
     }
   });
+
+  var PostTagJoin = exports.PostTagJoin = db.Model.extend({
+    tableName: 'post_tag_join'
+  });
 })();

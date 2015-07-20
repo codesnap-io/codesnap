@@ -6,6 +6,7 @@
   var fs = require('fs');
   var service = require('../services/repo.server.service.js');
   var User = require('../models/user.server.model');
+  var tagHandler = require('../services/tagHandler');
 
   /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
   var downloadUrl = function(file, username, repoName) {
@@ -32,18 +33,18 @@
               file: file
             };
 
-            /* Add post to the database.  Log an error if there was a problem. */
-            Post.add(postData, function(error) {
+            /* Add post to the database.  Log an error if there was a problem. If post is added successfully, add tags to join table */
+            Post.add(postData, function(error, post) {
               if (error) {
                 console.error("Error during Post add: ", error);
+              } else {
+                /* Pull post's tags from metadata */
+                var tags = cleanTagMetaData(metadata.tags);
+                
+                tagHandler.addTags(post.get('id'), tags);
+
               }
             });
-
-            /* Pull post's tags from metadata */
-            var tags = metadata.tags.replace(/,/g , "").split(" ");
-
-
-
 
 
           })
@@ -52,6 +53,18 @@
           });
       }
     });
+  };
+
+  var cleanTagMetaData = function(tags) {
+    tags = tags.replace(/,\s/g, ",").replace(/\s/, "-").toLowerCase().split(",");
+    console.log(tags);
+    for (var i = tags.length - 1; i >= 0; i--) {
+      if (tags[i].length === 0) {
+        tags.splice(i, 1);
+      }
+    }
+    console.log(tags);
+    return tags;
   };
 
   exports.removePostsfromDb = function(filesToRemove, username, repoName) {
@@ -187,27 +200,27 @@
   //end testing
 
   /* Dummy Data */
-  if (process.env.NODE_ENV === 'development') {
-    var req = {};
-    var res = {
-      sendStatus: function() {
-        return;
-      }
-    };
-    req.body = {
-      repository: {
-        name: 'crouton.io',
-        owner: {
-          name: 'bdstein33'
-        }
-      },
-      head_commit: {
-        added: ['posts/js_instantiation_patterns.md'],
-        removed: [],
-        modified: []
-      }
-    };
-    exports.postReceive(req, res);
-  }
+//   if (process.env.NODE_ENV === 'development') {
+//     var req = {};
+//     var res = {
+//       sendStatus: function() {
+//         return;
+//       }
+//     };
+//     req.body = {
+//       repository: {
+//         name: 'crouton.io',
+//         owner: {
+//           name: 'bdstein33'
+//         }
+//       },
+//       head_commit: {
+//         added: ['posts/js_instantiation_patterns.md'],
+//         removed: [],
+//         modified: []
+//       }
+//     };
+//     exports.postReceive(req, res);
+//   }
 
 })();
