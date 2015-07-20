@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('searchbarDirective', ['searchFactory'])
-    .directive('crSearchbar', function (searchFactory) {
+  angular.module('searchbarDirective', ['searchFactory', 'LocalStorageModule'])
+    .directive('crSearchbar', function (searchFactory, localStorageService) {
       return {
         restrict: 'A',
-        controller: function ($scope, $rootScope, $state, searchFactory) {
+        controller: function ($scope, $rootScope, $state, searchFactory, localStorageService) {
 
         $scope.results = [];
         $scope.query = {};
@@ -23,27 +23,43 @@
 
 
 
+        $scope.results = localStorageService.cookie.get('postData');
+
         /* Get all metadata and map properly */
-        searchFactory.getAllData(function(results) {
-            var authors = results.authors.map(function(item) {
-              return {name: item, searchType: 'users.name'};
-            });
 
-            var titles = results.titles.map(function(item) {
-              return {name: item, searchType: 'title'};
-            });
+        if (!$scope.results) {
+          console.log('getting data');
+          searchFactory.getAllData(function(results) {
+              var authors = results.authors.map(function(item) {
+                return {name: item, searchType: 'users.name'};
+              });
 
-            var tags = results.titles.map(function(item) {
-              return {name: item, searchType: 'tag'};
-            });
+              var titles = results.titles.map(function(item) {
+                return {name: item, searchType: 'title'};
+              });
 
-            $scope.results = authors.concat(titles, tags);
-        });
+              var tags = results.titles.map(function(item) {
+                return {name: item, searchType: 'tag'};
+              });
 
+              localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
+              $scope.results = localStorageService.cookie.get('postData');;
+          });
+        }
+
+
+
+        /* the actual calling for search results, resolved in app.js */
+        $scope.search = function(query) {
+          /* right now, queries are being stored in rootScope in order to Pass
+          to ui-router's resolve object. TODO: change this to something cleaner. */
+          $rootScope.searchQuery = query[0].name;
+          $rootScope.searchType = query[0].searchType;
+          $state.go('searchResults');
+        };
 
         /* TODO: one future option for search autocomplete will be to request objects
         every few seconds. this ui element has a refresh delay attr built in. */
-
         // $scope.refreshSearch = function(query) {
         //   var params = {query: query};
         //   return $http.get(
@@ -54,25 +70,10 @@
         //   });
         // };
 
-
-        $scope.search = function(query) {
-          /* right now, queries are being stored in rootScope in order to Pass
-          to ui-router's resolve object. TODO: change this to something cleaner. */
-          $rootScope.searchQuery = query[0].name;
-          $rootScope.searchType = query[0].searchType;
-          $state.go('searchResults');
-        };
-
-
-        },
-        link: function ($scope, element, attrs) {
-
-
-
-          //DOM manipulation stuff goes here
         }
       };
     })
+    //filter searchable objects to match cases and potentially multiple properties
     .filter('propsFilter', function() {
       return function(items, props) {
         var out = [];

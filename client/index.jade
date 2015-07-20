@@ -13,12 +13,15 @@ html.no-js(ng-app="crouton" lang="en")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js")
     //- script(src="assets/lib/fastclick/lib/fastclick.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
+    
+    //- search autocomplete dependencies
     script(src="assets/lib/angular-ui-select/dist/select.min.js")
     script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
     
-    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
-    script(src="assets/lib/typeahead.js/dist/typeahead.bundle.min.js")
+    //- local storage module for search autocomplete and potentially tokens
+    script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
     
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     
     <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
