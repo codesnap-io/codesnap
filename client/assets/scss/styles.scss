@@ -152,18 +152,18 @@ header {
   background: rgba(227,227,227,0.30);
 }
 
-.subnav .post-author-date {
+.post-author-date {
   @include flex-container;
   flex-direction: column;
   margin: 0 1rem;
   align-items: flex-start;
 }
 
-.subnav .post-author-date .author {
+.post-author-date .author {
   color: $accent-800;
 }
 
-.subnav .post-author-date .date {
+.post-author-date .date {
   font-weight: 300;
   color: $accent-300;
   font-size: 0.75rem;
@@ -276,6 +276,66 @@ code {
 
 
 // *** Footer ***
+
+
+/// *** Home Content ***
+
+.content .home {
+  align-items: flex-start;
+}
+
+.post-list {
+  @include flex-column;
+  @include flex-container;
+  padding: 1rem;
+}
+
+.post-item {
+  @include flex-column;
+  @include flex-container;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+// *** Home Subnav ***
+
+.post-categories {
+  width: 61.8%
+}
+
+.tag-categories {
+  width: 38.2%;
+}
+
+.category-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.category-list a {
+  text-decoration: none;
+  color: $accent-800;
+  padding: 1rem;
+}
+
+.category-list a:hover {
+  border-bottom: 2px solid $accent-300;
+}
+
+.category-list li {
+   display: inline;
+   border: none;
+   overflow: hidden;
+}
+
+.category-list li:hover {
+  margin-bottom: -2px;
+}
+
+.user-info {
+  @include flex-column;
+  @include flex-container;
+}
 
 
 //cr-navbar.navbar {
