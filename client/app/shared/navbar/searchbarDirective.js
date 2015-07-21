@@ -6,17 +6,20 @@
       return {
         restrict: 'A',
         controller: function ($scope, $rootScope, $state, searchFactory, localStorageService) {
-        $scope.query = {};
+        $scope.query = [];
 
 
         /* determine groupings in search bar by type */
         $scope.searchType = function (item){
-          if (item.searchType === 'title')
+          if (item.searchType === 'title') {
               return 'Titles';
-          if (item.searchType === 'tag')
+            }
+          if (item.searchType === 'tag') {
               return 'Tags';
-          if (item.searchType === 'users.name')
+            }
+          if (item.searchType === 'users.name') {
               return 'Author';
+            }
         };
 
 
@@ -27,7 +30,6 @@
 
         if (!$scope.results) {
           searchFactory.getAllData(function(results) {
-              debugger;
               var authors = results.authors.map(function(item) {
                 return {name: item, searchType: 'users.name'};
               });
@@ -55,7 +57,8 @@
           to ui-router's resolve object. TODO: change this to something cleaner. */
           $rootScope.searchQuery = query[0].name;
           $rootScope.searchType = query[0].searchType;
-          $state.go('searchResults');
+          $scope.query = [];
+          $state.go('searchResults', null, {reload: true});
         };
 
         /* TODO: one future option for search autocomplete will be to request objects

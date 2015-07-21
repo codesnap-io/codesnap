@@ -5,8 +5,8 @@ header
       a(ui-sref="home") Home
       a(ui-sref="home") Discover
     .search-box
-      ui-select(cr-searchbar id="search-box" multiple ng-model="query" on-select="search(query)")
-        ui-select-match(placeholder="Search croutons") {{$item}}
+      ui-select(cr-searchbar id="search-box" theme="bootstrap" multiple ng-model="query" on-select="search(query)" append-to-body="true")
+        ui-select-match(placeholder="Search croutons") {{$item.name}}
         ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
           div(ng-bind-html="result.name | highlight: $select.search")
     div(ng-if="loggedIn")
