@@ -2,7 +2,7 @@
   'use strict';
   angular.module('userFactory', [])
 
-  .factory('userFactory', function($http, authFactory) {
+  .factory('userFactory', function($http, $state, authFactory) {
     return {
       /* Get user information from server including:
          name, username, id, profile_photo_url, posts */
@@ -15,7 +15,9 @@
           }
         }).then(function(resp) {
           //address issue where database dropped while logged in, causing token to be out of date.
-          if (resp.data === "Invalid User Id") { //not sure if correct string
+          console.log("resp.data: ", resp.data);
+          if (resp.data === "Invalid user id.\n") {
+            console.log("user log in weirdness detected. Deleting token and redirecting to /signup.");
             delete window.localStorage.jwtToken;
             $state.go('signup');
           }

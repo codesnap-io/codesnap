@@ -3,27 +3,31 @@
 
   angular.module('homeController', [])
 
-  .controller('homeController', function ($scope, postFactory) {
+  .controller('homeController', function($scope, postFactory) {
+
 
     /* show all posts */
-    postFactory.getPostsData()
-      .then(function (posts, err) {
-        if (err) {
-          console.log("Error: ", err);
-        } else {
-          $scope.posts = posts;
-        }
-      });
+    $scope.loadData = function() {
+      postFactory.getPostsData()
+        .then(function(posts, err) {
+          if (err) {
+            console.log("Error: ", err);
+          } else {
+            $scope.posts = posts;
+          }
+        });
+    };
 
+    $scope.loadData();
 
     /* determines current topic, active tabs, and active filter in home view */
-    $scope.chooseTopic = function (topic) {
+    $scope.chooseTopic = function(topic) {
       $scope.topic = topic;
     };
-    $scope.isSelectedTopic = function (topic) {
+    $scope.isSelectedTopic = function(topic) {
       return topic === $scope.topic;
     };
-    $scope.chooseFilter = function (filter) {
+    $scope.chooseFilter = function(filter) {
       $scope.topicFiler = filter;
     };
 

@@ -59,7 +59,6 @@
 
   var cleanTagMetaData = function(tags) {
     console.log(tags);
-    console.log("AAAA")
     tags = tags.replace(/,\s/g, ",").replace(/\s/, "-").toLowerCase().split(",");
     console.log("BBB");
     console.log(tags);

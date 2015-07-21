@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   var jwt = require('jwt-simple');
   var User = require('../models/user.server.model');
@@ -41,9 +41,16 @@
      name, username, profile_pic_url and user's posts */
   exports.userInfo = function(req, res) {
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
-    User.profileInfo(userId, function (error, user) {
+    console.log("user id: ", userId);
+    User.profileInfo(userId, function(error, user) {
       if (error) {
-        res.send(error);
+        console.log(JSON.stringify(error));
+        // if (error === "Invalid user id.\n") {
+        //   console.log("PROFILE INFO ERROR: ", error, ", deleting user session.");
+        //   exports.logout(req, res);
+        // } else {
+          res.send(error);
+        // }
       } else {
         // console.log("IN USERINFO USER IS: ", user);
         res.json(user);
@@ -55,12 +62,12 @@
   exports.deleteUser = function(req, res) {
     // console.log(req.query.user_id);
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
-    User.remove(userId, function (error, user) {
+    User.remove(userId, function(error, user) {
       if (error) {
         console.log("CAN'T DELETE");
         res.json(true);
       } else {
-        console.log("SUCCESSFLY DELETED");
+        console.log("SUCCESSFULLY DELETED");
         delete req.session.user;
         res.json(false);
       }
