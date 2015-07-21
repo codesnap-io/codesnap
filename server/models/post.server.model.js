@@ -126,6 +126,7 @@
         posts.title AS post_title, \
         posts.url AS post_url, \
         posts.created_at AS created_date, \
+        posts.summary AS summary, \
         users.name AS author, \
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
