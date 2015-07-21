@@ -5,10 +5,29 @@
 // Import fonts
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Merriweather:300);
 
-// Global variables
+// *** Global variables ***
+
 $accent-800: #303030;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
+
+// *** Mixins ***
+
+@mixin flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+}
+
+// *** Global Settings ***
 
 
 html {
@@ -27,6 +46,13 @@ html {
 
 body {
   margin: 0;
+}
+
+.content {
+  @include flex-container;
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 1rem;
 }
 
 .button {
@@ -52,63 +78,24 @@ body {
   width: 0.7692307692rem;
 }
 
-// *** Mixins ***
-
-@mixin flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-content: stretch;
-  align-items: flex-start;
-}
-
-@mixin flex-column {
-  order: 0;
-  flex: 1 1 auto;
-  align-self: auto;
-}
-
 // *** Header ***
 
 header {
-  @include flex-container;
-  align-items: center;
   border-bottom: 1px solid $accent-200;
-  padding: 1rem 1rem;
-}
-
-header .left-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  width: 20%;
-  justify-content: flex-start;
-  color: $accent-800;
-}
-
-header .center-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  flex: 1 1 700px;
-  max-width: 700px;
-}
-
-header .right-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  width: 20%;
-  justify-content: flex-end;
 }
 
 .site-title {
   font-size: 1.4rem;
   font-weight: 300;
+  text-decoration: none;
+  color: $accent-800;
 }
 
-.nav-link {
+.nav-links {
+  margin: 2rem;
+}
+
+.nav-links a {
   order: 0;
   flex: 0 1 auto;
   align-self: auto;
@@ -145,42 +132,15 @@ header .right-column {
 // *** Subnav ***
 
 .subnav {
-  @include flex-container;
-  align-items: center;
   border-bottom: 1px solid $accent-200;
-  padding: 0 1rem;
   background: rgba(227,227,227,0.30);
-}
-
-.subnav .left-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  width: 20%;
-  justify-content: flex-end;
-  color: $accent-800;
-}
-
-.subnav .center-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  flex: 1 1 700px;
-  max-width: 700px;
-}
-
-.subnav .right-column {
-  @include flex-column;
-  @include flex-container;
-  align-items: center;
-  width: 20%;
-  justify-content: flex-end;
 }
 
 .subnav .post-author-date {
   @include flex-container;
   flex-direction: column;
   margin: 0 1rem;
+  align-items: flex-start;
 }
 
 .subnav .post-author-date .author {
@@ -193,13 +153,13 @@ header .right-column {
   font-size: 0.75rem;
 }
 
-.subnav .center-column .left-icons {
+.subnav .left-icons {
   @include flex-column;
   @include flex-container;
   justify-content: flex-start;
 }
 
-.subnav .center-column .right-icons {
+.subnav .right-icons {
   @include flex-column;
   @include flex-container;
   justify-content: flex-end;
@@ -207,29 +167,12 @@ header .right-column {
 
 // *** Content ***
 
-.content {
-  @include flex-container;
-  align-items: center;
-  border-bottom: 1px solid $accent-200;
-  padding: 1rem 1rem;
-}
 
-.content .left-column {
-  @include flex-column;
-  @include flex-container;
-  width: 20%;
-}
 
-.content .center-column {
+.post {
   @include flex-column;
   flex: 1 1 700px;
   max-width: 700px;
-}
-
-.content .right-column {
-  @include flex-column;
-  @include flex-container;
-  width: 20%;
 }
 
 pre {

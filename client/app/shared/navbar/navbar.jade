@@ -1,12 +1,11 @@
 header
-  .left-column
-    a.site-title &lt;code&gt;snap
-  .center-column
-    a.nav-link(ui-sref="home") Home
-    a.nav-link(ui-sref="home") Discover
+  .content
+    a.site-title(ui-sref="home") &lt;code&gt;snap
+    .nav-links
+      a(ui-sref="home") Home
+      a(ui-sref="home") Discover
     .search-box
       input
-  .right-column
     img.profile-picture(ng-src="{{user.profile_photo_url}}")
     a.button(href="{{newPostUrl}}", target="_blank")
       img(src="assets/img/Plus.svg" alt="New Post Icon")
