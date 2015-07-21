@@ -17,8 +17,8 @@
           if (item.searchType === 'tag') {
               return 'Tags';
             }
-          if (item.searchType === 'users.name') {
-              return 'Author';
+          if (item.searchType === 'users.username') {
+              return 'Authors';
             }
         };
 
@@ -31,7 +31,7 @@
         if (!$scope.results) {
           searchFactory.getAllData(function(results) {
               var authors = results.authors.map(function(item) {
-                return {name: item, searchType: 'users.name'};
+                return {name: item, searchType: 'users.username'};
               });
 
               var titles = results.titles.map(function(item) {

@@ -183,20 +183,6 @@
   };
 
 
-  /* returns posts based on a query */
-  exports.postSearch = function(req, res) {
-    var query = req.query.searchQuery;
-    var type = req.query.searchType;
-    Post.getPostsOnQuery(query, type, function(error, posts) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.json(posts);
-      }
-    });
-  };
-
 
 
   //for testing of getMetadata:

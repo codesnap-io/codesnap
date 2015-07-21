@@ -112,7 +112,7 @@
 
   Post.getPostsOnQuery = function(query, queryType, callback) {
     db.knex.select('posts.id AS post_id', 'posts.title AS post_title',
-        'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
+        'posts.url AS post_url', 'users.username AS author', 'users.profile_photo_url AS profile_photo_url')
       .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
       .then(function(data) {
         callback(null, data);
