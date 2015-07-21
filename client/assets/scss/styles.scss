@@ -281,6 +281,7 @@ code {
 /// *** Home Content ***
 
 .content .home {
+  @include flex-container;
   align-items: flex-start;
 }
 
@@ -288,11 +289,23 @@ code {
   @include flex-column;
   @include flex-container;
   padding: 1rem;
+  width: 61.8%;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .post-item {
   @include flex-column;
   @include flex-container;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tag-list {
+  @include flex-column;
+  @include flex-container;
+  padding: 1rem;
+  width: 38.2%;
   flex-direction: column;
   align-items: flex-start;
 }
