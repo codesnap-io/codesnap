@@ -9,12 +9,12 @@ header
         ui-select-match(placeholder="Search croutons") {{$item.name}}
         ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
           div(ng-bind-html="result.name | highlight: $select.search")
-    div(ng-if="loggedIn")
+    .nav-right(ng-if="loggedIn")
       img.profile-picture(ng-src="{{user.profile_photo_url}}")
       a.button(href="{{newPostUrl}}", target="_blank")
         img(src="assets/img/Plus.svg" alt="New Post Icon")
         span New Post
-    div(ng-if="!loggedIn")
+    .nav-right(ng-if="!loggedIn")
       a.button(ui-sref="signup", target="_blank")
         span Signup / Login
 
