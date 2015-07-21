@@ -8,7 +8,7 @@
           console.log('searching posts with ' + searchQuery + " and " + searchType);
           return $http({
             method: 'GET',
-            url: '/post/search',
+            url: '/search',
             params: {
               searchQuery: searchQuery,
               searchType: searchType

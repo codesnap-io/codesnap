@@ -6,32 +6,32 @@
       return {
         restrict: 'A',
         controller: function ($scope, $rootScope, $state, searchFactory, localStorageService) {
-
-        $scope.results = [];
-        $scope.query = {};
+        $scope.query = [];
 
 
         /* determine groupings in search bar by type */
         $scope.searchType = function (item){
-          if (item.searchType === 'title')
+          if (item.searchType === 'title') {
               return 'Titles';
-          if (item.searchType === 'tag')
+            }
+          if (item.searchType === 'tag') {
               return 'Tags';
-          if (item.searchType === 'users.name')
-              return 'Author';
+            }
+          if (item.searchType === 'users.username') {
+              return 'Authors';
+            }
         };
 
 
-
-        $scope.results = localStorageService.cookie.get('postData');
+        /* we could cookie cache the post titles once DB size gets large */
+        // $scope.results = localStorageService.cookie.get('postData');
 
         /* Get all metadata and map properly */
 
         if (!$scope.results) {
-          console.log('getting data');
           searchFactory.getAllData(function(results) {
               var authors = results.authors.map(function(item) {
-                return {name: item, searchType: 'users.name'};
+                return {name: item, searchType: 'users.username'};
               });
 
               var titles = results.titles.map(function(item) {
@@ -42,8 +42,10 @@
                 return {name: item, searchType: 'tag'};
               });
 
-              localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
-              $scope.results = localStorageService.cookie.get('postData');;
+              /* option to set cookie here, if wanted */
+              // localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
+              // $scope.results = localStorageService.cookie.get('postData');;
+              $scope.results = authors.concat(titles, tags);
           });
         }
 
@@ -55,7 +57,8 @@
           to ui-router's resolve object. TODO: change this to something cleaner. */
           $rootScope.searchQuery = query[0].name;
           $rootScope.searchType = query[0].searchType;
-          $state.go('searchResults');
+          $scope.query = [];
+          $state.go('searchResults', null, {reload: true});
         };
 
         /* TODO: one future option for search autocomplete will be to request objects
