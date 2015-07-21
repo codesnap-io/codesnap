@@ -167,12 +167,18 @@ header {
 
 // *** Content ***
 
-
-
 .post {
   @include flex-column;
   flex: 1 1 700px;
   max-width: 700px;
+}
+
+.post-content {
+  font-family: 'Merriweather',  sans-serif;
+  font-weight: 300;
+  color: #444444;
+  letter-spacing: 0.02272727273rem;
+  line-height: 1.7272727273rem;
 }
 
 pre {
