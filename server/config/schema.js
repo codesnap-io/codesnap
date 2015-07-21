@@ -204,7 +204,7 @@
   ////////////////////////////////////////////////
 
   .then(function(x) {
-    db.knex.schema.hasTable('votes').then(function(exists) {
+    db.knex.schema.hasTable('likes').then(function(exists) {
 
       // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
       // if (exists) {
@@ -215,14 +215,13 @@
       // }
 
       if (!exists) {
-        db.knex.schema.createTable('votes', function(vote) {
+        db.knex.schema.createTable('likes', function(vote) {
           vote.increments('id').primary();
           vote.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
           vote.integer('user_id').unsigned().references('users.id');
-          vote.integer('rank');
           vote.timestamps(); /* Creates created_at, updated_at */
         }).then(function(table) {
-          console.log('Created Votes Table');
+          console.log('Created Likes Table');
         });
       }
     });
@@ -279,8 +278,8 @@
     }
   });
 
-  var Vote = exports.Vote = db.Model.extend({
-    tableName: 'votes',
+  var Like = exports.Like = db.Model.extend({
+    tableName: 'likes',
     user: function() {
       this.belongsto(User, 'user_id');
     },

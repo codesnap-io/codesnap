@@ -2,7 +2,7 @@
   'use strict';
   angular.module('postController', [])
 
-  .controller('postController', function ($scope, $stateParams, postFactory) {
+  .controller('postController', function ($scope, $rootScope, $stateParams, postFactory) {
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
 
@@ -28,5 +28,14 @@
           });
         }
       });
+
+    /* Determine like status when post page loads */
+    if ($rootScope.loggedIn) {
+      postFactory.getLikeStatus(localStorage.jwtToken, $scope.post_id)
+        .then(function (data) {
+          $scope.like = data;
+        });
+    }
+
   });
 })();

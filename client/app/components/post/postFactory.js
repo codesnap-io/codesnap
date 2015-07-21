@@ -27,11 +27,39 @@
         });
       },
 
-      /* Download post markdown content from Github*/
+      /* Download post markdown content from Github */
       getPostMarkdown: function (url) {
         return $http({
           method: 'GET',
           url: url
+        }).then(function (resp) {
+          return resp.data;
+        });
+      },
+
+      /* Returns true if the user likes the post, otherwise returns false. */
+      getLikeStatus: function(userId, postId) {
+        return $http({
+          method: 'GET',
+          url: '/like/toggle',
+          params: {
+            user_id: userId,
+            post_id: postId
+          }
+        }).then(function (resp) {
+          return resp.data;
+        });
+      },
+
+      /* Returns true if user likes post after toggle, otherwise returns false. */
+      toggleLike: function(userId, postId) {
+        return $http({
+          method: 'GET',
+          url: '/like/status',
+          params: {
+            user_id: userId,
+            post_id: postId
+          }
         }).then(function (resp) {
           return resp.data;
         });
