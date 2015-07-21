@@ -1,16 +1,5 @@
-.grid-block.vertical
-  .grid-block.shrink.vertical.medium-horizontal.title-box
-    .grid-content
-      h1.post-title {{postData.post_title}}
-    .grid-content.shrink.author-picture
-      img(src="{{postData.profile_photo_url}}" alt="profile photo")
-    .grid-content.author-info
-      h5 {{postData.author}}
-      h6
-        small Tagged as:
-    .btn-change
-        a.button(href="{{editUrl}}", target="_blank") Propose a Change
-  hr
-  .grid-block.shrink
-    .grid-block.small-6.small-offset-3
-      md.grid-content(ng-model="post")
+.content
+  .left-column
+  .center-column
+    md.grid-content(ng-model="post")
+  .right-column
