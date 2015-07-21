@@ -6,7 +6,7 @@
       .controller('navbarController', function ($scope, $rootScope, authFactory, userFactory, $state) {
 
         $scope.logout = function() {
-          return authFactory.logout();
+          authFactory.logout();
         };
 
 
@@ -23,6 +23,15 @@
                 });
           }
         });
+
+
+        //load semantic ui dropdown
+        setTimeout(function() {
+          $('.ui.dropdown')
+            .dropdown();
+        }, 100);
+
+
 
       });
 

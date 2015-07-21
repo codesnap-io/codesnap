@@ -121,6 +121,13 @@ header {
   margin: 1rem;
 }
 
+
+.ui.dropdown {
+  a {
+    text-decoration: none;
+  }
+}
+
 .search-box {
   order: 0;
   flex: 1 1 auto;
