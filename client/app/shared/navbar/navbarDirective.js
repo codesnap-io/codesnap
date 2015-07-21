@@ -5,7 +5,7 @@
     .directive('crNavbar', function () {
       return {
         controller: function ($scope, $rootScope, authFactory, userFactory, $state) {
-
+          console.log('reload');
 
         $scope.logout = function() {
           return authFactory.logout();

@@ -26,6 +26,7 @@
           if (!$scope.user && !!token) {
             userFactory.getUser()
                 .then(function (user) {
+                  console.log(user);
                   $scope.user = user;
                   $scope.loggedIn = !!user;
                   $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";

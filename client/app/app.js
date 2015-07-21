@@ -86,7 +86,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: false,
         views: {
           nav: {
-            templateUrl: 'app/shared/navbar/navbar.html'
+            templateUrl: 'app/shared/navbar/navbar.html',
+            controller: 'navbarController'
           },
           content: {
             templateUrl: 'app/components/post/post.html',
@@ -113,7 +114,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/profile',
         views: {
           nav: {
-            templateUrl: 'app/shared/navbar/navbar.html'
+            templateUrl: 'app/shared/navbar/navbar.html',
+            controller: 'navbarController'
           },
           content: {
             templateUrl: 'app/components/user/user.html',
@@ -126,7 +128,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/searchresults',
         views: {
           nav: {
-            templateUrl: 'app/shared/navbar/navbar.html'
+            templateUrl: 'app/shared/navbar/navbar.html',
+            controller: 'navbarController'
           },
           content: {
             templateUrl: 'app/components/search/searchresults.html',
@@ -144,7 +147,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/tags',
         views: {
           nav: {
-            templateUrl: 'app/shared/navbar/navbar.html'
+            templateUrl: 'app/shared/navbar/navbar.html',
+            controller: 'navbarController'
           },
           content: {
             templateUrl: 'app/components/tag/tag.html',
