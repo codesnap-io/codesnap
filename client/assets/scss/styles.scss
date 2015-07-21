@@ -80,6 +80,13 @@ body {
   height: 0.7692307692rem;
 }
 
+.profile-picture {
+  height: 2rem;
+  width: auto;
+  border-radius: 100%;
+  margin: 0;
+}
+
 // *** Header ***
 
 header {
@@ -150,14 +157,6 @@ header {
     text-decoration: none;
   }
 }
-
-
-.profile-picture {
-  height: 2rem;
-  width: auto;
-  border-radius: 100%;
-  margin: 0.5rem;
-  }
 
 // *** Subnav ***
 
@@ -302,7 +301,7 @@ code {
 .post-list {
   @include flex-column;
   @include flex-container;
-  padding: 1rem;
+  padding: 0 1rem;
   width: 61.8%;
   flex-direction: column;
   align-items: flex-start;
@@ -313,6 +312,23 @@ code {
   @include flex-container;
   flex-direction: column;
   align-items: flex-start;
+  border-bottom: 1px solid $accent-200;
+  padding: 1.4rem 0;
+  width: 100%;
+}
+
+.post-item .title {
+  margin: 1rem 0;
+}
+
+.post-item .summary {
+  margin: 0.6rem 0;
+  //padding: 0;
+}
+
+.user-info {
+  @include flex-column;
+  @include flex-container;
 }
 
 .tag-list {
@@ -323,6 +339,7 @@ code {
   flex-direction: column;
   align-items: flex-start;
 }
+
 
 // *** Home Subnav ***
 
@@ -357,11 +374,6 @@ code {
 
 .category-list li:hover {
   margin-bottom: -2px;
-}
-
-.user-info {
-  @include flex-column;
-  @include flex-container;
 }
 
 

@@ -25,12 +25,14 @@
           .then(function(rawFile) {
             // retreive front-matter metadata
             var metadata = exports.getMetadata(rawFile);
+            var summary = exports.getSummary(rawFile);
 
             var postData = {
               title: metadata.title || "Default Title",
               url: url,
               user_id: userId,
-              file: file
+              file: file,
+              summary: summary
             };
 
             /* Apply regex to remove unwanted content in post's raw text */
@@ -93,10 +95,12 @@
         .then(function(rawFile) {
           /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
           var metadata = exports.getMetadata(data);
+          var summary = exports.getSummary(data);
           var postData = {
             title: metadata.title,
             url: url,
-            updated_at: new Date()
+            updated_at: new Date(),
+            summary: summary
           };
 
           /* Add post to the database.  Log an error if there was a problem. */
@@ -182,7 +186,13 @@
     return data.attributes;
   };
 
+  exports.getSummary = function(file) {
+    var data = fm(file);
+    var summary = data.body.slice(0,139);
+    return summary;
+  };
 
+  console.log(exports.getSummary("# Welcome to Crouton.io Below are a few instructions and other information about your crouton. All of your cruton posts should be in the /posts folder.** Any commits to that folder, whether through merging pull requests of by simply commiting, will appear as published work on crouton.io. * **Images can be placed in the /images folder.** Images can be referred to in your markup via a relative path, Like this image ('images/pathtoimage')"));
 
 
   //for testing of getMetadata:
