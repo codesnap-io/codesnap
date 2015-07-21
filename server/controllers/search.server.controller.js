@@ -7,32 +7,34 @@
   //return all metadata in form {titles: [], authors: [], tags: []}
   exports.getAllMetadata = function(req, res) {
     var metadata = {};
-    //grab all titles from db
-    //Promise.join allows us to wait for several concurrent promises to finish before firing "then"
+
+    /* Promise.join allows us to wait for several concurrent promises to finish before firing "then" */
     Promise.join(
         Post.getAllTitles(),
         Post.getAllAuthors(),
         tag.getAllPromise(),
+        /* This function takes in the results of the three promises above in order.  For each promise, map the needed string into the metadata object */
         function(titleData, authorData, tagData) {
           metadata.titles = titleData.map(function(title) {
             return title.title;
           });
           metadata.authors = authorData.map(function(author) {
-            return author.username;
+            return author.name;
           });
-          metadata.tags = tagData.map(function(tag) {
+          /* Tag data is handled differently because it is queried using a join statement in raw SQL */
+          metadata.tags = tagData[0].map(function(tag) {
             return tag.title;
           });
+
           return metadata;
         })
       .then(function(metadata) {
-        //after all db retreival done, send search info back
-        // console.log("METADATA: ", metadata);
+        /* Once metadata has been assembled, send it back to the client */
         res.json(metadata);
       });
   };
 
-  /* returns posts based on a query */
+  /* Returns posts based on a query */
   exports.postSearch = function(req, res) {
     var query = req.query.searchQuery;
     var type = req.query.searchType;
