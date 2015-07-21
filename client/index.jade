@@ -13,8 +13,15 @@ html.no-js(ng-app="crouton" lang="en")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js")
     //- script(src="assets/lib/fastclick/lib/fastclick.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
-    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     
+    //- search autocomplete dependencies
+    script(src="assets/lib/angular-ui-select/dist/select.min.js")
+    script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
+    
+    //- local storage module for search autocomplete and potentially tokens
+    script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
+    
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     
     <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
@@ -45,6 +52,7 @@ html.no-js(ng-app="crouton" lang="en")
     //---SHARED---
     //navbar
     script(src="app/shared/navbar/navbarDirective.js")
+    script(src="app/shared/navbar/searchbarDirective.js")
     //markdown directive
     script(src="app/shared/mdParser/fm.js")
     script(src="app/shared/mdParser/mdParserDirective.js")
@@ -62,16 +70,22 @@ html.no-js(ng-app="crouton" lang="en")
 
     //---MARKDOWN STUFF---
 
+    //- select2 for search box
+    link(href="assets/lib/angular-ui-select/dist/select.min.css" rel="stylesheet")
     <!-- build:css(./client/) assets/css/styles.min.css -->
-    //styles
+    //styles  
     link(href="assets/css/styles.min.css" rel="stylesheet")
     <!-- endbuild -->
+
 
 
     //code highlighter
     //- script(src="assets/lib/highlightjs/highlight.pack.js")
     script(src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js")
     //- script hljs.initHighlightingOnLoad();
+
+    //- select2 for search box and autocomplete
+
 
     title Crouton
     meta(charset="utf-8")

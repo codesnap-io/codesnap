@@ -16,6 +16,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'foundation.dynamicRouting.animations',
     //markdown parser
     'mdParserDirective',
+    //select for search
+    'ui.select',
+    'ngSanitize',
+    //localStorage
+    'LocalStorageModule',
     //shared
     'navbarDirective',
     //components
@@ -29,6 +34,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'authFactory',
     'searchFactory',
     'searchController',
+    'searchbarDirective',
     'tagController',
     'tagFactory'
   ])
@@ -38,6 +44,13 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
   function config($stateProvider, $urlRouterProvider) {
+    // console.log(localStorageServiceProvider);
+    // //prefix local storage variables for safety and profit
+    // localStorageServiceProvider
+    // .setPrefix('crouton');
+
+
+
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
     //TODO: html5mode?

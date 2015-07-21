@@ -16,6 +16,15 @@
           }).then(function(resp) {
             return resp.data;
           });
+        },
+
+        getAllData: function(callback) {
+          $http({
+            method: 'GET',
+            url: 'search/all'
+          }).then(function(res) {
+            callback(res.data);
+          });
         }
       };
     });
