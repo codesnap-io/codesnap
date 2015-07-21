@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('postController', [])
+  angular.module('postController', ['postFactory'])
 
   .controller('postController', function ($scope, $rootScope, $stateParams, postFactory) {
     /* Set scope id equal to the id passed in as parameter */
@@ -14,6 +14,7 @@
         } else {
           /* post data for author information */
           $scope.postData = post;
+
           /* The Url to propose changes to the post on github */
           $scope.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
           /* If post data is successfully retrieved, get the markdown file at it's specified url */

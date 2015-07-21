@@ -158,7 +158,7 @@
         db.knex.schema.createTable('post_tag_join', function(post_tag_join) {
           post_tag_join.increments('id').primary();
           post_tag_join.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
-          post_tag_join.integer('tag_id').unsigned().references('tags.id').onDelete('CASCADE');
+          post_tag_join.integer('tag_id').unsigned().references('tags.id');
           post_tag_join.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
           console.log('Created Post Tag Join Table');
@@ -218,7 +218,7 @@
         db.knex.schema.createTable('likes', function(vote) {
           vote.increments('id').primary();
           vote.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
-          vote.integer('user_id').unsigned().references('users.id');
+          vote.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
           vote.timestamps(); /* Creates created_at, updated_at */
         }).then(function(table) {
           console.log('Created Likes Table');

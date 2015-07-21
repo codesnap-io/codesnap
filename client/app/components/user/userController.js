@@ -1,7 +1,6 @@
 angular.module('userController', ['userFactory'])
 
 .controller('userController', function($scope, $state, userFactory) {
-
   /* passes in local user id to determine which profile to look at */
   userFactory.getUser()
     .then(function(user) {
