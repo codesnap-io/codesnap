@@ -33,16 +33,26 @@
               file: file
             };
 
+            /* Apply regex to remove unwanted content in post's raw text */
+            var postText = rawFile.replace(/\s{2,}/g," ").replace(/(?:\r\n|\r|\n)/g, " ").replace(/[\.,-\/#!$%\^&\*;:{}=\-_`'~()]/g,"");
+
+            /* Create array of unique words by consolidating words into an object then converting object keys into an array */
+            // var wordObj = {};
+            // postText.split(" ").forEach(function(word) {
+            //   wordObj[word] = true;
+            // });
+            // var words = Object.keys(wordObj);
+
             /* Add post to the database.  Log an error if there was a problem. If post is added successfully, add tags to join table */
             Post.add(postData, function(error, post) {
               if (error) {
                 console.error("Error during Post add: ", error);
               } else {
                 /* Pull post's tags from metadata */
-                console.log("TAGS: ", tags);
                 if (metadata.tags !== undefined) {
                   var tags = cleanTagMetaData(metadata.tags);
                   tagHandler.addTags(post.get('id'), tags);
+                  // tagHandler.findTags(post.get('id'), words);
                 }
 
               }
@@ -58,16 +68,12 @@
   };
 
   var cleanTagMetaData = function(tags) {
-    console.log(tags);
     tags = tags.replace(/,\s/g, ",").replace(/\s/, "-").toLowerCase().split(",");
-    console.log("BBB");
-    console.log(tags);
     for (var i = tags.length - 1; i >= 0; i--) {
       if (tags[i].length === 0) {
         tags.splice(i, 1);
       }
     }
-    console.log(tags);
     return tags;
   };
 
