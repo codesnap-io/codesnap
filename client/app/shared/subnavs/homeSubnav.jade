@@ -5,7 +5,7 @@ section.subnav
         .left-icons
             .post-author-date
                 span.author {{postData.author}}
-                span.date date
+                span.date {{postData.created_date | date:"MMM dd, yyyy"}}
             a.icon
                 img(src="assets/img/Heart.svg" alt="New Post Icon")
                 span 14
