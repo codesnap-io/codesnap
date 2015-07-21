@@ -10,6 +10,7 @@
 $accent-800: #303030;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
+$highlight: #3DA993;
 
 // *** Mixins ***
 
@@ -213,7 +214,6 @@ pre {
   border: solid 1px #e1e1e1
 }
 
-
 code {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
   font-weight: 400;
@@ -246,6 +246,34 @@ code {
   height: 1rem;
 }
 
+#post-tags {
+  width: 100%;
+  height: auto;
+  display: block;
+  clear: both;
+  overflow:hidden;
+  margin-top: -0.8rem;
+  margin-bottom: 2rem;
+}
+
+.tag {
+  font-size: 0.8rem;
+  border: 1px solid $accent-800;
+  color: $accent-800;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px 8px 5px 8px;
+  float: left;
+}
+
+.tag:hover {
+  cursor: pointer;
+  color: $highlight;
+  border: 1px solid $highlight;
+
+
+}
+
 
 // *** Footer ***
 
@@ -260,7 +288,7 @@ code {
 //  input {
 //    color: #000;
 //  }
-//}
+//}$teal
 //
 //#profile-picture-action-sheet {
 //  .action-sheet {

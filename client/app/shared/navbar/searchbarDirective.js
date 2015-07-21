@@ -38,7 +38,7 @@
                 return {name: item, searchType: 'title'};
               });
 
-              var tags = results.titles.map(function(item) {
+              var tags = results.tags.map(function(item) {
                 return {name: item, searchType: 'tag'};
               });
 

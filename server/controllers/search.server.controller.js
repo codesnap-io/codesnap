@@ -27,7 +27,7 @@
         })
       .then(function(metadata) {
         //after all db retreival done, send search info back
-        console.log("METADATA: ", metadata);
+        // console.log("METADATA: ", metadata);
         res.json(metadata);
       });
   };
