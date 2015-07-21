@@ -6,9 +6,9 @@ html.no-js(ng-app="crouton" lang="en")
     //- script(src="assets/lib/angular/angular.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js")
     //- script(src="assets/lib/foundation-apps/dist/js/foundation-apps.js")
-    script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-1.1.0.min.js")
+    //script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-1.1.0.min.js")
     //- script(src="assets/lib/foundation-apps/dist/js/foundation-apps-templates.js")
-    script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-templates-1.1.0.min.js")
+    //script(src="http://cdn.jsdelivr.net/zurb/foundation-apps-templates-1.1.0.min.js")
     //- script(src="assets/lib/angular-ui-router/release/angular-ui-router.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js")
     //- script(src="assets/lib/fastclick/lib/fastclick.js")
@@ -51,8 +51,8 @@ html.no-js(ng-app="crouton" lang="en")
 
     //---SHARED---
     //navbar
-    script(src="app/shared/navbar/navbarDirective.js")
     script(src="app/shared/navbar/searchbarDirective.js")
+    script(src="app/shared/navbar/navbarController.js")
     //markdown directive
     script(src="app/shared/mdParser/fm.js")
     script(src="app/shared/mdParser/mdParserDirective.js")
@@ -93,6 +93,9 @@ html.no-js(ng-app="crouton" lang="en")
 
   body
     ui-view(name="nav")
-      cr-navbar.navbar
     ui-view(name="subnav")
+<<<<<<< HEAD
     ui-view(name="content").grid-frame
+=======
+    ui-view(name="content")
+>>>>>>> (feat) implement post design

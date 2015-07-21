@@ -1,3 +1,33 @@
+
+section.subnav
+    .left-column
+        img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo")
+        .post-author-date
+            span.author {{postData.author}}
+            span.date date
+    .center-column
+        .left-icons
+            a.icon
+                img(src="assets/img/Heart.svg" alt="New Post Icon")
+                span 14
+            a.icon
+                img(src="assets/img/User.svg" alt="New Post Icon")
+                span 3
+            a.icon
+                img(src="assets/img/Comment.svg" alt="New Post Icon")
+                span 7
+        .right-icons
+            a.button
+                img(src="assets/img/Share.svg" alt="New Post Icon")
+                span Share
+            a.button(href="{{editUrl}}", target="_blank")
+                img(src="assets/img/Edit.svg" alt="New Post Icon")
+                span Propose Change
+    .right-column
+
+
+
+
 //ul.primary.menu-bar.hide-for-large
 //  li
 //    a(href="#" zf-toggle="categoryPanel") Categories

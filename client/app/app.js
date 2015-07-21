@@ -9,11 +9,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'ui.router',
     // 'ngAnimate',
     // Foundation UI components
-    'foundation',
+    //'foundation',
     // Routing with front matter
-    'foundation.dynamicRouting',
+    //'foundation.dynamicRouting',
     // Transitioning between views
-    'foundation.dynamicRouting.animations',
+    //'foundation.dynamicRouting.animations',
     //markdown parser
     'mdParserDirective',
     //select for search
@@ -22,7 +22,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     //localStorage
     'LocalStorageModule',
     //shared
-    'navbarDirective',
+    'navbarController',
     //components
     'homeController',
     'signupController',
@@ -60,14 +60,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: false,
         views: {
           nav: {
-            templateUrl: 'app/shared/navbar/navbar.html'
+            templateUrl: 'app/shared/navbar/navbar.html',
+            controller: 'navbarController'
           },
           content: {
             templateUrl: 'app/components/home/home.html',
-            controller: 'homeController'
-          },
-          subnav: {
-            templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'homeController'
           }
         },
@@ -93,6 +90,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           },
           content: {
             templateUrl: 'app/components/post/post.html',
+            controller: 'postController'
+          },
+          subnav: {
+            templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'postController'
           }
         }
@@ -156,7 +157,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
   function run($rootScope, $state, authFactory) {
     // Enable FastClick to remove the 300ms click delay on touch devices
-    FastClick.attach(document.body);
+    //FastClick.attach(document.body);
 
 
     /* Event listener for state change, and checks for authentication via authFactory
@@ -177,5 +178,5 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   }
 
   //hacky fix because we're not using Foundation's routing system
-  window.foundationRoutes = [];
+  //window.foundationRoutes = [];
 })();
