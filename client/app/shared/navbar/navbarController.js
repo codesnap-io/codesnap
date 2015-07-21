@@ -9,15 +9,6 @@
           return authFactory.logout();
         };
 
-        $scope.search = function(query) {
-          /* right now, queries are being stored in rootScope in order to Pass
-           to ui-router's resolve object. TODO: change this to something cleaner. */
-          $rootScope.searchQuery = query;
-          $rootScope.searchType = "title";
-          $state.go('searchResults');
-        };
-
-
 
         $scope.$watch(function() {
           return window.localStorage.jwtToken;
@@ -26,7 +17,6 @@
           if (!$scope.user && !!token) {
             userFactory.getUser()
                 .then(function (user) {
-                  console.log(user);
                   $scope.user = user;
                   $scope.loggedIn = !!user;
                   $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";

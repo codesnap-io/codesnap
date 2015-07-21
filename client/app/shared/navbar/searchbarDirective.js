@@ -6,8 +6,6 @@
       return {
         restrict: 'A',
         controller: function ($scope, $rootScope, $state, searchFactory, localStorageService) {
-
-        $scope.results = [];
         $scope.query = {};
 
 
@@ -22,14 +20,14 @@
         };
 
 
-
-        $scope.results = localStorageService.cookie.get('postData');
+        /* we could cookie cache the post titles once DB size gets large */
+        // $scope.results = localStorageService.cookie.get('postData');
 
         /* Get all metadata and map properly */
 
         if (!$scope.results) {
-          console.log('getting data');
           searchFactory.getAllData(function(results) {
+              debugger;
               var authors = results.authors.map(function(item) {
                 return {name: item, searchType: 'users.name'};
               });
@@ -42,8 +40,10 @@
                 return {name: item, searchType: 'tag'};
               });
 
-              localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
-              $scope.results = localStorageService.cookie.get('postData');;
+              /* option to set cookie here, if wanted */
+              // localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
+              // $scope.results = localStorageService.cookie.get('postData');;
+              $scope.results = authors.concat(titles, tags);
           });
         }
 

@@ -5,11 +5,18 @@ header
       a(ui-sref="home") Home
       a(ui-sref="home") Discover
     .search-box
-      input
-    img.profile-picture(ng-src="{{user.profile_photo_url}}")
-    a.button(href="{{newPostUrl}}", target="_blank")
-      img(src="assets/img/Plus.svg" alt="New Post Icon")
-      span New Post
+      ui-select(cr-searchbar id="search-box" multiple ng-model="query" on-select="search(query)")
+        ui-select-match(placeholder="Search croutons") {{$item}}
+        ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
+          div(ng-bind-html="result.name | highlight: $select.search")
+    div(ng-if="loggedIn")
+      img.profile-picture(ng-src="{{user.profile_photo_url}}")
+      a.button(href="{{newPostUrl}}", target="_blank")
+        img(src="assets/img/Plus.svg" alt="New Post Icon")
+        span New Post
+    div(ng-if="!loggedIn")
+      a.button(ui-sref="signup", target="_blank")
+        span Signup / Login
 
 
 //.dark.title-bar
@@ -17,10 +24,6 @@ header
 //    a.title(ui-sref="home") Crouton
 //  .center.search-box
 //    form
-//      ui-select(cr-searchbar id="search-box" multiple ng-model="query" on-select="search(query)")
-//        ui-select-match(placeholder="Search croutons") {{$item}}
-//        ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
-//          div(ng-bind-html="result.name | highlight: $select.search")
 //    //- form(ng-submit="search(query)")
 //    //-   input(ng-model="query" placeholder="search croutons")
 //  .right(ng-show="loggedIn")
