@@ -11,7 +11,13 @@
   };
 
   Tag.getAllPromise = function() {
-    return db.knex.select('title').from('tags');
+    return db.knex.raw(' \
+      SELECT tags.title AS title \
+      FROM post_tag_join, tags \
+      WHERE post_tag_join.tag_id = tags.id')
+    
+
+    // return db.knex.select('title').from('tags');
   };
 
   Tag.createOrSave = function(tagTitle, callback) {

@@ -10,6 +10,7 @@
 $accent-800: #303030;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
+$accent-100: #f7f7f7;
 $highlight: #3DA993;
 
 // *** Mixins ***
@@ -120,10 +121,9 @@ header {
 
 // .search-box input {
 .ui-select-container.ui-select-multiple {
-  padding: 0;
   input.ui-select-search {
     width: 100% !important;
-    border: 2px solid $accent-200;
+    border: 1px solid $accent-200;
     border-radius: 2px;
     font-size: 1rem;
     padding: 0.4rem;
@@ -133,7 +133,21 @@ header {
     list-style: none;
     background-color: white;
     padding-left: 0;
-    border: 2px solid $accent-200;
+    border: 1px solid $accent-200;
+  }
+  .ui-select-choices-group-label {
+    background-color: $accent-100;
+    border-bottom: 1px solid $accent-200;
+    color: grey;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+  }
+  .ui-select-choices-row-inner {
+    border-bottom: 1px solid $accent-200;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
   }
 }
 
