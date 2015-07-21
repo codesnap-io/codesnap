@@ -10,31 +10,15 @@ header
         ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
           div(ng-bind-html="result.name | highlight: $select.search")
     div(ng-if="loggedIn")
-      img.profile-picture(ng-src="{{user.profile_photo_url}}")
+      .ui.dropdown.top.left.pointing
+        img.profile-picture(ng-src="{{user.profile_photo_url}}")
+        .menu
+          a.item(ui-sref="profile") My profile
+          a.item(ng-click="logout()") Logout
       a.button(href="{{newPostUrl}}", target="_blank")
         img(src="assets/img/Plus.svg" alt="New Post Icon")
         span New Post
     div(ng-if="!loggedIn")
-      a.button(ui-sref="signup", target="_blank")
+      a.button(ui-sref="signup")
         span Signup / Login
-
-
-//.dark.title-bar
-//  .left
-//    a.title(ui-sref="home") Crouton
-//  .center.search-box
-//    form
-//    //- form(ng-submit="search(query)")
-//    //-   input(ng-model="query" placeholder="search croutons")
-//  .right(ng-show="loggedIn")
-//    a.button.small.button-newpost(href="{{newPostUrl}}", target="_blank") New Post
-//    zf-action-sheet#profile-picture-action-sheet
-//      zf-as-button
-//        img.profile-picture(ng-src="{{user.profile_photo_url}}")
-//      zf-as-content(position="bottom")
-//        ul
-//          li
-//            a(ui-sref="profile" zf-hard-toggle="#profile-picture-action-sheet") Profile
-//            a(ng-click="logout()" zf-hard-toggle="#profile-picture-action-sheet") Logout
-//  .right(ng-hide="loggedIn")
-//    a.button.small(ui-sref="signup") Signup or log in
+//- load semantic ui elements
