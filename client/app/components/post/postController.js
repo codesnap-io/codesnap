@@ -6,6 +6,8 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
 
+
+
     /* Fetch data to this specific post */
     postFactory.getPostData($scope.post_id)
       .then(function (post, err) {
