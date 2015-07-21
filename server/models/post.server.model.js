@@ -81,6 +81,7 @@
             posts.title AS post_title, \
             posts.url AS post_url, \
             posts.file AS file, \
+            posts.created_at AS created_date, \
             users.name AS author, \
             users.username AS username, \
             users.profile_photo_url AS profile_photo_url \
@@ -91,13 +92,13 @@
               var postData = data[0][0];
 
               db.knex.raw(' \
-            SELECT \
-            tags.title AS title, \
-            tags.id AS id \
-            FROM posts, tags, post_tag_join \
-            WHERE posts.id = post_tag_join.post_id \
-              AND post_tag_join.tag_id = tags.id \
-              AND posts.id = ' + postId)
+                SELECT \
+                tags.title AS title, \
+                tags.id AS id \
+                FROM posts, tags, post_tag_join \
+                WHERE posts.id = post_tag_join.post_id \
+                  AND post_tag_join.tag_id = tags.id \
+                  AND posts.id = ' + postId)
                 .then(function(data) {
                   postData.tags = data[0];
                   callback(null, postData);
@@ -106,6 +107,7 @@
             });
         }
       });
+
   };
 
   Post.getPostsOnQuery = function(query, queryType, callback) {
