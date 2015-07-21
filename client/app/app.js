@@ -66,6 +66,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           content: {
             templateUrl: 'app/components/home/home.html',
             controller: 'homeController'
+          },
+          subnav: {
+            templateUrl: 'app/shared/subnavs/homeSubnav.html',
+            controller: 'homeController'
           }
         },
         resolve: {
@@ -94,7 +98,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             controller: 'postController'
           },
           subnav: {
-            templateUrl: 'app/shared/subnavs/homeSubnav.html',
+            templateUrl: 'app/shared/subnavs/postSubnav.html',
             controller: 'postController'
           }
         }
