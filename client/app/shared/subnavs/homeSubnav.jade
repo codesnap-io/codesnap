@@ -2,9 +2,9 @@ section.subnav(home-subnav)
     .content
         .post-categories
             ul.category-list
-                a(ng-click="getRecentPosts()", ng-class="{underscore: category==='recent'}")
+                a.recent-posts-btn(ng-click="getRecentPosts()", ng-class="{underscore: category==='recent'}")
                     li Recent Posts
-                a(ng-click="getTopPosts()", ng-class="{underscore: category==='top'}")
+                a.top-posts-btn(ng-click="getTopPosts()", ng-class="{underscore: category==='top'}")
                     li Top Posts
         .tag-categories
             ul.category-list
