@@ -343,8 +343,10 @@ code {
   @include flex-container;
   padding: 1rem;
   width: 38.2%;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
+  align-self: flex-start;
 }
 
 

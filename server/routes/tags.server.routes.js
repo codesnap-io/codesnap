@@ -5,8 +5,11 @@
 
   module.exports = function(app) {
 
-    /* Respons with all tags from database */
+    /* Responds with all tags from database */
     app.get('/tags', tags.getTags);
+
+    /* Responds with top tags from database */
+    app.get('/tags/popular', tags.getPopularTags);
 
   };
 

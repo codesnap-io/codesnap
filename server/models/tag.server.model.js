@@ -15,9 +15,17 @@
       SELECT tags.title AS title \
       FROM post_tag_join, tags \
       WHERE post_tag_join.tag_id = tags.id')
-    
+  };
 
-    // return db.knex.select('title').from('tags');
+
+  Tag.getPopularTags = function() {
+    return db.knex.raw(' \
+      SELECT tags.id, tags.title \
+      FROM post_tag_join, tags \
+      WHERE post_tag_join.tag_id = tags.id \
+      GROUP BY tags.title \
+      ORDER BY COUNT(tags.title) DESC \
+      LIMIT 30');
   };
 
   Tag.createOrSave = function(tagTitle, callback) {
