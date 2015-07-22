@@ -1,14 +1,25 @@
-.grid-block.vertical
-  .grid-container
-    .grid-block
-      p Here are your results for 
-        span {{searchQuery}}
-    .grid-block.vertical
-      .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
-        hr
-        .grid-content
-          h2 {{post.post_title}}
-        .grid-content
-          img(ng-src="{{post.profile_photo_url}}")
-          h5 {{post.author}}
-        //- p {{post.post_content}}
+.content
+  p Here are your results for 
+    span {{searchQuery}}
+  hr
+  .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
+    hr
+    h2 {{post.post_title}}
+    img(ng-src="{{post.profile_photo_url}}")
+    h5 {{post.author}}
+    p {{post.post_content}}
+
+//- .grid-block.vertical
+//-   .grid-container
+//-     .grid-block
+//-       p Here are your results for 
+//-         span {{searchQuery}}
+//-     .grid-block.vertical
+//-       .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
+//-         hr
+//-         .grid-content
+//-           h2 {{post.post_title}}
+//-         .grid-content
+//-           img(ng-src="{{post.profile_photo_url}}")
+//-           h5 {{post.author}}
+//-         //- p {{post.post_content}}

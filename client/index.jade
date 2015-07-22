@@ -17,12 +17,16 @@ html.no-js(ng-app="crouton" lang="en")
     //- search autocomplete dependencies
     script(src="assets/lib/angular-ui-select/dist/select.min.js")
     script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
+      
+
     
     //- local storage module for search autocomplete and potentially tokens
     script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
     
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
-    
+    //- dropdown menus
+    script(src="assets/lib/semantic-ui-dropdown/dropdown.min.js")
+    script(src="assets/lib/semantic-ui-transition/transition.min.js")
     <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
 
@@ -73,6 +77,11 @@ html.no-js(ng-app="crouton" lang="en")
 
     //- select2 for search box
     link(href="assets/lib/angular-ui-select/dist/select.min.css" rel="stylesheet")
+    
+    //- semantic ui dropdown
+    link(href="assets/lib/semantic-ui-dropdown/dropdown.min.css" rel="stylesheet")
+    link(href="assets/lib/semantic-ui-transition/transition.min.css" rel="stylesheet")
+      
     <!-- build:css(./client/) assets/css/styles.min.css -->
     //styles  
     link(href="assets/css/styles.min.css" rel="stylesheet")
