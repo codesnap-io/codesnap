@@ -31,8 +31,8 @@ html(ng-app="crouton" lang="en")
     script(src="app/components/post/postFactory.js")
 
     //user
-    script(src="app/components/user/userController.js")
-    script(src="app/components/user/userFactory.js")
+    script(src="app/shared/user/userController.js")
+    script(src="app/shared/user/userFactory.js")
 
     //signup
     script(src="app/components/signup/signupController.js")
@@ -107,4 +107,4 @@ html(ng-app="crouton" lang="en")
     .ui.sticky
         ui-view(name="subnav")
     ui-view(name="content")
-    script $('.ui.sticky').sticky();
+    script $(function() {$('.ui.sticky').sticky({context: 'body'});});
