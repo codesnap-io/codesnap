@@ -16,7 +16,7 @@
         } else {
           /* post data for author information */
           $scope.postData = post;
-
+          postFactory.setCurrentPost(post);
           /* The Url to propose changes to the post on github */
           $scope.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
           /* If post data is successfully retrieved, get the markdown file at it's specified url */

@@ -5,32 +5,34 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 (function() {
   'use strict';
   angular.module('crouton', [
-      // Angular libraries
-      'ui.router',
-      //markdown parser
-      'mdParserDirective',
-      //select for search
-      'ui.select',
-      'ngSanitize',
-      //localStorage
-      'LocalStorageModule',
-      //---SHARED---
-      'navbarController',
-      //---COMPONENTS---
-      'homeController',
-      'signupController',
-      'postController',
-      'postFactory',
-      'userController',
-      'authFactory',
-      'userController',
-      'authFactory',
-      'searchFactory',
-      'searchController',
-      'searchbarDirective',
-      'tagController',
-      'tagFactory'
-    ])
+    // Angular libraries
+    'ui.router',
+    //markdown parser
+    'mdParserDirective',
+    //select for search
+    'ui.select',
+    'ngSanitize',
+    //localStorage
+    'LocalStorageModule',
+    //shared
+    'navbarController',
+    //components
+    'homeController',
+    'signupController',
+    'postController',
+    'postFactory',
+    'userController',
+    'authFactory',
+    'userController',
+    'authFactory',
+    'searchFactory',
+    'searchController',
+    'tagController',
+    'tagFactory',
+    //shared directives
+    'searchbarDirective',
+    'postSubnavDirective'
+  ])
     .config(config)
     .run(run);
 
@@ -91,8 +93,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             controller: 'postController'
           },
           subnav: {
-            templateUrl: 'app/shared/subnavs/postSubnav.html',
-            controller: 'postController'
+            templateUrl: 'app/shared/subnavs/postSubnav.html'
           }
         }
       })
