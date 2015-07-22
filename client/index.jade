@@ -10,26 +10,12 @@ html(ng-app="crouton" lang="en")
     //fastclick -- removes click delay on touch devices
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
 
-    //- search autocomplete dependencies
-    script(src="assets/lib/angular-ui-select/dist/select.min.js")
-    script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
-
-
-
-
-    //- local storage module for search autocomplete and potentially tokens
-    script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
-
     //jQuery
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
-    //semantic ui elements
-    //- dropdown menus
-    script(src="assets/lib/semantic-ui-dropdown/dropdown.min.js")
-    script(src="assets/lib/semantic-ui-transition/transition.min.js")
 
     //sticky
     script(src="http://oss.maxcdn.com/semantic-ui/2.0.5/components/sticky.min.js")
-
+  
     <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
 
@@ -80,16 +66,25 @@ html(ng-app="crouton" lang="en")
 
     //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
+      
+    //- search autocomplete dependencies
+    script(src="assets/lib/angular-ui-select/dist/select.min.js")
+    script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
+    //- local storage module for search autocomplete and potentially tokens
+    script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
+
+      
+    //semantic ui elements
+    //- dropdown menus
+    script(src="assets/lib/semantic-ui-dropdown/dropdown.min.js")
+    script(src="assets/lib/semantic-ui-transition/transition.min.js")
+
+  
+
     <!-- endbuild -->
 
     //---MARKDOWN STUFF---
 
-    //- select2 for search box
-    link(href="assets/lib/angular-ui-select/dist/select.min.css" rel="stylesheet")
-
-    //- semantic ui dropdown
-    link(href="assets/lib/semantic-ui-dropdown/dropdown.min.css" rel="stylesheet")
-    link(href="assets/lib/semantic-ui-transition/transition.min.css" rel="stylesheet")
 
     <!-- build:css(./client/) assets/css/styles.min.css -->
     //styles

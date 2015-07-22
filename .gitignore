@@ -1,5 +1,6 @@
 #Folders to ignore
 node_modules/
+build/
 dist/
 .idea/
 client/assets/lib

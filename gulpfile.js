@@ -22,10 +22,13 @@ var gulp = require('gulp'),
 
 /* asset paths */
 var paths = {
-  scripts: ['client/app/**/*.js', '!client/lib/**/*', "client/assets/lib/marked/lib/marked.js"],
+  scripts: ['client/app/**/*.js', '!client/lib/**/*', "client/assets/lib/marked/lib/marked.js",
+  'client/assets/lib/angular-ui-select/dist/select.min.js', "client/assets/lib/angular-sanitize/angular-sanitize.min.js",
+  "client/assets/lib/angular-local-storage/dist/angular-local-storage.min.js", "client/assets/lib/semantic-ui-dropdown/dropdown.min.js",
+  "client/assets/lib/semantic-ui-transition/transition.min.js"],
   css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
-  html: ['client/**/*.html', '!client/lib/**/*']
+  html: ['client/**/*.html', '!client/assets/lib/**/*.html']
 };
 
 
@@ -51,9 +54,9 @@ gulp.task('build', ['scripts', 'css', 'usemin', 'images'], function () {
 
 
 
-/* clean dist folder */
+/* clean build folder */
 gulp.task('clean', function (cb) {
-  del('./dist', cb);
+  del('./build', cb);
 });
 
 
@@ -65,9 +68,9 @@ gulp.task('scripts', function () {
     .pipe(ngAnnotate())
     .pipe(sourcemaps.init())
     .pipe(uglify())
-    .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./dist/assets/js'));
+    .pipe(concat('app.min.js'))
+    .pipe(gulp.dest('./build/assets/js'));
 });
 
 
@@ -79,7 +82,7 @@ gulp.task('css', ['sass'], function () {
     .pipe(minifyCss())
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./dist/assets/css"));
+    .pipe(gulp.dest("./build/assets/css"));
 });
 
 /* simply compile sass to css */
@@ -149,13 +152,13 @@ gulp.task('jade', [], function () {
 /* replace unoptimized scripts with minified */
 gulp.task('html', ['jade'], function () {
   return gulp.src(paths.html)
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest('build'));
 });
 
 gulp.task('usemin', ['html'], function() {
-    return gulp.src('./dist/index.html')
+    return gulp.src('./build/index.html')
       .pipe(usemin())
-      .pipe(gulp.dest('./dist/'));
+      .pipe(gulp.dest('./build/'));
 });
 
 
@@ -166,7 +169,7 @@ gulp.task('images', function () {
             progressive: true,
             svgoPlugins: [{removeViewBox: false}]
         }))
-        .pipe(gulp.dest('dist/assets/img'));
+        .pipe(gulp.dest('build/assets/img'));
 });
 
 
