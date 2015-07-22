@@ -180,5 +180,14 @@
       .select('name').from('users');
   };
 
+  Post.addView = function(postId) {
+    new Post({id: postId})
+    .fetch()
+    .then(function(post) {
+      post.set('views', post.get('views') + 1);
+      post.save();
+    })
+  }
+
   module.exports = Post;
 })();

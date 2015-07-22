@@ -39,5 +39,7 @@
         });
     }
 
+    postFactory.addPostView($scope.post_id);
+
   });
 })();

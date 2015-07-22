@@ -5,23 +5,7 @@
 
   .controller('homeController', function($scope, $rootScope, postFactory, tagFactory) {
 
-    /* Load posts to post page */
-    /* show all posts */
-
-    // $scope.getTopPosts = function() {
-    // postFactory.getTopPosts()
-    //   .then(function(posts, err) {
-    //     if (err) {
-    //       console.log("Error: ", err);
-    //     } else {
-    //       console.log("scope.posts updated");
-    //       $scope.posts = posts;
-    //     }
-    //   });
-    // };
-
-
-    // $scope.getRecentPosts = function() {
+    /* Load recent posts to page when page first loads */
     postFactory.getRecentPosts()
       .then(function(posts, err) {
         if (err) {
@@ -30,7 +14,6 @@
           $scope.posts = posts;
         }
       });
-    // };
 
     $rootScope.$on('changeHomePostList', function(event, list) {
       if (list === 'recent') {

@@ -205,6 +205,15 @@
     });
   };
 
+  exports.addView = function(req, res) {
+    if (req.query.post_id) {
+      Post.addView(req.query.post_id);
+      res.send("View added");
+    } else{
+      res.send("No post id provide");
+    }
+  };
+
 
   //for testing of getMetadata:
   // var file = fs.readFileSync(__dirname + '/sample.md', 'utf8');

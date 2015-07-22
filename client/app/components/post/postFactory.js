@@ -90,6 +90,17 @@
         });
       },
 
+
+      addPostView: function(postId) {
+        return $http({
+          method: 'GET',
+          url: '/post/addview',
+          params: {
+            post_id: postId
+          }
+        });
+      },
+
       /*Sets current post data for passing between post controller and post subnav*/
       setCurrentPost: function(postObj) {
         currentPost = postObj;
