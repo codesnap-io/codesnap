@@ -1,13 +1,15 @@
-.content
-  p Here are your results for 
-    span {{searchQuery}}
-  hr
-  .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
-    hr
-    h2 {{post.post_title}}
-    img(ng-src="{{post.profile_photo_url}}")
-    h5 {{post.author}}
-    p {{post.post_content}}
+.content.search-results
+  p Here are your results for
+      span {{searchQuery}}
+  .post-list
+    .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
+      h2.title {{post.post_title}}
+      .user-info
+        img.profile-picture(src="{{post.profile_photo_url}}" alt="profile photo")
+        .post-author-date
+          span.author {{post.author}}
+          span.date {{post.created_date | date:"MMM dd, yyyy"}}
+      p.summary {{post.summary}}...
 
 //- .grid-block.vertical
 //-   .grid-container
