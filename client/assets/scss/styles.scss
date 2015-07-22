@@ -371,6 +371,9 @@ code {
 .category-list {
   padding: 0;
   list-style-type: none;
+  .underscore {
+    border-bottom: 2px solid $accent-300;
+  }
 }
 
 .category-list a {
@@ -380,6 +383,7 @@ code {
 }
 
 .category-list a:hover {
+  cursor: pointer;
   border-bottom: 2px solid $accent-300;
 }
 

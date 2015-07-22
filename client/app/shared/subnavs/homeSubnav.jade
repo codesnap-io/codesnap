@@ -1,14 +1,14 @@
-section.subnav
+section.subnav(home-subnav)
     .content
         .post-categories
             ul.category-list
-                a(href="#")
+                a(ng-click="getRecentPosts()", ng-class="{underscore: category==='recent'}")
+                    li Recent Posts
+                a(ng-click="getTopPosts()", ng-class="{underscore: category==='top'}")
                     li Top Posts
-                a(href="#")
-                    li Recent
         .tag-categories
             ul.category-list
-                a(href="#")
+                a(ng-class="{underscore: true}")
                     li Popular Tags
 
 
