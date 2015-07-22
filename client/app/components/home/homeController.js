@@ -32,7 +32,7 @@
         });
     };
 
-    $scope.getTopPosts();
+    $scope.getRecentPosts();
 
 
 
