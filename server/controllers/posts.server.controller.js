@@ -116,7 +116,6 @@
     });
   };
 
-
   exports.postReceive = function(req, res) {
     console.log("------------Post received----------------");
     res.sendStatus(201);
@@ -192,7 +191,19 @@
     return summary;
   };
 
-  console.log(exports.getSummary("# Welcome to Crouton.io Below are a few instructions and other information about your crouton. All of your cruton posts should be in the /posts folder.** Any commits to that folder, whether through merging pull requests of by simply commiting, will appear as published work on crouton.io. * **Images can be placed in the /images folder.** Images can be referred to in your markup via a relative path, Like this image ('images/pathtoimage')"));
+  exports.topPosts = function(req, res) {
+    Post.getTopPosts()
+    .then(function(posts) {
+      res.json(posts[0]);
+    });
+  };
+
+  exports.recentPosts = function(req, res) {
+    Post.getRecentPosts()
+    .then(function(posts) {
+      res.json(posts[0]);
+    });
+  };
 
 
   //for testing of getMetadata:

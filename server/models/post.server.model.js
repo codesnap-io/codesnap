@@ -135,6 +135,40 @@
       });
   };
 
+  Post.getRecentPosts = function() {
+    return db.knex.raw(' \
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        posts.created_at AS created_date, \
+        posts.summary AS summary, \
+        users.name AS author, \
+        users.profile_photo_url AS profile_photo_url \
+      FROM posts, users \
+      WHERE posts.user_id = users.id \
+      ORDER BY created_date DESC \
+      LIMIT 20');
+  };
+
+  Post.getTopPosts = function() {
+    return db.knex.raw(' \
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        posts.created_at AS created_date, \
+        posts.summary AS summary, \
+        users.name AS author, \
+        users.profile_photo_url AS profile_photo_url \
+      FROM posts, users, likes \
+      WHERE posts.user_id = users.id \
+        AND posts.id = likes.post_id \
+      GROUP BY post_id \
+      ORDER BY COUNT(likes.post_id) DESC \
+      LIMIT 20');
+  }
+
   Post.getAllTitles = function() {
     return db.knex
       .select('title').from('posts');

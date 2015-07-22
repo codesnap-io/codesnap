@@ -6,8 +6,6 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
 
-
-
     /* Fetch data to this specific post */
     postFactory.getPostData($scope.post_id)
       .then(function (post, err) {
@@ -16,9 +14,10 @@
         } else {
           /* post data for author information */
           $scope.postData = post;
-          postFactory.setCurrentPost(post);
           /* The Url to propose changes to the post on github */
-          $scope.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
+          $scope.postData.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
+          postFactory.setCurrentPost(post);
+
           /* If post data is successfully retrieved, get the markdown file at it's specified url */
           postFactory.getPostMarkdown(post.post_url)
           .then(function (post, err) {
