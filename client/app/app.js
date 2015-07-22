@@ -7,13 +7,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   angular.module('crouton', [
     // Angular libraries
     'ui.router',
-    // 'ngAnimate',
-    // Foundation UI components
-    //'foundation',
-    // Routing with front matter
-    //'foundation.dynamicRouting',
-    // Transitioning between views
-    //'foundation.dynamicRouting.animations',
     //markdown parser
     'mdParserDirective',
     //select for search
