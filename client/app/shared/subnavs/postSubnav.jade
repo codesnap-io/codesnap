@@ -1,19 +1,19 @@
-section.subnav(post-subnav)
+section.subnav(post-subnav ng-show="postData")
     .content
         img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo")
         .left-icons
             .post-author-date
                 span.author {{postData.author}}
                 span.date {{postData.created_date | date:"MMM dd, yyyy"}}
-            a.icon
+            a.icon(ng-click="toggleLike()" ng-class="{active: isLiked()}")
                 img(src="assets/img/Heart.svg" alt="New Post Icon")
-                span 14
-            //a.icon
-            //    img(src="assets/img/User.svg" alt="New Post Icon")
-            //    span 3
-            //a.icon
-            //    img(src="assets/img/Comment.svg" alt="New Post Icon")
-            //    span 7
+                span {{postData.likes}}
+            a.icon
+                img(src="assets/img/User.svg" alt="New Post Icon")
+                span 3
+            a.icon
+                img(src="assets/img/Comment.svg" alt="New Post Icon")
+                span 7
         .right-icons
             //a.button
             //    img(src="assets/img/Share.svg" alt="New Post Icon")
@@ -21,9 +21,3 @@ section.subnav(post-subnav)
             a.button(href="{{postData.editUrl}}", target="_blank")
                 img(src="assets/img/Edit.svg" alt="New Post Icon")
                 span Propose Change
-
-
-
-//ul.primary.menu-bar.hide-for-large
-//  li
-//    a(href="#" zf-toggle="categoryPanel") Categories
