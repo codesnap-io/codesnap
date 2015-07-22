@@ -4,6 +4,8 @@
   angular.module('postFactory', [])
 
   .factory('postFactory', function ($http) {
+    var currentPost = {};
+
     return {
       /* Retrieves data about all posts from server */
       getPostsData: function () {
@@ -64,7 +66,16 @@
         }).then(function (resp) {
           return resp.data;
         });
+      },
+
+      /*Sets current post data for passing between post controller and post subnav*/
+      setCurrentPost: function(postObj) {
+        currentPost = postObj;
+      },
+      getCurrentPost: function() {
+        return currentPost;
       }
+
     };
   });
 })();
