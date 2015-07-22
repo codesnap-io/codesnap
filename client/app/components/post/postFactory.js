@@ -63,7 +63,7 @@
         });
       },
 
-      /* Returns true if the user likes the post, otherwise returns false. */
+      /* Returns true if user likes post after toggle, otherwise returns false. */
       toggleLike: function(userId, postId) {
         return $http({
           method: 'GET',
@@ -77,7 +77,7 @@
         });
       },
 
-      /* Returns true if user likes post after toggle, otherwise returns false. */
+      /* Returns true if the user likes the post, otherwise returns false. */
       getLikeStatus: function(userId, postId) {
         return $http({
           method: 'GET',
