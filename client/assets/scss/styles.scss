@@ -60,7 +60,7 @@ body {
 .button {
   margin: 0.5rem;
   padding: 0.2rem;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 2px;
   font-weight: 300;
   color: $accent-300;
@@ -68,7 +68,7 @@ body {
 }
 
 .button:hover {
-  border: 2px solid $accent-200;
+  border: 1px solid $accent-200;
   border-radius: 2px;
 }
 
@@ -91,6 +91,23 @@ body {
 
 header {
   border-bottom: 1px solid $accent-200;
+}
+
+.left {
+  @include flex-column;
+  @include flex-container;
+  justify-content: flex-start;
+}
+
+.center {
+  @include flex-column;
+  @include flex-container;
+}
+
+.right {
+  @include flex-column;
+  @include flex-container;
+  justify-content: flex-end;
 }
 
 .site-title {
@@ -130,8 +147,7 @@ header {
 
 .search-box {
   order: 0;
-  flex: 1 1 auto;
-  align-self: auto;
+  width: 400px;
   margin: 0.5rem;
   .ui-select-container.ui-select-multiple {
     ul.ui-select-choices {
@@ -146,9 +162,10 @@ header {
     width: 100% !important;
     border: 1px solid $accent-200;
     border-radius: 2px;
-    font-size: 1rem;
+    font-size: 0.75rem;
     padding: 0.4rem;
-    height: 2rem;
+    font-family: 'Source Sans Pro',  sans-serif;
+    font-weight: 300;
   }
   ul.ui-select-choices {
     list-style: none;
@@ -254,16 +271,12 @@ code {
 .left-icons .icon {
   //margin: 0.rem;
   padding: 0.2rem;
-  border: 2px solid transparent;
-  border-radius: 2px;
   font-weight: 300;
   color: $accent-300;
   text-decoration: none;
 }
 
 .left-icons .icon:hover {
-  border: 2px solid $accent-200;
-  border-radius: 2px;
 }
 
 .left-icons .icon * {
