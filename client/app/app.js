@@ -31,6 +31,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     'tagFactory',
     //shared directives
     'searchbarDirective',
+    'homeSubnavDirective',
     'postSubnavDirective'
   ])
     .config(config)
