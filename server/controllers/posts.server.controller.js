@@ -187,7 +187,8 @@
 
   exports.getSummary = function(file) {
     var data = fm(file);
-    var summary = data.body.slice(0,139);
+    /* Pull the 140 first characters of a post to generate its summary */
+    var summary = data.body.slice(0, 139);
     return summary;
   };
 
