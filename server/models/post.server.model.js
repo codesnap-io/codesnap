@@ -101,7 +101,13 @@
                   AND posts.id = ' + postId)
                 .then(function(data) {
                   postData.tags = data[0];
-                  callback(null, postData);
+                  db.knex('likes').where({
+                    post_id: postId
+                  }).count()
+                    .then(function(countData) {
+                      postData.likes = countData[0]['count(*)'];
+                      callback(null, postData);
+                    });
 
                 });
             });
