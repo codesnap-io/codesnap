@@ -13,4 +13,11 @@
       }
     });
   };
+
+  exports.getPopularTags = function(req, res) {
+    Tag.getPopularTags()
+    .then(function(data) {
+      res.json(data[0]);
+    });
+  };
 })();
