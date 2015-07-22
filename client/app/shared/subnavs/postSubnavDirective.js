@@ -15,7 +15,7 @@
                 .then(function(isLiked) {
                   $scope.isLiked = isLiked;
                   console.log(isLiked);
-                })
+                });
           }, 200);
 
 
@@ -34,12 +34,12 @@
             }
 
             $scope.isLiked = !$scope.isLiked;
-          }
+          };
 
 
           $scope.isLiked = function() {
             return $scope.isLiked;
-          }
+          };
 
 
         }
