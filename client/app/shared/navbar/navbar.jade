@@ -1,24 +1,27 @@
 header
   .content
-    a.site-title(ui-sref="home") &lt;code&gt;snap
-    .nav-links
-      a(ui-sref="home") Home
-      a(ui-sref="home") Discover
-    .search-box
-      ui-select(cr-searchbar id="search-box" theme="bootstrap" multiple ng-model="query" on-select="search(query)" append-to-body="true")
-        ui-select-match(placeholder="Search croutons") {{$item.name}}
-        ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
-          div(ng-bind-html="result.name | highlight: $select.search")
-    .nav-right(ng-if="loggedIn")
-      .ui.dropdown.top.left.pointing
-        img.profile-picture(ng-src="{{user.profile_photo_url}}")
-        .menu
-          a.item(ui-sref="profile") My profile
-          a.item(ng-click="logout()") Logout
-      a.button(href="{{newPostUrl}}", target="_blank")
-        img(src="assets/img/Plus.svg" alt="New Post Icon")
-        span New Post
-    .nav-right(ng-if="!loggedIn")
-      a.button(ui-sref="signup")
-        span Signup / Login
+    .left
+      a.site-title(ui-sref="home") &lt;code&gt;snap
+      //.nav-links
+      //  a(ui-sref="home") Home
+      //  a(ui-sref="home") Discover
+    .center
+      .search-box
+        ui-select(cr-searchbar id="search-box" theme="bootstrap" multiple ng-model="query" on-select="search(query)" append-to-body="true")
+          ui-select-match(placeholder="Search...") {{$item.name}}
+          ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
+            div(ng-bind-html="result.name | highlight: $select.search")
+    .right
+      .nav-right(ng-if="loggedIn")
+        .ui.dropdown.top.left.pointing
+          img.profile-picture(ng-src="{{user.profile_photo_url}}")
+          .menu
+            a.item(ui-sref="profile") My profile
+            a.item(ng-click="logout()") Logout
+        a.button(href="{{newPostUrl}}", target="_blank")
+          img(src="assets/img/Plus.svg" alt="New Post Icon")
+          span New Post
+      .nav-right(ng-if="!loggedIn")
+        a.button(ui-sref="signup")
+          span Signup / Login
 //- load semantic ui elements
