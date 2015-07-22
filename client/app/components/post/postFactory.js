@@ -11,6 +11,7 @@
           method: 'GET',
           url: '/post/info/all'
         }).then(function (resp) {
+          console.log("posts data: ", resp);
           return resp.data;
         });
       },

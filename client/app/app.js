@@ -2,42 +2,35 @@
 Handle setup of app, load in Angular dependencies, routing, etc.
 */
 
-(function () {
+(function() {
   'use strict';
   angular.module('crouton', [
-    // Angular libraries
-    'ui.router',
-    // 'ngAnimate',
-    // Foundation UI components
-    //'foundation',
-    // Routing with front matter
-    //'foundation.dynamicRouting',
-    // Transitioning between views
-    //'foundation.dynamicRouting.animations',
-    //markdown parser
-    'mdParserDirective',
-    //select for search
-    'ui.select',
-    'ngSanitize',
-    //localStorage
-    'LocalStorageModule',
-    //shared
-    'navbarController',
-    //components
-    'homeController',
-    'signupController',
-    'postController',
-    'postFactory',
-    'userController',
-    'authFactory',
-    'userController',
-    'authFactory',
-    'searchFactory',
-    'searchController',
-    'searchbarDirective',
-    'tagController',
-    'tagFactory'
-  ])
+      // Angular libraries
+      'ui.router',
+      //markdown parser
+      'mdParserDirective',
+      //select for search
+      'ui.select',
+      'ngSanitize',
+      //localStorage
+      'LocalStorageModule',
+      //---SHARED---
+      'navbarController',
+      //---COMPONENTS---
+      'homeController',
+      'signupController',
+      'postController',
+      'postFactory',
+      'userController',
+      'authFactory',
+      'userController',
+      'authFactory',
+      'searchFactory',
+      'searchController',
+      'searchbarDirective',
+      'tagController',
+      'tagFactory'
+    ])
     .config(config)
     .run(run);
 
@@ -74,7 +67,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         resolve: {
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
-          authUser: function ($stateParams, $location, authFactory) {
+          authUser: function($stateParams, $location, authFactory) {
             if (!localStorage.jwtToken) {
               authFactory.checkAuth(function(token) {
                 if (!!token) {
@@ -165,13 +158,12 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
   function run($rootScope, $state, authFactory) {
     // Enable FastClick to remove the 300ms click delay on touch devices
-    //FastClick.attach(document.body);
-
+    FastClick.attach(document.body);
 
     /* Event listener for state change, and checks for authentication via authFactory
     Redirects is false returned  */
     $rootScope.$on("$stateChangeStart",
-      function (event, toState, toParams, fromState, fromParams) {
+      function(event, toState, toParams, fromState, fromParams) {
 
         //let the client know at the root scope whether user is actually logged in.
         //This will allow certain elements to hide and show based on user status
@@ -184,7 +176,4 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       });
   }
-
-  //hacky fix because we're not using Foundation's routing system
-  //window.foundationRoutes = [];
 })();

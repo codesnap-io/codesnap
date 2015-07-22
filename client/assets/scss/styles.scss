@@ -1,9 +1,9 @@
-//@import '../lib/foundation-apps/scss/foundation';
 @import '../lib/highlightjs/styles/default.css';
 @import 'auth-buttons';
+@import 'sticky';
 
 // Import fonts
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Merriweather:300);
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Merriweather:300");
 
 // *** Global variables ***
 
@@ -176,7 +176,8 @@ header {
 
 .subnav {
   border-bottom: 1px solid $accent-200;
-  background: rgba(227,227,227,0.30);
+  background: #f4f4f4;
+  opacity: .92;
 }
 
 .post-author-date {

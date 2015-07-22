@@ -5,9 +5,8 @@
 
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
-
-    /* Sends token as a parameter to the home page.  The home page handles this parameter in the resolve */
     res.redirect('/');
+    console.log("client redirected");
   };
 
   /* If user exists in the session, passes encoded user id to the front end. */

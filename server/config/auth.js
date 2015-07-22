@@ -85,6 +85,7 @@ exports.githubStrategy = function() {
                       }
                     });
                   });
+                console.log("auth and file add complete");
                 return done(null, newUser);
               });
           }
