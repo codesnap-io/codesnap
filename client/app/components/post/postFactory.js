@@ -8,17 +8,39 @@
 
     return {
       /* Retrieves data about all posts from server */
-      getPostsData: function () {
+      getPostsData: function() {
         return $http({
           method: 'GET',
-          url: '/post/info/all'
+          url: '/post/all'
         }).then(function (resp) {
           console.log("posts data: ", resp);
           return resp.data;
         });
       },
+
+      /* Retrieves 20 posts with the most likes */
+      getTopPosts: function() {
+        return $http({
+          method: 'GET',
+          url: '/post/top'
+        }).then(function (resp) {
+          return resp.data;
+        });
+      },
+
+      /* Retrieves top 20 most recent posts */
+      getRecentPosts: function() {
+        return $http({
+          method: 'GET',
+          url: '/post/recent'
+        }).then(function (resp) {
+          return resp.data;
+        });
+      },
+
+
       /* Retrieves data for one post (based on given post id) */
-      getPostData: function (id) {
+      getPostData: function(id) {
         return $http({
           method: 'GET',
           url: '/post/info',
@@ -31,7 +53,7 @@
       },
 
       /* Download post markdown content from Github */
-      getPostMarkdown: function (url) {
+      getPostMarkdown: function(url) {
         return $http({
           method: 'GET',
           url: url

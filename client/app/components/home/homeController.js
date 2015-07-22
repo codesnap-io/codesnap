@@ -7,9 +7,9 @@
 
     /* Load posts to post page */
     /* show all posts */
-    $scope.loadData = function() {
-      console.log("loaddata called")
-      postFactory.getPostsData()
+
+    $scope.getTopPosts = function() {
+      postFactory.getTopPosts()
         .then(function(posts, err) {
           if (err) {
             console.log("Error: ", err);
@@ -20,7 +20,24 @@
         });
     };
 
-    $scope.loadData();
+
+    $scope.getRecentPosts = function() {
+      postFactory.getRecentPosts()
+        .then(function(posts, err) {
+          if (err) {
+            console.log("Error: ", err);
+          } else {
+            $scope.posts = posts;
+          }
+        });
+    };
+
+    $scope.getTopPosts();
+
+
+
+
+
 
 
     tagFactory.getPopularTags()
