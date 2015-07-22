@@ -114,6 +114,13 @@ header {
   text-decoration: none;
 }
 
+.nav-right {
+  @include flex-column;
+  @include flex-container;
+  flex: 0 1 auto;
+  margin: 1rem;
+}
+
 .search-box {
   order: 0;
   flex: 1 1 auto;
@@ -367,13 +374,9 @@ code {
 }
 
 .category-list li {
-   display: inline;
-   border: none;
-   overflow: hidden;
-}
-
-.category-list li:hover {
-  margin-bottom: -2px;
+  display: inline;
+  border: none;
+  overflow: hidden;
 }
 
 
