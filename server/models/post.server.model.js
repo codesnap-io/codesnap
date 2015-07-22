@@ -167,7 +167,7 @@
       GROUP BY post_id \
       ORDER BY COUNT(likes.post_id) DESC \
       LIMIT 20');
-  }
+  };
 
   Post.getAllTitles = function() {
     return db.knex
@@ -178,6 +178,15 @@
     return db.knex
       .distinct()
       .select('name').from('users');
+  };
+
+  Post.addView = function(postId) {
+    new Post({id: postId})
+    .fetch()
+    .then(function(post) {
+      post.set('views', post.get('views') + 1);
+      post.save();
+    });
   };
 
   module.exports = Post;

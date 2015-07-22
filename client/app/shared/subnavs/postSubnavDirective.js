@@ -8,8 +8,6 @@
           $timeout(function() {
               $scope.postData = postFactory.getCurrentPost();
           }, 200);
-
-          
         }
       };
     });

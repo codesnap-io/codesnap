@@ -187,7 +187,8 @@
 
   exports.getSummary = function(file) {
     var data = fm(file);
-    var summary = data.body.slice(0,139);
+    /* Pull the 140 first characters of a post to generate its summary */
+    var summary = data.body.slice(0, 139);
     return summary;
   };
 
@@ -203,6 +204,15 @@
     .then(function(posts) {
       res.json(posts[0]);
     });
+  };
+
+  exports.addView = function(req, res) {
+    if (req.query.post_id) {
+      Post.addView(req.query.post_id);
+      res.send("View added");
+    } else{
+      res.send("No post id provide");
+    }
   };
 
 
