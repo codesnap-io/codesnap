@@ -11,27 +11,28 @@
           // request to load.
           $timeout(function() {
               $scope.postData = postFactory.getCurrentPost();
-              postFactory.getLikeStatus(window.localStorage.jwtToken, $scope.postData.post_id)
-                .then(function(isLiked) {
-                  $scope.isLiked = isLiked;
+              $scope.loggedIn = $rootScope.loggedIn;
+              if($scope.loggedIn) {
+                postFactory.getLikeStatus(localStorage.jwtToken, $scope.postData.post_id)
+                .then(function(status) {
+                  $scope.isLiked = status;
                 });
+              }
           }, 200);
 
-          $scope.loggedIn = $rootScope.loggedIn;
+
 
           // Toggle likes
           $scope.toggleLike = function() {
             if ($scope.loggedIn) {
               postFactory.toggleLike(localStorage.jwtToken, $scope.postData.post_id)
                 .then(function(resp) {
-
                   /* Update like count in client */
                   if ($scope.isLiked) {
                     $scope.postData.likes--;
                   } else {
                     $scope.postData.likes++;
                   }
-
                   $scope.isLiked = !$scope.isLiked;
                 });
             } else {
@@ -40,12 +41,7 @@
             }
           };
 
-          if($scope.loggedIn) {
-            console.log("A");
-            $scope.isLiked = function() {
-              return $scope.isLiked;
-            };
-          }
+
 
           /* Hide post error container when user clicks it */
 

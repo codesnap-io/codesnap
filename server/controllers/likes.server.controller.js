@@ -18,9 +18,10 @@
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
     var postId = req.query.post_id;
 
-    Like.toggle(userId, postId);
-
-    res.send("Like updated");
+    Like.toggle(userId, postId, function() {
+      res.send("Like updated");
+    });
+    
   };
 
 })();
