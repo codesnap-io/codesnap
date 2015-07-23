@@ -1,3 +1,7 @@
+#post-error-container
+    #post-error-text Please #[strong(ui-sref="signup") log in] to like or contribute to post
+    img#post-error-x(src="../../../assets/img/x.png")
+
 section.subnav(post-subnav ng-show="postData")
     .content
         img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo")
@@ -5,18 +9,20 @@ section.subnav(post-subnav ng-show="postData")
             .post-author-date
                 span.author {{postData.author}}
                 span.date {{postData.created_date | date:"MMM dd, yyyy"}}
-            a.icon.like-button(ng-click="toggleLike()" ng-class="{active: isLiked()}")
-                img(src="assets/img/Heart.svg" alt="New Post Icon")
+
+            a.icon(ng-click="toggleLike()" ng-class="{active: isLiked()}")
+                img(src="assets/img/heart-full.svg" width="21px" alt="New Post Icon" ng-show="isLiked")
+                img(src="assets/img/heart-empty.svg" alt="New Post Icon" ng-hide="isLiked")
                 span {{postData.likes}}
             a.icon
-                img(src="assets/img/User.svg" alt="New Post Icon")
+                img(src="assets/img/user.svg" alt="New Post Icon")
                 span 3
             a.icon
-                img(src="assets/img/Comment.svg" alt="New Post Icon")
+                img(src="assets/img/comment.svg" alt="New Post Icon")
                 span 7
         .right-icons
             //a.button
-            //    img(src="assets/img/Share.svg" alt="New Post Icon")
+            //    img(src="assets/img/share.svg" alt="New Post Icon")
             //    span Share
             a.button(href="{{postData.editUrl}}", target="_blank")
                 img(src="assets/img/Edit.svg" alt="New Post Icon")

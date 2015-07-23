@@ -25,10 +25,8 @@
           method: 'GET',
           url: 'auth/logout'
         }).then(function(res) {
-          if(res.data) {
-            delete window.localStorage.jwtToken;
-            $state.go('signup');
-          }
+          delete window.localStorage.jwtToken;
+          $state.go('signup');
         });
       }
     };
