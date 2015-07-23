@@ -1,12 +1,12 @@
 // home.js
-describe('Crouton homepage', function() {
+describe('CodeSnap homepage', function() {
 
   beforeEach(function() {
     browser.get('/#/home');
   });
 
   it('should have a title', function() {
-    expect(browser.getTitle()).toEqual('Crouton');
+    expect(browser.getTitle()).toEqual('CodeSnap');
   });
 
   // it('should select the appropriate topic when clicking the side bar buttons', function() {

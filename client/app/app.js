@@ -4,7 +4,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
 (function() {
   'use strict';
-  angular.module('crouton', [
+  angular.module('codesnap', [
       // Angular libraries
       'ui.router',
       //markdown parser
@@ -44,7 +44,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // console.log(localStorageServiceProvider);
     // //prefix local storage variables for safety and profit
     // localStorageServiceProvider
-    // .setPrefix('crouton');
+    // .setPrefix('codesnap');
 
 
 

@@ -236,7 +236,7 @@
 //     };
 //     req.body = {
 //       repository: {
-//         name: 'crouton.io',
+//         name: 'codesnap.io',
 //         owner: {
 //           name: 'bdstein33'
 //         }

@@ -1,5 +1,5 @@
 //post.js
-describe('Crouton post page', function() {
+describe('CodeSnap post page', function() {
   beforeEach(function() {
     browser.get('/#/post/1');
   });
@@ -21,7 +21,7 @@ describe('Crouton post page', function() {
   });
 
   // it('should redirect if user is not signed in', function() {
-  //   expect(browser.getTitle()).toEqual('Crouton');
+  //   expect(browser.getTitle()).toEqual('codesnap');
   //   expect(browser.getCurrentUrl).toBe("/#/signup");
   // });
 

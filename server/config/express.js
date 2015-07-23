@@ -25,7 +25,7 @@
 
     /* whitelist of CORS available origins */
     // TODO: change these origins for production
-    var whitelist = ['http://www.crouton.io'];
+    var whitelist = ['http://www.codesnap.io'];
     app.corsOptions = {
       origin: function(origin, callback){
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;

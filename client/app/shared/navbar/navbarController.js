@@ -19,7 +19,7 @@
           .then(function(user) {
             $rootScope.user = user;
             $scope.loggedIn = !!user;
-            $scope.newPostUrl = "https://github.com/" + user.username + "/crouton.io/new/master/posts";
+            $scope.newPostUrl = "https://github.com/" + user.username + "/codesnap.io/new/master/posts";
           });
       }
     });

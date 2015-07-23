@@ -15,7 +15,7 @@
           /* post data for author information */
           $scope.postData = post;
           /* The Url to propose changes to the post on github */
-          $scope.postData.editUrl = "https://github.com/" + post.username + "/crouton.io/edit/master/" + post.file;
+          $scope.postData.editUrl = "https://github.com/" + post.username + "/codesnap.io/edit/master/" + post.file;
           postFactory.setCurrentPost(post);
 
           /* If post data is successfully retrieved, get the markdown file at it's specified url */

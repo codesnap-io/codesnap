@@ -1,5 +1,5 @@
 //profile.js
-describe('Crouton profile page', function() {
+describe('CodeSnap profile page', function() {
   beforeEach(function() {
     browser.get('/#/profile');
   });
@@ -13,7 +13,7 @@ describe('Crouton profile page', function() {
   });
 
   it('should redirect if user is not signed in', function() {
-    expect(browser.getTitle()).toEqual('Crouton');
+    expect(browser.getTitle()).toEqual('CodeSnap');
     browser.sleep(3000);
     expect(browser.getCurrentUrl()).toMatch("/#/signup");
   });
