@@ -1,11 +1,11 @@
 // signup.js
-describe('Crouton signup page', function() {
+describe('CodeSnap signup page', function() {
   beforeEach(function() {
     browser.get('/#/signup');
   });
 
   it('should have a title', function() {
-    expect(browser.getTitle()).toEqual('Crouton');
+    expect(browser.getTitle()).toEqual('CodeSnap');
   });
 
   it('should be the signup page', function() {

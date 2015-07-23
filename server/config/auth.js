@@ -43,9 +43,9 @@ exports.githubStrategy = function() {
                     return JSON.parse(body);
                   })
                   .then(function(repos) {
-                    // search through all user repos for crouton.io repo
+                    // search through all user repos for codesnap.io repo
                     repos.forEach(function(repo) {
-                      if (repo.name === "crouton.io") {
+                      if (repo.name === "codesnap.io") {
                         //get all user posts
                         repoService.getFileFromGHAPI(accessToken, repo.url + '/contents/posts')
                           .then(function(posts) {
@@ -56,7 +56,7 @@ exports.githubStrategy = function() {
                               return post.path;
                             });
                             //add all posts to DB
-                            postCtrl.addPostsToDb(postPaths, profile.username, newUser.id, 'crouton.io');
+                            postCtrl.addPostsToDb(postPaths, profile.username, newUser.id, 'codesnap.io');
                           }).catch(function(err) {
                             console.log("Error: ", err);
                             //if has no posts
@@ -64,13 +64,13 @@ exports.githubStrategy = function() {
                             //add first post and first image
                             var firstPostPath = {
                               //first post
-                              repoPath: 'https://api.github.com/repos/' + profile.username + '/crouton.io/contents/posts/myFirstPost.md',
+                              repoPath: 'https://api.github.com/repos/' + profile.username + '/codesnap.io/contents/posts/myFirstPost.md',
                               message: "(init) setup repo and add first post",
                               serverPath: "./server/assets/firstPost.md"
                             };
                             var firstImagePath = {
                               //first image
-                              repoPath: 'https://api.github.com/repos/' + profile.username + '/crouton.io/contents/images/sample.jpg',
+                              repoPath: 'https://api.github.com/repos/' + profile.username + '/codesnap.io/contents/images/sample.jpg',
                               message: "(init) add first image",
                               serverPath: "./server/assets/sample.jpg"
                             };
@@ -80,7 +80,7 @@ exports.githubStrategy = function() {
 
                           });
                       } else {
-                        //if no crouton.io repo, create repo, readme, image, posts, etc.
+                        //if no codesnap.io repo, create repo, readme, image, posts, etc.
                         repoService.addGHRepo(accessToken, profile.username);
                       }
                     });

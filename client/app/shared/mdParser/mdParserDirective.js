@@ -33,7 +33,7 @@
             $('md').find('img').each(function() {
               var src = $(this).attr('src');
               if (src.substring(0, 7) === 'images/') {
-                $(this).attr('src', 'https://raw.githubusercontent.com/' + $scope.postData.username + '/crouton.io/master/' + src);
+                $(this).attr('src', 'https://raw.githubusercontent.com/' + $scope.postData.username + '/codesnap.io/master/' + src);
               }
             });
 

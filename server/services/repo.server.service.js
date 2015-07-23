@@ -28,7 +28,7 @@
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
-        'User-Agent': 'Crouton'
+        'User-Agent': 'CodeSnap'
       }
     };
     // console.log("options created, uri is: ", options.uri);
@@ -53,7 +53,7 @@
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
-        'User-Agent': 'Crouton'
+        'User-Agent': 'CodeSnap'
       }
     };
     return rp(options);
@@ -66,7 +66,7 @@
       method: 'GET',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'Crouton'
+        'User-Agent': 'CodeSnap'
       }
     };
     return rp(options);
@@ -75,8 +75,8 @@
   module.exports.addGHRepo = function(token, username) {
 
     /* These are the details for the repo that's created */
-    var repoName = 'crouton.io';
-    var homepage = 'http://www.crouton.io';
+    var repoName = 'codesnap.io';
+    var homepage = 'http://www.codesnap.io';
     var description = 'A technical blogging platform';
 
     var addRepoOptions = {
@@ -86,18 +86,18 @@
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
-        'User-Agent': 'Crouton'
+        'User-Agent': 'CodeSnap'
       }
     };
 
     var addWebhookOptions = {
       url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
       method: 'POST',
-      body: '{ "name": "web", "config": {"url": "http://www.crouton.io/postreceive/github", "content_type": "json"} }',
+      body: '{ "name": "web", "config": {"url": "http://www.codesnap.io/postreceive/github", "content_type": "json"} }',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
-        'User-Agent': 'Crouton'
+        'User-Agent': 'CodeSnap'
       }
     };
 

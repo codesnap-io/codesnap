@@ -87,22 +87,22 @@
           // if (process.env.NODE_ENV === 'development') {
           //   new Post({
           //     title: "Javascript is cool",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
           //     user_id: 1
           //   }).save();
           //   new Post({
           //     title: "The inner workings of backbone",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
           //     user_id: 2
           //   }).save();
           //   new Post({
           //     title: "Navigating Asynchronous Callbacks",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
           //     user_id: 3
           //   }).save();
           //   new Post({
           //     title: "The Keyword this",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/crouton/master/README.md",
+          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
           //     user_id: 4
           //   }).save();
           // }

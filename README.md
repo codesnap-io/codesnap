@@ -1,6 +1,6 @@
-[![Circle CI](https://circleci.com/gh/BlaseBallerina/crouton.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/crouton)
+[![Circle CI](https://circleci.com/gh/BlaseBallerina/codesnap.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/codesnap)
 
-# Crouton
+# CodeSnap
 GitHub-based technical blogging platform
 
 

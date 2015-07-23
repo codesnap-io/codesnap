@@ -2,7 +2,7 @@ angular.module('faqController', ['postFactory'])
 
 .controller('faqController', function ($scope, postFactory) {
   /* Set the url that directs to the raw markdown of our FAQ */
-  var url = 'https://raw.githubusercontent.com/BlaseBallerina/crouton/master/FAQ.md';
+  var url = 'https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/FAQ.md';
 
   /* Pull FAQ markdown and render onto page */
   postFactory.getPostMarkdown(url)
