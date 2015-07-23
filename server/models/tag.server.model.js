@@ -12,7 +12,7 @@
 
   Tag.getAllPromise = function() {
     return db.knex.raw(' \
-      SELECT tags.title AS title \
+      SELECT DISTINCT tags.title AS title \
       FROM post_tag_join, tags \
       WHERE post_tag_join.tag_id = tags.id');
   };

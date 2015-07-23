@@ -202,7 +202,7 @@ gulp.task('test', function (done) {
 
 /* protractor task */
 
-gulp.task('protractor', ['webdriver_standalone'], function(cb) {
+gulp.task('protractor', function(cb) {
   gulp.src(["./test/e2e/specs/*.js"])
       .pipe(protractor({
           configFile: "test/e2e/conf.js",

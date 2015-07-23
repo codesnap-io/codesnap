@@ -200,13 +200,13 @@
 
   Post.getAllTitles = function() {
     return db.knex
-      .select('title').from('posts');
+      .select('title').from('posts').distinct('title');
   };
 
   Post.getAllAuthors = function() {
     return db.knex
       .distinct()
-      .select('name').from('users');
+      .select('name').from('users').distinct('name');
   };
 
   Post.addView = function(postId) {
