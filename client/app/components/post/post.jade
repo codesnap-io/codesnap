@@ -1,6 +1,6 @@
 .content
-  .flex-column
+  .large-child
     h1.post-title {{postData.post_title}}
-    #post-tags
+    .tag-list
       p.tag(ng-repeat="tag in postData.tags" tag-id="{{tag.id}}") {{tag.title}}
     md.post-content(ng-model="post")
