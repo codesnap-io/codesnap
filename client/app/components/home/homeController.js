@@ -37,12 +37,6 @@
       }
     });
 
-
-
-
-
-
-
     tagFactory.getPopularTags()
       .then(function(data){
         $scope.tags = data;
