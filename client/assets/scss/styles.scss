@@ -222,9 +222,36 @@ header {
   font-size: 0.75rem;
 }
 
+#post-error-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin:0px;
+  border: 1px solid #E0B4B4;
+  background-color: #FFF6F6;
+  color: #912D2B;
+  height: 50px;
+  cursor: pointer;
+  display:none;
+
+  #post-error-text{
+    line-height: 50px;
+    text-align: center;
+  }
+  #post-error-x {
+    width: 10px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+  }
+}
+
 .subnav .left-icons {
   @include flex-column;
   @include flex-container;
+  width: 21px;
+  height: 21px;
   justify-content: flex-start;
 }
 
