@@ -18,6 +18,7 @@ var gulp = require('gulp'),
   usemin = require('gulp-usemin'),
   del = require('del'),
   imagemin = require('gulp-imagemin'),
+  webdriver_standalone = require("gulp-protractor").webdriver_standalone,
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
@@ -201,7 +202,7 @@ gulp.task('test', function (done) {
 
 /* protractor task */
 
-gulp.task('protractor', function(cb) {
+gulp.task('protractor', ['webdriver_standalone'], function(cb) {
   gulp.src(["./test/e2e/specs/*.js"])
       .pipe(protractor({
           configFile: "test/e2e/conf.js",
@@ -210,7 +211,7 @@ gulp.task('protractor', function(cb) {
       .on('error', function(e) { throw e; });
 });
 
-
+gulp.task('webdriver_standalone', webdriver_standalone);
 
 // /* eslint task */
 gulp.task('lint', function () {
