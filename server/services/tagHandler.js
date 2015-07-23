@@ -6,8 +6,8 @@
 
   /* Takes an array of tags and adds the associated tag in the database of creates a new tag */
   exports.addTags = function(postId, postTags) {
-    /* matchThreshold determines how strict the matching requirements are.  The lower this threshold, the more strict the match must be */
-    var matchThreshold = 0.50;
+    /* matchThreshold determines how strict the matching requirements are.  The higher this threshold, the more strict the match must be */
+    var matchThreshold = 0.65;
 
     /* Get list of all existing tags from the database */
     Tag.getAll(function(error, tags) {
