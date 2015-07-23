@@ -9,4 +9,4 @@
             span.date {{post.created_date | date:"MMM dd, yyyy"}}
         p.summary {{post.summary}}...
     .tag-list
-      p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}") {{tag.title}}
+      p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ng-click="search(tag.title)") {{tag.title}}
