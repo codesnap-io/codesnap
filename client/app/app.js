@@ -5,36 +5,36 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 (function() {
   'use strict';
   angular.module('crouton', [
-    // Angular libraries
-    'ui.router',
-    //markdown parser
-    'mdParserDirective',
-    //select for search
-    'ui.select',
-    'ngSanitize',
-    //localStorage
-    'LocalStorageModule',
-    //shared
-    'navbarController',
-    //components
-    'homeController',
-    'signupController',
-    'postController',
-    'postFactory',
-    'userController',
-    'authFactory',
-    'userController',
-    'authFactory',
-    'searchFactory',
-    'searchController',
-    'tagController',
-    'tagFactory',
-    'faqController',
-    //shared directives
-    'searchbarDirective',
-    'homeSubnavDirective',
-    'postSubnavDirective'
-  ])
+      // Angular libraries
+      'ui.router',
+      //markdown parser
+      'mdParserDirective',
+      //select for search
+      'ui.select',
+      'ngSanitize',
+      //localStorage
+      'LocalStorageModule',
+      //shared
+      'navbarController',
+      //components
+      'homeController',
+      'signupController',
+      'postController',
+      'postFactory',
+      'userController',
+      'authFactory',
+      'userController',
+      'authFactory',
+      'searchFactory',
+      'searchController',
+      'tagController',
+      'tagFactory',
+      'faqController',
+      //shared directives
+      'searchbarDirective',
+      'homeSubnavDirective',
+      'postSubnavDirective'
+    ])
     .config(config)
     .run(run);
 
@@ -73,11 +73,13 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
           authUser: function($stateParams, $location, authFactory) {
             if (!localStorage.jwtToken) {
-              authFactory.checkAuth(function(token) {
-                if (!!token) {
-                  localStorage.jwtToken = token;
-                }
-              });
+              authFactory.checkAuth()
+                .then(function(res) {
+                  console.log(res);
+                  if (!!res.data) {
+                    localStorage.jwtToken = res.data;
+                  }
+                });
             }
           }
         }
@@ -109,16 +111,16 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           }
         }
       })
-      .state('profile', {
+      .state('account', {
         authenticate: true,
-        url: '/profile',
+        url: '/account',
         views: {
           nav: {
             templateUrl: 'app/shared/navbar/navbar.html',
             controller: 'navbarController'
           },
           content: {
-            templateUrl: 'app/components/user/user.html',
+            templateUrl: 'app/components/account/account.html',
             controller: 'userController'
           }
         }
@@ -156,26 +158,28 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           }
         }
       });
-      // .state('tag', {
-      //   authenticate: true,
-      //   url: '/tags',
-      //   views: {
-      //     nav: {
-      //       templateUrl: 'app/shared/navbar/navbar.html',
-      //       controller: 'navbarController'
-      //     },
-      //     content: {
-      //       templateUrl: 'app/components/tag/tag.html',
-      //       controller: 'tagController'
-      //     }
-      //   }
-      // });
+    // .state('tag', {
+    //   authenticate: true,
+    //   url: '/tags',
+    //   views: {
+    //     nav: {
+    //       templateUrl: 'app/shared/navbar/navbar.html',
+    //       controller: 'navbarController'
+    //     },
+    //     content: {
+    //       templateUrl: 'app/components/tag/tag.html',
+    //       controller: 'tagController'
+    //     }
+    //   }
+    // });
 
   }
 
   function run($rootScope, $state, authFactory) {
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
+    $rootScope.currentUser = {};
+
 
     /* Event listener for state change, and checks for authentication via authFactory
     Redirects is false returned  */

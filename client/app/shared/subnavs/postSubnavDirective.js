@@ -14,7 +14,6 @@
               postFactory.getLikeStatus(window.localStorage.jwtToken, $scope.postData.post_id)
                 .then(function(isLiked) {
                   $scope.isLiked = isLiked;
-                  console.log(isLiked);
                 });
           }, 200);
 

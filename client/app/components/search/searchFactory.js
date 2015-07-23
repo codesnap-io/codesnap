@@ -18,12 +18,10 @@
           });
         },
 
-        getAllData: function(callback) {
-          $http({
+        getAllData: function() {
+          return $http({
             method: 'GET',
             url: 'search/all'
-          }).then(function(res) {
-            callback(res.data);
           });
         }
       };

@@ -91,6 +91,10 @@ body {
   margin: 0;
 }
 
+.big {
+  height: 15rem;
+}
+
 // *** Header ***
 
 header {
@@ -426,6 +430,20 @@ code {
   flex-wrap: wrap;
   align-items: flex-start;
   align-self: flex-start;
+}
+
+
+/// *** Account ***
+.user-card {
+  @include flex-column;
+}
+
+.unlink {
+  background-color: red;
+}
+
+.post-list {
+  margin: 0;
 }
 
 

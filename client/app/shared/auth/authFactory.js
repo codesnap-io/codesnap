@@ -4,11 +4,9 @@
   .factory('authFactory', function($http, $state) {
     return {
       checkAuth: function(callback) {
-        $http({
+        return $http({
           method: 'GET',
           url: 'auth/checkauth'
-        }).then(function(res) {
-          callback(res.data);
         });
       },
       /* Returns true or false depending on whether the current user is logged in. */

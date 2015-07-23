@@ -54,7 +54,6 @@
 
       /* Download post markdown content from Github */
       getPostMarkdown: function(url) {
-        console.log(url);
         return $http({
           method: 'GET',
           url: url
