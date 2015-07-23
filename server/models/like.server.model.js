@@ -5,7 +5,7 @@
   var Like = require('../config/schema').Like;
 
   /* If like exists, unlike, if like doesn't exist, add it */
-  Like.toggle = function(userId, postId) {
+  Like.toggle = function(userId, postId, callback) {
     new Like({
       user_id: userId,
       post_id: postId
@@ -19,9 +19,13 @@
         })
         .save()
         .then(function() {
+          callback();
         });
       } else {
-        like.destroy();
+        like.destroy()
+        .then(function() {
+          callback();
+        });
       }
     });
   };

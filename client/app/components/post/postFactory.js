@@ -72,7 +72,7 @@
             post_id: postId
           }
         }).then(function (resp) {
-          return resp.data;
+          return resp;
         });
       },
 
