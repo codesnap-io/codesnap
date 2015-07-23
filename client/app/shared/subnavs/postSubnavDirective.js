@@ -1,24 +1,25 @@
 (function() {
   'use strict';
   angular.module('postSubnavDirective', ['postFactory', 'userFactory'])
-  .directive('postSubnav', function(postFactory, userFactory) {
+    .directive('postSubnav', function(postFactory, userFactory) {
       return {
         restrict: 'A',
-        controller: function ($scope, $rootScope, postFactory, userFactory, $timeout) {
+        controller: function($scope, $rootScope, postFactory, userFactory, $timeout) {
           // $scope.user = userFactory.getCurrentUser();
 
           // loads post data retrieved by post controller. timeout provides time for async
           // request to load.
+          //TODO: use $watch to show subnav when data loads instead of using arbitrary timeout
           $timeout(function() {
-              $scope.postData = postFactory.getCurrentPost();
-              $scope.loggedIn = $rootScope.loggedIn;
-              if($scope.loggedIn) {
-                postFactory.getLikeStatus(localStorage.jwtToken, $scope.postData.post_id)
+            $scope.postData = postFactory.getCurrentPost();
+            $scope.loggedIn = $rootScope.loggedIn;
+            if ($scope.loggedIn) {
+              postFactory.getLikeStatus(localStorage.jwtToken, $scope.postData.post_id)
                 .then(function(status) {
                   $scope.isLiked = status;
                 });
-              }
-          }, 200);
+            }
+          }, 500);
 
 
 
