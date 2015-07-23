@@ -51,7 +51,7 @@
                 console.error("Error during Post add: ", error);
               } else {
                 /* Pull post's tags from metadata */
-                if (metadata.tags !== undefined) {
+                if (metadata.tags) {
                   var tags = cleanTagMetaData(metadata.tags);
                   tagHandler.addTags(post.get('id'), tags);
                   // tagHandler.findTags(post.get('id'), words);

@@ -13,9 +13,6 @@ html(ng-app="codesnap" lang="en")
     //jQuery
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
 
-    //sticky
-    script(src="http://oss.maxcdn.com/semantic-ui/2.0.5/components/sticky.min.js")
-  
     <!-- build:js(./client/) assets/js/app.min.js -->
     script(src="app/app.js")
 
@@ -66,20 +63,20 @@ html(ng-app="codesnap" lang="en")
 
     //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
-      
+
     //- search autocomplete dependencies
     script(src="assets/lib/angular-ui-select/dist/select.min.js")
     script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
     //- local storage module for search autocomplete and potentially tokens
     script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
 
-      
+
     //semantic ui elements
     //- dropdown menus
     script(src="assets/lib/semantic-ui-dropdown/dropdown.min.js")
     script(src="assets/lib/semantic-ui-transition/transition.min.js")
 
-  
+
 
     <!-- endbuild -->
 
@@ -97,6 +94,8 @@ html(ng-app="codesnap" lang="en")
 
     //- select2 for search box and autocomplete
 
+    //sticky directive
+    script(src="assets/lib/ngSticky/dist/sticky.min.js")
 
     title CodeSnap
     meta(charset="utf-8")
@@ -104,7 +103,6 @@ html(ng-app="codesnap" lang="en")
 
   body
     ui-view(name="nav")
-    .ui.sticky
-        ui-view(name="subnav")
+    ui-view(name="subnav" sticky sticky-class="stuck-subnav")
     ui-view(name="content")
-    script $(function() {$('.ui.sticky').sticky({context: 'body'});});
+
