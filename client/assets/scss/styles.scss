@@ -79,6 +79,16 @@ body {
     padding: 0 1rem;
 }
 
+.flex-start {
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.pad2 {
+    padding: 2rem;
+}
+
 .button {
     margin: 0.5rem;
     padding: 0.2rem;
@@ -417,13 +427,6 @@ code {
 }
 
 // *** Home Subnav ***
-.post-categories {
-    width: 61.8%
-}
-
-.tag-categories {
-    width: 38.2%;
-}
 
 .category-list {
     padding: 0;
