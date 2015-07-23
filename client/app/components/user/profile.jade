@@ -1,8 +1,8 @@
 .content.align-top
-  //  p Here are your results for
-  //      span {{searchQuery}}
+  .tag-list
+    p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}") {{tag.title}}
   .post-list
-    .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
+    .post-item(ng-repeat="post in user.posts" ui-sref="post({id: {{post.post_id}} })")
       h2.title {{post.post_title}}
       .user-info
         img.profile-picture(src="{{post.profile_photo_url}}" alt="profile photo")

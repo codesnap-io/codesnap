@@ -325,7 +325,7 @@ code {
 
 /// *** Home Content ***
 
-.content .home {
+.content .align-top {
   @include flex-container;
   align-items: flex-start;
 }
@@ -364,15 +364,15 @@ code {
 }
 
 .tag-list {
-  @include flex-column;
-  @include flex-container;
-  padding: 1rem;
-  width: 38.2%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-self: flex-start;
-}
+   @include flex-column;
+   @include flex-container;
+   padding: 1rem;
+   width: 38.2%;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-items: flex-start;
+   align-self: flex-start;
+ }
 
 
 // *** Home Subnav ***
@@ -408,6 +408,24 @@ code {
   display: inline;
   border: none;
   overflow: hidden;
+}
+
+// *** Profile ***
+
+.user-info {
+  @include flex-column;
+  @include flex-container;
+}
+
+.tag-list {
+  @include flex-column;
+  @include flex-container;
+  padding: 1rem;
+  width: 38.2%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-self: flex-start;
 }
 
 
