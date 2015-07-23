@@ -75,7 +75,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             if (!localStorage.jwtToken) {
               authFactory.checkAuth()
                 .then(function(res) {
-                  console.log(res);
                   if (!!res.data) {
                     localStorage.jwtToken = res.data;
                   }
