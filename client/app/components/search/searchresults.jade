@@ -1,7 +1,7 @@
 .content.align-top
   //  p Here are your results for
   //      span {{searchQuery}}
-  .post-list
+  .large-child.post-list
     h3 Results for 
       strong.result-text {{searchQuery}}
     .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
