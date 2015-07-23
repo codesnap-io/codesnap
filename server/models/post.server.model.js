@@ -116,12 +116,35 @@
   };
 
   Post.getPostsOnQuery = function(query, queryType, callback) {
-    db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary',
-        'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
-      .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
-      .then(function(data) {
-        callback(null, data);
-      });
+    if (queryType === 'tag') {
+      // get all posts that have a given tag
+      db.knex.raw(' \
+        SELECT \
+          posts.id AS post_id, \
+          posts.title AS post_title, \
+          posts.url AS post_url, \
+          posts.created_at AS created_date, \
+          posts.summary AS summary, \
+          users.name AS author, \
+          users.profile_photo_url AS profile_photo_url \
+        FROM posts, users, tags, post_tag_join \
+        WHERE users.id = posts.user_id \
+          AND posts.id = post_tag_join.post_id \
+          AND post_tag_join.tag_id = tags.id \
+          AND tags.title = "' + query + '" GROUP BY posts.id')
+        .then(function(data) {
+          callback(null, data[0]);
+        });
+
+    } else {
+      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary',
+          'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
+        .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
+        .then(function(data) {
+          callback(null, data);
+        });
+    }
+
   };
 
   Post.getAllPosts = function(callback, options) {
