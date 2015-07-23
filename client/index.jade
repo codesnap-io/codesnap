@@ -42,7 +42,7 @@ html(ng-app="codesnap" lang="en")
     //---SHARED---
     //navbar
     script(src="app/shared/navbar/searchbarDirective.js")
-    script(src="app/shared/navbar/navbarController.js")
+    script(src="app/shared/navbar/navbarDirective.js")
     script(src="app/shared/subnavs/homeSubnavDirective.js")
     script(src="app/shared/subnavs/postSubnavDirective.js")
 
@@ -102,7 +102,6 @@ html(ng-app="codesnap" lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
 
   body
-    ui-view(name="nav")
+    cr-navbar
     ui-view(name="subnav" sticky sticky-class="stuck-subnav")
     ui-view(name="content")
-

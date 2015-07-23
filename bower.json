@@ -18,7 +18,6 @@
   "dependencies": {
     "angular-mocks": "~1.4.2",
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
-    "foundation-apps": "~1.1.0",
     "highlightjs": "~8.6.0",
     "marked": "~0.3.3",
     "ngAnimate": "*",
