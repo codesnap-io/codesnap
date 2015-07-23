@@ -29,23 +29,22 @@
         /* Get all metadata and map properly */
 
         if (!$scope.results) {
-          searchFactory.getAllData(function(results) {
-              var authors = results.authors.map(function(item) {
-                return {name: item, searchType: 'users.name'};
-              });
+          // console.log("Look for search results");
+          searchFactory.getAllData()
+          .then(function(results) {
+            var authors = results.data.authors.map(function(item) {
+              return {name: item, searchType: 'users.name'};
+            });
 
-              var titles = results.titles.map(function(item) {
-                return {name: item, searchType: 'title'};
-              });
+            var titles = results.data.titles.map(function(item) {
+              return {name: item, searchType: 'title'};
+            });
 
-              var tags = results.tags.map(function(item) {
-                return {name: item, searchType: 'tag'};
-              });
+            var tags = results.data.tags.map(function(item) {
+              return {name: item, searchType: 'tag'};
+            });
 
-              /* option to set cookie here, if wanted */
-              // localStorageService.cookie.set('postData', authors.concat(titles, tags), 1);
-              // $scope.results = localStorageService.cookie.get('postData');;
-              $scope.results = authors.concat(titles, tags);
+            $scope.results = authors.concat(titles, tags);
           });
         }
 

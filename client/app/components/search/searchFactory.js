@@ -18,7 +18,7 @@
           });
         },
 
-        getAllData: function() {
+        getAllData: function(callback) {
           return $http({
             method: 'GET',
             url: 'search/all'
