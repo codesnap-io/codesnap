@@ -146,6 +146,8 @@ header {
     color: $accent-800;
 }
 
+
+// Main Nav Bar
 .nav-links {
     margin: 2rem;
 }
@@ -222,6 +224,7 @@ header {
     border-bottom: 1px solid $accent-200;
     background: #f4f4f4;
     opacity: .92;
+    width: 100%
 }
 
 .stuck-subnav {
