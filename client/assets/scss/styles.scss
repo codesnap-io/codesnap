@@ -13,7 +13,7 @@ $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
 $highlight: #3DA993;
 // *** Mixins ***
-@mixin flex-container {
+@mixin flex-container-row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -21,7 +21,15 @@ $highlight: #3DA993;
     align-items: center;
 }
 
-@mixin flex-column {
+@mixin flex-container-col {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-child {
     order: 0;
     flex: 1 1 auto;
     align-self: auto;
@@ -52,8 +60,20 @@ body {
     margin: 0;
 }
 
+.large-child {
+    @include flex-child;
+    flex: 1 1 680px;
+    max-width: 680px;
+}
+
+.small-child {
+    @include flex-child;
+    flex: 1 1 420px;
+    max-width: 420px;
+}
+
 .content {
-    @include flex-container;
+    @include flex-container-row;
     max-width: 1100px;
     margin: auto;
     padding: 0 1rem;
@@ -103,19 +123,19 @@ header {
 }
 
 .left {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     justify-content: flex-start;
 }
 
 .center {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
 }
 
 .right {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     justify-content: flex-end;
 }
 
@@ -141,8 +161,8 @@ header {
 }
 
 .nav-right {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     flex: 0 1 auto;
     margin: 1rem;
 }
@@ -216,7 +236,7 @@ header {
 }
 
 .post-author-date {
-    @include flex-container;
+    @include flex-container-row;
     flex-direction: column;
     margin: 0 1rem;
     align-items: flex-start;
@@ -257,26 +277,20 @@ header {
 }
 
 .subnav .left-icons {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     width: 21px;
     height: 21px;
     justify-content: flex-start;
 }
 
 .subnav .right-icons {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     justify-content: flex-end;
 }
 
 // *** Content ***
-.post {
-    @include flex-column;
-    flex: 1 1 700px;
-    max-width: 700px;
-}
-
 .post-content {
     font-family: 'Merriweather', sans-serif;
     font-weight: 300;
@@ -328,24 +342,15 @@ code {
     height: 1rem;
 }
 
-#post-tags {
-    width: 100%;
-    height: auto;
-    display: block;
-    clear: both;
-    overflow: hidden;
-    margin-top: -0.8rem;
-    margin-bottom: 2rem;
-}
-
 .tag {
+    @include flex-child;
+    flex: 0 1 auto;
     font-size: 0.8rem;
     border: 1px solid $accent-800;
     color: $accent-800;
     border-radius: 5px;
     margin: 2px;
     padding: 5px 8px 5px 8px;
-    float: left;
 }
 
 .tag:hover {
@@ -357,22 +362,24 @@ code {
 // *** Footer ***
 /// *** Home Content ***
 .content .align-top {
-    @include flex-container;
+    @include flex-container-row;
     align-items: flex-start;
 }
 
+.post-title {
+    margin: 3rem 0 0 0;
+}
+
 .post-list {
-    @include flex-column;
-    @include flex-container;
+    margin: 0;
     padding: 0 1rem;
-    width: 61.8%;
     flex-direction: column;
     align-items: flex-start;
 }
 
 .post-item {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
     flex-direction: column;
     align-items: flex-start;
     border-bottom: 1px solid $accent-200;
@@ -391,19 +398,19 @@ code {
 }
 
 .user-info {
-    @include flex-column;
-    @include flex-container;
+    @include flex-child;
+    @include flex-container-row;
 }
 
 .tag-list {
-    @include flex-column;
-    @include flex-container;
-    padding: 1rem;
-    width: 38.2%;
-    flex-direction: row;
+    @include flex-container-row;
+    flex: 1 1 auto;
+    padding: 1rem 0;
     flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: flex-start;
-    align-self: flex-start;
+    align-content: flex-start;
+    align-self: stretch;
 }
 
 // *** Home Subnav ***
@@ -442,24 +449,13 @@ code {
 
 // *** Profile ***
 .user-info {
-    @include flex-column;
-    @include flex-container;
-}
-
-.tag-list {
-    @include flex-column;
-    @include flex-container;
-    padding: 1rem;
-    width: 38.2%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    align-self: flex-start;
+    @include flex-child;
+    @include flex-container-row;
 }
 
 /// *** Account ***
 .user-card {
-    @include flex-column;
+    @include flex-child;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -470,13 +466,9 @@ code {
     background-color: red;
 }
 
-.post-list {
-    margin: 0;
-}
-
 /// *** Signup ***
 .introduction-box {
-    @include flex-container;
+    @include flex-container-row;
     height: 100%;
     h2 {
         margin-top: 60px;
@@ -485,7 +477,7 @@ code {
 }
 
 .intro-content {
-    @include flex-column;
+    @include flex-child;
     height: 100%;
     background: #aa85c7;
     background-image: url("../img/ZenBG-1.png"), url("../img/ZenBG-2.png");
@@ -493,138 +485,12 @@ code {
 }
 
 .signup-content {
-    @include flex-column;
+    @include flex-child;
     height: 100%;
 }
-
-
 
 //search results page
 .result-text {
   color: $highlight;
   font-weight: bold;
 }
-
-//cr-navbar.navbar {
-//  .title-bar {
-//    min-height: 50px;
-//  }
-//}
-//
-//.search-box {
-//  input {
-//    color: #000;
-//  }
-//}$teal
-//
-//#profile-picture-action-sheet {
-//  .action-sheet {
-//    li a, li a:hover {
-//      color: #000;
-//    }
-//  }
-//  .profile-picture {
-//      height: 30px;
-//      width: auto;
-//      border-radius: 100%;
-//    }
-//
-//
-//}
-//
-//.button-newpost {
-//  margin: 0 5px;
-//}
-//
-//.item {
-//  font-size: 30px;
-//  color: blue;
-//}
-//
-////home
-//
-//.side-categories-menu {
-//  background-color: #E1E1E1;
-//}
-//
-//.topic-bar {
-//  &.active {
-//    background-color: $success-color;
-//  }
-//}
-//
-//.topic-line {
-//  .topic-name {
-//    color: $primary-color;
-//  };
-//  select {
-//    width: 100px;
-//    display: inline-block;
-//  }
-//
-//};
-//
-//.post-item {
-//  h2 {
-//    margin-top: 0;
-//  }
-//  img {
-//    height: 50px;
-//    width: auto;
-//    border: 2px solid $primary-color;
-//    border-radius: 100%;
-//    float: left;
-//    margin-right: 5px;
-//  }
-//}
-//
-//#categoryPanel {
-//  .block-list {
-//    width: 100%;
-//    margin: 0 auto;
-//    padding-top: 17px;
-//  }
-//}
-//
-//
-//
-//
-////post
-//
-//.title-box {
-//  padding-top: 20px;
-//}
-//
-//.post-title {
-//  text-align: right;
-//  @media screen and (max-width: 799px) {
-//    text-align: center;
-//  }
-//}
-//
-//.author-picture {
-//   padding: 0;
-//   img {
-//    height: 50px;
-//    width: auto;
-//    border: 2px solid $primary-color;
-//    border-radius: 100%;
-//  }
-//}
-//
-//.author-picture, .author-info {
-//  @media screen and (max-width: 799px) {
-//    text-align: center;
-//  }
-//}
-//
-//.btn-change {
-//  //position: fixed;
-//  //top: 200px;
-//  right: 0;
-//  z-index: 10;
-//  opacity: 0.7;
-//  .button {
-//    margin: 0;
-//  }
-//}

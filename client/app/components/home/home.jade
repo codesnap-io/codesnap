@@ -1,12 +1,13 @@
 .content.align-top
-    .post-list
-      .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.post_id}} })")
-        h2.title {{post.post_title}}
-        .user-info
-          img.profile-picture(ng-src="{{post.profile_photo_url}}" alt="profile photo")
-          .post-author-date
-            span.author {{post.author}}
-            span.date {{post.created_date | date:"MMM dd, yyyy"}}
-        p.summary {{post.summary}}...
-    .tag-list
-      p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ng-click="search(tag.title)") {{tag.title}}
+  .large-child.post-list
+    .post-item(ng-repeat="post in posts" ui-sref="post({id: {{post.post_id}} })")
+      h2.title {{post.post_title}}
+      .user-info
+        img.profile-picture(ng-src="{{post.profile_photo_url}}" alt="profile photo")
+        .post-author-date
+          span.author {{post.author}}
+          span.date {{post.created_date | date:"MMM dd, yyyy"}}
+      p.summary {{post.summary}}...
+  .small-child.tag-list
+    p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ng-click="search(tag.title)") {{tag.title}}
+
