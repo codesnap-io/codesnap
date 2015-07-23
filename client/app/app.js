@@ -16,8 +16,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'ngSanitize',
       //localStorage
       'LocalStorageModule',
-      //shared
-      'navbarController',
       //components
       'homeController',
       'signupController',
@@ -35,7 +33,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       //shared directives
       'searchbarDirective',
       'homeSubnavDirective',
-      'postSubnavDirective'
+      'postSubnavDirective',
+      'navbarDirective'
     ])
     .config(config)
     .run(run);
@@ -58,10 +57,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/',
         authenticate: false,
         views: {
-          nav: {
-            templateUrl: 'app/shared/navbar/navbar.html',
-            controller: 'navbarController'
-          },
           content: {
             templateUrl: 'app/components/home/home.html',
             controller: 'homeController'
@@ -89,10 +84,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         url: '/post/{id:int}',
         authenticate: false,
         views: {
-          nav: {
-            templateUrl: 'app/shared/navbar/navbar.html',
-            controller: 'navbarController'
-          },
           content: {
             templateUrl: 'app/components/post/post.html',
             controller: 'postController'
@@ -104,6 +95,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       })
       .state('signup', {
         authenticate: false,
+        noNav: true,
         url: '/signup',
         views: {
           content: {
@@ -116,10 +108,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: true,
         url: '/account',
         views: {
-          nav: {
-            templateUrl: 'app/shared/navbar/navbar.html',
-            controller: 'navbarController'
-          },
           content: {
             templateUrl: 'app/components/account/account.html',
             controller: 'userController'
@@ -130,10 +118,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: false,
         url: '/searchresults',
         views: {
-          nav: {
-            templateUrl: 'app/shared/navbar/navbar.html',
-            controller: 'navbarController'
-          },
           content: {
             templateUrl: 'app/components/search/searchresults.html',
             controller: 'searchController'
@@ -149,10 +133,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         authenticate: false,
         url: '/faq',
         views: {
-          nav: {
-            templateUrl: 'app/shared/navbar/navbar.html',
-            controller: 'navbarController'
-          },
           content: {
             templateUrl: 'app/components/faq/faq.html',
             controller: 'faqController'
@@ -180,8 +160,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
     $rootScope.currentUser = {};
-
-
+    
     /* Event listener for state change, and checks for authentication via authFactory
     Redirects is false returned  */
     $rootScope.$on("$stateChangeStart",
@@ -190,6 +169,18 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         //let the client know at the root scope whether user is actually logged in.
         //This will allow certain elements to hide and show based on user status
         $rootScope.loggedIn = authFactory.loggedIn();
+
+
+
+        //check if the state wants to see the nav or not
+        if (toState.noNav) {
+          $rootScope.$emit('navbar', false);
+        } else {
+          $rootScope.$emit('navbar', true);
+        }
+
+
+
 
         //redirect to signup if state destination needs auth and if user is not logged in.
         if (toState.authenticate && !authFactory.loggedIn()) {
