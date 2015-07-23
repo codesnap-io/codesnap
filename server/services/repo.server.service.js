@@ -128,9 +128,20 @@
       //add various files to repo
       .then(function(body) {
         module.exports.addFileToGHRepo(token, username, firstPostPath);
-        module.exports.addFileToGHRepo(token, username, firstImagePath);
-        module.exports.addFileToGHRepo(token, username, readmePath);
+        //console.log("first post created!!!!!!!!!!",body);
       })
+      .then(function(body) {
+          setTimeout(function(){
+            module.exports.addFileToGHRepo(token, username, firstImagePath);
+          }, 500);
+        //console.log("first image created!!!!!!!!!!",body);
+        })
+      .then(function(body) {
+          setTimeout(function(){
+            module.exports.addFileToGHRepo(token, username, readmePath);
+          }, 500);
+        //console.log("readme created!!!!!!!!!!",body);
+        })
       .then(function(body) {
         //add webhook
         // console.log("ready to add webhook");
