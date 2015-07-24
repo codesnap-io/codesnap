@@ -66,7 +66,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         resolve: {
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
-          authUser: function($stateParams, $location, authFactory) {
+          authUser: function(authFactory) {
             if (!localStorage.jwtToken) {
               authFactory.checkAuth()
                 .then(function(res) {
@@ -88,6 +88,16 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           },
           subnav: {
             templateUrl: 'app/shared/subnavs/postSubnav.html'
+          }
+        },
+        resolve: {
+          getPost: function(postFactory, $stateParams) {
+            return postFactory.getPostData($stateParams.id)
+          },
+          getLikeStatus: function($rootScope, postFactory, $stateParams) {
+            if ($rootScope.loggedIn) {
+              return postFactory.getLikeStatus(localStorage.jwtToken, $stateParams.id);
+            }
           }
         }
       })
