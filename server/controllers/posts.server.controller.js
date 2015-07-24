@@ -32,8 +32,13 @@
               url: url,
               user_id: userId,
               file: file,
+              published: metadata.published || true,
               summary: summary
             };
+           
+           /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
+            postData.published = +postData.published;
+
 
             /* Apply regex to remove unwanted content in post's raw text */
             var postText = rawFile.replace(/\s{2,}/g, " ").replace(/(?:\r\n|\r|\n)/g, " ").replace(/[\.,-\/#!$%\^&\*;:{}=\-_`'~()]/g, "");
@@ -100,8 +105,12 @@
             title: metadata.title,
             url: url,
             updated_at: new Date(),
-            summary: summary
+            summary: summary,
+            published: metadata.published || true,
           };
+
+            /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
+            postData.published = +postData.published;
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error) {

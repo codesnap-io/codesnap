@@ -38,6 +38,7 @@
     "sinon": "^1.15.4"
   },
   "dependencies": {
+    "bcrypt": "^0.8.4",
     "bluebird": "^2.9.33",
     "body-parser": "^1.13.2",
     "bookshelf": "^0.8.1",
