@@ -38,8 +38,6 @@
     });
   };
 
-
-
   User.findByGithubId = function(githubId, callback) {
     new User({'github_id': githubId})
     .fetch()

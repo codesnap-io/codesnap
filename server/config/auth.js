@@ -1,5 +1,5 @@
 var GitHubStrategy = require('passport-github2').Strategy;
-// var development = require('../config/env/development.js');
+var bcrypt = require('bcrypt');
 var passport = require("passport");
 var User = require('../models/user.server.model.js');
 var repoService = require('../services/repo.server.service.js');
@@ -32,7 +32,7 @@ exports.githubStrategy = function() {
                 username: profile.username,
                 name: profile.displayName,
                 email: profile._json.email,
-                profile_photo_url: profile._json.avatar_url
+                profile_photo_url: profile._json.avatar_url,
               })
               .save()
               .then(function(newUser) {
