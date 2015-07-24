@@ -16,7 +16,9 @@
     app.get('/post/recent', posts.recentPosts);
 
     app.get('/post/addview', posts.addView);
-    //app.post('/post/add', posts.addPost);
+
+    app.get('/post/add', posts.addPost);
+
     //app.post('/post/edit', posts.editPost);
   };
 
