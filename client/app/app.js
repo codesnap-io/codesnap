@@ -159,30 +159,34 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     function killBackSpace(e) {
       e = e ? e : window.event;
       var t = e.target ? e.target : e.srcElement ? e.srcElement : null;
-      if (t && t.tagName && (t.type && /(password)|(text)|(file)/.test(t.type.toLowerCase())) || t.tagName.toLowerCase() == 'textarea')
+      if (t && t.tagName && (t.type && /(password)|(text)|(file)/.test(t.type.toLowerCase())) || t.tagName.toLowerCase() === 'textarea') {
         return true;
+      }
       var k = e.keyCode ? e.keyCode : e.which ? e.which : null;
-      if (k == 8) {
-        if (e.preventDefault)
+      if (k === 8) {
+        if (e.preventDefault) {
           e.preventDefault();
+        }
         return false;
-      };
+      }
       return true;
-    };
-    if (typeof document.addEventListener != 'undefined')
+    }
+
+    if (typeof document.addEventListener !== 'undefined') {
       document.addEventListener('keydown', killBackSpace, false);
-    else if (typeof document.attachEvent != 'undefined')
+    } else if (typeof document.attachEvent !== 'undefined') {
       document.attachEvent('onkeydown', killBackSpace);
-    else {
+    } else {
       if (document.onkeydown != null) {
         var oldOnkeydown = document.onkeydown;
         document.onkeydown = function(e) {
           oldOnkeydown(e);
           killBackSpace(e);
         };
-      } else
+      } else {
         document.onkeydown = killBackSpace;
-    };
+      }
+    }
 
     // Enable FastClick to remove the 300ms click delay on touch devices
     FastClick.attach(document.body);
@@ -206,11 +210,14 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
     $(window).scroll(function() {
       if ($(window).scrollTop() >= 87) {
-        $('.subnav').css('position', 'fixed');
-        $('.subnav').css('top', '0px');
+        $('.sticky').css('position', 'fixed');
+        $('.sticky').each(function() {
+          var offset = ($(this).attr('offset') || '0px');
+          $(this).css('top', offset);
+        });
         $('.page-content').find('.content').css('margin-top', '55px');
       } else {
-        $('.subnav').css('position', 'static');
+        $('.sticky').css('position', 'static');
         $('.page-content').find('.content').css('margin-top', '0px');
       }
     });
