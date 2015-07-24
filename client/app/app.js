@@ -67,11 +67,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         resolve: {
           /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
           authUser: function(authFactory) {
-            if (!localStorage.jwtToken) {
+            if (!localStorage.codeSnapJwtToken) {
               authFactory.checkAuth()
                 .then(function(res) {
                   if (!!res.data) {
-                    localStorage.jwtToken = res.data;
+                    localStorage.codeSnapJwtToken = res.data;
                   }
                 });
             }
@@ -92,11 +92,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         resolve: {
           getPost: function(postFactory, $stateParams) {
-            return postFactory.getPostData($stateParams.id)
+            return postFactory.getPostData($stateParams.id);
           },
           getLikeStatus: function($rootScope, postFactory, $stateParams) {
             if ($rootScope.loggedIn) {
-              return postFactory.getLikeStatus(localStorage.jwtToken, $stateParams.id);
+              return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
             }
           }
         }

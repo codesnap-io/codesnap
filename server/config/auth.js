@@ -32,6 +32,7 @@ exports.githubStrategy = function() {
                 name: profile.displayName,
                 email: profile._json.email,
                 profile_photo_url: profile._json.avatar_url,
+                github_token: accessToken
               })
               .save()
               .then(function(newUser) {

@@ -5,7 +5,6 @@
       return {
         restrict: 'A',
         controller: function ($scope, $rootScope, postFactory) {
-
           // loads post data retrieved by post factory.
           $scope.postData = postFactory.getCurrentPost();
           $scope.loggedIn = $rootScope.loggedIn;
@@ -14,7 +13,7 @@
           // Toggle likes
           $scope.toggleLike = function() {
             if ($scope.loggedIn) {
-              postFactory.toggleLike(localStorage.jwtToken, $scope.postData.post_id)
+              postFactory.toggleLike(localStorage.codeSnapJwtToken, $scope.postData.post_id)
                 .then(function(resp) {
                   /* Update like count in client */
                   if ($scope.isLiked) {

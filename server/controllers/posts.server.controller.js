@@ -44,7 +44,7 @@
             };
 
             /* Apply regex to remove unwanted content in post's raw text */
-            var postText = rawFile.replace(/\s{2,}/g, " ").replace(/(?:\r\n|\r|\n)/g, " ").replace(/[\.,-\/#!$%\^&\*;:{}=\-_`'~()]/g, "");
+            // var postText = rawFile.replace(/\s{2,}/g, " ").replace(/(?:\r\n|\r|\n)/g, " ").replace(/[\.,-\/#!$%\^&\*;:{}=\-_`'~()]/g, "");
 
             /* Create array of unique words by consolidating words into an object then converting object keys into an array */
             // var wordObj = {};
@@ -120,9 +120,14 @@
            };
 
           /* Add post to the database.  Log an error if there was a problem. */
-          Post.modify(postData, function(error) {
+          Post.modify(postData, function(error, post) {
             if (error) {
               console.error("Error during post modify: ", error);
+            } else {
+              if (metadata.tags) {
+                var tags = cleanTagMetaData(metadata.tags);
+                tagHandler.updateTags(post.get('id'), tags);
+              }
             }
           });
         })

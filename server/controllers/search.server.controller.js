@@ -12,7 +12,7 @@
     Promise.join(
         Post.getAllTitles(),
         Post.getAllAuthors(),
-        tag.getAllPromise(),
+        tag.getAll(),
         /* This function takes in the results of the three promises above in order.  For each promise, map the needed string into the metadata object */
         function(titleData, authorData, tagData) {
           metadata.titles = titleData.map(function(title) {

@@ -17,6 +17,22 @@
     });
   };
 
+  /* Delete all post_tag_join rows for a given post */
+  PostTagJoin.deletePostTagJoin = function(postId, callback) {
+    db.knex('post_tag_join').where({
+      post_id: postId
+    }).select('id')
+    .then(function(joins) {
+      for (var i = 0; i < joins.length; i++) { 
+        new PostTagJoin({id: joins[i].id})
+        .fetch()
+        .then(function(post) {
+          post.destroy();
+        });
+      }
+    });
+  };
+  
   module.exports = PostTagJoin;
 })();
 

@@ -3,29 +3,25 @@
   var db = require('../config/db');
   var Tag = require('../config/schema').Tag;
 
-  Tag.getAll = function(callback) {
-    db.knex.raw(' SELECT title AS tag_title FROM tags')
-      .then(function(data, error) {
-        callback(error, data[0]);
-      });
-  };
-
-  Tag.getAllPromise = function() {
+  Tag.getAll = function() {
     return db.knex.raw(' \
-      SELECT DISTINCT tags.title AS title \
-      FROM post_tag_join, tags \
-      WHERE post_tag_join.tag_id = tags.id');
+      SELECT tags.id, tags.title \
+      FROM posts, post_tag_join, tags \
+      WHERE posts.id = post_tag_join.post_id \
+        AND post_tag_join.tag_id = tags.id \
+      GROUP BY tags.title \
+      HAVING SUM(posts.published) > 0');
   };
-
 
   Tag.getPopularTags = function() {
     return db.knex.raw(' \
       SELECT tags.id, tags.title \
-      FROM post_tag_join, tags \
-      WHERE post_tag_join.tag_id = tags.id \
+      FROM posts, post_tag_join, tags \
+      WHERE posts.id = post_tag_join.post_id \
+        AND post_tag_join.tag_id = tags.id \
       GROUP BY tags.title \
-      ORDER BY COUNT(tags.title) DESC \
-      LIMIT 30');
+      HAVING SUM(posts.published) > 0 \
+      ORDER BY COUNT(tags.title) DESC');
   };
 
   Tag.createOrSave = function(tagTitle, callback) {
