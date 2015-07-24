@@ -44,6 +44,7 @@
                 });
             } else {
               /* If user tries to like post without being logged in, show a pop up telling them that they need to log in */
+              $("body").scrollTop(0);
               $('#post-error-container').slideDown(300);
             }
           };
