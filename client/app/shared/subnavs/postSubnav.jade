@@ -2,7 +2,7 @@
     #post-error-text Please #[strong(ui-sref="signup") log in] to like or contribute to post
     img#post-error-x(src="../../../assets/img/x.png")
 
-section.subnav(post-subnav ng-show="postData")
+section.subnav.sticky(post-subnav ng-show="postData")
     .content
         img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo")
         .left-icons
