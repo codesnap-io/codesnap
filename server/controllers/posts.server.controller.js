@@ -215,39 +215,21 @@
     }
   };
 
-
-  //for testing of getMetadata:
-  // var file = fs.readFileSync(__dirname + '/sample.md', 'utf8');
-  // var metaTest = exports.getMetadata(file, 'www.woot.com');
-  // try {
-  //   console.log("attributes: ", metaTest);
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  //end testing
-
-  /* Dummy Data */
-//   if (process.env.NODE_ENV === 'development') {
-//     var req = {};
-//     var res = {
-//       sendStatus: function() {
-//         return;
-//       }
-//     };
-//     req.body = {
-//       repository: {
-//         name: 'codesnap.io',
-//         owner: {
-//           name: 'bdstein33'
-//         }
-//       },
-//       head_commit: {
-//         added: ['posts/js_instantiation_patterns.md'],
-//         removed: [],
-//         modified: []
-//       }
-//     };
-//     exports.postReceive(req, res);
-//   }
+  exports.addPost = function(req, res) {
+    var timestamp = new Date().toISOString().
+            replace(/T/, '-').      // replace T with a dash
+            replace(/\..+/, '')     // delete the dot and everything after
+    var path = {
+      repoPath: 'https://api.github.com/repos/' + req.query.username + '/codesnap.io/contents/posts/' + timestamp + '.md',
+      message: "(init) add new post",
+      serverPath: "./server/assets/postTemplate.md"
+    };
+    /* Create new post file from template */
+    service.addFileToGHRepo(process.env.githubAccessToken, req.query.username, path).then(function(data) {
+      var repoPath = JSON.parse(data).content.path;
+      /* Redirect to the edit page for the new file */
+      res.redirect('https://github.com/'+ req.query.username +'/codesnap.io/edit/master/' + repoPath);
+    })
+  };
 
 })();
