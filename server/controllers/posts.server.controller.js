@@ -27,11 +27,19 @@
             var metadata = exports.getMetadata(rawFile);
             var summary = exports.getSummary(rawFile);
 
+           /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
+            if (metadata.published !== undefined) {
+              metadata.published = +metadata.published;
+            } else {
+              metadata.published = 1;
+            }
+ 
             var postData = {
               title: metadata.title || "Default Title",
               url: url,
               user_id: userId,
               file: file,
+              published: metadata.published,
               summary: summary
             };
 
@@ -59,8 +67,6 @@
 
               }
             });
-
-
           })
           .catch(function(error) {
             console.error("Error during add Posts to db: ", error);
@@ -96,12 +102,22 @@
           /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
           var metadata = exports.getMetadata(data);
           var summary = exports.getSummary(data);
-          var postData = {
-            title: metadata.title,
-            url: url,
-            updated_at: new Date(),
-            summary: summary
-          };
+
+          /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
+           if (metadata.published !== undefined) {
+             metadata.published = +metadata.published;
+           } else {
+             metadata.published = 1;
+           }
+          
+           var postData = {
+             title: metadata.title || "Default Title",
+             url: url,
+             user_id: userId,
+             file: file,
+             published: metadata.published,
+             summary: summary
+           };
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error) {
