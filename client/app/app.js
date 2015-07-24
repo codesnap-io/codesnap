@@ -206,11 +206,14 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
     $(window).scroll(function() {
       if ($(window).scrollTop() >= 87) {
-        $('.subnav').css('position', 'fixed');
-        $('.subnav').css('top', '0px');
+        $('.sticky').css('position', 'fixed');
+        $('.sticky').each(function() {
+          var offset = ($(this).attr('offset') || '0px');
+          $(this).css('top', offset);
+        })
         $('.page-content').find('.content').css('margin-top', '55px');
       } else {
-        $('.subnav').css('position', 'static');
+        $('.sticky').css('position', 'static');
         $('.page-content').find('.content').css('margin-top', '0px');
       }
     });
