@@ -29,28 +29,6 @@
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function(table) {
         console.log('Created Users Table');
-        // if (process.env.NODE_ENV === 'development') {
-        //   new User({
-        //     name: 'Ben Steinberg',
-        //     email: 'ben@gmail.com',
-        //     github_id: 1111111,
-        //   }).save();
-        //   new User({
-        //     name: 'Sat Khalsa',
-        //     email: 'sat@gmail.com',
-        //     github_id: 2222222,
-        //   }).save();
-        //   new User({
-        //     name: 'Michael Arnold',
-        //     email: 'michael@gmail.com',
-        //     github_id: 3333333,
-        //   }).save();
-        //   new User({
-        //     name: 'Chris Clayman',
-        //     email: 'chris@gmail.com',
-        //     github_id: 4444444,
-        //   }).save();
-        // }
       });
     }
   })
@@ -60,7 +38,7 @@
   /// Posts Table Schema
   ////////////////////////////////////////////////
 
-  .then(function(x) {
+  .then(function() {
     db.knex.schema.hasTable('posts').then(function(exists) {
       /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
       // if (exists) {
@@ -84,30 +62,6 @@
           post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
           console.log('Created Posts Table');
-
-          // if (process.env.NODE_ENV === 'development') {
-          //   new Post({
-          //     title: "Javascript is cool",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
-          //     user_id: 1
-          //   }).save();
-          //   new Post({
-          //     title: "The inner workings of backbone",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
-          //     user_id: 2
-          //   }).save();
-          //   new Post({
-          //     title: "Navigating Asynchronous Callbacks",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
-          //     user_id: 3
-          //   }).save();
-          //   new Post({
-          //     title: "The Keyword this",
-          //     url: "https://raw.githubusercontent.com/BlaseBallerina/codesnap/master/README.md",
-          //     user_id: 4
-          //   }).save();
-          // }
-
         });
       }
     });
@@ -118,7 +72,7 @@
   /// Tags Table Schema
   ////////////////////////////////////////////////
 
-  .then(function(x) {
+  .then(function() {
     db.knex.schema.hasTable('tags').then(function(exists) {
 
       // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
@@ -147,7 +101,7 @@
   /// Post Tags Table Schema
   ////////////////////////////////////////////////
 
-  .then(function(x) {
+  .then(function() {
     db.knex.schema.hasTable('post_tag_join').then(function(exists) {
       /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
       // if (exists) {
@@ -175,7 +129,7 @@
   /// Comments Table Schema
   ////////////////////////////////////////////////
 
-  .then(function(x) {
+  .then(function() {
     db.knex.schema.hasTable('comments').then(function(exists) {
 
       // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
@@ -206,7 +160,7 @@
   /// Votes Table Schema
   ////////////////////////////////////////////////
 
-  .then(function(x) {
+  .then(function() {
     db.knex.schema.hasTable('likes').then(function(exists) {
 
       // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
