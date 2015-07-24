@@ -11,12 +11,12 @@
       },
       /* Returns true or false depending on whether the current user is logged in. */
       loggedIn: function() {
-        return !!window.localStorage.jwtToken;
+        return !!window.localStorage.codeSnapJwtToken;
       },
 
       /* Removes jwtToken from localStorage.  This function was built to help with logout */
       removeToken: function() {
-        delete window.localStorage.jwtToken;
+        delete window.localStorage.codeSnapJwtToken;
       },
 
       /* When user logs out, remove the session from the server.  Upon successfully removing session, remove token from localStorage and redirect to signup page. */
@@ -25,7 +25,7 @@
           method: 'GET',
           url: 'auth/logout'
         }).then(function(res) {
-          delete window.localStorage.jwtToken;
+          delete window.localStorage.codeSnapJwtToken;
           $state.go('signup');
         });
       }

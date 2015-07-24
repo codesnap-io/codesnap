@@ -26,7 +26,7 @@
 
         /* watch for jwt token, and when it loads, load user information into root scope */
         $scope.$watch(function() {
-          return window.localStorage.jwtToken;
+          return window.localStorage.codeSnapJwtToken;
         }, function(token) {
 
           if (!$rootScope.user && !!token) {

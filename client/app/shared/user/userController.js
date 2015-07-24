@@ -10,7 +10,7 @@ angular.module('userController', ['userFactory'])
   /* removes user from DB */
   $scope.removeUser = function() {
     userFactory.removeUser();
-    delete window.localStorage.jwtToken;
+    delete window.localStorage.codeSnapJwtToken;
     delete $rootScope.user;
     $state.go('signup');
   };
