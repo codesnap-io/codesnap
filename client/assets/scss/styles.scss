@@ -6,12 +6,15 @@
 @import 'ui-select';
 // Import fonts
 @import 'fonts';
+@import url(http://fonts.googleapis.com/css?family=Raleway:300);
 // *** Global variables ***
 $accent-800: #303030;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
-$highlight: #3DA993;
+$highlight: #229425;
+$site-title-color: #2E2061;
+$logo-color: #229425;
 // *** Mixins ***
 @mixin flex-container-row {
     display: flex;
@@ -60,6 +63,20 @@ body {
     margin: 0;
 }
 
+.no-margin {
+    margin: 0;
+}
+
+.logo {
+    font-family: "Raleway";
+    font-weight: 300;
+    color: $logo-color;
+}
+
+.flex-child {
+    @include flex-child;
+}
+
 .large-child {
     @include flex-child;
     flex: 1 1 680px;
@@ -83,6 +100,10 @@ body {
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
+}
+
+.pad1 {
+    padding: 1rem;
 }
 
 .pad2 {
@@ -124,7 +145,7 @@ body {
     align-items: center;
     align-content: center;
     margin: auto;
-    height: 15rem;
+    height: 10rem;
 }
 
 // *** Header ***
@@ -139,8 +160,8 @@ header {
 }
 
 .center {
-    @include flex-child;
     @include flex-container-row;
+    @include flex-child;
 }
 
 .right {
@@ -150,12 +171,12 @@ header {
 }
 
 .site-title {
-    font-size: 1.4rem;
+    font-family: "Raleway";
     font-weight: 300;
+    font-size: 1.4rem;
     text-decoration: none;
-    color: $accent-800;
+    color: $site-title-color;
 }
-
 
 // Main Nav Bar
 .nav-links {
@@ -427,7 +448,6 @@ code {
 }
 
 // *** Home Subnav ***
-
 .category-list {
     padding: 0;
     list-style-type: none;
@@ -453,50 +473,36 @@ code {
     overflow: hidden;
 }
 
-// *** Profile ***
-.user-info {
-    @include flex-child;
-    @include flex-container-row;
-}
-
 /// *** Account ***
-.user-card {
-    @include flex-child;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    margin: auto;
-}
 
 .unlink {
-    background-color: red;
+    color: red;
+}
+
+.unlink:hover {
+    border: 1px solid red;
+    border-radius: 2px;
 }
 
 /// *** Signup ***
-.introduction-box {
-    @include flex-container-row;
-    height: 100%;
-    h2 {
-        margin-top: 60px;
-        color: #FFFFFF;
-    }
+
+.signup-title {
+    font-size: 1.6rem;
+    margin-top: 60px;
+    color: white;
+    text-align: center;
 }
 
 .intro-content {
-    @include flex-child;
+    @include flex-container-col;
     height: 100%;
     background: #aa85c7;
     background-image: url("../img/ZenBG-1.png"), url("../img/ZenBG-2.png");
     background-repeat: repeat-x, repeat;
 }
 
-.signup-content {
-    @include flex-child;
-    height: 100%;
-}
-
 //search results page
 .result-text {
-  color: $highlight;
-  font-weight: bold;
+    color: $highlight;
+    font-weight: bold;
 }
