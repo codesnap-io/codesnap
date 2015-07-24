@@ -93,7 +93,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       })
       .state('signup', {
         authenticate: false,
-        noNav: true,
         url: '/signup',
         views: {
           content: {
@@ -197,18 +196,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         //let the client know at the root scope whether user is actually logged in.
         //This will allow certain elements to hide and show based on user status
         $rootScope.loggedIn = authFactory.loggedIn();
-
-
-
-        //check if the state wants to see the nav or not
-        if (toState.noNav) {
-          $rootScope.$emit('navbar', false);
-        } else {
-          $rootScope.$emit('navbar', true);
-        }
-
-
-
 
         //redirect to signup if state destination needs auth and if user is not logged in.
         if (toState.authenticate && !authFactory.loggedIn()) {

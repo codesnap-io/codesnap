@@ -1,15 +1,8 @@
 .content
-  .user-card
-    img.profile-picture.big(src="{{user.profile_photo_url}}")
-    .user-names
-      h2 {{user.username}}
-      h3 {{user.name}}
-  .user-card
-    h3.post-list Posts:
-    h4(ng-hide="user.posts.length > 0") You don't have any posts yet!
-    p.post-list(ng-repeat="post in user.posts")
-      a(ui-sref="post({id: {{post.post_id}} })") {{post.post_title}}
-
-    h3 We'd hate to see you leave your crutons behind.
-    h4.subheader But if you must, there's a button for that.
-    a.button.danger.unlink(ng-click="removeUser()") Delete My Profile!
+  .large-child.justify-center
+    img.profile-picture.big.center.pad1(src="{{user.profile_photo_url}}")
+    h2.no-margin.center {{user.username}}
+    h3.no-margin.center {{user.name}}
+    p.center We'd hate to see you leave your snaps behind.
+    p.subheader.center But if you must, there's a button for that.
+    a.button.unlink.center(ng-click="removeUser()") Delete My Profile!
