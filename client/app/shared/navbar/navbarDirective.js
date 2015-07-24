@@ -3,7 +3,7 @@
 
   angular.module('navbarDirective', ['authFactory', 'userFactory'])
 
-  .directive('crNavbar', function() {
+  .directive('crNavbar', function($location) {
     return {
       restrict: "E",
       templateUrl: "app/shared/navbar/navbar.html",
@@ -34,7 +34,9 @@
               .then(function(user) {
                 $rootScope.user = user;
                 $scope.loggedIn = !!user;
-                $scope.newPostUrl = "http://127.0.0.1:8000/post/add?username=" + user.username;
+                var port = $location.port() || '';
+                var host = $location.host();
+                $scope.newPostUrl = "/post/add?username=" + user.username;
               });
           }
         });
