@@ -216,18 +216,19 @@
   };
 
   exports.addPost = function(req, res) {
-    var timestamp = new Date();
+    var timestamp = new Date().toISOString().
+            replace(/T/, '-').      // replace T with a dash
+            replace(/\..+/, '')     // delete the dot and everything after
     var path = {
-      //first image
       repoPath: 'https://api.github.com/repos/' + req.query.username + '/codesnap.io/contents/posts/' + timestamp + '.md',
       message: "(init) add new post",
       serverPath: "./server/assets/postTemplate.md"
     };
     /* Create new post file from template */
-    service.addFileToGHRepo(req.query.token, req.query.username, path).then(function(data) {
-      console.log('**************** Data:', data);
+    service.addFileToGHRepo(process.env.githubAccessToken, req.query.username, path).then(function(data) {
+      var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
-      res.redirect('/');
+      res.redirect('https://github.com/'+ req.query.username +'/codesnap.io/edit/master/' + repoPath);
     })
   };
 

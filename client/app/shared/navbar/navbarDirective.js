@@ -34,7 +34,7 @@
               .then(function(user) {
                 $rootScope.user = user;
                 $scope.loggedIn = !!user;
-                $scope.newPostUrl = "http://127.0.0.1:8000/post/add?token=" + token + "&username=" + user.username;
+                $scope.newPostUrl = "http://127.0.0.1:8000/post/add?username=" + user.username;
               });
           }
         });
