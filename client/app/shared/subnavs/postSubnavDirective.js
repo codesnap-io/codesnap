@@ -4,30 +4,12 @@
     .directive('postSubnav', function(postFactory, userFactory) {
       return {
         restrict: 'A',
-        controller: function($scope, $rootScope, postFactory, userFactory, $timeout) {
-          // loads post data retrieved by post controller. timeout provides time for async
-          // request to load.
-          $timeout(function() {
-            $scope.postData = postFactory.getCurrentPost();
-            $scope.loggedIn = $rootScope.loggedIn;
-            if ($scope.loggedIn) {
-              postFactory.getLikeStatus(localStorage.jwtToken, $scope.postData.post_id)
-                .then(function(status) {
-                  $scope.isLiked = status;
-                });
-            }
-          }, 500);
+        controller: function ($scope, $rootScope, postFactory) {
 
-
-          //TODO: use $watch to show subnav when data loads instead of using arbitrary timeout...
-          // $scope.user = userFactory.getCurrentUser();
-          // $scope.$watch('postData', function(newValue, oldValue) {
-          //   if (newValue !== {}) {
-
-          //   }
-          // })
-
-
+          // loads post data retrieved by post factory.
+          $scope.postData = postFactory.getCurrentPost();
+          $scope.loggedIn = $rootScope.loggedIn;
+          $scope.isLiked = postFactory.getCurrentLike();
 
           // Toggle likes
           $scope.toggleLike = function() {
@@ -48,13 +30,9 @@
               $('#post-error-container').slideDown(300);
             }
           };
-
-
-
-          /* Hide post error container when user clicks it */
-
         },
         link: function(scope, elem, attr) {
+          /* Hide post error container when user clicks it */
           $('#post-error-container').click(function() {
             $(this).hide();
           });

@@ -5,6 +5,7 @@
 
   .factory('postFactory', function ($http) {
     var currentPost = {};
+    var liked;
 
     return {
       /* Retrieves data about all posts from server */
@@ -48,6 +49,8 @@
             post_id: id
           }
         }).then(function (resp) {
+          /* sets current post in factory for retrieval by post controller and subnav */
+          currentPost = resp.data;
           return resp.data;
         });
       },
@@ -86,6 +89,7 @@
             post_id: postId
           }
         }).then(function (resp) {
+          liked = resp.data;
           return resp.data;
         });
       },
@@ -101,12 +105,14 @@
         });
       },
 
-      /*Sets current post data for passing between post controller and post subnav*/
-      setCurrentPost: function(postObj) {
-        currentPost = postObj;
-      },
+
+      //allow current posts and likes to be accessible by controllers
       getCurrentPost: function() {
         return currentPost;
+      },
+
+      getCurrentLike: function() {
+        return liked;
       }
 
     };
