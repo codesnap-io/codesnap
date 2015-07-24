@@ -26,8 +26,7 @@
     "angular-sanitize": "~1.4.3",
     "angular-local-storage": "~0.2.2",
     "semantic-ui-dropdown": "~2.0.5",
-    "semantic-ui-transition": "~2.0.5",
-    "ngSticky": "~1.7.9"
+    "semantic-ui-transition": "~2.0.5"
   },
   "resolutions": {
     "angular": "1.4.3"
