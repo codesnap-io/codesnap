@@ -1,6 +1,7 @@
 ---
 title: My First Post
-tags: 
+tags:
+published: false
 ---
 
 ## Metadata
