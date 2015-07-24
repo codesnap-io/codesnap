@@ -56,7 +56,7 @@
             }
           }
           post.save();
-          callback(null, post.attributes);
+          callback(null, post);
         }
       });
   };

@@ -39,36 +39,10 @@
     });
   };
 
-  /* Looks for matches between existing tags and words in a new post */
-  // exports.findTags = function(postId, words) {
-  //   /* matchThreshold determines how strict the matching requirements are.  The lower this threshold, the more strict the match must be */
-  //   var matchThreshold = 0.70;
-  //   console.log("INSIDE FIND TAGS");
-
-  //   Tag.getAll(function(error, tags) {
-  //     if(error) {
-  //       console.log("ERROR: CAN'T FETCH TAGS FOR USE IN TAG HANDLER");
-  //     } else {
-  //       /* Populate FuzzySet with list of all tags from database */
-  //       var tagArray = new FuzzySet();
-  //       for (var i = 0; i < tags.length; i++) {
-  //         tagArray.add(tags[i].tag_title);
-  //       }
-  //       for (var j = 0; j < words.length; j++) {
-  //         var results = tagArray.get(words[j]);
-  //         if (results) {
-  //           console.log(words[j]);
-  //           console.log("RESULTS: ");
-  //           console.log(results);
-  //           for (var k = 0; k < results.length; k++) {
-  //             results[k][0] > matchThreshold && console.log(results[k]);
-  //           }
-  //           console.log("-----------");
-  //         }
-  //       }
-  //     }
-  //   });
-  // };
-
+  exports.updateTags = function(postId, postTags) {
+    PostTagJoin.deletePostTagJoin(postId, function() {
+      exports.addTags(postId, postTags);
+    });
+  };
 
 })();

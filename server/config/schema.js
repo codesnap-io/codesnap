@@ -26,6 +26,7 @@
         user.string('username', 30);
         user.string('profile_photo_url', 200);
         user.integer('github_id');
+        user.string('github_token', 150);
         user.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
       }).then(function(table) {
         console.log('Created Users Table');
