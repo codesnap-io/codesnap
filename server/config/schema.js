@@ -78,6 +78,7 @@
           post.string('summary', 255);
           post.string('file', 255);
           post.string('url', 255);
+          post.boolean('published').defaultTo(true);
           post.integer('views').defaultTo(0);
           post.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
           post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));

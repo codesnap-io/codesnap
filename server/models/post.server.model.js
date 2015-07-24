@@ -82,11 +82,13 @@
             posts.url AS post_url, \
             posts.file AS file, \
             posts.created_at AS created_date, \
+            posts.views AS post_views, \
             users.name AS author, \
             users.username AS username, \
             users.profile_photo_url AS profile_photo_url \
           FROM posts, users \
           WHERE posts.user_id = users.id \
+            AND posts.published = true \
             AND posts.id = ' + postId)
             .then(function(data) {
               var postData = data[0][0];
@@ -98,6 +100,7 @@
                 FROM posts, tags, post_tag_join \
                 WHERE posts.id = post_tag_join.post_id \
                   AND post_tag_join.tag_id = tags.id \
+                  AND posts.published = true \
                   AND posts.id = ' + postId)
                 .then(function(data) {
                   postData.tags = data[0];
@@ -131,6 +134,7 @@
         WHERE users.id = posts.user_id \
           AND posts.id = post_tag_join.post_id \
           AND post_tag_join.tag_id = tags.id \
+          AND posts.published = true \
           AND tags.title = "' + query + '" GROUP BY posts.id')
         .then(function(data) {
           callback(null, data[0]);
@@ -158,7 +162,8 @@
         users.name AS author, \
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
-      WHERE posts.user_id = users.id')
+      WHERE posts.user_id = users.id \
+      AND posts.published = true')
       .then(function(data) {
         callback(null, data[0]);
       });
@@ -176,6 +181,7 @@
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
       WHERE posts.user_id = users.id \
+      AND posts.published = true \
       ORDER BY created_date DESC \
       LIMIT 20');
   };
@@ -193,6 +199,7 @@
       FROM posts, users, likes \
       WHERE posts.user_id = users.id \
         AND posts.id = likes.post_id \
+        AND posts.published = true \
       GROUP BY post_id \
       ORDER BY COUNT(likes.post_id) DESC \
       LIMIT 20');

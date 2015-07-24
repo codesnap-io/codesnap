@@ -7,8 +7,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   angular.module('codesnap', [
       // Angular libraries
       'ui.router',
-      //sticky directive
-      'sticky',
       //markdown parser
       'mdParserDirective',
       //select for search
