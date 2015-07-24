@@ -418,7 +418,7 @@ code {
 .tag-list {
     @include flex-container-row;
     flex: 1 1 auto;
-    padding: 1rem 0;
+    padding: .5rem 0;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;

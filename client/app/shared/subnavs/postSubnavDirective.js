@@ -5,11 +5,8 @@
       return {
         restrict: 'A',
         controller: function($scope, $rootScope, postFactory, userFactory, $timeout) {
-          // $scope.user = userFactory.getCurrentUser();
-
           // loads post data retrieved by post controller. timeout provides time for async
           // request to load.
-          //TODO: use $watch to show subnav when data loads instead of using arbitrary timeout
           $timeout(function() {
             $scope.postData = postFactory.getCurrentPost();
             $scope.loggedIn = $rootScope.loggedIn;
@@ -20,6 +17,15 @@
                 });
             }
           }, 500);
+
+
+          //TODO: use $watch to show subnav when data loads instead of using arbitrary timeout...
+          // $scope.user = userFactory.getCurrentUser();
+          // $scope.$watch('postData', function(newValue, oldValue) {
+          //   if (newValue !== {}) {
+
+          //   }
+          // })
 
 
 
