@@ -2,7 +2,7 @@
   //  p Here are your results for
   //      span {{searchQuery}}
   .large-child.post-list
-    h3 Results for 
+    h3 Results for
       strong.result-text {{searchQuery}}
     .post-item(ng-repeat="post in results" ui-sref="post({id: {{post.post_id}} })")
       h2.title {{post.post_title}}

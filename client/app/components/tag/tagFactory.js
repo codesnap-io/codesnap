@@ -3,6 +3,7 @@
   angular.module('tagFactory', [])
 
   .factory('tagFactory', function($http) {
+    var postResults = [];
     return {
       getTags: function() {
         return $http({
@@ -19,6 +20,12 @@
         }).then(function(resp) {
           return resp.data;
         });
+      },
+      setPostResult: function(result) {
+        postResults = result;
+      },
+      getPostResult: function() {
+        return postResults;
       }
     };
   });

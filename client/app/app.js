@@ -145,21 +145,25 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             controller: 'faqController'
           }
         }
-      });
-    // .state('tag', {
-    //   authenticate: true,
-    //   url: '/tags',
-    //   views: {
-    //     nav: {
-    //       templateUrl: 'app/shared/navbar/navbar.html',
-    //       controller: 'navbarController'
-    //     },
-    //     content: {
-    //       templateUrl: 'app/components/tag/tag.html',
-    //       controller: 'tagController'
-    //     }
-    //   }
-    // });
+      })
+    .state('tag', {
+      authenticate: false,
+      url: '/tag/:name',
+      views: {
+        content: {
+          templateUrl: 'app/components/tag/tag.html',
+          controller: 'tagController'
+        }
+      },
+      resolve: {
+        searchPosts: function(searchFactory, tagFactory, $stateParams) {
+          return searchFactory.searchPosts($stateParams.name, 'tag')
+            .then(function(posts) {
+              tagFactory.setPostResult(posts);
+            })
+        }
+      }
+    });
 
   }
 
