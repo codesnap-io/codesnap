@@ -33,7 +33,6 @@
             } else {
               metadata.published = 1;
             }
- 
             var postData = {
               title: metadata.title || "Default Title",
               url: url,

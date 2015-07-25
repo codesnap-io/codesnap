@@ -46,7 +46,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // .setPrefix('codesnap');
 
 
-
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
     //TODO: html5mode?
@@ -160,7 +159,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
-            })
+            });
         }
       }
     })
@@ -178,7 +177,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           return searchFactory.searchPosts($stateParams.username, 'users.username')
             .then(function(posts) {
               userFactory.setPostResult(posts);
-            })
+            });
         }
       }
     });

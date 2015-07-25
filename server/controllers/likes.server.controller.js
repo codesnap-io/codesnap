@@ -21,7 +21,6 @@
     Like.toggle(userId, postId, function() {
       res.send("Like updated");
     });
-    
   };
 
 })();

@@ -34,14 +34,16 @@
               .then(function(results) {
                 var authors = results.data.authors.map(function(item) {
                   return {
-                    name: item,
-                    searchType: 'users.name'
+                    name: item.name + " - " + item.username,
+                    searchType: 'user.username',
+                    username: item.username
                   };
                 });
 
                 var titles = results.data.titles.map(function(item) {
                   return {
-                    name: item,
+                    name: item.title,
+                    id: item.id,
                     searchType: 'title'
                   };
                 });
@@ -60,7 +62,10 @@
 
 
           /* the actual calling for search results, resolved in app.js */
-          $scope.search = function(query) {
+          $scope.search = function(query, $search) {
+            //reset select-ui component so it doesn't show multiples
+            $search.selected = [];
+            // $search.clear();
             /* right now, queries are being stored in rootScope in order to Pass
             to ui-router's resolve object. TODO: change this to something cleaner. */
             $rootScope.searchQuery = query[0].name;
@@ -69,7 +74,18 @@
               $state.go("tag", {
                 "name": $rootScope.searchQuery
               });
-            } else {
+            } else if ($rootScope.searchType === "user.username") {
+              $state.go("profile", {
+                "username": query[0].username
+              });
+            } else if ($rootScope.searchType === "title") {
+              $state.go("post", {
+                "id": query[0].id
+              });
+            }
+
+
+            else {
               $scope.query = [];
               $state.go('searchResults', null, {
                 reload: true
@@ -91,39 +107,39 @@
 
         }
       };
-    })
-    //filter searchable objects to match cases and potentially multiple properties
-    .filter('propsFilter', function() {
-      return function(items, props) {
-        var out = [];
-
-        if (angular.isArray(items)) {
-          items.forEach(function(item) {
-            var itemMatches = false;
-
-            var keys = Object.keys(props);
-            for (var i = 0; i < keys.length; i++) {
-              var prop = keys[i];
-              var text = props[prop].toLowerCase();
-              if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                itemMatches = true;
-                break;
-              }
-            }
-
-            if (itemMatches) {
-              out.push(item);
-            }
-          });
-        } else {
-          // Let the output be the input untouched
-          out = items;
-        }
-
-        return out;
-      };
-
     });
+    //filter searchable objects to match cases and potentially multiple properties
+    // .filter('propsFilter', function() {
+    //   return function(items, props) {
+    //     var out = [];
+    //
+    //     if (angular.isArray(items)) {
+    //       items.forEach(function(item) {
+    //         var itemMatches = false;
+    //
+    //         var keys = Object.keys(props);
+    //         for (var i = 0; i < keys.length; i++) {
+    //           var prop = keys[i];
+    //           var text = props[prop].toLowerCase();
+    //           if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+    //             itemMatches = true;
+    //             break;
+    //           }
+    //         }
+    //
+    //         if (itemMatches) {
+    //           out.push(item);
+    //         }
+    //       });
+    //     } else {
+    //       // Let the output be the input untouched
+    //       out = items;
+    //     }
+    //
+    //     return out;
+    //   };
+
+    // });
 
 
 })();

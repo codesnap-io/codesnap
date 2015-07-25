@@ -207,13 +207,14 @@
 
   Post.getAllTitles = function() {
     return db.knex
-      .select('title').from('posts').distinct('title');
+      .distinct()
+      .select('title', 'id').from('posts').distinct('id');
   };
 
   Post.getAllAuthors = function() {
     return db.knex
       .distinct()
-      .select('name').from('users').distinct('name');
+      .select('name', 'username').from('users').distinct('name');
   };
 
   Post.addView = function(postId) {

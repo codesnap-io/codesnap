@@ -57,7 +57,9 @@ exports.githubStrategy = function() {
                             //add all posts to DB
                             postCtrl.addPostsToDb(postPaths, profile.username, newUser.id, 'codesnap.io');
                           }).catch(function(err) {
-                            // console.log("Error: ", err);
+
+                            //TODO: fix the fact that we are using an error for functionality
+                            console.log("Error: ", err);
                             //if has no posts
                             console.log('no posts found, adding first post to gh');
                             //add first post and first image

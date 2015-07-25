@@ -34,7 +34,7 @@
           }
         }).then(function(resp) {
           return resp.data;
-        })
+        });
       },
 
       /* Send user id to server to remove user and associated posts from database */

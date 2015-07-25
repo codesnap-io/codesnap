@@ -34,7 +34,6 @@
         }
       }
     });
-  
   };
 
   exports.updateTags = function(postId, postTags) {

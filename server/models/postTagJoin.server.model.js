@@ -23,7 +23,7 @@
       post_id: postId
     }).select('id')
     .then(function(joins) {
-      for (var i = 0; i < joins.length; i++) { 
+      for (var i = 0; i < joins.length; i++) {
         new PostTagJoin({id: joins[i].id})
         .fetch()
         .then(function(join) {
@@ -33,9 +33,5 @@
       callback();
     });
   };
-  
   module.exports = PostTagJoin;
 })();
-
-
-
