@@ -19,16 +19,16 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'signupController',
       'postController',
       'postFactory',
-      'userController',
-      'authFactory',
-      'userController',
       'authFactory',
       'searchFactory',
       'searchController',
       'tagController',
       'tagFactory',
       'faqController',
+      'profileController',
       //shared directives
+      'userController',
+      'userFactory',
       'searchbarDirective',
       'homeSubnavDirective',
       'postSubnavDirective',
@@ -160,6 +160,24 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
+            })
+        }
+      }
+    })
+    .state('profile', {
+      authenticate: false,
+      url: '/profile/:username',
+      views: {
+        content: {
+          templateUrl: 'app/components/profile/profile.html',
+          controller: 'profileController'
+        }
+      },
+      resolve: {
+        searchPosts: function(searchFactory, userFactory, $stateParams) {
+          return searchFactory.searchPosts($stateParams.username, 'users.username')
+            .then(function(posts) {
+              userFactory.setPostResult(posts);
             })
         }
       }

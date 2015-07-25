@@ -36,7 +36,7 @@
        Data returned: all user info [WILL BE UPDATED] */
     app.get('/user/info', users.userInfo);
 
-
+    app.get('/user/profile', users.userInfoByUsername);
 
 
     /* Parameters: user_id

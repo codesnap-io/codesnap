@@ -38,6 +38,22 @@
     });
   };
 
+  User.profileInfoByUsername = function(username) {
+    return new User({
+      username: username
+    }).fetch()
+    .then(function(user) {
+      if (!user) {
+        callback("Invalid username");
+      } else {
+        callback(null, user);
+      }
+    });
+  };
+
+
+
+
   User.findByGithubId = function(githubId, callback) {
     new User({'github_id': githubId})
     .fetch()

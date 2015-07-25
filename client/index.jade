@@ -31,6 +31,9 @@ html(ng-app="codesnap" lang="en")
     script(src="app/shared/user/userController.js")
     script(src="app/shared/user/userFactory.js")
 
+    //profile
+    script(src="app/components/profile/profileController.js")
+
     //signup
     script(src="app/components/signup/signupController.js")
     script(src="app/components/signup/signupFactory.js")
@@ -99,5 +102,4 @@ html(ng-app="codesnap" lang="en")
   body
     cr-navbar
     ui-view(name="subnav")
-    //- ui-view(name="subnav")
     ui-view(name="content" class="page-content")
