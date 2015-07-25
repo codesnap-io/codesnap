@@ -38,7 +38,7 @@
     });
   };
 
-  User.profileInfoByUsername = function(username) {
+  User.profileInfoByUsername = function(username, callback) {
     return new User({
       username: username
     }).fetch()
