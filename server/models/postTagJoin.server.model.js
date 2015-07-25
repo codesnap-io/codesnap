@@ -26,10 +26,11 @@
       for (var i = 0; i < joins.length; i++) { 
         new PostTagJoin({id: joins[i].id})
         .fetch()
-        .then(function(post) {
-          post.destroy();
+        .then(function(join) {
+          join.destroy();
         });
       }
+      callback();
     });
   };
   

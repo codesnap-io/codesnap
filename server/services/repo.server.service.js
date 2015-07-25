@@ -123,7 +123,7 @@
     //add repo
     rp(addRepoOptions)
       .then(function(body) {
-        console.log("repo added");
+        // console.log("repo added");
       })
       //add various files to repo
       .then(function(body) {

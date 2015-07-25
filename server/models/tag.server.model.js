@@ -13,6 +13,12 @@
       HAVING SUM(posts.published) > 0');
   };
 
+    Tag.tagList = function() {
+    return db.knex.raw(' \
+      SELECT tags.id, tags.title \
+      FROM tags');
+  };
+
   Tag.getPopularTags = function() {
     return db.knex.raw(' \
       SELECT tags.id, tags.title \
