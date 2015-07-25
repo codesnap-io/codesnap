@@ -104,18 +104,18 @@
           var summary = exports.getSummary(rawFile);
 
           /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
-           if (metadata.published !== undefined) {
-             metadata.published = +metadata.published;
-           } else {
-             metadata.published = 1;
-           }
-           var postData = {
-             title: metadata.title || "Default Title",
-             url: url,
-             file: file,
-             published: metadata.published,
-             summary: summary
-           };
+          if (metadata.published !== undefined) {
+            metadata.published = +metadata.published;
+          } else {
+            metadata.published = 1;
+          }
+          var postData = {
+            title: metadata.title || "Default Title",
+            url: url,
+            file: file,
+            published: metadata.published,
+            summary: summary
+          };
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error, post) {
@@ -124,7 +124,6 @@
             } else {
               if (metadata.tags) {
                 var tags = cleanTagMetaData(metadata.tags);
-                // console.log("TAGS: " + tags);
                 tagHandler.updateTags(post.get('id'), tags);
               }
             }
@@ -252,7 +251,7 @@
     });
   };
 
-    /* Dummy Data */
+  /* Dummy Data */
   // if (process.env.NODE_ENV === 'development') {
   //   var req = {};
   //   var res = {
