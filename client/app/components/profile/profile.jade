@@ -7,10 +7,10 @@
         .flex-child
           img(src="assets/img/github.svg" alt="Github icon")
           span.username {{user.username}}
-    p.profile-bio This is my bio This is my bio This is my bio This is my bio This is my bio This is my bio This is my bio This is my bio
-    a.button
+    p.profile-bio(ng-show="bio") {{bio}}
+    a.button(href="{{editUrl}}" ng-show="bio")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
-      span Edit
+      span Edit Bio
     h4.commonly-used {{user.name.split(" ")[0]}}'s Tags
     .tag-list(offset="67px")
       p.tag(ng-repeat="tag in tags" ui-sref="tag({name: tag.title })") {{tag.title}}
