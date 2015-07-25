@@ -9,7 +9,7 @@ header(ng-show="showNav")
       .search-box
         ui-select(cr-searchbar id="search-box" close-on-select="true" multiple ng-model="query" on-select="search(query, $select)" append-to-body="true")
           ui-select-match(placeholder="Search...") {{$item.name}}
-          ui-select-choices(repeat="result in results | propsFilter: {name: $select.search}" group-by="searchType")
+          ui-select-choices(repeat="result in results" group-by="searchType")
             div(ng-bind-html="result.name | highlight: $select.search")
     .right
       .nav-right(ng-if="loggedIn")

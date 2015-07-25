@@ -209,8 +209,8 @@ header {
     order: 0;
     width: 400px;
     margin: 0.5rem;
-    .ui-select-match-close {
-      display: none; 
+    .ui-select-match-close, .ui-select-match-item {
+      display: none;
     }
     .ui-select-container.ui-select-multiple {
         ul.ui-select-choices {

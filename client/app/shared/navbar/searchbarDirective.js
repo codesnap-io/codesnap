@@ -32,7 +32,6 @@
             // console.log("Look for search results");
             searchFactory.getAllData()
               .then(function(results) {
-                console.log(results);
                 var authors = results.data.authors.map(function(item) {
                   return {
                     name: item.name + " - " + item.username,
@@ -43,7 +42,8 @@
 
                 var titles = results.data.titles.map(function(item) {
                   return {
-                    name: item,
+                    name: item.title,
+                    id: item.id,
                     searchType: 'title'
                   };
                 });
@@ -78,7 +78,14 @@
               $state.go("profile", {
                 "username": query[0].username
               })
-            } else {
+            } else if ($rootScope.searchType === "title") {
+              $state.go("post", {
+                "id": query[0].id
+              })
+            }
+
+
+            else {
               $scope.query = [];
               $state.go('searchResults', null, {
                 reload: true
@@ -100,39 +107,39 @@
 
         }
       };
-    })
-    //filter searchable objects to match cases and potentially multiple properties
-    .filter('propsFilter', function() {
-      return function(items, props) {
-        var out = [];
-
-        if (angular.isArray(items)) {
-          items.forEach(function(item) {
-            var itemMatches = false;
-
-            var keys = Object.keys(props);
-            for (var i = 0; i < keys.length; i++) {
-              var prop = keys[i];
-              var text = props[prop].toLowerCase();
-              if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                itemMatches = true;
-                break;
-              }
-            }
-
-            if (itemMatches) {
-              out.push(item);
-            }
-          });
-        } else {
-          // Let the output be the input untouched
-          out = items;
-        }
-
-        return out;
-      };
-
     });
+    //filter searchable objects to match cases and potentially multiple properties
+    // .filter('propsFilter', function() {
+    //   return function(items, props) {
+    //     var out = [];
+    //
+    //     if (angular.isArray(items)) {
+    //       items.forEach(function(item) {
+    //         var itemMatches = false;
+    //
+    //         var keys = Object.keys(props);
+    //         for (var i = 0; i < keys.length; i++) {
+    //           var prop = keys[i];
+    //           var text = props[prop].toLowerCase();
+    //           if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+    //             itemMatches = true;
+    //             break;
+    //           }
+    //         }
+    //
+    //         if (itemMatches) {
+    //           out.push(item);
+    //         }
+    //       });
+    //     } else {
+    //       // Let the output be the input untouched
+    //       out = items;
+    //     }
+    //
+    //     return out;
+    //   };
+
+    // });
 
 
 })();

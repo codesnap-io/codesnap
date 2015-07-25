@@ -207,7 +207,8 @@
 
   Post.getAllTitles = function() {
     return db.knex
-      .select('title').from('posts').distinct('title');
+      .distinct()
+      .select('title', 'id').from('posts').distinct('id');
   };
 
   Post.getAllAuthors = function() {
