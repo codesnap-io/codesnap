@@ -3,10 +3,15 @@
   var jwt = require('jwt-simple');
   var User = require('../models/user.server.model');
 
+
+
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
+    /* If user is logging in for the first time, redirect them to their profile page */
+
+
+    /* If user is returning, redirect to the home page */
     res.redirect('/');
-    console.log("client redirected");
   };
 
   /* If user exists in the session, passes encoded user id to the front end. */

@@ -97,11 +97,12 @@
 
   exports.modifyPostsInDb = function(filesToModify, username, repoName) {
     filesToModify.forEach(function(file) {
-      service.getRawGHFile(downloadUrl(file, username, repoName))
+      var url = downloadUrl(file, username, repoName);
+      service.getRawGHFile(url)
         .then(function(rawFile) {
-          /* Grab meta data from the post's markdown.  Data is the markdown content we retrieved from Github */
-          var metadata = exports.getMetadata(data);
-          var summary = exports.getSummary(data);
+          // retreive front-matter metadata
+          var metadata = exports.getMetadata(rawFile);
+          var summary = exports.getSummary(rawFile);
 
           /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
            if (metadata.published !== undefined) {
@@ -109,11 +110,9 @@
            } else {
              metadata.published = 1;
            }
-          
            var postData = {
              title: metadata.title || "Default Title",
              url: url,
-             user_id: userId,
              file: file,
              published: metadata.published,
              summary: summary
@@ -126,6 +125,7 @@
             } else {
               if (metadata.tags) {
                 var tags = cleanTagMetaData(metadata.tags);
+                // console.log("TAGS: " + tags);
                 tagHandler.updateTags(post.get('id'), tags);
               }
             }
@@ -239,7 +239,7 @@
   exports.addPost = function(req, res) {
     var timestamp = new Date().toISOString().
             replace(/T/, '-').      // replace T with a dash
-            replace(/\..+/, '')     // delete the dot and everything after
+            replace(/\..+/, '');    // delete the dot and everything after
     var path = {
       repoPath: 'https://api.github.com/repos/' + req.query.username + '/codesnap.io/contents/posts/' + timestamp + '.md',
       message: "(init) add new post",
@@ -250,7 +250,31 @@
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
       res.redirect('https://github.com/'+ req.query.username +'/codesnap.io/edit/master/' + repoPath);
-    })
+    });
   };
+
+    /* Dummy Data */
+  // if (process.env.NODE_ENV === 'development') {
+  //   var req = {};
+  //   var res = {
+  //     sendStatus: function() {
+  //       return;
+  //     }
+  //   };
+  //   req.body = {
+  //     repository: {
+  //       name: 'codesnap.io',
+  //       owner: {
+  //         name: 'bdstein33'
+  //       }
+  //     },
+  //     head_commit: {
+  //       added: [],
+  //       removed: [],
+  //       modified: ['posts/javascript-scraping.md']
+  //     }
+  //   };
+  //   exports.postReceive(req, res);
+  // }
 
 })();

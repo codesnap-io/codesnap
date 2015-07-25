@@ -39,7 +39,6 @@ exports.githubStrategy = function() {
                 //get all user repos
                 repoService.getFileFromGHAPI(accessToken, profile._json.repos_url)
                   .then(function(body) {
-                    console.log("got repos from GH");
                     return JSON.parse(body);
                   })
                   .then(function(repos) {
@@ -58,7 +57,7 @@ exports.githubStrategy = function() {
                             //add all posts to DB
                             postCtrl.addPostsToDb(postPaths, profile.username, newUser.id, 'codesnap.io');
                           }).catch(function(err) {
-                            console.log("Error: ", err);
+                            // console.log("Error: ", err);
                             //if has no posts
                             console.log('no posts found, adding first post to gh');
                             //add first post and first image
@@ -85,7 +84,6 @@ exports.githubStrategy = function() {
                       }
                     });
                   });
-                console.log("auth and file add complete");
                 return done(null, newUser);
               });
           }
