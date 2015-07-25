@@ -101,50 +101,64 @@
       }
     };
 
+    /* For each file we add, specify a repo location, an initial message and the location of the file to be copied on our server */
     var firstPostPath = {
-      //first post
       repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/posts/myFirstPost.md',
       message: "(init) setup repo and add first post",
       serverPath: "./server/assets/firstPost.md"
     };
+
     var firstImagePath = {
-      //first image
       repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/sample.jpg',
       message: "(init) add first image",
       serverPath: "./server/assets/sample.jpg"
     };
+
     var readmePath = {
-      //readme
       repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/README.md',
       message: "(init) add README.md",
       serverPath: "./server/assets/README.md"
     };
 
-    //add repo
+    var bioPath = {
+      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/bio.md',
+      message: "(init) add bio.md",
+      serverPath: "./server/assets/bio.md"
+    };
+
+    /* Create repo if user signs up and repo doesn't already exist */
     rp(addRepoOptions)
       .then(function(body) {
-        // console.log("repo added");
       })
-      //add various files to repo
+      /* Add various files to the repo */
       .then(function(body) {
+        /* Add first post in posts folder */
+        console.log("FIRST POST ADDED");
         module.exports.addFileToGHRepo(token, username, firstPostPath);
-        //console.log("first post created!!!!!!!!!!",body);
       })
       .then(function(body) {
-          setTimeout(function(){
-            module.exports.addFileToGHRepo(token, username, firstImagePath);
-          }, 500);
-        //console.log("first image created!!!!!!!!!!",body);
-        })
+        setTimeout(function(){
+           /* Add first image in images folder */
+           console.log("FIRST IMAGE ADDED")
+          module.exports.addFileToGHRepo(token, username, firstImagePath);
+        }, 500);
+      })
       .then(function(body) {
-          setTimeout(function(){
-            module.exports.addFileToGHRepo(token, username, readmePath);
-          }, 500);
-        //console.log("readme created!!!!!!!!!!",body);
-        })
+        setTimeout(function(){
+          /* Add readme to main repo */
+          console.log("README ADDED");
+          module.exports.addFileToGHRepo(token, username, readmePath);
+        }, 500);
+      })
       .then(function(body) {
-        //add webhook
-        // console.log("ready to add webhook");
+        setTimeout(function(){
+          /* Add readme to main repo */
+          console.log("BIO ADDED");
+          module.exports.addFileToGHRepo(token, username, bioPath);
+        }, 500);
+      })
+      .then(function(body) {
+        /* Set up webhook so we receive notification when changes are made to repo */
         rp(addWebhookOptions);
       })
       .catch(function(e) {
