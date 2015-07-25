@@ -7,13 +7,17 @@
 // Import fonts
 @import 'fonts';
 // *** Global variables ***
+$accent-1000: #303030;
 $accent-800: #303030;
+$accent-500: #5c5c5c;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
 $highlight: #229425;
 $site-title-color: #2E2061;
 $logo-color: #229425;
+$positive: #95d8b0;
+$negative: #fda6a7;
 // *** Mixins ***
 @mixin flex-container-row {
   display: flex;
@@ -58,6 +62,9 @@ body {
 }
 
 // *** Shared ***
+a {
+  text-decoration: none;
+}
 body {
   margin: 0;
 }
@@ -78,14 +85,14 @@ body {
 
 .large-child {
   @include flex-child;
-  flex: 1 1 680px;
-  max-width: 680px;
+  flex: 0 1 auto;
+  width: 680px;
 }
 
 .small-child {
   @include flex-child;
-  flex: 1 1 420px;
-  max-width: 420px;
+  flex: 0 1 auto;
+  width: 420px;
 }
 
 .content {
@@ -108,6 +115,7 @@ body {
 .pad2 {
   padding: 2rem;
 }
+
 
 .button {
   padding: 0.2rem;
@@ -295,10 +303,11 @@ header {
 }
 
 .username {
-  margin: 0.2rem 0;
+  padding-left: 3px;
+  line-height: 20px;
   font-weight: 300;
   color: $accent-300;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 #post-error-container {
@@ -409,7 +418,7 @@ code {
 }
 
 /// *** Home Content ***
-.align-top {
+.content {
   @include flex-container-row;
   align-items: flex-start;
 }
@@ -453,6 +462,119 @@ code {
   //padding: 0;
 }
 
+.post-item2 {
+  @include flex-child;
+  @include flex-container-col;
+  flex-direction: row;
+  align-items: flex-start;
+  border-bottom: 1px solid $accent-200;
+  padding: 1.4rem 0;
+  width: 100%;
+  cursor: pointer;
+  a {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      color: $highlight;
+    }
+  }
+
+  .title {
+    margin: 0;
+  }
+
+  .summary {
+    color: $accent-800;
+    margin: 0.6rem 0;
+  }
+}
+
+
+.post-date {
+  @include flex-child;
+  flex: 1 0 3rem;
+  margin-top: 0.4rem;
+  .date {
+    border: 1px solid $accent-300;
+    width: 3em;
+    height: 3em;
+    border-radius: 0.25rem;
+    p {
+      text-align: center;
+      color: $accent-500;
+    }
+    .month {
+      line-height: 0;
+      margin-top: 0.5rem;
+      margin-bottom: -0.2rem;
+    }
+    .day {
+      line-height: 0;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    .year {
+      margin-top: -0.3rem;
+    }
+
+  }
+}
+.post-content-container {
+  @include flex-child;
+  // @include flex-container-row;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  font-weight: 300;
+  color: $accent-1000;
+  a {
+    @include flex-child;
+  }
+
+  .profile-post-links {
+    @include flex-child;
+    @include flex-container-col;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .link-div {
+      @include flex-child;
+      flex: 0 1 auto;
+      margin-right: 1.5rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: $accent-300;
+      a {
+        color: $accent-300;
+      }
+
+      img {
+        max-height: 1rem;
+      }
+      span {
+        line-height: 1rem;
+      }
+      .published {
+        color: white;
+        background-color: $positive;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+
+      .unpublished {
+        color: white;
+        background-color: $negative;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}
+
+
+
+
+
 .commonly-used {
   margin: 1.6rem 0 0.4rem 0;
 }
@@ -470,7 +592,8 @@ code {
 }
 
 .profile-bio {
-  color: $accent-300;
+  color: $accent-800;
+  font-weight: 300;
   margin: 1.6rem 0 1rem 0;
 }
 

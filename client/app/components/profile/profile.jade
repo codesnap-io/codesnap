@@ -2,11 +2,12 @@
   .small-child.pad2
     .user-info-profile
       img.profile-picture-large(ng-src="{{user.profile_photo_url}}" alt="profile photo")
-      .post-author-date(ui-sref="profile({username: post.username })")
+      .post-author-date
         span.author {{user.name}}
         .flex-child
-          img(src="assets/img/github.svg" alt="Github icon")
-          span.username {{user.username}}
+          a(href="{{githubUrl}}" target="_blank")
+            img(src="assets/img/github.svg" alt="Github icon")
+            span.username {{user.username}}
     p.profile-bio(ng-show="bio") {{bio}}
     a.button(href="{{editUrl}}" ng-show="bio")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
@@ -15,8 +16,26 @@
     .tag-list(offset="67px")
       p.tag(ng-repeat="tag in tags" ui-sref="tag({name: tag.title })") {{tag.title}}
   .large-child.post-list
-    .post-item(ng-repeat="post in posts")
-      a(ui-sref="post({id: post.post_id })")
-        h2.title {{post.post_title}}
-      a(ui-sref="post({id: post.post_id })")
-        p.summary {{post.summary}}...
+    .post-item2(ng-repeat="post in posts")
+      .post-date
+        .date
+          p.month May
+          p.day 4
+          p.year 2015
+
+      .post-content-container
+        a(ui-sref="post({id: post.post_id })")
+          h2.title {{post.post_title}}
+        a(ui-sref="post({id: post.post_id })")
+          p.summary {{post.summary}}...
+        .profile-post-links
+          .link-div
+              a(href="{{githubUrl}}" target="_blank")
+                //- img(src="assets/img/Edit.svg" alt="Edit Post")
+                span Edit
+          .link-div
+              span 14        
+          .link-div
+              span 46         
+          .link-div
+              span.published Published

@@ -5,7 +5,8 @@
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
 
-
+    /* PLACEHOLDER -- will ultimately contain a boolean representing whether current user is owner of profile page */
+    $scope.isUser  = true;
 
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)
@@ -15,6 +16,7 @@
         /* Set url to fetch raw bio content and edit bio */
         var bioUrl = "https://raw.githubusercontent.com/" + $scope.user.username + "/codesnap.io/master/bio.md";
         $scope.editUrl = "https://github.com/" + $scope.user.username + "/codesnap.io/edit/master/bio.md";
+        $scope.githubUrl = "https://github.com/" + $scope.user.username;
 
         postFactory.getPostMarkdown(bioUrl)
           .then(function (bio, err) {
@@ -24,7 +26,7 @@
             } else {
               /* Set scope post equal to the markdown content retrieved from Github */
               $scope.bio = bio;
-              
+
             }
           });
       });
