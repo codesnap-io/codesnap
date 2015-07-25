@@ -14,14 +14,6 @@
           params: {
             user_id: localStorage.codeSnapJwtToken
           }
-        }).then(function(resp) {
-          //address issue where database dropped while logged in, causing token to be out of date.
-          if (resp.data === "Invalid user id.\n") {
-            console.log("user log in weirdness detected. Deleting token and redirecting to /signup.");
-            delete window.localStorage.codeSnapJwtToken;
-            $state.go('signup');
-          }
-          return resp.data;
         });
       },
 
