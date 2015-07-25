@@ -1,12 +1,16 @@
-.content.align-top
-  .tag-list
-    p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}") {{tag.title}}
-  .post-list
-    .post-item(ng-repeat="post in user.posts" ui-sref="post({id: {{post.post_id}} })")
-      h2.title {{post.post_title}}
-      .user-info
-        img.profile-picture(src="{{post.profile_photo_url}}" alt="profile photo")
-        .post-author-date
-          span.author {{post.author}}
-          span.date {{post.created_date | date:"MMM dd, yyyy"}}
-      p.summary {{post.summary}}...
+{{user}}
+
+.posts(ng-repeat="post in posts")
+  {{post}}
+//- .content.align-top
+//-   .tag-list
+//-     p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}") {{tag.title}}
+//-   .post-list
+//-     .post-item(ng-repeat="post in user.posts" ui-sref="post({id: {{post.post_id}} })")
+//-       h2.title {{post.post_title}}
+//-       .user-info
+//-         img.profile-picture(src="{{post.profile_photo_url}}" alt="profile photo")
+//-         .post-author-date
+//-           span.author {{post.author}}
+//-           span.date {{post.created_date | date:"MMM dd, yyyy"}}
+//-       p.summary {{post.summary}}...

@@ -3,7 +3,7 @@
 
   angular.module('homeController', [])
 
-  .controller('homeController', function($scope, $rootScope, postFactory, tagFactory, $state) {
+  .controller('homeController', function($scope, $rootScope, postFactory, tagFactory) {
 
     /* Load recent posts to page when page first loads */
     postFactory.getRecentPosts()
@@ -36,18 +36,6 @@
           });
       }
     });
-
-
-    /* the actual calling for search results, resolved in app.js */
-    $scope.search = function(query) {
-      /* right now, queries are being stored in rootScope in order to Pass
-      to ui-router's resolve object. TODO: change this to something cleaner. */
-      $rootScope.searchQuery = query;
-      $rootScope.searchType = 'tag';
-      $scope.query = [];
-      $state.go('searchResults');
-    };
-
 
     tagFactory.getPopularTags()
       .then(function(data){

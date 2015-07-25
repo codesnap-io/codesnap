@@ -2,7 +2,7 @@
   'use strict';
   angular.module('postController', ['postFactory'])
 
-  .controller('postController', function ($scope, $rootScope, $stateParams, postFactory, $state) {
+  .controller('postController', function ($scope, $rootScope, $stateParams, postFactory) {
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
     $scope.postData = postFactory.getCurrentPost();
@@ -20,15 +20,6 @@
         $scope.post = post;
       }
     });
-
-    $scope.search = function(query) {
-      /* right now, queries are being stored in rootScope in order to Pass
-      to ui-router's resolve object. TODO: change this to something cleaner. */
-      $rootScope.searchQuery = query;
-      $rootScope.searchType = 'tag';
-      $scope.query = [];
-      $state.go('searchResults');
-    };
 
   });
 })();

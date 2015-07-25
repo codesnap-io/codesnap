@@ -2,75 +2,92 @@
   'use strict';
 
   angular.module('searchbarDirective', ['searchFactory', 'LocalStorageModule'])
-    .directive('crSearchbar', function (searchFactory, localStorageService) {
+    .directive('crSearchbar', function(searchFactory, localStorageService) {
       return {
         restrict: 'A',
-        controller: function ($scope, $rootScope, $state, searchFactory, localStorageService) {
-        $scope.query = [];
+        controller: function($scope, $rootScope, $state, searchFactory, localStorageService) {
+          $scope.query = [];
 
 
-        /* determine groupings in search bar by type */
-        $scope.searchType = function (item){
-          if (item.searchType === 'title') {
+          /* determine groupings in search bar by type */
+          $scope.searchType = function(item) {
+            if (item.searchType === 'title') {
               return 'Titles';
             }
-          if (item.searchType === 'tag') {
+            if (item.searchType === 'tag') {
               return 'Tags';
             }
-          if (item.searchType === 'users.name') {
+            if (item.searchType === 'users.name') {
               return 'Authors';
             }
-        };
+          };
 
 
-        /* we could cookie cache the post titles once DB size gets large */
-        // $scope.results = localStorageService.cookie.get('postData');
+          /* we could cookie cache the post titles once DB size gets large */
+          // $scope.results = localStorageService.cookie.get('postData');
 
-        /* Get all metadata and map properly */
+          /* Get all metadata and map properly */
 
-        if (!$scope.results) {
-          // console.log("Look for search results");
-          searchFactory.getAllData()
-          .then(function(results) {
-            var authors = results.data.authors.map(function(item) {
-              return {name: item, searchType: 'users.name'};
-            });
+          if (!$scope.results) {
+            // console.log("Look for search results");
+            searchFactory.getAllData()
+              .then(function(results) {
+                var authors = results.data.authors.map(function(item) {
+                  return {
+                    name: item,
+                    searchType: 'users.name'
+                  };
+                });
 
-            var titles = results.data.titles.map(function(item) {
-              return {name: item, searchType: 'title'};
-            });
+                var titles = results.data.titles.map(function(item) {
+                  return {
+                    name: item,
+                    searchType: 'title'
+                  };
+                });
 
-            var tags = results.data.tags.map(function(item) {
-              return {name: item, searchType: 'tag'};
-            });
+                var tags = results.data.tags.map(function(item) {
+                  return {
+                    name: item,
+                    searchType: 'tag'
+                  };
+                });
 
-            $scope.results = authors.concat(titles, tags);
-          });
-        }
+                $scope.results = authors.concat(titles, tags);
+              });
+          }
 
 
 
-        /* the actual calling for search results, resolved in app.js */
-        $scope.search = function(query) {
-          /* right now, queries are being stored in rootScope in order to Pass
-          to ui-router's resolve object. TODO: change this to something cleaner. */
-          $rootScope.searchQuery = query[0].name;
-          $rootScope.searchType = query[0].searchType;
-          $scope.query = [];
-          $state.go('searchResults', null, {reload: true});
-        };
+          /* the actual calling for search results, resolved in app.js */
+          $scope.search = function(query) {
+            /* right now, queries are being stored in rootScope in order to Pass
+            to ui-router's resolve object. TODO: change this to something cleaner. */
+            $rootScope.searchQuery = query[0].name;
+            $rootScope.searchType = query[0].searchType;
+            if ($rootScope.searchType === "tag") {
+              $state.go("tag", {
+                "name": $rootScope.searchQuery
+              });
+            } else {
+              $scope.query = [];
+              $state.go('searchResults', null, {
+                reload: true
+              });
+            }
+          };
 
-        /* TODO: one future option for search autocomplete will be to request objects
-        every few seconds. this ui element has a refresh delay attr built in. */
-        // $scope.refreshSearch = function(query) {
-        //   var params = {query: query};
-        //   return $http.get(
-        //     'path/to/thing',
-        //     {params: params}
-        //   ).then(function(response) {
-        //     $scope.results = response.data.results
-        //   });
-        // };
+          /* TODO: one future option for search autocomplete will be to request objects
+          every few seconds. this ui element has a refresh delay attr built in. */
+          // $scope.refreshSearch = function(query) {
+          //   var params = {query: query};
+          //   return $http.get(
+          //     'path/to/thing',
+          //     {params: params}
+          //   ).then(function(response) {
+          //     $scope.results = response.data.results
+          //   });
+          // };
 
         }
       };
@@ -105,7 +122,7 @@
 
         return out;
       };
-      
+
     });
 
 

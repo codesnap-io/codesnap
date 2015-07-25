@@ -40,7 +40,6 @@
      name, username, profile_pic_url and user's posts */
   exports.userInfo = function(req, res) {
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
-    console.log("user id: ", userId);
     User.profileInfo(userId, function(error, user) {
       if (error) {
         console.log(JSON.stringify(error));
@@ -72,5 +71,17 @@
       }
     });
   };
+
+  exports.userInfoByUsername = function(req, res) {
+    var username = req.query.username;
+    User.profileInfoByUsername(username, function(err, user) {
+      if (err) {
+        console.log(err)
+      } else {
+        res.json(user);
+      }
+    })
+  };
+
 
 })();
