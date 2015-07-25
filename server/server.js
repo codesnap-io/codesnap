@@ -7,7 +7,9 @@
   var express = require('./config/express');
   var app = express();
 
-  app.listen(process.env.PORT);
+  var host = process.env.HOSTNAME || null;
+
+  app.listen(process.env.PORT, host);
   module.exports = app;
   console.log('Server running at port: ' + process.env.PORT);
 
