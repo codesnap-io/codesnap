@@ -133,26 +133,30 @@
       /* Add various files to the repo */
       .then(function(body) {
         /* Add first post in posts folder */
+        console.log("FIRST POST ADDED");
         module.exports.addFileToGHRepo(token, username, firstPostPath);
       })
       .then(function(body) {
-          setTimeout(function(){
-            /* Add first image in images folder */
-            module.exports.addFileToGHRepo(token, username, firstImagePath);
-          }, 500);
-        })
+        setTimeout(function(){
+           /* Add first image in images folder */
+           console.log("FIRST IMAGE ADDED")
+          module.exports.addFileToGHRepo(token, username, firstImagePath);
+        }, 500);
+      })
       .then(function(body) {
-          setTimeout(function(){
-            /* Add readme to main repo */
-            module.exports.addFileToGHRepo(token, username, readmePath);
-          }, 500);
-        })
-        .then(function(body) {
-          setTimeout(function(){
-            /* Add readme to main repo */
-            module.exports.addFileToGHRepo(token, username, bioPath);
-          }, 500);
-        })
+        setTimeout(function(){
+          /* Add readme to main repo */
+          console.log("README ADDED");
+          module.exports.addFileToGHRepo(token, username, readmePath);
+        }, 500);
+      })
+      .then(function(body) {
+        setTimeout(function(){
+          /* Add readme to main repo */
+          console.log("BIO ADDED");
+          module.exports.addFileToGHRepo(token, username, bioPath);
+        }, 500);
+      })
       .then(function(body) {
         /* Set up webhook so we receive notification when changes are made to repo */
         rp(addWebhookOptions);
