@@ -77,11 +77,11 @@
             } else if ($rootScope.searchType === "user.username") {
               $state.go("profile", {
                 "username": query[0].username
-              })
+              });
             } else if ($rootScope.searchType === "title") {
               $state.go("post", {
                 "id": query[0].id
-              })
+              });
             }
 
 

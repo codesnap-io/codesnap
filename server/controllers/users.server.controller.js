@@ -81,11 +81,11 @@
     var username = req.query.username;
     User.profileInfoByUsername(username, function(err, user) {
       if (err) {
-        console.log(err)
+        console.log(err);
       } else {
         res.json(user);
       }
-    })
+    });
   };
 
 

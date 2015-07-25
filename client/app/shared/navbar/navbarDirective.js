@@ -20,7 +20,7 @@
         //listening during state change on whether to hide navbar
         $rootScope.$on('navbar', function(event, data) {
           $scope.showNav = data;
-        })
+        });
 
 
 

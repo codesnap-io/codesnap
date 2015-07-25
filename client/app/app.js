@@ -159,7 +159,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
-            })
+            });
         }
       }
     })
@@ -177,7 +177,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           return searchFactory.searchPosts($stateParams.username, 'users.username')
             .then(function(posts) {
               userFactory.setPostResult(posts);
-            })
+            });
         }
       }
     });
