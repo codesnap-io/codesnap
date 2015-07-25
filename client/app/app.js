@@ -46,7 +46,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     // .setPrefix('codesnap');
 
 
-
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
     //TODO: html5mode?

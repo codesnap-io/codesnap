@@ -32,10 +32,12 @@
             // console.log("Look for search results");
             searchFactory.getAllData()
               .then(function(results) {
+                console.log(results);
                 var authors = results.data.authors.map(function(item) {
                   return {
-                    name: item,
-                    searchType: 'users.name'
+                    name: item.name + " - " + item.username,
+                    searchType: 'user.username',
+                    username: item.username
                   };
                 });
 
@@ -60,7 +62,10 @@
 
 
           /* the actual calling for search results, resolved in app.js */
-          $scope.search = function(query) {
+          $scope.search = function(query, $search) {
+            //reset select-ui component so it doesn't show multiples
+            $search.selected = [];
+            // $search.clear();
             /* right now, queries are being stored in rootScope in order to Pass
             to ui-router's resolve object. TODO: change this to something cleaner. */
             $rootScope.searchQuery = query[0].name;
@@ -69,6 +74,10 @@
               $state.go("tag", {
                 "name": $rootScope.searchQuery
               });
+            } else if ($rootScope.searchType === "user.username") {
+              $state.go("profile", {
+                "username": query[0].username
+              })
             } else {
               $scope.query = [];
               $state.go('searchResults', null, {

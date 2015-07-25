@@ -19,7 +19,7 @@
             return title.title;
           });
           metadata.authors = authorData.map(function(author) {
-            return author.name;
+            return {name: author.name, username: author.username};
           });
           /* Tag data is handled differently because it is queried using a join statement in raw SQL */
           metadata.tags = tagData[0].map(function(tag) {

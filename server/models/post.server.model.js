@@ -213,7 +213,7 @@
   Post.getAllAuthors = function() {
     return db.knex
       .distinct()
-      .select('name').from('users').distinct('name');
+      .select('name', 'username').from('users').distinct('name');
   };
 
   Post.addView = function(postId) {
