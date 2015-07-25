@@ -1,4 +1,4 @@
 .large-child
   h1 Posts with tag {{name}}
   .flex-child(ng-repeat="post in posts")
-    {{post.post_title}}
+    a(ui-sref="post({id: post.post_id })"){{post.post_title}}
