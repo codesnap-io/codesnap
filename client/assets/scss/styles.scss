@@ -392,7 +392,6 @@ code {
     border: 1px solid $highlight;
 }
 
-// *** Footer ***
 /// *** Home Content ***
 .content .align-top {
     @include flex-container-row;
@@ -419,6 +418,13 @@ code {
     padding: 1.4rem 0;
     width: 100%;
     cursor: pointer;
+    a {
+        text-decoration: none;
+        color: black;
+        &:hover {
+            color: $highlight;
+        }
+    }
 }
 
 .post-item .title {
