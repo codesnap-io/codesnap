@@ -160,6 +160,7 @@
         posts.created_at AS created_date, \
         posts.summary AS summary, \
         users.name AS author, \
+        users.username AS username, \
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
       WHERE posts.user_id = users.id \
@@ -178,6 +179,7 @@
         posts.created_at AS created_date, \
         posts.summary AS summary, \
         users.name AS author, \
+        users.username AS username, \
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
       WHERE posts.user_id = users.id \
@@ -195,6 +197,7 @@
         posts.created_at AS created_date, \
         posts.summary AS summary, \
         users.name AS author, \
+        users.username AS username, \
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users, likes \
       WHERE posts.user_id = users.id \

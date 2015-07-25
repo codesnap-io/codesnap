@@ -21,6 +21,19 @@
           return resp.data;
         });
       },
+
+      getUserTags: function(username){
+        return $http({
+          method: 'GET',
+          url: '/tags/user',
+          params: {
+            username: username
+          }
+        }).then(function(resp) {
+          return resp.data;
+        });
+      },
+
       setPostResult: function(result) {
         postResults = result;
       },

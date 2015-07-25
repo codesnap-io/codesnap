@@ -11,9 +11,9 @@
     a.button
       img(src="assets/img/Edit.svg" alt="Edit Bio")
       span Edit
-    h4.commonly-used Commonly used
+    h4.commonly-used {{user.name.split(" ")[0]}}'s Tags
     .tag-list(offset="67px")
-      p.tag(ui-sref="tag({name: tag.title })") Baller :)
+      p.tag(ng-repeat="tag in tags" ui-sref="tag({name: tag.title })") {{tag.title}}
   .large-child.post-list
     .post-item(ng-repeat="post in posts")
       a(ui-sref="post({id: post.post_id })")
