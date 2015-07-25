@@ -4,10 +4,10 @@
 
 section.subnav.sticky(post-subnav ng-show="postData")
     .content
-        img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo")
+        img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo" ui-sref="profile({username: postData.username})")
         .left-icons
             .post-author-date
-                span.author {{postData.author}}
+                span.author(ui-sref="profile({username: postData.username})") {{postData.author}}
                 span.date {{postData.created_date | date:"MMM dd, yyyy"}}
 
             a.icon(ng-click="toggleLike()")
