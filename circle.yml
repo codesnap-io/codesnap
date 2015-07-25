@@ -1,5 +1,5 @@
 deployment:
   production:
     branch: master
-    heroku:
-      appname: codesnap
+    commands:
+      - ./deploy_production.sh
