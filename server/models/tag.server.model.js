@@ -30,14 +30,14 @@
       ORDER BY COUNT(tags.title) DESC');
   };
 
-  Tag.getUserTags = function(userId) {
+  Tag.getUserTags = function(username) {
     return db.knex.raw(' \
       SELECT tags.id, tags.title \
       FROM posts, post_tag_join, tags, users \
       WHERE users.id = posts.user_id \
         AND posts.id = post_tag_join.post_id \
         AND post_tag_join.tag_id = tags.id \
-        AND users.id = ' + userId + ' \
+        AND users.username = "' + username + '" \
       GROUP BY tags.title \
       HAVING SUM(posts.published) > 0');
   };

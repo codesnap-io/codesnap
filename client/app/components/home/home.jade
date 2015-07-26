@@ -6,8 +6,8 @@
       .user-info
         a(ui-sref="profile({username: post.username })")
           img.profile-picture(ng-src="{{post.profile_photo_url}}" alt="profile photo")
-        a.post-author-date(ui-sref="profile({username: post.username })")
-          span.author {{post.author}}
+        a.post-author-date(ui-sref="profile({username: post.username})")
+          span.author {{post.username}}
           span.date {{post.created_date | date:"MMM dd, yyyy"}}
       a(ui-sref="post({id: post.post_id })")
         p.summary {{post.summary}}...
