@@ -5,6 +5,7 @@
 @import 'dropdown';
 @import 'search';
 @import 'ui-select';
+@import 'patterns';
 // Import fonts
 @import 'fonts';
 // *** Global variables ***
@@ -80,6 +81,12 @@ body {
   color: $logo-color;
 }
 
+.header-title {
+  color: white;
+  padding: 3rem 1rem;
+  font-weight: 400;
+}
+
 .flex-child {
   @include flex-child;
 }
@@ -101,6 +108,12 @@ body {
   max-width: 1100px;
   margin: auto;
   padding: 0 1rem;
+}
+
+.content-full {
+  @include flex-container-row;
+  width: 100%;
+  margin: 0;
 }
 
 .flex-start {
