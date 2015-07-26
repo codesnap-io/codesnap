@@ -5,5 +5,5 @@ deployment:
       - ./deploy_production.sh
   staging:
     branch: master
-    heroku:
-      appname: codesnap
+    commands:
+      - ./deploy_staging.sh

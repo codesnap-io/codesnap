@@ -3,6 +3,7 @@
 @import 'sticky';
 @import 'transition';
 @import 'dropdown';
+@import 'search';
 @import 'ui-select';
 // Import fonts
 @import 'fonts';
@@ -223,47 +224,6 @@ header {
   order: 0;
   width: 400px;
   margin: 0.5rem;
-  .ui-select-match-close, .ui-select-match-item {
-    display: none;
-  }
-  .ui-select-container.ui-select-multiple {
-      ul.ui-select-choices {
-          display: none;
-      }
-  }
-}
-
-// .search-box input {
-.ui-select-container.ui-select-multiple {
-  input.ui-select-search {
-    width: 100% !important;
-    border: 1px solid $accent-200;
-    border-radius: 2px;
-    font-size: 0.75rem;
-    padding: 0.4rem;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
-  }
-  ul.ui-select-choices {
-    list-style: none;
-    background-color: white;
-    padding-left: 0;
-    border: 1px solid $accent-200;
-  }
-  .ui-select-choices-group-label {
-    background-color: $accent-100;
-    border-bottom: 1px solid $accent-200;
-    color: grey;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 5px;
-  }
-  .ui-select-choices-row-inner {
-    border-bottom: 1px solid $accent-200;
-    height: 30px;
-    line-height: 30px;
-    text-decoration: none;
-  }
 }
 
 // *** Subnav ***
