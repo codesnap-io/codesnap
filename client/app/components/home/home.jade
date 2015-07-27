@@ -22,7 +22,7 @@
       .darken.radius
         h3 {{tags[5].title}}
 .content.align-top
-  .large-child.post-list
+  .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0" infinite-scroll-immediate-check="false")
     .post-item(ng-repeat="post in posts")
       a(ui-sref="post({id: post.post_id })")
         h2.title {{post.post_title}}
