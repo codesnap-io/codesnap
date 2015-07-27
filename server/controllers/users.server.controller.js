@@ -88,5 +88,21 @@
     });
   };
 
+  exports.userProfileOwner = function(req, res) {
+    var username = req.query.username;
+    var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
+    new User({
+      'id': userId
+      })
+      .fetch()
+      .then(function(user) {
+        if (user.get('username') === username) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      });
+  }
+
 
 })();

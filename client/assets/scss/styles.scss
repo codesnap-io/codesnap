@@ -435,6 +435,10 @@ code {
   //padding: 0;
 }
 
+
+.profile-github-logo {
+  max-height: 0.7rem;
+}
 .post-item2 {
   @include flex-child;
   @include flex-container-col;
@@ -443,13 +447,16 @@ code {
   border-bottom: 1px solid $accent-200;
   padding: 1.4rem 0;
   width: 100%;
-  cursor: pointer;
   a {
     text-decoration: none;
     color: black;
     &:hover {
       color: $highlight;
     }
+  }
+
+  .clickable {
+    cursor: pointer;
   }
 
   .title {
@@ -527,7 +534,9 @@ code {
       }
       span {
         line-height: 1rem;
+        width: 400px;
       }
+
       .published {
         color: white;
         background-color: $positive;

@@ -6,17 +6,17 @@
         span.author {{user.name}}
         .flex-child
           a(href="{{githubUrl}}" target="_blank")
-            img(src="assets/img/github.svg" alt="Github icon")
+            img.profile-github-logo(src="assets/img/github.svg" alt="Github icon")
             span.username {{user.username}}
     p.profile-bio(ng-show="bio") {{bio}}
-    a.button(href="{{editUrl}}" ng-show="bio && isAdmin")
+    a.button(href="{{editUrl}}" ng-show="bio && isOwner")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
       span Edit Bio
-    h4.commonly-used {{user.name.split(" ")[0]}}'s Tags
+    h4.commonly-used Commonly Used Tags
     .tag-list(offset="67px")
       p.tag(ng-repeat="tag in tags" ui-sref="tag({name: tag.title })") {{tag.title}}
   .large-child.post-list
-    .post-item2(ng-repeat="post in posts")
+    .post-item2(ng-repeat="post in posts" ng-hide="!isOwner && !post.published")
       .post-date
         .date
           p.month {{post.created_date | date:"MMM"}}
@@ -24,21 +24,23 @@
           p.year {{post.created_date | date:"yyyy"}}
 
       .post-content-container
-        a(ui-sref="post({id: post.post_id })")
+        a.clickable(ui-sref="post({id: post.post_id })" ng-show="post.published")
           h2.title {{post.post_title}}
-        a(ui-sref="post({id: post.post_id })")
+        h2.title(ng-hide="post.published") {{post.post_title}}
+        a(ui-sref="post({id: post.post_id })" ng-show="post.published")
           p.summary {{post.summary}}...
+        p.summary(ng-hide="post.published" ) {{post.summary}}...
         .profile-post-links
-          .link-div(ng-show="isAdmin")
+          .link-div(ng-show="isOwner")
               a(href="{{githubUrl}}" target="_blank")
                 img(src="assets/img/edit.svg" alt="Edit Post")
                 span Edit
           .link-div
             img(src="assets/img/heart-empty-thick.svg" alt="Edit Post")
-            span 14        
+            span {{post.likes}}       
           .link-div
             img(src="assets/img/views.svg" alt="Post View Count")
-            span 46         
-          .link-div(ng-show="isAdmin")
-              span.published(ng-show="{{post.published}}") Published
-              span.unpublished(ng-show="{{post.published}}") Unpublished
+            span {{post.views}}         
+          .link-div(ng-show="isOwner")
+              span.published.status-container(ng-show="post.published") Published
+              span.unpublished.status-container(ng-hide="post.published") Unpublished

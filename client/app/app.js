@@ -34,6 +34,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'searchbarDirective',
       'homeSubnavDirective',
       'postSubnavDirective',
+      'profileSubnavDirective',
       'navbarDirective'
     ])
     .config(config)
@@ -175,15 +176,15 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         subnav: {
           templateUrl: 'app/shared/subnavs/profileSubnav.html',
-          controller: 'profileController'
+          // controller: 'profileController'
         }
       },
       resolve: {
-        searchPosts: function(searchFactory, userFactory, $stateParams) {
-          return searchFactory.searchPosts($stateParams.username, 'users.username')
-            .then(function(posts) {
-              userFactory.setPostResult(posts);
-            });
+        fetchRecentPosts: function(userFactory, $stateParams) {
+          return userFactory.getRecentUserPosts($stateParams.username)
+          .then(function(posts) {
+            userFactory.setPostResult(posts);
+          });
         }
       }
     });

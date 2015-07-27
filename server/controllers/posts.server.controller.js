@@ -177,7 +177,7 @@
       Post.postInfo(postId, function(error, post) {
         if (error) {
           console.log(error);
-          res.send(error);
+          res.send(false);
         } else {
           res.json(post);
         }
@@ -260,6 +260,22 @@
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
       res.redirect('https://github.com/' + req.query.username + '/codesnap.io/edit/master/' + repoPath);
+    });
+  };
+
+  exports.recentUserPosts = function(req, res) {
+    var username = req.query.username;
+    Post.recentUserPosts(username)
+    .then(function(posts) {
+      res.json(posts[0]);
+    });
+  };
+
+  exports.topUserPosts = function(req, res) {
+    var username = req.query.username;
+    Post.topUserPosts(username)
+    .then(function(posts) {
+      res.json(posts[0]);
     });
   };
 

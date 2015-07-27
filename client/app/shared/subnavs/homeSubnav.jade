@@ -2,9 +2,9 @@ section.subnav.sticky(home-subnav)
     .content
         .large-child
             ul.category-list
-                a.recent-posts-btn(ng-click="getRecentPosts()", ng-class="{underscore: category==='recent'}")
+                a.recent-posts-btn(ng-click="updateHomePosts('recent')", ng-class="{underscore: category==='recent'}")
                     li Recent Posts
-                a.top-posts-btn(ng-click="getTopPosts()", ng-class="{underscore: category==='top'}")
+                a.top-posts-btn(ng-click="updateHomePosts('top')", ng-class="{underscore: category==='top'}")
                     li Top Posts
         .small-child
             ul.category-list
