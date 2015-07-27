@@ -22,12 +22,12 @@
         returnData.name = user.get('name');
         returnData.username = user.get('username');
         returnData.profile_photo_url = user.get('profile_photo_url');
-
         db.knex.raw(' \
           SELECT \
             posts.title AS post_title, \
             posts.url AS post_url, \
-            posts.id AS post_id \
+            posts.id AS post_id, \
+            posts.created_at AS post_date \
           FROM posts, users \
           WHERE posts.user_id = users.id \
             AND users.id = ' + userId).then(function (data) {

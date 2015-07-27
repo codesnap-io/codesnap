@@ -73,7 +73,7 @@
       .then(function(post) {
         /* If the post doesn't exist, return error message. Otherwise return profile information */
         if (!post) {
-          callback("Invalid post id.\n");
+          callback("Invalid post id.");
         } else {
           db.knex.raw(' \
           SELECT \
@@ -92,27 +92,29 @@
             AND posts.id = ' + postId)
             .then(function(data) {
               var postData = data[0][0];
-
-              db.knex.raw(' \
-                SELECT \
-                tags.title AS title, \
-                tags.id AS id \
-                FROM posts, tags, post_tag_join \
-                WHERE posts.id = post_tag_join.post_id \
-                  AND post_tag_join.tag_id = tags.id \
-                  AND posts.published = true \
-                  AND posts.id = ' + postId)
-                .then(function(data) {
-                  postData.tags = data[0];
-                  db.knex('likes').where({
+              if (!postData) {
+                callback("Invalid post id.");
+              } else {
+                db.knex.raw(' \
+                  SELECT \
+                  tags.title AS title, \
+                  tags.id AS id \
+                  FROM posts, tags, post_tag_join \
+                  WHERE posts.id = post_tag_join.post_id \
+                    AND post_tag_join.tag_id = tags.id \
+                    AND posts.published = true \
+                    AND posts.id = ' + postId)
+                  .then(function(data) {
+                    postData.tags = data[0];
+                    db.knex('likes').where({
                       post_id: postId
                     }).count()
-                    .then(function(countData) {
-                      postData.likes = countData[0]['count(*)'];
-                      callback(null, postData);
-                    });
-
+                      .then(function(countData) {
+                        postData.likes = countData[0]['count(*)'];
+                        callback(null, postData);
+                      });
                 });
+              }
             });
         }
       });
@@ -128,6 +130,7 @@
           posts.url AS post_url, \
           posts.created_at AS created_date, \
           posts.summary AS summary, \
+          posts.created_at AS post_date, \
           users.name AS author, \
           users.profile_photo_url AS profile_photo_url \
         FROM posts, users, tags, post_tag_join \
@@ -141,7 +144,7 @@
         });
 
     } else {
-      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary',
+      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary', 'posts.created_at AS created_date', 'posts.published AS published',
           'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
         .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
         .then(function(data) {
@@ -205,6 +208,7 @@
         AND posts.published = true \
       GROUP BY post_id \
       ORDER BY COUNT(likes.post_id) DESC \
+      ORDER BY views \
       LIMIT 20');
   };
 
@@ -282,6 +286,56 @@
         post.set('views', post.get('views') + 1);
         post.save();
       });
+  };
+
+  /* For profile page */
+  Post.recentUserPosts = function(username) {
+    return db.knex.raw('\
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        posts.created_at AS created_date, \
+        posts.summary AS summary, \
+        posts.views AS views, \
+        posts.published AS published, \
+        COUNT(likes.id) AS likes, \
+        users.name AS author, \
+        users.username AS username, \
+        users.profile_photo_url AS profile_photo_url \
+      FROM \
+      users INNER JOIN posts ON users.id = posts.user_id \
+      LEFT JOIN likes ON posts.id = likes.post_id \
+      WHERE \
+        users.username = "' + username + '" \
+      GROUP BY posts.id \
+      ORDER BY created_date DESC \
+      LIMIT 20')
+  };
+
+  /* For profile page */
+  Post.topUserPosts = function(username) {
+    return db.knex.raw('\
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        posts.created_at AS created_date, \
+        posts.summary AS summary, \
+        posts.views AS views, \
+        posts.published AS published, \
+        COUNT(likes.id) AS likes, \
+        users.name AS author, \
+        users.username AS username, \
+        users.profile_photo_url AS profile_photo_url \
+      FROM \
+      users INNER JOIN posts ON users.id = posts.user_id \
+      LEFT JOIN likes ON posts.id = likes.post_id \
+      WHERE \
+        users.username = "' + username + '" \
+      GROUP BY posts.id \
+      ORDER BY likes DESC \
+      LIMIT 20')
   };
 
   module.exports = Post;

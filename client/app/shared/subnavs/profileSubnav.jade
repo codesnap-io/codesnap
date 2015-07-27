@@ -1,11 +1,11 @@
-section.subnav.sticky(home-subnav)
+section.subnav.sticky(profile-subnav)
     .content
         .small-child
         .large-child
             ul.category-list
-                a(ng-click="getAllRecentPosts()", ng-class="{underscore: category==='recent'}")
+                a(ng-click="updateProfilePosts('recent')", ng-class="{underscore: category==='recent'}")
                     li Recent Posts
-                a(ng-click="getAllTopPosts()", ng-class="{underscore: category==='top'}")
+                a(ng-click="updateProfilePosts('top')", ng-class="{underscore: category==='top'}")
                     li Top Posts
-                a(ng-click="getUnpublishedPosts()", ng-class="{underscore: category==='unpublished'}" ng-show="isCurrentUser")
+                a(ng-click="updateProfilePosts('unpublished')", ng-class="{underscore: category==='unpublished'}" ng-show="isCurrentUser")
                     li Unpublished

@@ -40,6 +40,45 @@
         });
       },
 
+      /* Used on profile page to determine if user viewing page owns the page */
+      ownsProfile: function(jwtToken, username) {
+        return $http({
+          method: 'GET',
+          url: '/user/profile/owner',
+          params: {
+            username: username,
+            user_id: localStorage.codeSnapJwtToken
+          }
+        }).then(function(resp) {
+          return resp.data;
+        });
+      },
+
+      getTopUserPosts: function(username) {
+        return $http({
+          method: 'GET',
+          url: '/post/user/top',
+          params: {
+            username: username,
+          }
+        }).then(function(resp) {
+          return resp.data;
+        });
+      },
+
+      getRecentUserPosts: function(username) {
+        return $http({
+          method: 'GET',
+          url: '/post/user/recent',
+          params: {
+            username: username,
+          }
+        }).then(function(resp) {
+          return resp.data;
+        });
+      },
+
+
       setPostResult: function(result) {
         postResults = result;
       },

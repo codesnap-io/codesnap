@@ -39,6 +39,10 @@
     app.get('/user/profile', users.userInfoByUsername);
 
 
+    /* Parameters: user_id (jwtToken), username
+      Data returned: boolean matching username to the user found with jwtToken */
+    app.get('/user/profile/owner', users.userProfileOwner);
+
     /* Parameters: user_id
       deletes user from DB */
     app.delete('/user/info', users.deleteUser);
