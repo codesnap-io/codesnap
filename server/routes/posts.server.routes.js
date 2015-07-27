@@ -19,6 +19,10 @@
 
     app.get('/post/add', posts.addPost);
 
+    //parameters: a specific post
+    //data returned: 20 posts after
+    app.get('/post/more', posts.getMorePosts);
+
     //app.post('/post/edit', posts.editPost);
   };
 

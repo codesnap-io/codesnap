@@ -27,7 +27,7 @@
             var metadata = exports.getMetadata(rawFile);
             var summary = exports.getSummary(rawFile);
 
-           /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
+            /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
             if (metadata.published !== undefined) {
               metadata.published = +metadata.published;
             } else {
@@ -213,31 +213,43 @@
 
   exports.topPosts = function(req, res) {
     Post.getTopPosts()
-    .then(function(posts) {
-      res.json(posts[0]);
-    });
+      .then(function(posts) {
+        res.json(posts[0]);
+      });
   };
 
   exports.recentPosts = function(req, res) {
     Post.getRecentPosts()
-    .then(function(posts) {
-      res.json(posts[0]);
-    });
+      .then(function(posts) {
+        res.json(posts[0]);
+      });
+  };
+
+  exports.getMorePosts = function(req, res) {
+    if (req.query.lastPost) {
+      Post.getMorePosts(req.query.lastPost)
+        .then(function(posts) {
+          res.json(posts[0]);
+        });
+    } else {
+      console.log("no lastPost provided!");
+      res.sendStatus(204);
+    }
   };
 
   exports.addView = function(req, res) {
     if (req.query.post_id) {
       Post.addView(req.query.post_id);
       res.send("View added");
-    } else{
-      res.send("No post id provide");
+    } else {
+      res.send("No post id provided");
     }
   };
 
   exports.addPost = function(req, res) {
     var timestamp = new Date().toISOString().
-            replace(/T/, '-').      // replace T with a dash
-            replace(/\..+/, '');    // delete the dot and everything after
+    replace(/T/, '-'). // replace T with a dash
+    replace(/\..+/, ''); // delete the dot and everything after
     var path = {
       repoPath: 'https://api.github.com/repos/' + req.query.username + '/codesnap.io/contents/posts/' + timestamp + '.md',
       message: "(init) add new post",
@@ -247,7 +259,7 @@
     service.addFileToGHRepo(process.env.githubAccessToken, req.query.username, path).then(function(data) {
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
-      res.redirect('https://github.com/'+ req.query.username +'/codesnap.io/edit/master/' + repoPath);
+      res.redirect('https://github.com/' + req.query.username + '/codesnap.io/edit/master/' + repoPath);
     });
   };
 
