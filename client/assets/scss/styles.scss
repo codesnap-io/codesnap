@@ -563,10 +563,12 @@ code {
 
     .link-div {
       @include flex-child;
+      @include flex-container-row;
       flex: 0 1 auto;
       margin-right: 1.5rem;
       font-weight: 600;
       font-size: 0.8rem;
+
       color: $accent-300;
       a {
         color: $accent-300;
@@ -574,12 +576,18 @@ code {
 
       img {
         max-height: 0.7rem;
-        padding-right: 0.5rem;
+        margin-right: 0.5rem;
       }
-      span {
-        line-height: 1rem;
-        width: 400px;
+
+      .profile-pic {
+        max-height: 1.5rem;
+        border-radius: 10px;
       }
+
+      .author-name{
+          margin-left: -1.5rem;
+          margin-right: -1.5rem;
+        }
 
       .published {
         color: white;
