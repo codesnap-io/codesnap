@@ -10,7 +10,6 @@
       controller: function($scope, $rootScope, authFactory, userFactory) {
 
       },
-      
       link: function() {
 
       }

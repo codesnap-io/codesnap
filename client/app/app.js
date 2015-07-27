@@ -172,7 +172,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           controller: 'profileController'
         },
         subnav: {
-          templateUrl: 'app/shared/subnavs/profileSubnav.html',
+          templateUrl: 'app/shared/subnavs/profileSubnav.html'
           // controller: 'profileController'
         }
       },

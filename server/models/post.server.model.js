@@ -188,7 +188,7 @@
       WHERE posts.user_id = users.id \
       AND posts.published = true \
       ORDER BY created_date DESC \
-      LIMIT 3');
+      LIMIT 5');
   };
 
   Post.getTopPosts = function() {
@@ -233,7 +233,7 @@
         AND posts.published = true \
         AND posts.id < "'+last_id+'" \
       ORDER BY posts.id DESC \
-      LIMIT 1');
+      LIMIT 5');
   };
 
   // BROKEN, DO NOT USE -->
@@ -313,7 +313,7 @@
         users.username = "' + username + '" \
       GROUP BY posts.id \
       ORDER BY created_date DESC \
-      LIMIT 20')
+      LIMIT 20');
   };
 
   /* For profile page */
@@ -338,7 +338,7 @@
         users.username = "' + username + '" \
       GROUP BY posts.id \
       ORDER BY likes DESC \
-      LIMIT 20')
+      LIMIT 20');
   };
 
   module.exports = Post;

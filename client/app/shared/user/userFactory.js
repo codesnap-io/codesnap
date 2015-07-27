@@ -59,7 +59,7 @@
           method: 'GET',
           url: '/post/user/top',
           params: {
-            username: username,
+            username: username
           }
         }).then(function(resp) {
           return resp.data;
@@ -71,7 +71,7 @@
           method: 'GET',
           url: '/post/user/recent',
           params: {
-            username: username,
+            username: username
           }
         }).then(function(resp) {
           return resp.data;

@@ -229,9 +229,7 @@
     if (req.query.lastPost) {
       Post.getMorePosts(req.query.lastPost)
         .then(function(posts) {
-          console.log("POSTS FROM SQL QUERY: ", posts[0])
           if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
-            console.log("--------returned posts are: ", posts[0])
             res.json(posts[0]);
           } else {
             res.status(204).send("no more posts");
