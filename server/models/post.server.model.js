@@ -105,8 +105,8 @@
                 .then(function(data) {
                   postData.tags = data[0];
                   db.knex('likes').where({
-                    post_id: postId
-                  }).count()
+                      post_id: postId
+                    }).count()
                     .then(function(countData) {
                       postData.likes = countData[0]['count(*)'];
                       callback(null, postData);
@@ -208,6 +208,59 @@
       LIMIT 20');
   };
 
+  //takes a post and returns 20 posts that were created earlier than it
+  Post.getMorePosts = function(lastPost) {
+    var rawDate = JSON.parse(lastPost).created_date;
+    var lastDate = rawDate.replace(/T/, ' ').replace('.000', '').replace(/Z/, '');
+    return db.knex.raw(' \
+      SELECT \
+        posts.id AS post_id, \
+        posts.title AS post_title, \
+        posts.url AS post_url, \
+        posts.created_at AS created_date, \
+        posts.summary AS summary, \
+        users.name AS author, \
+        users.profile_photo_url AS profile_photo_url \
+      FROM posts, users \
+      WHERE posts.user_id = users.id \
+        AND posts.created_at < "'+lastDate+'" \
+        AND posts.published = true \
+      ORDER BY created_date DESC \
+      LIMIT 20');
+  };
+
+  // BROKEN, DO NOT USE -->
+  /*
+  get posts with options obj: {
+    select: "id, title",
+    from: "posts",
+    where: function() {
+      this.where('id', 1)
+        .orWhere('id', '>', 10)
+        .orWhere({
+          title: 'the worst blog ever'
+        })
+    },
+    groupBy: "id",
+    orderBy: "'id', 'desc'",
+    limit: 10,
+    offset: 10,
+    //feel free to add more, just remember to add them below as well
+  }
+  */
+
+  // Post.getPosts = function(options) {
+  //   return db.knex
+  //     .distinct()
+  //     .select(options.select || null)
+  //     .from(options.from || null)
+  //     .where(options.where || null)
+  //     .groupBy(options.groupBy || null)
+  //     .orderBy(options.orderBy || null)
+  //     .limit(options.limit || null)
+  //     .offset(options.offset || null)
+  // }
+
   Post.getAllTitles = function() {
     return db.knex
       .distinct()
@@ -221,12 +274,14 @@
   };
 
   Post.addView = function(postId) {
-    new Post({id: postId})
-    .fetch()
-    .then(function(post) {
-      post.set('views', post.get('views') + 1);
-      post.save();
-    });
+    new Post({
+        id: postId
+      })
+      .fetch()
+      .then(function(post) {
+        post.set('views', post.get('views') + 1);
+        post.save();
+      });
   };
 
   module.exports = Post;

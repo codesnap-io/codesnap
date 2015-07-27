@@ -139,7 +139,7 @@
       .then(function(body) {
         setTimeout(function(){
            /* Add first image in images folder */
-           console.log("FIRST IMAGE ADDED")
+           console.log("FIRST IMAGE ADDED");
           module.exports.addFileToGHRepo(token, username, firstImagePath);
         }, 500);
       })

@@ -44,7 +44,7 @@
                 $scope.results = authors.concat(titles, tags);
                 $('.ui.search')
                   .search({
-                    source : $scope.results,
+                    source: $scope.results,
                     maxResults: 5,
                     onSelect: function(result, response) {
                       $scope.search(result);

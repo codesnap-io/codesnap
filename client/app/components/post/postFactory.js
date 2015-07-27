@@ -39,6 +39,18 @@
         });
       },
 
+      //get 20 posts after lastPost
+      getMorePosts: function(lastPost) {
+        //TODO: instead of sending back entire last post in params, only send back relevant part
+        // var param = lastPost[query];
+        return $http({
+          method: 'GET',
+          url: 'post/more',
+          params: {
+            lastPost: lastPost
+          }
+        });
+      },
 
       /* Retrieves data for one post (based on given post id) */
       getPostData: function(id) {

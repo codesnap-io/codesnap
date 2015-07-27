@@ -1,5 +1,5 @@
 .content.align-top
-  .large-child.post-list
+  .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0")
     .post-item(ng-repeat="post in posts")
       a(ui-sref="post({id: post.post_id })")
         h2.title {{post.post_title}}
@@ -12,5 +12,5 @@
       a(ui-sref="post({id: post.post_id })")
         p.summary {{post.summary}}...
   .small-child.tag-list
-    .tag-list.sticky(offset="67px")
+    .small-child.tag-list.sticky(offset="67px")
       p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ui-sref="tag({name: tag.title })") {{tag.title}}
