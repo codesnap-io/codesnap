@@ -5,7 +5,7 @@ gulp clean
 echo BUILDING
 gulp build
 echo COPYING
-scp -r build/ chris@445.55.211.202:codesnap
+scp -r build/ chris@45.55.211.202:codesnap
 scp -r server/ chris@45.55.211.202:codesnap
 echo TUNNELING
 ssh chris@45.55.211.202 <<'ENDSSH'
