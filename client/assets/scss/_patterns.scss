@@ -1,20 +1,11 @@
-.pattern-stairs {
-  background:
-  linear-gradient(63deg, #999 23%, transparent 23%) 7px 0,
-  linear-gradient(63deg, transparent 74%, #999 78%),
-  linear-gradient(63deg, transparent 34%, #999 38%, #999 58%, transparent 62%),
-  #444;
-  background-size: 16px 48px;
-}
-
 .pattern-half-rombes {
   background:
   linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
   linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
-  linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
-  linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+  linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 2rem -4rem,
+  linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 2rem -4rem,
   #36c;
-  background-size: 15px 30px
+  background-size: 4rem 8rem
 }
 
 .pattern-arrows {
