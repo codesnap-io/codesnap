@@ -9,20 +9,6 @@
           $scope.query = [];
 
 
-          /* determine groupings in search bar by type */
-          $scope.searchType = function(item) {
-            if (item.searchType === 'title') {
-              return 'Titles';
-            }
-            if (item.searchType === 'tag') {
-              return 'Tags';
-            }
-            if (item.searchType === 'users.name') {
-              return 'Authors';
-            }
-          };
-
-
           /* we could cookie cache the post titles once DB size gets large */
           // $scope.results = localStorageService.cookie.get('postData');
 
@@ -34,7 +20,7 @@
               .then(function(results) {
                 var authors = results.data.authors.map(function(item) {
                   return {
-                    name: item.name + " - " + item.username,
+                    title: item.name + " - " + item.username,
                     searchType: 'user.username',
                     username: item.username
                   };
@@ -42,7 +28,7 @@
 
                 var titles = results.data.titles.map(function(item) {
                   return {
-                    name: item.title,
+                    title: item.title,
                     id: item.id,
                     searchType: 'title'
                   };
@@ -50,40 +36,45 @@
 
                 var tags = results.data.tags.map(function(item) {
                   return {
-                    name: item,
+                    title: item,
                     searchType: 'tag'
                   };
                 });
 
                 $scope.results = authors.concat(titles, tags);
+                $('.ui.search')
+                  .search({
+                    source: $scope.results,
+                    maxResults: 5,
+                    onSelect: function(result, response) {
+                      $scope.search(result);
+                    }
+                  });
               });
           }
 
 
 
           /* the actual calling for search results, resolved in app.js */
-          $scope.search = function(query, $search) {
-            //reset select-ui component so it doesn't show multiples
-            $search.selected = [];
-            // $search.clear();
+          $scope.search = function(query) {
+
             /* right now, queries are being stored in rootScope in order to Pass
             to ui-router's resolve object. TODO: change this to something cleaner. */
-            $rootScope.searchQuery = query[0].name;
-            $rootScope.searchType = query[0].searchType;
+            $rootScope.searchQuery = query.title;
+            $rootScope.searchType = query.searchType;
             if ($rootScope.searchType === "tag") {
               $state.go("tag", {
                 "name": $rootScope.searchQuery
               });
             } else if ($rootScope.searchType === "user.username") {
               $state.go("profile", {
-                "username": query[0].username
+                "username": query.username
               });
             } else if ($rootScope.searchType === "title") {
               $state.go("post", {
-                "id": query[0].id
+                "id": query.id
               });
             }
-
 
             else {
               $scope.query = [];
@@ -138,7 +129,7 @@
     //
     //     return out;
     //   };
-
+    //
     // });
 
 

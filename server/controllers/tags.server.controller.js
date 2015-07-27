@@ -18,9 +18,8 @@
   };
 
   exports.getUserTags = function(req, res) {
-    console.log(req.query.user_id);
-    var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
-    Tag.getUserTags(userId)
+    var username = req.query.username;
+    Tag.getUserTags(username)
     .then(function(data) {
       res.json(data[0]);
     });

@@ -12,6 +12,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       //select for search
       'ui.select',
       'ngSanitize',
+      //infinite scroll
+      'infinite-scroll',
       //localStorage
       'LocalStorageModule',
       //components
@@ -243,6 +245,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       });
 
+    //sticky subnav and tag list functionality
     $(window).scroll(function() {
       if ($(window).scrollTop() >= 87) {
         $('.sticky').css('position', 'fixed');
