@@ -9,7 +9,7 @@
             img(src="assets/img/github.svg" alt="Github icon")
             span.username {{user.username}}
     p.profile-bio(ng-show="bio") {{bio}}
-    a.button(href="{{editUrl}}" ng-show="bio")
+    a.button(href="{{editUrl}}" ng-show="bio && isAdmin")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
       span Edit Bio
     h4.commonly-used {{user.name.split(" ")[0]}}'s Tags
@@ -19,9 +19,9 @@
     .post-item2(ng-repeat="post in posts")
       .post-date
         .date
-          p.month May
-          p.day 4
-          p.year 2015
+          p.month {{post.created_date | date:"MMM"}}
+          p.day {{post.created_date | date:"dd"}}
+          p.year {{post.created_date | date:"yyyy"}}
 
       .post-content-container
         a(ui-sref="post({id: post.post_id })")
@@ -29,13 +29,16 @@
         a(ui-sref="post({id: post.post_id })")
           p.summary {{post.summary}}...
         .profile-post-links
-          .link-div
+          .link-div(ng-show="isAdmin")
               a(href="{{githubUrl}}" target="_blank")
-                //- img(src="assets/img/Edit.svg" alt="Edit Post")
+                img(src="assets/img/edit.svg" alt="Edit Post")
                 span Edit
           .link-div
-              span 14        
+            img(src="assets/img/heart-empty-thick.svg" alt="Edit Post")
+            span 14        
           .link-div
-              span 46         
-          .link-div
-              span.published Published
+            img(src="assets/img/views.svg" alt="Post View Count")
+            span 46         
+          .link-div(ng-show="isAdmin")
+              span.published(ng-show="{{post.published}}") Published
+              span.unpublished(ng-show="{{post.published}}") Unpublished

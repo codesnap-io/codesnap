@@ -5,8 +5,10 @@
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
 
+    console.log($scope.posts);
+
     /* PLACEHOLDER -- will ultimately contain a boolean representing whether current user is owner of profile page */
-    $scope.isUser = true;
+
 
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)

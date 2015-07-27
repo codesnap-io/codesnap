@@ -38,7 +38,6 @@
 
     app.get('/user/profile', users.userInfoByUsername);
 
-
     /* Parameters: user_id
       deletes user from DB */
     app.delete('/user/info', users.deleteUser);

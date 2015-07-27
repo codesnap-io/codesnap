@@ -128,6 +128,7 @@
           posts.url AS post_url, \
           posts.created_at AS created_date, \
           posts.summary AS summary, \
+          posts.created_at AS post_date, \
           users.name AS author, \
           users.profile_photo_url AS profile_photo_url \
         FROM posts, users, tags, post_tag_join \
@@ -141,7 +142,7 @@
         });
 
     } else {
-      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary',
+      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary', 'posts.created_at AS created_date', 'posts.published AS published',
           'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
         .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
         .then(function(data) {
