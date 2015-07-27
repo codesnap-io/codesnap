@@ -20,6 +20,7 @@ $site-title-color: #2E2061;
 $logo-color: #229425;
 $positive: #95d8b0;
 $negative: #fda6a7;
+$light: #ffffff;
 // *** Mixins ***
 @mixin flex-container-row {
   display: flex;
@@ -130,6 +131,22 @@ body {
   padding: 2rem;
 }
 
+.darken {
+  @include flex-container-row;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.darken h3 {
+  color: $light;
+  padding: 0;
+  margin: 0;
+}
+
+.radius {
+  border-radius: 0.22222222rem;
+}
 
 .button {
   padding: 0.2rem;
@@ -391,10 +408,37 @@ code {
 }
 
 /// *** Home Content ***
-.content {
-  @include flex-container-row;
-  align-items: flex-start;
+
+.discover-container {
+  border-bottom: 1px solid $accent-200;
+  background: #f4f4f4;
+  width: 100%;
+  padding: 2rem 0;
 }
+
+.discover-container h2 {
+  margin: 0;
+  padding: 0 0 1rem 0;
+}
+
+.discover-small {
+  @include flex-child;
+  margin: 1.11111111rem;
+  height: 8.413340525rem;
+  width: 13.61111111rem;
+}
+
+.discover-large {
+  @include flex-child;
+  margin: 1.11111111rem;
+  height: 8.413340525rem;
+  width: 29.44444444rem;
+}
+
+//.content {
+//  @include flex-container-row;
+//  align-items: flex-start;
+//}
 
 .post-title {
   margin: 3rem 0 0 0;

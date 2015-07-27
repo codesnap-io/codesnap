@@ -61,10 +61,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           content: {
             templateUrl: 'app/components/home/home.html',
             controller: 'homeController'
-          },
-          subnav: {
-            templateUrl: 'app/shared/subnavs/homeSubnav.html',
-            controller: 'homeController'
           }
         },
         resolve: {
@@ -255,10 +251,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           var offset = ($(this).attr('offset') || '0px');
           $(this).css('top', offset);
         });
-        $('.page-content').find('.content').css('margin-top', '55px');
+        //$('.page-content').find('.content').css('margin-top', '55px');
       } else {
         $('.sticky').css('position', 'static');
-        $('.page-content').find('.content').css('margin-top', '0px');
+        //$('.page-content').find('.content').css('margin-top', '0px');
       }
     });
   }
