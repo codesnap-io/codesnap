@@ -1,5 +1,28 @@
+.discover-container
+  .content
+      h2 Discover
+  .content
+    a.discover-large.pattern-argyle.radius(ui-sref="tag({name: tags[0].title})")
+      .darken.radius
+        h3 {{tags[0].title}}
+    a.discover-small.pattern-zigzag.radius(ui-sref="tag({name: tags[1].title})")
+      .darken.radius
+        h3 {{tags[1].title}}
+    a.discover-small.pattern-cross.radius(ui-sref="tag({name: tags[2].title})")
+      .darken.radius
+        h3 {{tags[2].title}}
+  .content
+    a.discover-small.pattern-waves.radius(ui-sref="tag({name: tags[3].title})")
+      .darken.radius
+        h3 {{tags[3].title}}
+    a.discover-large.pattern-brady-bunch.radius(ui-sref="tag({name: tags[4].title})")
+      .darken.radius
+        h3 {{tags[4].title}}
+    a.discover-small.pattern-weave.radius(ui-sref="tag({name: tags[5].title})")
+      .darken.radius
+        h3 {{tags[5].title}}
 .content.align-top
-  .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0")
+  .large-child.post-list
     .post-item(ng-repeat="post in posts")
       a(ui-sref="post({id: post.post_id })")
         h2.title {{post.post_title}}
@@ -11,6 +34,3 @@
           span.date {{post.created_date | date:"MMM dd, yyyy"}}
       a(ui-sref="post({id: post.post_id })")
         p.summary {{post.summary}}...
-  .small-child.tag-list
-    .small-child.tag-list.sticky(offset="67px")
-      p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ui-sref="tag({name: tag.title })") {{tag.title}}
