@@ -3,7 +3,7 @@
     .user-info-profile
       img.profile-picture-large(ng-src="{{user.profile_photo_url}}" alt="profile photo")
       .post-author-date
-        span.author {{user.name}}
+        span.profile-name {{user.name}}
         .flex-child
           a(href="{{githubUrl}}" target="_blank")
             img.profile-github-logo(src="assets/img/github.svg" alt="Github icon")

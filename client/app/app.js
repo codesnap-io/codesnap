@@ -179,6 +179,18 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       },
       resolve: {
+        /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
+        authUser: function(authFactory) {
+          if (!localStorage.codeSnapJwtToken) {
+            authFactory.checkAuth()
+              .then(function(res) {
+                if (!!res.data) {
+                  localStorage.codeSnapJwtToken = res.data;
+                }
+              });
+          }
+        },
+
         fetchRecentPosts: function(userFactory, $stateParams) {
           return userFactory.getRecentUserPosts($stateParams.username)
           .then(function(posts) {
@@ -214,7 +226,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     } else if (typeof document.attachEvent !== 'undefined') {
       document.attachEvent('onkeydown', killBackSpace);
     } else {
-      if (document.onkeydown != null) {
+      if (document.onkeydown !== null) {
         var oldOnkeydown = document.onkeydown;
         document.onkeydown = function(e) {
           oldOnkeydown(e);
