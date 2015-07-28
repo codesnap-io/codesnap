@@ -34,6 +34,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'searchbarDirective',
       'homeSubnavDirective',
       'postSubnavDirective',
+      'profileSubnavDirective',
       'navbarDirective'
     ])
     .config(config)
@@ -58,10 +59,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         views: {
           content: {
             templateUrl: 'app/components/home/home.html',
-            controller: 'homeController'
-          },
-          subnav: {
-            templateUrl: 'app/shared/subnavs/homeSubnav.html',
             controller: 'homeController'
           }
         },
@@ -162,6 +159,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             .then(function(posts) {
               tagFactory.setPostResult(posts);
             });
+        },
+        pattern: function(tagFactory, $stateParams) {
+          return tagFactory.getTagPattern($stateParams.name)
         }
       }
     })
@@ -174,16 +174,28 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           controller: 'profileController'
         },
         subnav: {
-          templateUrl: 'app/shared/subnavs/profileSubnav.html',
-          controller: 'profileController'
+          templateUrl: 'app/shared/subnavs/profileSubnav.html'
+          // controller: 'profileController'
         }
       },
       resolve: {
-        searchPosts: function(searchFactory, userFactory, $stateParams) {
-          return searchFactory.searchPosts($stateParams.username, 'users.username')
-            .then(function(posts) {
-              userFactory.setPostResult(posts);
-            });
+        /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
+        authUser: function(authFactory) {
+          if (!localStorage.codeSnapJwtToken) {
+            authFactory.checkAuth()
+              .then(function(res) {
+                if (!!res.data) {
+                  localStorage.codeSnapJwtToken = res.data;
+                }
+              });
+          }
+        },
+
+        fetchRecentPosts: function(userFactory, $stateParams) {
+          return userFactory.getRecentUserPosts($stateParams.username)
+          .then(function(posts) {
+            userFactory.setPostResult(posts);
+          });
         }
       }
     });
@@ -214,7 +226,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     } else if (typeof document.attachEvent !== 'undefined') {
       document.attachEvent('onkeydown', killBackSpace);
     } else {
-      if (document.onkeydown != null) {
+      if (document.onkeydown !== null) {
         var oldOnkeydown = document.onkeydown;
         document.onkeydown = function(e) {
           oldOnkeydown(e);
@@ -247,16 +259,16 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
     //sticky subnav and tag list functionality
     $(window).scroll(function() {
-      if ($(window).scrollTop() >= 87) {
+      if ($(window).scrollTop() >= 71) {
         $('.sticky').css('position', 'fixed');
         $('.sticky').each(function() {
           var offset = ($(this).attr('offset') || '0px');
           $(this).css('top', offset);
         });
-        $('.page-content').find('.content').css('margin-top', '55px');
+        //$('.page-content').find('.content').css('margin-top', '55px');
       } else {
         $('.sticky').css('position', 'static');
-        $('.page-content').find('.content').css('margin-top', '0px');
+        //$('.page-content').find('.content').css('margin-top', '0px');
       }
     });
   }

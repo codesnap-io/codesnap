@@ -15,11 +15,12 @@ $accent-500: #5c5c5c;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
-$highlight: #229425;
-$site-title-color: #2E2061;
-$logo-color: #229425;
+$highlight: #53A9AD;
+$site-title-color: #303030;
+$logo-color: #ffffff;
 $positive: #95d8b0;
 $negative: #fda6a7;
+$light: #ffffff;
 // *** Mixins ***
 @mixin flex-container-row {
   display: flex;
@@ -122,6 +123,10 @@ body {
   align-content: flex-start;
 }
 
+.pad-half {
+  padding: 0.5rem;
+}
+
 .pad1 {
   padding: 1rem;
 }
@@ -130,6 +135,22 @@ body {
   padding: 2rem;
 }
 
+.darken {
+  @include flex-container-row;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.darken h3 {
+  color: $light;
+  padding: 0;
+  margin: 0;
+}
+
+.radius {
+  border-radius: 0.22222222rem;
+}
 
 .button {
   padding: 0.2rem;
@@ -175,11 +196,6 @@ body {
   height: 10rem;
 }
 
-// *** Header ***
-header {
-  border-bottom: 1px solid $accent-200;
-}
-
 .left {
   @include flex-child;
   @include flex-container-row;
@@ -195,6 +211,11 @@ header {
   @include flex-child;
   @include flex-container-row;
   justify-content: flex-end;
+}
+
+// *** Header ***
+header {
+  border-bottom: 1px solid $accent-200;
 }
 
 .site-title {
@@ -243,8 +264,8 @@ header {
 .subnav {
   border-bottom: 1px solid $accent-200;
   background: #f4f4f4;
-  opacity: .92;
-  width: 100%
+  opacity: .98;
+  width: 100%;
 }
 
 .stuck-subnav {
@@ -267,6 +288,11 @@ header {
 
 .author {
   color: $accent-800;
+}
+
+.profile-name {
+  color: $accent-800;
+  font-size: 1.75rem;
 }
 
 .date {
@@ -391,10 +417,30 @@ code {
 }
 
 /// *** Home Content ***
-.content {
-  @include flex-container-row;
-  align-items: flex-start;
+
+.discover-container {
+  @include flex-container-col;
+  padding: 2rem 0;
 }
+
+.discover-small {
+  @include flex-child;
+  margin: 1.11111111rem;
+  height: 8.413340525rem;
+  width: 13.61111111rem;
+}
+
+.discover-large {
+  @include flex-child;
+  margin: 1.11111111rem;
+  height: 8.413340525rem;
+  width: 29.44444444rem;
+}
+
+//.content {
+//  @include flex-container-row;
+//  align-items: flex-start;
+//}
 
 .post-title {
   margin: 3rem 0 0 0;
@@ -407,35 +453,16 @@ code {
   align-items: flex-start;
 }
 
-.post-item {
-  @include flex-child;
-  @include flex-container-row;
-  flex-direction: column;
+.align-top {
+  -webkit-align-items: flex-start;
   align-items: flex-start;
-  border-bottom: 1px solid $accent-200;
-  padding: 1.4rem 0;
-  width: 100%;
-  cursor: pointer;
-  a {
-    text-decoration: none;
-    color: black;
-    &:hover {
-      color: $highlight;
-    }
-  }
 }
 
-.post-item .title {
-  margin: 1rem 0;
-}
 
-.post-item .summary {
-  color: $accent-300;
-  margin: 0.6rem 0;
-  //padding: 0;
+.profile-github-logo {
+  max-height: 0.7rem;
 }
-
-.post-item2 {
+.post-item {
   @include flex-child;
   @include flex-container-col;
   flex-direction: row;
@@ -443,13 +470,16 @@ code {
   border-bottom: 1px solid $accent-200;
   padding: 1.4rem 0;
   width: 100%;
-  cursor: pointer;
   a {
     text-decoration: none;
     color: black;
     &:hover {
       color: $highlight;
     }
+  }
+
+  .clickable {
+    cursor: pointer;
   }
 
   .title {
@@ -512,21 +542,32 @@ code {
 
     .link-div {
       @include flex-child;
+      @include flex-container-row;
       flex: 0 1 auto;
       margin-right: 1.5rem;
       font-weight: 600;
       font-size: 0.8rem;
+
       color: $accent-300;
       a {
         color: $accent-300;
       }
 
       img {
-        max-height: 1rem;
+        max-height: 0.7rem;
+        margin-right: 0.5rem;
       }
-      span {
-        line-height: 1rem;
+
+      .profile-pic {
+        max-height: 1.5rem;
+        border-radius: 100%;
       }
+
+      .author-name{
+          margin-left: -1.5rem;
+          margin-right: -1.5rem;
+        }
+
       .published {
         color: white;
         background-color: $positive;
@@ -544,7 +585,12 @@ code {
   }
 }
 
+.edit-bio {
+  font-weight: 600;
+  font-size: 0.8rem;
 
+  color: $accent-300
+}
 
 
 
@@ -560,7 +606,6 @@ code {
 .user-info-profile {
   @include flex-child;
   @include flex-container-row;
-  padding: 0.4rem 0;
   justify-content: flex-start;
 }
 
@@ -630,9 +675,6 @@ code {
 .intro-content {
   @include flex-container-col;
   height: 100%;
-  background: #aa85c7;
-  background-image: url("../img/ZenBG-1.png"), url("../img/ZenBG-2.png");
-  background-repeat: repeat-x, repeat;
 }
 
 //search results page

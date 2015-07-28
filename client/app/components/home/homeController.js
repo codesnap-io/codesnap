@@ -15,6 +15,7 @@
           console.log("Error: ", err);
         } else {
           $scope.posts = posts;
+          console.log($scope.posts);
         }
       });
 
@@ -32,6 +33,9 @@
             posts.forEach(function(post) {
               $scope.posts.push(post);
             });
+          } else if (resp.status === 204) {
+            $scope.busy = true;
+            console.log("no more posts to display");
           }
         });
     };

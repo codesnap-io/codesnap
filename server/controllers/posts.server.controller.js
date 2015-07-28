@@ -177,7 +177,7 @@
       Post.postInfo(postId, function(error, post) {
         if (error) {
           console.log(error);
-          res.send(error);
+          res.send(false);
         } else {
           res.json(post);
         }
@@ -229,11 +229,14 @@
     if (req.query.lastPost) {
       Post.getMorePosts(req.query.lastPost)
         .then(function(posts) {
-          res.json(posts[0]);
+          if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
+            res.json(posts[0]);
+          } else {
+            res.status(204).send("no more posts");
+          }
         });
     } else {
-      console.log("no lastPost provided!");
-      res.sendStatus(204);
+      res.status(400).send("no lastPost provided");
     }
   };
 
@@ -260,6 +263,22 @@
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
       res.redirect('https://github.com/' + req.query.username + '/codesnap.io/edit/master/' + repoPath);
+    });
+  };
+
+  exports.recentUserPosts = function(req, res) {
+    var username = req.query.username;
+    Post.recentUserPosts(username)
+    .then(function(posts) {
+      res.json(posts[0]);
+    });
+  };
+
+  exports.topUserPosts = function(req, res) {
+    var username = req.query.username;
+    Post.topUserPosts(username)
+    .then(function(posts) {
+      res.json(posts[0]);
     });
   };
 

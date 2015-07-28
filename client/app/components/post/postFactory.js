@@ -3,7 +3,7 @@
 
   angular.module('postFactory', [])
 
-  .factory('postFactory', function ($http) {
+  .factory('postFactory', function ($http, $state) {
     var currentPost = {};
     var liked;
 
@@ -61,6 +61,10 @@
             post_id: id
           }
         }).then(function (resp) {
+          /* If post id is invalid, redirect to home page */
+          if (!resp.data) {
+            $state.go('home');
+          }
           /* sets current post in factory for retrieval by post controller and subnav */
           currentPost = resp.data;
           return resp.data;

@@ -3,9 +3,17 @@
   var db = require('../config/db');
   var Tag = require('../config/schema').Tag;
 
+  /* Here are a list of background patterns for title */
+  var patterns = ["half-rombes", "arrows", "zigzag", "weave", "argyle", "waves", "cross", "brady-bunch", "microbial-mat", "upholstery", "steps", "shippo", "stars", "japanese-cube", "seigaiha", "bricks", "polka-dots", "tartan", "madras", "blueprint", "tablecloth", "cicada-stripes", "diagonal-stripes", "vertical-stripes", "horizontal-stripes"]
+
+  /* Randomly assign a background pattern to tag */
+  var randomPattern = function() {
+    return patterns[Math.floor(Math.random() * patterns.length)]
+  };
+
   Tag.getAll = function() {
     return db.knex.raw(' \
-      SELECT tags.id, tags.title \
+      SELECT tags.id, tags.title, tags.pattern \
       FROM posts, post_tag_join, tags \
       WHERE posts.id = post_tag_join.post_id \
         AND post_tag_join.tag_id = tags.id \
@@ -13,15 +21,22 @@
       HAVING SUM(posts.published) > 0');
   };
 
-    Tag.tagList = function() {
+  Tag.getPattern = function(tagName) {
     return db.knex.raw(' \
-      SELECT tags.id, tags.title \
-      FROM tags');
+      SELECT tags.pattern \
+      FROM tags \
+      WHERE tags.title = "' + tagName + '"')
+  };
+
+  Tag.tagList = function() {
+  return db.knex.raw(' \
+    SELECT tags.id, tags.title, tags.pattern \
+    FROM tags');
   };
 
   Tag.getPopularTags = function() {
     return db.knex.raw(' \
-      SELECT tags.id, tags.title \
+      SELECT tags.id, tags.title, tags.pattern \
       FROM posts, post_tag_join, tags \
       WHERE posts.id = post_tag_join.post_id \
         AND post_tag_join.tag_id = tags.id \
@@ -32,7 +47,7 @@
 
   Tag.getUserTags = function(username) {
     return db.knex.raw(' \
-      SELECT tags.id, tags.title \
+      SELECT tags.id, tags.title, tags.pattern \
       FROM posts, post_tag_join, tags, users \
       WHERE users.id = posts.user_id \
         AND posts.id = post_tag_join.post_id \
@@ -47,7 +62,7 @@
     .fetch()
     .then(function(tag) {
       if (!tag) {
-        new Tag({'title': tagTitle})
+        new Tag({'title': tagTitle, 'pattern': randomPattern()})
         .save()
         .then(function(tag) {
           callback(tag);

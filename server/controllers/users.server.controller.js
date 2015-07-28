@@ -7,12 +7,22 @@
 
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
-    /* If user is logging in for the first time, redirect them to their profile page */
-
-
-    /* If user is returning, redirect to the home page */
-    res.redirect('/');
+    var createdAt = req.session.user.get('created_at');
+    new User({id: req.session.user.get('id')})
+      .fetch()
+      .then(function(user) {
+        var createdAt = user.get('created_at');
+          /* If user is logging in for the first time, redirect them to their profile page.
+               We determine if user is logging in for the first time by checking to see if account was created in the past 2 minutes */
+          if((new Date() - createdAt) / (1000 * 60) < 2 ) {
+            res.redirect('/#/profile/' + user.get('username'));
+          } else {
+            /* If user is returning, redirect to the home page */
+            res.redirect('/');
+          }
+      });
   };
+
 
   /* If user exists in the session, passes encoded user id to the front end. */
   exports.checkAuth = function(req, res) {
@@ -86,6 +96,22 @@
         res.json(user);
       }
     });
+  };
+
+  exports.userProfileOwner = function(req, res) {
+    var username = req.query.username;
+    var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
+    new User({
+      'id': userId
+      })
+      .fetch()
+      .then(function(user) {
+        if (user.get('username') === username) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      });
   };
 
 
