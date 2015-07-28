@@ -133,6 +133,7 @@
           posts.created_at AS post_date, \
           posts.views AS views, \
           users.name AS author, \
+          users.username AS username, \
           posts.published AS published, \
           COUNT(likes.id) AS likes, \
           users.profile_photo_url AS profile_photo_url \

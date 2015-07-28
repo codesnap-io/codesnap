@@ -16,8 +16,8 @@ $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
 $highlight: #229425;
-$site-title-color: #2E2061;
-$logo-color: #229425;
+$site-title-color: #303030;
+$logo-color: #ffffff;
 $positive: #95d8b0;
 $negative: #fda6a7;
 $light: #ffffff;
@@ -671,9 +671,6 @@ code {
 .intro-content {
   @include flex-container-col;
   height: 100%;
-  background: #aa85c7;
-  background-image: url("../img/ZenBG-1.png"), url("../img/ZenBG-2.png");
-  background-repeat: repeat-x, repeat;
 }
 
 //search results page
