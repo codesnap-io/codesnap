@@ -21,7 +21,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'signupController',
       'postController',
       'postFactory',
-      'postPreviewDirective',
       'authFactory',
       'searchFactory',
       'searchController',

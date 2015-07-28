@@ -15,6 +15,7 @@
           console.log("Error: ", err);
         } else {
           $scope.posts = posts;
+          console.log($scope.posts);
         }
       });
 

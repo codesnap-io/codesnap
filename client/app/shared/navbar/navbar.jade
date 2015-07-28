@@ -22,6 +22,7 @@ header(ng-show="showNav")
         .ui.dropdown.top.left.pointing
           img.profile-picture(ng-src="{{user.profile_photo_url}}")
           .menu
+            a.item(ui-sref="profile({username: user.username })") Profile
             a.item(ui-sref="account") My Account
             a.item(ng-click="logout()") Logout
         a.button(href="{{newPostUrl}}", target="_blank")

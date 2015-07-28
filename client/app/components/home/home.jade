@@ -22,15 +22,33 @@
       .darken.radius
         h3 {{tags[5].title}}
 .content.align-top
+
   .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0" infinite-scroll-immediate-check="false")
     .post-item(ng-repeat="post in posts")
-      a(ui-sref="post({id: post.post_id })")
-        h2.title {{post.post_title}}
-      .user-info
-        a(ui-sref="profile({username: post.username })")
-          img.profile-picture(ng-src="{{post.profile_photo_url}}" alt="profile photo")
-        a.post-author-date(ui-sref="profile({username: post.username})")
-          span.author {{post.username}}
-          span.date {{post.created_date | date:"MMM dd, yyyy"}}
-      a(ui-sref="post({id: post.post_id })")
-        p.summary {{post.summary}}...
+      .post-date
+        .date
+          p.month {{post.created_date | date:"MMM"}}
+          p.day {{post.created_date | date:"dd"}}
+          p.year {{post.created_date | date:"yyyy"}}
+
+      .post-content-container
+        a.clickable(ui-sref="post({id: post.post_id })")
+          h2.title {{post.post_title}}
+        a(ui-sref="post({id: post.post_id })")
+          p.summary {{post.summary}}...
+        .profile-post-links
+          a.link-div(ui-sref="profile({username: post.username })")
+            .link-div
+              img.profile-pic(src="{{post.profile_photo_url}}")
+            .link-div
+              span.author-name {{post.author}}
+          .link-div
+            img(src="assets/img/heart-empty-thick.svg" alt="Edit Post")
+            span {{post.likes}}       
+          .link-div
+            img(src="assets/img/views.svg" alt="Post View Count")
+            span {{post.views}}
+
+  //- .small-child.tag-list
+  //-   .small-child.tag-list.sticky(offset="67px")
+  //-     p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ui-sref="tag({name: tag.title })") {{tag.title}}
