@@ -1,6 +1,7 @@
 (function() {
   'use strict';
-  var tag = require('../models/tag.server.model');
+  var Tag = require('../models/tag.server.model');
+  var User = require('../models/user.server.model');
   var Post = require('../config/schema').Post;
   var Promise = require('bluebird');
 
@@ -12,7 +13,7 @@
     Promise.join(
         Post.getAllTitles(),
         Post.getAllAuthors(),
-        tag.getAll(),
+        Tag.getAll(),
         /* This function takes in the results of the three promises above in order.  For each promise, map the needed string into the metadata object */
         function(titleData, authorData, tagData) {
           metadata.titles = titleData.map(function(title) {
@@ -36,17 +37,59 @@
 
   /* Returns posts based on a query */
   exports.postSearch = function(req, res) {
-    var query = req.query.searchQuery;
-    var type = req.query.searchType;
-    Post.getPostsOnQuery(query, type, function(error, posts) {
+    var query = req.query.q;
+    var response = {
+      results: {}
+    }
+    Tag.getTagsByQuery(query, function(error, tagResults) {
       if (error) {
         console.log(error);
         res.send(error);
       } else {
-        res.json(posts);
+        console.log('tag posts: query: ' + query + ", results: " + tagResults);
+        response.results.tags = {
+          name: 'Tags',
+          results: tagResults
+        };
+
+        User.getAuthorsByQuery(query, function(error, authorResults) {
+          if (error) {
+            console.log(error);
+            res.send(error);
+          } else {
+            console.log('author posts: query: ' + query + ", results: " + authorResults);
+            response.results.authors = {
+              name: 'Authors',
+              results: authorResults
+            };
+
+            Post.getTitlesByQuery(query, function(error, titleResults) {
+              if (error) {
+                console.log(error);
+                res.send(error);
+              } else {
+                console.log('title posts: query: ' + query + ", results: " + titleResults);
+                response.results.titles = {
+                  name: 'Posts',
+                  results: titleResults
+                };
+                res.json(response);
+              }
+            });
+          }
+        });
       }
     });
-  };
+    //
+    // Post.getPostsOnQuery(query, function(error, results) {
+    //   if (error) {
+    //     console.log(error);
+    //     res.send(error);
+    //   } else {
+    //     res.json(results);
+    //   }
+    // });
+};
 
 
 

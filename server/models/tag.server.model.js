@@ -73,5 +73,14 @@
     });
   };
 
+
+  Tag.getTagsByQuery = function(query, callback) {
+    db.knex.select('id', 'title')
+      .from('tags').where('title', 'like', '%' + query + '%')
+      .then(function(data) {
+        callback(null, data);
+      });
+  };
+
   module.exports = Tag;
 })();

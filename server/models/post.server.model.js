@@ -120,6 +120,19 @@
       });
   };
 
+
+
+  Post.getTitlesByQuery = function(query, callback) {
+    db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.published AS published',
+        'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
+      .from('posts').where('posts.title', 'like', '%' + query + '%')
+      .andWhere('published', true).leftOuterJoin('users', 'posts.user_id', 'users.id')
+      .then(function(data) {
+        callback(null, data);
+      });
+  };
+
+
   Post.getPostsOnQuery = function(query, queryType, callback) {
     if (queryType === 'tag') {
       // get all posts that have a given tag
@@ -239,18 +252,18 @@
   //     .limit(options.limit || null)
   //     .offset(options.offset || null)
   // }
-
-  Post.getAllTitles = function() {
-    return db.knex
-      .distinct()
-      .select('title', 'id').from('posts').distinct('id');
-  };
-
-  Post.getAllAuthors = function() {
-    return db.knex
-      .distinct()
-      .select('name', 'username').from('users').distinct('name');
-  };
+  //
+  // Post.getAllTitles = function() {
+  //   return db.knex
+  //     .distinct()
+  //     .select('title', 'id').from('posts').distinct('id');
+  // };
+  //
+  // Post.getAllAuthors = function() {
+  //   return db.knex
+  //     .distinct()
+  //     .select('name', 'username').from('users').distinct('name');
+  // };
 
   Post.addView = function(postId) {
     new Post({
