@@ -25,4 +25,11 @@
     });
   };
 
+  exports.getTagPattern = function(req, res) {
+    var tagName = req.query.tagName;
+    Tag.getPattern(tagName)
+    .then(function(data) {
+      res.json(data[0]);
+    })
+  };
 })();

@@ -33,12 +33,22 @@
           return resp.data;
         });
       },
-
       setPostResult: function(result) {
         postResults = result;
       },
       getPostResult: function() {
         return postResults;
+      },
+      getTagPattern: function(tagName) {
+        return $http({
+          method: 'GET',
+          url: '/tags/pattern',
+          params: {
+            tagName: tagName
+          }
+        }).then(function(resp) {
+          return resp.data;
+        })
       }
     };
   });

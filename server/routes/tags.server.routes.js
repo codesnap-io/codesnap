@@ -14,6 +14,7 @@
     /* Responds a list of tags assigned to a users published post */
     app.get('/tags/user', tags.getUserTags);
 
+    app.get('/tags/pattern', tags.getTagPattern);
   };
 
 

@@ -90,6 +90,7 @@
           tag.increments('id').primary();
           tag.string('title', 50);
           tag.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+          tag.string('pattern', 255);
         }).then(function(table) {
           console.log('Created Tags Table');
         });

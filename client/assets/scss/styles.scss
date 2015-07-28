@@ -123,6 +123,10 @@ body {
   align-content: flex-start;
 }
 
+.pad-half {
+  padding: 0.5rem;
+}
+
 .pad1 {
   padding: 1rem;
 }
@@ -135,7 +139,7 @@ body {
   @include flex-container-row;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .darken h3 {
@@ -192,11 +196,6 @@ body {
   height: 10rem;
 }
 
-// *** Header ***
-header {
-  border-bottom: 1px solid $accent-200;
-}
-
 .left {
   @include flex-child;
   @include flex-container-row;
@@ -212,6 +211,11 @@ header {
   @include flex-child;
   @include flex-container-row;
   justify-content: flex-end;
+}
+
+// *** Header ***
+header {
+  border-bottom: 1px solid $accent-200;
 }
 
 .site-title {
@@ -260,8 +264,8 @@ header {
 .subnav {
   border-bottom: 1px solid $accent-200;
   background: #f4f4f4;
-  opacity: .92;
-  width: 100%
+  opacity: .98;
+  width: 100%;
 }
 
 .stuck-subnav {
@@ -410,15 +414,8 @@ code {
 /// *** Home Content ***
 
 .discover-container {
-  border-bottom: 1px solid $accent-200;
-  background: #f4f4f4;
-  width: 100%;
+  @include flex-container-col;
   padding: 2rem 0;
-}
-
-.discover-container h2 {
-  margin: 0;
-  padding: 0 0 1rem 0;
 }
 
 .discover-small {
