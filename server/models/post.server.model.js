@@ -347,7 +347,7 @@
       WHERE posts.published = true \
       GROUP BY posts.id \
       ORDER BY created_date DESC, likes DESC \
-      LIMIT 10')
+      LIMIT 10');
   };
 
 
@@ -372,7 +372,7 @@
        WHERE posts.published = true \
       GROUP BY posts.id \
       ORDER BY likes DESC, views DESC\
-      LIMIT 20')
+      LIMIT 20');
   };
 
   module.exports = Post;

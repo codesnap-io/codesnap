@@ -4,11 +4,11 @@
   var Tag = require('../config/schema').Tag;
 
   /* Here are a list of background patterns for title */
-  var patterns = ["half-rombes", "arrows", "zigzag", "weave", "argyle", "waves", "cross", "brady-bunch", "microbial-mat", "upholstery", "steps", "shippo", "stars", "japanese-cube", "seigaiha", "bricks", "polka-dots", "tartan", "madras", "blueprint", "tablecloth", "cicada-stripes", "diagonal-stripes", "vertical-stripes", "horizontal-stripes"]
+  var patterns = ["half-rombes", "arrows", "zigzag", "weave", "argyle", "waves", "cross", "brady-bunch", "microbial-mat", "upholstery", "steps", "shippo", "stars", "japanese-cube", "seigaiha", "bricks", "polka-dots", "tartan", "madras", "blueprint", "tablecloth", "cicada-stripes", "diagonal-stripes", "vertical-stripes", "horizontal-stripes"];
 
   /* Randomly assign a background pattern to tag */
   var randomPattern = function() {
-    return patterns[Math.floor(Math.random() * patterns.length)]
+    return patterns[Math.floor(Math.random() * patterns.length)];
   };
 
   Tag.getAll = function() {
@@ -25,7 +25,7 @@
     return db.knex.raw(' \
       SELECT tags.pattern \
       FROM tags \
-      WHERE tags.title = "' + tagName + '"')
+      WHERE tags.title = "' + tagName + '"');
   };
 
   Tag.tagList = function() {
@@ -73,7 +73,7 @@
     });
   };
 
-
+  //called by search controller
   Tag.getTagsByQuery = function(query, callback) {
     db.knex.select('id', 'title')
       .from('tags').where('title', 'like', '%' + query + '%')

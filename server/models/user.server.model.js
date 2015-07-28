@@ -104,6 +104,7 @@
       });
   };
 
+  //called by search controller
   User.getAuthorsByQuery = function(query, callback) {
     db.knex.select('name', 'username', 'profile_photo_url')
       .from('users').where('name', 'like', '%' + query + '%')
@@ -111,7 +112,7 @@
       .then(function(data) {
         callback(null, data);
       });
-  }
+  };
 
   module.exports = User;
 })();
