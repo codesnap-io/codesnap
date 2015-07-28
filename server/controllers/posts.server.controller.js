@@ -229,11 +229,14 @@
     if (req.query.lastPost) {
       Post.getMorePosts(req.query.lastPost)
         .then(function(posts) {
-          res.json(posts[0]);
+          if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
+            res.json(posts[0]);
+          } else {
+            res.status(204).send("no more posts");
+          }
         });
     } else {
-      console.log("no lastPost provided!");
-      res.sendStatus(204);
+      res.status(400).send("no lastPost provided");
     }
   };
 

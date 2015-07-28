@@ -172,7 +172,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           controller: 'profileController'
         },
         subnav: {
-          templateUrl: 'app/shared/subnavs/profileSubnav.html',
+          templateUrl: 'app/shared/subnavs/profileSubnav.html'
           // controller: 'profileController'
         }
       },
@@ -245,7 +245,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
     //sticky subnav and tag list functionality
     $(window).scroll(function() {
-      if ($(window).scrollTop() >= 87) {
+      if ($(window).scrollTop() >= 71) {
         $('.sticky').css('position', 'fixed');
         $('.sticky').each(function() {
           var offset = ($(this).attr('offset') || '0px');

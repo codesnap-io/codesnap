@@ -188,7 +188,7 @@
       WHERE posts.user_id = users.id \
       AND posts.published = true \
       ORDER BY created_date DESC \
-      LIMIT 20');
+      LIMIT 5');
   };
 
   Post.getTopPosts = function() {
@@ -214,8 +214,11 @@
 
   //takes a post and returns 20 posts that were created earlier than it
   Post.getMorePosts = function(lastPost) {
-    var rawDate = JSON.parse(lastPost).created_date;
-    var lastDate = rawDate.replace(/T/, ' ').replace('.000', '').replace(/Z/, '');
+    console.log("last post: " + JSON.stringify(lastPost));
+    var last_id = JSON.parse(lastPost).post_id;
+    // var rawDate = JSON.parse(lastPost).created_date;
+    // var lastDate = rawDate.replace(/T/, ' ').replace('.000', '').replace(/Z/, '');
+    console.log("retrieving all posts with id < ", last_id);
     return db.knex.raw(' \
       SELECT \
         posts.id AS post_id, \
@@ -227,10 +230,10 @@
         users.profile_photo_url AS profile_photo_url \
       FROM posts, users \
       WHERE posts.user_id = users.id \
-        AND posts.created_at < "'+lastDate+'" \
         AND posts.published = true \
-      ORDER BY created_date DESC \
-      LIMIT 20');
+        AND posts.id < "'+last_id+'" \
+      ORDER BY posts.id DESC \
+      LIMIT 5');
   };
 
   // BROKEN, DO NOT USE -->
@@ -247,7 +250,7 @@
     },
     groupBy: "id",
     orderBy: "'id', 'desc'",
-    limit: 10,
+    limit: 1,
     offset: 10,
     //feel free to add more, just remember to add them below as well
   }
@@ -310,7 +313,7 @@
         users.username = "' + username + '" \
       GROUP BY posts.id \
       ORDER BY created_date DESC \
-      LIMIT 20')
+      LIMIT 20');
   };
 
   /* For profile page */
@@ -335,7 +338,7 @@
         users.username = "' + username + '" \
       GROUP BY posts.id \
       ORDER BY likes DESC \
-      LIMIT 20')
+      LIMIT 20');
   };
 
   module.exports = Post;
