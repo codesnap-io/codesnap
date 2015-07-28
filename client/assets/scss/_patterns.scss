@@ -181,14 +181,6 @@
   background-position: 0 0, 30px 30px;
 }
 
-.pattern-checkerboard {
-  background-color: #eee;
-  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),
-  linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
-  background-size:60px 60px;
-  background-position:0 0, 30px 30px
-}
-
 .pattern-tartan {
   background-color: hsl(2, 57%, 40%);
   background-image: repeating-linear-gradient(transparent, transparent 50px, rgba(0,0,0,.4) 50px, rgba(0,0,0,.4) 53px, transparent 53px, transparent 63px, rgba(0,0,0,.4) 63px, rgba(0,0,0,.4) 66px, transparent 66px, transparent 116px, rgba(0,0,0,.5) 116px, rgba(0,0,0,.5) 166px, rgba(255,255,255,.2) 166px, rgba(255,255,255,.2) 169px, rgba(0,0,0,.5) 169px, rgba(0,0,0,.5) 179px, rgba(255,255,255,.2) 179px, rgba(255,255,255,.2) 182px, rgba(0,0,0,.5) 182px, rgba(0,0,0,.5) 232px, transparent 232px),
