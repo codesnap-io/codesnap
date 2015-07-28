@@ -161,7 +161,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             });
         },
         pattern: function(tagFactory, $stateParams) {
-          return tagFactory.getTagPattern($stateParams.name)
+          return tagFactory.getTagPattern($stateParams.name);
         }
       }
     })

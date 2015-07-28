@@ -28,7 +28,9 @@
     "semantic-ui-dropdown": "~2.0.5",
     "semantic-ui-transition": "~2.0.5",
     "semantic-ui-search": "~2.0.7",
-    "ngInfiniteScroll": "~1.2.1"
+    "ngInfiniteScroll": "~1.2.1",
+    "semantic-ui-icon": "~2.0.7",
+    "semantic-ui-api": "~2.0.7"
   },
   "resolutions": {
     "angular": "1.4.3"
