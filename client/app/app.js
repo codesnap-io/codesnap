@@ -159,6 +159,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             .then(function(posts) {
               tagFactory.setPostResult(posts);
             });
+        },
+        pattern: function(tagFactory, $stateParams) {
+          return tagFactory.getTagPattern($stateParams.name)
         }
       }
     })
