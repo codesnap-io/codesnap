@@ -15,7 +15,7 @@ $accent-500: #5c5c5c;
 $accent-300: #9B9B9B;
 $accent-200: #e0e0e0;
 $accent-100: #f7f7f7;
-$highlight: #229425;
+$highlight: #53A9AD;
 $site-title-color: #2E2061;
 $logo-color: #229425;
 $positive: #95d8b0;
@@ -287,6 +287,10 @@ header {
 }
 
 .author {
+  color: $accent-800;
+}
+
+.profile-name {
   color: $accent-800;
   font-size: 1.75rem;
 }
