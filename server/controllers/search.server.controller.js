@@ -87,7 +87,6 @@
                   return {
                     title: post.post_title,
                     url: "#/post/" + post.post_id,
-                    image: post.profile_photo_url,
                     description: post.author
                   };
                 });

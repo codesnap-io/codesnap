@@ -43,7 +43,11 @@
               apiSettings: {
                 url: 'search/?q={query}'
               },
-              type: 'category'
+              type: 'category',
+              searchDelay: 100,
+              cache: true,
+              maxResults: 8,
+              minCharacters: 1
             });
         }
       };
