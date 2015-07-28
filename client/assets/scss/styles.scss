@@ -284,6 +284,7 @@ header {
 
 .author {
   color: $accent-800;
+  font-size: 1.75rem;
 }
 
 .date {
@@ -451,39 +452,16 @@ code {
   align-items: flex-start;
 }
 
-.post-item {
-  @include flex-child;
-  @include flex-container-row;
-  flex-direction: column;
+.align-top {
+  -webkit-align-items: flex-start;
   align-items: flex-start;
-  border-bottom: 1px solid $accent-200;
-  padding: 1.4rem 0;
-  width: 100%;
-  cursor: pointer;
-  a {
-    text-decoration: none;
-    color: black;
-    &:hover {
-      color: $highlight;
-    }
-  }
-}
-
-.post-item .title {
-  margin: 1rem 0;
-}
-
-.post-item .summary {
-  color: $accent-300;
-  margin: 0.6rem 0;
-  //padding: 0;
 }
 
 
 .profile-github-logo {
   max-height: 0.7rem;
 }
-.post-item2 {
+.post-item {
   @include flex-child;
   @include flex-container-col;
   flex-direction: row;
@@ -581,7 +559,7 @@ code {
 
       .profile-pic {
         max-height: 1.5rem;
-        border-radius: 10px;
+        border-radius: 100%;
       }
 
       .author-name{
@@ -606,7 +584,12 @@ code {
   }
 }
 
+.edit-bio {
+  font-weight: 600;
+  font-size: 0.8rem;
 
+  color: $accent-300
+}
 
 
 
@@ -622,7 +605,6 @@ code {
 .user-info-profile {
   @include flex-child;
   @include flex-container-row;
-  padding: 0.4rem 0;
   justify-content: flex-start;
 }
 
