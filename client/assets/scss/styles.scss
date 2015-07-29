@@ -190,11 +190,12 @@ body {
   width: auto;
   border-radius: 100%;
   margin: 0;
+  cursor: pointer;
 }
 
 .profile-picture-large {
   height: 5rem;
-  width: auto;
+  width: 5rem;
   border-radius: 100%;
   margin: 0;
 }
@@ -311,6 +312,7 @@ header {
   flex-direction: column;
   margin: 0 1rem;
   align-items: flex-start;
+  cursor: pointer;
 }
 
 .author {
@@ -361,6 +363,15 @@ header {
   }
 }
 
+
+.comment .right-of-avatar{
+  width: 200px;
+  background-color: yellow;
+}
+
+.subnav {
+  z-index: 100;
+}
 .subnav .left-icons {
   @include flex-child;
   @include flex-container-row;
@@ -393,6 +404,7 @@ pre {
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
   display: block;
+  word-wrap: break-word;
   clear: both;
   color: #555555;
   padding: 1rem 1rem;
@@ -500,6 +512,7 @@ code {
   width: 100%;
   a {
     text-decoration: none;
+    cursor: pointer;
     color: black;
     &:hover {
       color: $highlight;

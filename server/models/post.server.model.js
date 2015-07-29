@@ -2,6 +2,8 @@
   'use strict';
   var db = require('../config/db');
   var Post = require('../config/schema').Post;
+  var Comment = require('../models/comment.server.model');
+
 
   Post.add = function(postData, callback) {
     new Post(postData)
@@ -111,7 +113,12 @@
                       }).count()
                       .then(function(countData) {
                         postData.likes = countData[0]['count(*)'];
-                        callback(null, postData);
+
+                        Comment.postComments(postId, function(comments) {
+                          postData.comments = comments;
+                          callback(null, postData);
+                        });
+
                       });
                   });
               }

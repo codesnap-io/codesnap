@@ -146,9 +146,10 @@
       if (!exists) {
         db.knex.schema.createTable('comments', function(comment) {
           comment.increments('id').primary();
-          comment.string('text', 255);
+          comment.string('text', 2000);
           comment.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
           comment.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
+          comment.integer('paragraph');
           comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
           console.log('Created Comments Table');

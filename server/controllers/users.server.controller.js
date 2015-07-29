@@ -4,7 +4,6 @@
   var User = require('../models/user.server.model');
 
 
-
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
     var createdAt = req.session.user.get('created_at');
