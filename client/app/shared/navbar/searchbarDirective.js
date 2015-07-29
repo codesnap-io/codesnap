@@ -44,10 +44,9 @@
                 url: 'search/?q={query}'
               },
               type: 'category',
-              searchDelay: 100,
+              searchDelay: 500,
               cache: true,
-              maxResults: 8,
-              minCharacters: 1
+              minCharacters: 2
             });
         }
       };
