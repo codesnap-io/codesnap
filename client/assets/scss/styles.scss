@@ -6,6 +6,8 @@
 @import 'search';
 @import 'ui-select';
 @import 'patterns';
+@import 'icon';
+@import 'input';
 // Import fonts
 @import 'fonts';
 // *** Global variables ***
@@ -255,10 +257,26 @@ header {
 }
 
 .search-box {
-  order: 0;
-  width: 400px;
-  margin: 0.5rem;
+  width: 100%;
+    .ui.icon.input {
+      width: 100%;
+    }
+    .content {
+      display: block;
+    }
+
+    // hack for fixing category result
+    .ui.category.search>.results {
+      .result {
+        overflow: inherit;
+      }
+      .category .result {
+        margin-left: 100px;
+      }
+    }
 }
+
+
 
 // *** Subnav ***
 .subnav {

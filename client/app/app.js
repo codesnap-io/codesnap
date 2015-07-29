@@ -90,6 +90,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         resolve: {
           getPost: function(postFactory, $stateParams) {
+            //empty out search bar
+            $('.search-box input').val('');
+
             return postFactory.getPostData($stateParams.id);
           },
           getLikeStatus: function($rootScope, postFactory, $stateParams) {
@@ -129,7 +132,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           }
         },
         resolve: {
+
           searchResults: function(searchFactory, $rootScope) {
+            //empty out search bar
+            $('.search-box input').val('');
             return searchFactory.searchPosts($rootScope.searchQuery, $rootScope.searchType);
           }
         }
@@ -155,13 +161,16 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       },
       resolve: {
         searchPosts: function(searchFactory, tagFactory, $stateParams) {
+          //empty out search bar
+          $('.search-box input').val('');
+          
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
             });
         },
         pattern: function(tagFactory, $stateParams) {
-          return tagFactory.getTagPattern($stateParams.name)
+          return tagFactory.getTagPattern($stateParams.name);
         }
       }
     })
@@ -192,6 +201,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
 
         fetchRecentPosts: function(userFactory, $stateParams) {
+          //empty out search bar
+          $('.search-box input').val('');
           return userFactory.getRecentUserPosts($stateParams.username)
           .then(function(posts) {
             userFactory.setPostResult(posts);

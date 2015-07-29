@@ -8,7 +8,7 @@
           console.log('searching posts with ' + searchQuery + " and " + searchType);
           return $http({
             method: 'GET',
-            url: '/search',
+            url: '/search/results',
             params: {
               searchQuery: searchQuery,
               searchType: searchType
@@ -16,14 +16,14 @@
           }).then(function(resp) {
             return resp.data;
           });
-        },
-
-        getAllData: function(callback) {
-          return $http({
-            method: 'GET',
-            url: 'search/all'
-          });
         }
+
+        // getAllData: function(callback) {
+        //   return $http({
+        //     method: 'GET',
+        //     url: 'search/all'
+        //   });
+        // }
       };
     });
 
