@@ -12,6 +12,7 @@
       password: process.env.RDS_PASSWORD,
       port: process.env.RDS_PORT,
       database: process.env.DB_NAME,
+      timezone: "UTC",
       charset: 'utf8'
     }
   });
