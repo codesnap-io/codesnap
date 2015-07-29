@@ -7,6 +7,7 @@
   var service = require('../services/repo.server.service.js');
   var User = require('../models/user.server.model');
   var tagHandler = require('../services/tagHandler');
+  var parseDiff = require('../services/repo.server.parseDiff.js');
 
   /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
   var downloadUrl = function(file, username, repoName) {
