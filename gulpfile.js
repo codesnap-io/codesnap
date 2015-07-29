@@ -27,7 +27,7 @@ var paths = {
   'client/assets/lib/angular-ui-select/dist/select.min.js', "client/assets/lib/angular-sanitize/angular-sanitize.min.js",
   "client/assets/lib/angular-local-storage/dist/angular-local-storage.min.js", "client/assets/lib/semantic-ui-dropdown/dropdown.min.js",
   "client/assets/lib/semantic-ui-transition/transition.min.js", 'client/assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
-  "assets/lib/semantic-ui-api/api.min.js"],
+  "client/assets/lib/semantic-ui-api/api.min.js", "client/assets/lib/semantic-ui-search/search.min.js"],
   css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
   html: ['client/**/*.html', '!client/assets/lib/**/*.html']
@@ -50,7 +50,7 @@ gulp.task('watch', ['jade', 'sass', 'browser-sync'], function () {
 
 
 /* build task, which will properly build entire client */
-gulp.task('build', ['scripts', 'css', 'usemin', 'images'], function () {
+gulp.task('build', ['scripts', 'css', 'usemin', 'images', 'fonts'], function () {
   console.log('app built');
 });
 
@@ -174,6 +174,10 @@ gulp.task('images', function () {
         .pipe(gulp.dest('build/assets/img'));
 });
 
+gulp.task('fonts', function() {
+  return gulp.src('./client/assets/fonts/**/*')
+    .pipe(gulp.dest('build/assets/fonts'))
+})
 
 
 
