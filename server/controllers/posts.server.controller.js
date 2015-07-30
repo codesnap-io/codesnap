@@ -8,10 +8,30 @@
   var User = require('../models/user.server.model');
   var tagHandler = require('../services/tagHandler');
   var parseDiff = require('../services/repo.server.parseDiff.js');
+  var Comment = require('../config/schema').Comment;
 
   /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
   var downloadUrl = function(file, username, repoName) {
     return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
+  };
+
+  //helper function to adjust comment line #s based on diff
+  var adjustComments = function(postPath, postComments) {
+    //loop thru post comments
+      //loop thru old
+        //is comment line # removed?
+          //if yes, is whole paragraph below it removed?
+            //if yes, remove comment
+          //if no, iterate line number down to bottom of chunk (i.e. the place where the next line is more than 1 away)
+            //count # of removals and subtract from comment line #
+      //loop thru new
+        //does add begin @ or lower than comment line #?
+          //if yes, count # of consecutive additions and add them to comment line #
+  };
+
+  //helper function to reindex adj coms to proper paragraphs
+  var indexComments = function(postPath, adjustedComments) {
+    //use .md of postPath to connect adjusted line #s of comments to correct paragraphs
   };
 
   //adds posts to db
@@ -150,10 +170,32 @@
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
 
+    // //create collection of all comments for all posts (TODO: get IDs for all filesMod'd)
+    // var postComments = Comment.postComments(filesModified("GET IDS FOR EACH OF THESE SOMEHOW"), function(commentsObj) {
+    //   return commentsObj;
+    // });
 
     /* Get github userId from username */
     service.getGHUser(username)
       .then(function(user) {
+
+        // //update comments
+        // //somehow get url of head_commit diff...add ".diff" to commit url
+        // var diffUrl = "";
+
+        // //parse head_commit diff
+        // parseDiff.parseDiffFromUrl(diffUrl, function(data) {
+        //   //returns "new" and "old" objs for each filePath changed in commit
+        //   for (var postPath in data) {
+        //     //do comment line adjustments / deletions for given post
+        //     var adjustedComments = adjustComments(postPath, postComments);
+        //     //reindex adj coms to proper paragraphs
+        //     var indexedComments = indexComments(postPath, adjustedComments);
+        //     //update comments in db with new line and paragraph #s
+        //     Comment.updateCommentLinesAndParagraphs(indexedComments);
+        //   }
+        // });
+
         var githubUserId = JSON.parse(user).id;
         //find user by github userId and add/remove/modify as needed
         User.findByGithubId(githubUserId, function(error, user) {
@@ -166,6 +208,7 @@
             exports.modifyPostsInDb(filesModified, username, repoName);
           }
         });
+
       })
       .catch(function(error) {
         console.error("Error in getGHUser: ", error);
@@ -271,17 +314,17 @@
   exports.recentUserPosts = function(req, res) {
     var username = req.query.username;
     Post.recentUserPosts(username)
-    .then(function(posts) {
-      res.json(posts[0]);
-    });
+      .then(function(posts) {
+        res.json(posts[0]);
+      });
   };
 
   exports.topUserPosts = function(req, res) {
     var username = req.query.username;
     Post.topUserPosts(username)
-    .then(function(posts) {
-      res.json(posts[0]);
-    });
+      .then(function(posts) {
+        res.json(posts[0]);
+      });
   };
 
   /* Dummy Data */

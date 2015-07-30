@@ -25,7 +25,10 @@
    .then(function(results) {
       var data = results[0] || [];
 
-      /* Convert the raw query results into an object where each paragraph (sectionId) is a key and the value is the final object we want to pass in request to the client.  NOTE: we must format the data in a very specifiy way (and with specific naming conventions) to match the required format of side-comments.js library */
+      /* Convert the raw query results into an object where each paragraph (sectionId) is
+      a key and the value is the final object we want to pass in request to the client.
+      NOTE: we must format the data in a very specific way (and with specific naming conventions)
+      to match the required format of side-comments.js library */
       var commentObj = {};
       for (var i = 0; i < data.length; i++) {
         if (!commentObj.hasOwnProperty(data[i].sectionId)) {
