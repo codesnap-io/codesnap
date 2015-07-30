@@ -1,3 +1,6 @@
+#post-error-container
+  #post-error-text Please #[strong(ui-sref="signup") log in] to add a new post
+  img#post-error-x(src="../../../assets/img/x.png")
 header(ng-show="showNav")
   .content
     .left
@@ -13,14 +16,14 @@ header(ng-show="showNav")
             i.search.icon
           .results
     .right
-      .nav-right(ng-if="loggedIn")
-        .ui.dropdown.top.left.pointing
+      .nav-right
+        .ui.dropdown.top.left.pointing(ng-if="loggedIn")
           img.profile-picture(ng-src="{{user.profile_photo_url}}")
           .menu
             a.item(ui-sref="profile({username: user.username })") Profile
             a.item(ui-sref="account") My Account
             a.item(ng-click="logout()") Logout
-        a.button(href="{{newPostUrl}}", target="_blank")
+        a.button(ng-click="newPost()")
           img(src="assets/img/Plus.svg" alt="New Post Icon")
           span New Post
       .nav-right(ng-if="!loggedIn")
