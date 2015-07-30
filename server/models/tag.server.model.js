@@ -75,10 +75,16 @@
 
   //called by search controller
   Tag.getTagsByQuery = function(query, callback) {
-    db.knex.select('id', 'title')
-      .from('tags').where('title', 'like', '%' + query + '%')
+    db.knex.raw(' \
+      SELECT tags.id, tags.title \
+      FROM posts, post_tag_join, tags \
+      WHERE posts.id = post_tag_join.post_id \
+        AND post_tag_join.tag_id = tags.id \
+        AND tags.title LIKE "%' + query + '%" \
+      GROUP BY tags.title \
+      HAVING SUM(posts.published) > 0')
       .then(function(data) {
-        callback(null, data);
+        callback(null, data[0]);
       });
   };
 
