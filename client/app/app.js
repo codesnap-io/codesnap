@@ -212,7 +212,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       }
     });
-    
+
     // $locationProvider.html5Mode({
     //   enabled: true,
     //   requireBase: false
