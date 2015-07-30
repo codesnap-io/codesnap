@@ -7,9 +7,9 @@
 
   module.exports.parseDiff = function (options, callback) {
     if (options.url) {
-      parseDiffFromUrl(options.url, callback);
+      module.exports.parseDiffFromUrl(options.url, callback);
     } else if (options.fileName) {
-      parseDiffFromFile(options.fileName, callback);
+      module.exports.parseDiffFromFile(options.fileName, callback);
     }
   };
 

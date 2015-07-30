@@ -382,6 +382,12 @@ header {
   justify-content: flex-start;
 }
 
+.icon {
+  img {
+    max-width: 25px;
+  }
+}
+
 .subnav .right-icons {
   @include flex-child;
   @include flex-container-row;

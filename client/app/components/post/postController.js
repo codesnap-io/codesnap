@@ -8,6 +8,7 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
     $scope.postData = postFactory.getCurrentPost();
+    console.log($scope.postData);
     $scope.postData.editUrl = "https://github.com/" + $scope.postData.username + "/codesnap.io/edit/master/" + $scope.postData.file;
 
     /* Equals true if the user has already liked the post.  This is used to color in the heart icon */
@@ -72,6 +73,8 @@
 
         /* Add the new comment to the DOM */
         sideComments.insertComment(comment);
+
+        $rootScope.$emit('updateComments', 1);
       });
 
       /* Delete post.  This option is only available if the current user's username matches the username associated with the post */
@@ -82,6 +85,8 @@
         /* Remove comment from DOM */
         sideComments.removeComment(comment.sectionId, comment.id);
 
+        $rootScope.$emit('updateComments', -1);
+
       });
     };
 
@@ -90,7 +95,6 @@
     $(document).ready(function() {
       /* Shift post body back to the right when user clicks out of comments-wrapper */
       $('body').on('click', function() {
-        console.log(event.target);
         if ($(event.target).hasClass('action-link')) {
           event.stopPropagation();
         }

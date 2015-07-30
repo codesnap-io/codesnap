@@ -116,6 +116,12 @@
 
                         Comment.postComments(postId, function(comments) {
                           postData.comments = comments;
+                          postData.commentCount = 0;
+                          comments.forEach(function(paragraph) {
+                            postData.commentCount += paragraph.comments.length;
+                          });
+                          
+                          
                           callback(null, postData);
                         });
 
@@ -206,11 +212,11 @@
 
   //takes a post and returns 20 posts that were created earlier than it
   Post.getMorePosts = function(lastPost) {
-    console.log("last post: " + JSON.stringify(lastPost));
+    // console.log("last post: " + JSON.stringify(lastPost));
     var last_id = JSON.parse(lastPost).post_id;
     // var rawDate = JSON.parse(lastPost).created_date;
     // var lastDate = rawDate.replace(/T/, ' ').replace('.000', '').replace(/Z/, '');
-    console.log("retrieving all posts with id < ", last_id);
+    // console.log("retrieving all posts with id < ", last_id);
     return db.knex.raw(' \
       SELECT \
         posts.id AS post_id, \
