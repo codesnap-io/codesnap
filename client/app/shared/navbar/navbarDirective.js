@@ -72,7 +72,16 @@
         setTimeout(function() {
           $('.ui.dropdown')
             .dropdown();
+
+          //initialize popup
+          // $('.newpost-btn')
+          // .popup({
+          //   hoverable: true,
+          //   inline: true,
+          //   position: 'bottom left'
+          // });
         }, 100);
+
       }
     };
   });
