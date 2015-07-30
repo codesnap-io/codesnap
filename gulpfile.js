@@ -23,11 +23,8 @@ var gulp = require('gulp'),
 
 /* asset paths */
 var paths = {
-  scripts: ['client/app/**/*.js', '!client/lib/**/*', "client/assets/lib/marked/lib/marked.js",
-  'client/assets/lib/angular-ui-select/dist/select.min.js', "client/assets/lib/angular-sanitize/angular-sanitize.min.js",
-  "client/assets/lib/angular-local-storage/dist/angular-local-storage.min.js", "client/assets/lib/semantic-ui-dropdown/dropdown.min.js",
-  "client/assets/lib/semantic-ui-transition/transition.min.js", 'client/assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
-  "client/assets/lib/semantic-ui-api/api.min.js", "client/assets/lib/semantic-ui-search/search.min.js"],
+  scripts: ['client/assets/js/side-comments.js', "client/assets/lib/marked/lib/marked.js", 'client/assets/lib/angular-ui-select/dist/select.min.js', "client/assets/lib/angular-sanitize/angular-sanitize.min.js", "client/assets/lib/angular-local-storage/dist/angular-local-storage.min.js",
+  'client/assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.js', '!client/lib/**/*', 'client/app/**/*.js'],
   css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
   html: ['client/**/*.html', '!client/assets/lib/**/*.html']
@@ -75,6 +72,12 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('./build/assets/js'));
 });
 
+
+// gulp.task('comment-js', function() {
+//   return gulp.src('client/assets/js/side-comments.js')
+//     .pipe(uglify())
+//     .pipe(gulp.dest('./build/assets/js'));
+// });
 
 /* css compiliation for production. Also browsersync called */
 gulp.task('css', ['sass'], function () {
@@ -176,8 +179,8 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function() {
   return gulp.src('./client/assets/fonts/**/*')
-    .pipe(gulp.dest('build/assets/fonts'))
-})
+    .pipe(gulp.dest('build/assets/fonts'));
+});
 
 
 

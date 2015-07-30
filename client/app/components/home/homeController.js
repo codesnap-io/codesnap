@@ -5,6 +5,11 @@
 
   .controller('homeController', function($scope, $rootScope, postFactory, tagFactory) {
 
+    //for new post link
+    $scope.user = $rootScope.user;
+    console.log($scope.user);
+    $scope.newPostUrl = "/post/add?username=" + "fakeusername";
+
     $scope.posts = [];
     $scope.busy = false;
 

@@ -1,6 +1,6 @@
 .content
-  .large-child
+  .large-child.post-container
     h1.post-title {{postData.post_title}}
     .tag-list
       p.tag(ng-repeat="tag in postData.tags" tag-id="{{tag.id}}" ui-sref="tag({name: tag.title })") {{tag.title}}
-    md.post-content(ng-model="post")
+    md.post-content#commentable-area(ng-model="post")

@@ -2,6 +2,8 @@
   'use strict';
   var db = require('../config/db');
   var Post = require('../config/schema').Post;
+  var Comment = require('../models/comment.server.model');
+
 
   Post.add = function(postData, callback) {
     new Post(postData)
@@ -107,13 +109,24 @@
                   .then(function(data) {
                     postData.tags = data[0];
                     db.knex('likes').where({
-                      post_id: postId
-                    }).count()
+                        post_id: postId
+                      }).count()
                       .then(function(countData) {
                         postData.likes = countData[0]['count(*)'];
-                        callback(null, postData);
+
+                        Comment.postComments(postId, function(comments) {
+                          postData.comments = comments;
+                          postData.commentCount = 0;
+                          comments.forEach(function(paragraph) {
+                            postData.commentCount += paragraph.comments.length;
+                          });
+                          
+                          
+                          callback(null, postData);
+                        });
+
                       });
-                });
+                  });
               }
             });
         }
@@ -199,11 +212,11 @@
 
   //takes a post and returns 20 posts that were created earlier than it
   Post.getMorePosts = function(lastPost) {
-    console.log("last post: " + JSON.stringify(lastPost));
+    // console.log("last post: " + JSON.stringify(lastPost));
     var last_id = JSON.parse(lastPost).post_id;
     // var rawDate = JSON.parse(lastPost).created_date;
     // var lastDate = rawDate.replace(/T/, ' ').replace('.000', '').replace(/Z/, '');
-    console.log("retrieving all posts with id < ", last_id);
+    // console.log("retrieving all posts with id < ", last_id);
     return db.knex.raw(' \
       SELECT \
         posts.id AS post_id, \
@@ -216,54 +229,66 @@
       FROM posts, users \
       WHERE posts.user_id = users.id \
         AND posts.published = true \
-        AND posts.id < "'+last_id+'" \
+        AND posts.id < "' + last_id + '" \
       ORDER BY posts.id DESC \
       LIMIT 5');
   };
 
-  // BROKEN, DO NOT USE -->
-  /*
-  get posts with options obj: {
-    select: "id, title",
-    from: "posts",
-    where: function() {
-      this.where('id', 1)
+  /* BROKEN DO NOT USE
+  get posts with options obj, like: {
+    select: 'title',            // single string, defaults to '*' if empty or nonexistent
+    from: "posts",              // any number of inputs, defaults to "posts"
+    where: function() {         // function using .where() syntax in knex docs,
+      this.where('id', 1)         // defaults to function() {}
         .orWhere('id', '>', 10)
         .orWhere({
           title: 'the worst blog ever'
         })
     },
-    groupBy: "id",
-    orderBy: "'id', 'desc'",
-    limit: 1,
-    offset: 10,
-    //feel free to add more, just remember to add them below as well
+    orderBy: "'id', 'desc'",    // of this form --> "'columnname', 'asc|desc'", defaults to 'id'
+    limit: 1,                   // single int, defaults to 10
+    offset: 10,                 // single int, defaults to 0
+    //feel free to add more, just add them below as well and test their defaults
   }
   */
 
   // Post.getPosts = function(options) {
-  //   return db.knex
+  //   // var select;
+  //   // if (options.select[0] && options.select[1]) {
+  //   //   select = "'" + options.select[0] + "', '" + options.select[1] + "'"
+  //   // } else if (options.select[0]) {
+  //   //   select ="'" + options.select[0] + "'"
+  //   // } else {
+  //   //   select ='*'
+  //   // }
+  //   db.knex
   //     .distinct()
-  //     .select(options.select || null)
-  //     .from(options.from || null)
-  //     .where(options.where || null)
-  //     .groupBy(options.groupBy || null)
-  //     .orderBy(options.orderBy || null)
-  //     .limit(options.limit || null)
-  //     .offset(options.offset || null)
-  // }
-  //
-  // Post.getAllTitles = function() {
-  //   return db.knex
-  //     .distinct()
-  //     .select('title', 'id').from('posts').distinct('id');
+  //     .select(options.select || '*')
+  //     .from(options.from || 'posts')
+  //     .where(options.where || function() {})
+  //     .orderBy(options.orderBy || 'id')
+  //     .limit(options.limit || 10)
+  //     .offset(options.offset || 0)
+  //     .then(function(data) { //for debug porpoises
+  //       console.log(data)
+  //     })
   // };
-  //
-  // Post.getAllAuthors = function() {
-  //   return db.knex
-  //     .distinct()
-  //     .select('name', 'username').from('users').distinct('name');
-  // };
+
+  // Post.getPosts({
+  //   select: 'title,'
+  // }); //should return 20 posts, unordered
+
+  Post.getAllTitles = function() {
+    return db.knex
+      .distinct()
+      .select('title', 'id').from('posts').distinct('id');
+  };
+
+  Post.getAllAuthors = function() {
+    return db.knex
+      .distinct()
+      .select('name', 'username').from('users').distinct('name');
+  };
 
   Post.addView = function(postId) {
     new Post({

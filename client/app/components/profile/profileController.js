@@ -4,6 +4,9 @@
   .controller('profileController', function ($scope, $rootScope, userFactory, tagFactory, postFactory, $stateParams) {
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
+    console.log($scope.posts);
+
+
 
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {
@@ -20,6 +23,12 @@
           });
       }
     });
+
+
+    //check to see if user is coming for the first time
+    $scope.onFirstVisit = $stateParams.first;
+    if ($scope.onFirstVisit) {
+    }
 
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)
@@ -62,9 +71,9 @@
       });
 
 
-
-
-
+    if ($rootScope.newUser === true) {
+      $rootScope.newUser = false;
+    }
 
 
   });

@@ -1,3 +1,15 @@
+div.ui.message.floating.info.firsttime-message(ng-show="onFirstVisit")
+  i.close.icon(ng-click="onFirstVisit = false")
+  .header
+    | Welcome to &lt;code&gt;snap.
+  p First timer, eh? We've created a new repository called 'codesnap.io' on your Github profile. 
+    a(href="https://www.github.com/{{user.username}}/codesnap.io")  Check it out here.
+  p We've also created a markdown post for you called 
+    a(href="https://www.github.com/{{user.username}}/codesnap.io/posts/myFirstPost.md") myFirstPost.md, 
+    | but don't worry, it's not published yet! You can publish the post by changing the front-matter of the markdown file. 
+    a(ui-sref="faq") Visit our how-to
+    |  to learn more about codesnapping like a pro.
+    
 .content.align-top
   .small-child.pad2.align-top
     .user-info-profile
@@ -33,7 +45,7 @@
         .profile-post-links
           .link-div(ng-show="isOwner")
               a(href="{{githubUrl}}" target="_blank")
-                img(src="assets/img/edit.svg" alt="Edit Post")
+                img(src="assets/img/Edit.svg" alt="Edit Post")
                 span Edit
           .link-div
             img(src="assets/img/heart-empty-thick.svg" alt="Edit Post")

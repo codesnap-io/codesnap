@@ -41,14 +41,33 @@
                 return resp.data;
               })
               .then(function(user) {
-              $rootScope.user = user;
-              $scope.loggedIn = !!user;
-              $scope.newPostUrl = "/post/add?username=" + user.username;
-            });
+                $rootScope.user = user;
+                $scope.loggedIn = !!user;
+                $scope.newPostUrl = "/post/add?username=" + user.username;
+              });
           }
         });
+
+        // click new post results in either: go to github new post page in new window, or
+        // "you must log in to do that" drop down
+        $scope.newPost = function() {
+          if ($scope.loggedIn) {
+            //go to new post url in new window
+            $window.open($scope.newPostUrl);
+          } else {
+            console.log("new post click no login")
+              /* If user tries to like post without being logged in, show a pop up telling them that they need to log in */
+            $("body").scrollTop(0);
+            $('#post-error-container').slideDown(300);
+          }
+        };
+
       },
       link: function() {
+        /* Hide post error container when user clicks it */
+        $('#post-error-container').click(function() {
+          $(this).hide();
+        });
         //load semantic ui dropdown
         setTimeout(function() {
           $('.ui.dropdown')

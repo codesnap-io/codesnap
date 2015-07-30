@@ -5,6 +5,7 @@
 
   .factory('postFactory', function ($http, $state) {
     var currentPost = {};
+    var currentPostComments = [];
     var liked;
 
     return {
@@ -14,7 +15,6 @@
           method: 'GET',
           url: '/post/all'
         }).then(function (resp) {
-          console.log("posts data: ", resp);
           return resp.data;
         });
       },
@@ -110,13 +110,36 @@
         });
       },
 
-
+      /* Adds 1 view to the post's view count in the database */
       addPostView: function(postId) {
         return $http({
           method: 'GET',
           url: '/post/addview',
           params: {
             post_id: postId
+          }
+        });
+      },
+
+      addComment: function(post_id, paragraph, user_id, text) {
+        return $http({
+          method: 'POST',
+          url: '/comment/add',
+          data: {
+            post_id: post_id,
+            paragraph: paragraph,
+            user_id: user_id,
+            text: text
+          }
+        });
+      },
+
+      deleteComment: function(comment_id) {
+        return $http({
+          method: 'DELETE',
+          url: '/comment/delete',
+          params: {
+            comment_id: comment_id
           }
         });
       },

@@ -4,7 +4,6 @@
   var User = require('../models/user.server.model');
 
 
-
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
     var createdAt = req.session.user.get('created_at');
@@ -12,10 +11,11 @@
       .fetch()
       .then(function(user) {
         var createdAt = user.get('created_at');
+        console.log("CREATED AT: ", createdAt);
           /* If user is logging in for the first time, redirect them to their profile page.
                We determine if user is logging in for the first time by checking to see if account was created in the past 2 minutes */
           if((new Date() - createdAt) / (1000 * 60) < 2 ) {
-            res.redirect('/#/profile/' + user.get('username'));
+            res.redirect('/#/profile/' + user.get('username') + "?first=true");
           } else {
             /* If user is returning, redirect to the home page */
             res.redirect('/');

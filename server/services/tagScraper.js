@@ -14,7 +14,7 @@
 //         var $ = cheerio.load(html);
 //         $('.post-tag').each(function() {
 //           Tag.createOrSave($(this).text(), function(tag) {
-//             console.log(tag.get('title'));
+//             // console.log(tag.get('title'));
 //           });
 //         });
 //       }
@@ -22,16 +22,17 @@
 //   };
 
 //   var runScraper = function() {
-//     var count = 3;
+//     console.log("BEGIN SCRAPING");
+//     var count = 4;
 //     (function loop() {
-//       var rand = Math.round(Math.random() * (5000)) + 10000;
+//       var rand = Math.round(Math.random() * (5000)) + 7500;
 
 //       setTimeout(function() {
 //         scrapeStackOverflowTags('http://stackoverflow.com/tags?page=' + count.toString() + '&tab=popular');
 
 //         console.log(count);
 //         count++;
-//         if (count <= 30){
+//         if (count <= 150){
 //           loop();
 //         } else {
 //           console.log("COMPLETE!!!!");

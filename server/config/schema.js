@@ -68,6 +68,34 @@
     });
   })
 
+  ////////////////////////////////////////////////
+  /// Paragraphs Table Schema
+  ////////////////////////////////////////////////
+
+  .then(function() {
+    db.knex.schema.hasTable('paragraphs').then(function(exists) {
+      /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
+      // if (exists) {
+      //   db.knex.schema.dropTable('posts').then(function() {
+      //     console.log("Removed Post Table");
+      //   });
+      //   exists = false;
+      // }
+
+      /* Create users table if it doesn't exist. */
+      if (!exists) {
+        db.knex.schema.createTable('paragraphs', function(paragraph) {
+          paragraph.increments('id').primary();
+          paragraph.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
+          paragraph.integer('number');
+          paragraph.integer('line');
+        }).then(function(table) {
+          console.log('Created Paragraphs Table');
+        });
+      }
+    });
+  })
+
 
   ////////////////////////////////////////////////
   /// Tags Table Schema
@@ -146,9 +174,10 @@
       if (!exists) {
         db.knex.schema.createTable('comments', function(comment) {
           comment.increments('id').primary();
-          comment.string('text', 255);
+          comment.string('text', 2000);
           comment.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
           comment.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
+          comment.integer('paragraph');
           comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
           console.log('Created Comments Table');
@@ -217,6 +246,16 @@
     },
     votes: function() {
       return this.hasMany(Vote);
+    },
+    paragraphs: function() {
+      return this.hasMany(Paragraph);
+    }
+  });
+
+  var Paragraph = exports.Paragraph = db.Model.extend({
+    tableName: 'paragraphs',
+    posts: function(){
+      return this.belongsTo(Post, 'post_id');
     }
   });
 

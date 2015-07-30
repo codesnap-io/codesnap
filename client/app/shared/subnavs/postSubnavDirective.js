@@ -29,6 +29,11 @@
               $('#post-error-container').slideDown(300);
             }
           };
+
+          $rootScope.$on('updateComments', function(event, change) {
+            console.log(change);
+            $scope.postData.commentCount += change;
+          });
         },
         link: function(scope, elem, attr) {
           /* Hide post error container when user clicks it */

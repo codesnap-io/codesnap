@@ -40,13 +40,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     .config(config)
     .run(run);
 
-  config.$inject = ['$stateProvider', '$urlRouterProvider'];
+  config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-  function config($stateProvider, $urlRouterProvider) {
-    // console.log(localStorageServiceProvider);
-    // //prefix local storage variables for safety and profit
-    // localStorageServiceProvider
-    // .setPrefix('codesnap');
+  function config($stateProvider, $urlRouterProvider, $locationProvider) {
+
 
 
     // Default to the index view if the URL loaded is not found
@@ -98,6 +95,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           getLikeStatus: function($rootScope, postFactory, $stateParams) {
             if ($rootScope.loggedIn) {
               return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
+            }
+          },
+          getUserInfo: function($rootScope, userFactory) {
+            if ($rootScope.loggedIn) {
+              return userFactory.setUserInfo();
             }
           }
         }
@@ -163,7 +165,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         searchPosts: function(searchFactory, tagFactory, $stateParams) {
           //empty out search bar
           $('.search-box input').val('');
-          
+
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
@@ -176,7 +178,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     })
     .state('profile', {
       authenticate: false,
-      url: '/profile/:username',
+      url: '/profile/:username?first',
       views: {
         content: {
           templateUrl: 'app/components/profile/profile.html',
@@ -189,17 +191,17 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       },
       resolve: {
         /* If a user is not authenticated in the client, check to see if user is authenticated in the session.  If user is authenticated in the session, save that user's encoded id in localStorage. */
-        authUser: function(authFactory) {
+        authUser: function(authFactory, $rootScope) {
           if (!localStorage.codeSnapJwtToken) {
             authFactory.checkAuth()
               .then(function(res) {
                 if (!!res.data) {
                   localStorage.codeSnapJwtToken = res.data;
+                  $rootScope.newUser = true;
                 }
               });
           }
         },
-
         fetchRecentPosts: function(userFactory, $stateParams) {
           //empty out search bar
           $('.search-box input').val('');
@@ -210,6 +212,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       }
     });
+
+    // $locationProvider.html5Mode({
+    //   enabled: true,
+    //   requireBase: false
+    // });
 
   }
 
@@ -270,16 +277,18 @@ Handle setup of app, load in Angular dependencies, routing, etc.
 
     //sticky subnav and tag list functionality
     $(window).scroll(function() {
-      if ($(window).scrollTop() >= 71) {
-        $('.sticky').css('position', 'fixed');
-        $('.sticky').each(function() {
-          var offset = ($(this).attr('offset') || '0px');
-          $(this).css('top', offset);
-        });
-        //$('.page-content').find('.content').css('margin-top', '55px');
-      } else {
-        $('.sticky').css('position', 'static');
-        //$('.page-content').find('.content').css('margin-top', '0px');
+      if($('.sticky').is(':visible')) {
+        if ($(window).scrollTop() >= 71) {
+          $('.sticky').css('position', 'fixed');
+          $('.sticky').each(function() {
+            var offset = ($(this).attr('offset') || '0px');
+            $(this).css('top', offset);
+          });
+          $('.page-content').find('.content').css('margin-top', '55px');
+        } else {
+          $('.sticky').css('position', 'static');
+          $('.page-content').find('.content').css('margin-top', '0px');
+        }
       }
     });
   }
