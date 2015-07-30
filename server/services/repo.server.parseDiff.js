@@ -67,7 +67,7 @@
         isCodeLine = false;
       } else if (rows[i].trim().match(/^\+\+\+\sb\//)) {
         file = rows[i].trim().replace('\+\+\+ b/', '');
-        diffs[file] = {old:{}, new:{}}
+        diffs[file] = {old:{}, new:{}};
       } else if (rows[i].match(/@@(.*?)@@/)) {
         startingLine = parseInt(rows[i].match(/@@(.*?)@@/)[1].trim().split(' ')[0].split(',')[0].slice(1));
         numLinesAdd = parseInt(rows[i].match(/@@(.*?)@@/)[1].trim().split(' ')[1].split(',')[1]);
