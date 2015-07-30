@@ -9,8 +9,7 @@
 @import 'icon';
 @import 'input';
 @import 'message';
-@import 'side-comments';
-@import 'comments-default-theme';
+@import 'comments';
 // Import fonts
 @import 'fonts';
 // *** Global variables ***
@@ -380,6 +379,12 @@ header {
   width: 21px;
   height: 21px;
   justify-content: flex-start;
+}
+
+.icon {
+  img {
+    max-width: 25px;
+  }
 }
 
 .subnav .right-icons {

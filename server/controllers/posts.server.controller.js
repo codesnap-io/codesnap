@@ -85,6 +85,8 @@
                   // tagHandler.findTags(post.get('id'), words);
                 }
 
+                /* Add post's paragraphs to database */
+                service.parseParagraphs(rawFile, post.get('id'));
               }
             });
           })
@@ -343,12 +345,13 @@
   //       }
   //     },
   //     head_commit: {
-  //       added: [],
+  //       added: ['posts/js_instantiation_patterns.md'],
   //       removed: [],
-  //       modified: ['posts/javascript-scraping.md']
+  //       modified: []
   //     }
   //   };
   //   exports.postReceive(req, res);
   // }
 
 })();
+

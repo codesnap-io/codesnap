@@ -13,4 +13,6 @@
   module.exports = app;
   console.log('Server running at port: ' + process.env.PORT);
 
+  require('./services/repo.server.parseDiff');
+
 })();

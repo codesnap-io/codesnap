@@ -7,9 +7,9 @@
 
   module.exports.parseDiff = function (options, callback) {
     if (options.url) {
-      parseDiffFromUrl(options.url, callback);
+      module.exports.parseDiffFromUrl(options.url, callback);
     } else if (options.fileName) {
-      parseDiffFromFile(options.fileName, callback);
+      module.exports.parseDiffFromFile(options.fileName, callback);
     }
   };
 
@@ -67,7 +67,7 @@
         isCodeLine = false;
       } else if (rows[i].trim().match(/^\+\+\+\sb\//)) {
         file = rows[i].trim().replace('\+\+\+ b/', '');
-        diffs[file] = {old:{}, new:{}}
+        diffs[file] = {old:{}, new:{}};
       } else if (rows[i].match(/@@(.*?)@@/)) {
         startingLine = parseInt(rows[i].match(/@@(.*?)@@/)[1].trim().split(' ')[0].split(',')[0].slice(1));
         numLinesAdd = parseInt(rows[i].match(/@@(.*?)@@/)[1].trim().split(' ')[1].split(',')[1]);
@@ -100,11 +100,11 @@
     if (callback && typeof callback == 'function') {
       callback(diffs);
     }
-  };
+  }
 
   function splitLines(text) {
     return text.match(/^.*([\n\r]+|$)/gm);
-  };
+  }
 
   // exports.parseDiffFromUrl('https://github.com/m-arnold/codesnap.io/commit/de726fb139345ed2691c47e69a1ef96fe0392742.diff', function(data){
   //   console.log(data['posts/parsetest.md']);

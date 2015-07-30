@@ -8,6 +8,7 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
     $scope.postData = postFactory.getCurrentPost();
+    console.log($scope.postData);
     $scope.postData.editUrl = "https://github.com/" + $scope.postData.username + "/codesnap.io/edit/master/" + $scope.postData.file;
 
     /* Equals true if the user has already liked the post.  This is used to color in the heart icon */
@@ -63,6 +64,7 @@
       });
 
       /* Initialize side comment functionality.  We specify the user information and previous posts */
+      debugger;
       var sideComments = new SideComments('#commentable-area', $scope.user, $scope.postData.comments);
 
       /* When a commentPosted event is triggered, add the comment to the database */
@@ -72,6 +74,8 @@
 
         /* Add the new comment to the DOM */
         sideComments.insertComment(comment);
+
+        $rootScope.$emit('updateComments', 1);
       });
 
       /* Delete post.  This option is only available if the current user's username matches the username associated with the post */
@@ -82,6 +86,8 @@
         /* Remove comment from DOM */
         sideComments.removeComment(comment.sectionId, comment.id);
 
+        $rootScope.$emit('updateComments', -1);
+
       });
     };
 
@@ -90,15 +96,17 @@
     $(document).ready(function() {
       /* Shift post body back to the right when user clicks out of comments-wrapper */
       $('body').on('click', function() {
-        console.log(event.target);
+        /* Don't shift post body when user clicks on the alert created when post is deleted */
         if ($(event.target).hasClass('action-link')) {
           event.stopPropagation();
         }
-        else if((!$(event.target).closest('.side-comment').length)) {
+        /* If user clicks on the comments button belonging to an open comment section, shift the post body */
+        else if (!$(event.target).parent().parent().find('.comments-wrapper').is(':visible')) {
           $('.post-container').animate({'margin-left': '0px'}, 100);
         }
+        /* If user clicks outside of comments div, shift post body back, unless another comments div is being opened */
         else if((!$(event.target).closest('.comments-wrapper').length)) {
-          if ($('.post-container').css('margin-left') === '-420px') {
+          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment')) {
             $('.post-container').animate({'margin-left': '0px'}, 100);
           }
         }
