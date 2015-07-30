@@ -1,4 +1,13 @@
 .content.align-top
+  div.ui.message.floating.info.firsttime-message(ng-show="onFirstVisit")
+    i.close.icon(ng-click="onFirstVisit = false")
+    .header
+      | Welcome to &lt;code&gt;snap.
+    p First time? We've created a new repository called 'codesnap.io' on Github. Check it out 
+      a(href="https://www.github.com/{{user.username}}/codesnap.io") here
+      |  or 
+      a(ui-sref="faq") visit our how-to
+      |  to learn more.
   .small-child.pad2.align-top
     .user-info-profile
       img.profile-picture-large(ng-src="{{user.profile_photo_url}}" alt="profile photo")

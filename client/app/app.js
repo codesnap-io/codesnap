@@ -163,7 +163,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         searchPosts: function(searchFactory, tagFactory, $stateParams) {
           //empty out search bar
           $('.search-box input').val('');
-          
+
           return searchFactory.searchPosts($stateParams.name, 'tag')
             .then(function(posts) {
               tagFactory.setPostResult(posts);
@@ -176,7 +176,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
     })
     .state('profile', {
       authenticate: false,
-      url: '/profile/:username',
+      url: '/profile/:username?first',
       views: {
         content: {
           templateUrl: 'app/components/profile/profile.html',
@@ -199,7 +199,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
               });
           }
         },
-
         fetchRecentPosts: function(userFactory, $stateParams) {
           //empty out search bar
           $('.search-box input').val('');

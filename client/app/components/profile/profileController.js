@@ -21,6 +21,10 @@
       }
     });
 
+
+    //check to see if user is coming for the first time
+    $scope.onFirstVisit = $stateParams.first;
+
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)
       .then(function(user) {
@@ -60,6 +64,7 @@
       .then(function(tags) {
         $scope.tags = tags;
       });
+
 
 
 
