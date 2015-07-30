@@ -4,6 +4,9 @@
   .controller('profileController', function ($scope, $rootScope, userFactory, tagFactory, postFactory, $stateParams) {
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
+    console.log($scope.posts);
+
+
 
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {
@@ -66,10 +69,9 @@
       });
 
 
-
-
-
-
+    if ($rootScope.newUser === true) {
+      $rootScope.newUser = false;
+    }
 
 
   });

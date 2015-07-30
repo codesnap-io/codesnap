@@ -4,6 +4,7 @@
 
   .factory('userFactory', function($http, $state, authFactory) {
     var postResults = [];
+    var userInfo = null;
     return {
       /* Get user information from server including:
          name, username, id, profile_photo_url, posts */
@@ -12,7 +13,7 @@
           method: 'GET',
           url: '/user/info/',
           params: {
-            user_id: localStorage.codeSnapJwtToken
+            user_id: window.localStorage.codeSnapJwtToken
           }
         });
       },
@@ -78,6 +79,29 @@
         });
       },
 
+      /* Sets the user information in the userFactory that is needed for handling comments */
+      setUserInfo: function() {
+        $http({
+          method: 'GET',
+          url: '/user/info/',
+          params: {
+            user_id: window.localStorage.codeSnapJwtToken
+          }
+        })
+        .then(function(user) {
+          /* save username as id to handle comment deleting */
+          userInfo = {
+            id: window.localStorage.codeSnapJwtToken,
+            avatarUrl: user.data.profile_photo_url,
+            name: user.data.name,
+            username: user.data.username
+          };
+        });
+      },
+
+      getUserInfo: function() {
+        return userInfo;
+      },
 
       setPostResult: function(result) {
         postResults = result;

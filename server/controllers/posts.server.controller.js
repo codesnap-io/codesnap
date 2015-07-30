@@ -172,6 +172,7 @@
       });
   };
 
+  /* Return information needed for post page */
   exports.postInfo = function(req, res) {
     if (req.query.post_id) {
       var postId = req.query.post_id;

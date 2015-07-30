@@ -176,8 +176,8 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function() {
   return gulp.src('./client/assets/fonts/**/*')
-    .pipe(gulp.dest('build/assets/fonts'))
-})
+    .pipe(gulp.dest('build/assets/fonts'));
+});
 
 
 
