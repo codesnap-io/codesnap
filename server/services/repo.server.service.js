@@ -4,6 +4,7 @@
   var rp = require('request-promise');
   var fs = require('fs');
   var Promise = require('bluebird');
+  var Paragraph = require('../models/paragraph.server.model');
   Promise.promisifyAll(fs);
 
   //Promise versions:
@@ -16,7 +17,7 @@
     message: "COMMIT MESSAGE"
   }
   */
-  module.exports.addFileToGHRepo = function(token, username, path) {
+  exports.addFileToGHRepo = function(token, username, path) {
     // console.log("in addFileToGHRepo...");
     var file = fs.readFileSync(path.serverPath);
     // console.log("file read...");
@@ -37,7 +38,7 @@
 
 
   // get raw file from github for non-auth needs
-  module.exports.getRawGHFile = function(uri) {
+  exports.getRawGHFile = function(uri) {
     var options = {
       uri: uri,
       method: 'GET'
@@ -46,7 +47,7 @@
   };
 
   //get file through GH's API
-  module.exports.getFileFromGHAPI = function(token, uri) {
+  exports.getFileFromGHAPI = function(token, uri) {
     var options = {
       uri: uri,
       method: 'GET',
@@ -60,7 +61,7 @@
   };
 
   /* This function takes a github username and returns a callback whose first argument is the user's github ID */
-  module.exports.getGHUser = function(username) {
+  exports.getGHUser = function(username) {
     var options = {
       url: "https://api.github.com/users/" + username,
       method: 'GET',
@@ -72,7 +73,7 @@
     return rp(options);
   };
 
-  module.exports.addGHRepo = function(token, username) {
+  exports.addGHRepo = function(token, username) {
 
     /* These are the details for the repo that's created */
     var repoName = 'codesnap.io';
@@ -166,6 +167,110 @@
           console.error("Error in addGHRepo: ");
         }
       });
+  };
+
+
+  exports.parseParagraphs = function(file, postId) {
+    var array = file.match(/^.*([\n\r]+|$)/gm);
+    array = removeExtraLineSpace(array);
+
+    /* Each index represents the paragraph numer, the value of each index represents the line at which a paragraph starts */
+    var paragraphArray = [];
+    
+
+    /* Remove extra white space from the end of each lines */
+    var index = endYAMLIndex(array);
+
+    while (index < array.length) {
+      /* If index is not moved forward to account for YAML data, there must not be YAML data.  In this case, the first line is the start of our first paragraph */
+      if (index === 0 && !blankCheck(array[index])) {
+        paragraphArray.push(index);
+      }
+
+      /* If the previous line ended with a new line character, this must be the start of a new paragraph */
+      else if(startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
+        paragraphArray.push(index);
+      }
+
+      /* Account for code block as one paragraph */
+      if (codeBlockCheck(array[index])) {
+        index++;
+
+        /* Keep moving forward in the string until we get to the end of the code block.  We do this so that each code block is treating as its own paragraph. */
+        while (!codeBlockCheck(array[index]) && index < array.length - 1) {
+          index++;
+        }
+      }
+      index++;
+    }
+
+    addParagraphsToDb(paragraphArray, postId);
+
+    return paragraphArray;
+  };
+
+
+  /* INTERNAL FILE FUNCTIONS */
+
+  /* Splits markdown file lines into an array */
+  var splitLines = function(text) {
+    return text.match(/^.*([\n\r]+|$)/gm);
+  };
+
+  /* All lines have a \n at the end, even those that shouldn't.  Lines that have new paragraphs after have multiple \n's.  By removing the last \n, only remaining \n's should denote new paragraphs. Don't remove line breaks at the end of paragraphs */
+  var removeExtraLineSpace = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      if (!headerCheck(array[i])) {
+         array[i] = array[i].replace(/\n$/, "");
+      }
+    }
+    return array;
+  };
+
+  /* Return the first index after the YAML or 0 */
+  var endYAMLIndex = function(array) {
+    var yamlCount = 0;
+    var index = 0;
+    while (yamlCount < 2 && index < array.length) {
+      if (/^---/.test(array[index])) {
+        yamlCount++;
+      }
+      index++;
+    }
+
+    if (yamlCount === 2) {
+      return index;
+    }
+
+    return 0;
+  };
+
+  /* Returns true if string ends with a line break.  When this is true, it means that the next line is the start of a new paragraph */
+  var startNewParagraph = function(string) {
+    return /\n$/.test(string);
+  };
+
+  /* Checks to see if a string is the beginning or end of a code block (```) */
+  var codeBlockCheck = function(string) {
+     return /^```/.test(string);
+  };
+
+  /* Checks to see if a string is a header.  We don't want to count headers as paragraphs */
+  var headerCheck = function(string) {
+   return /^#/.test(string);
+  };
+
+  /* Returns true if string is blank */
+  var blankCheck = function(string) {
+    return string.length === 0;
+  };
+
+  /* Add paragraphs to database */
+  var addParagraphsToDb = function(array, postId) {
+    for (var i = 0; i < array.length; i++) {
+      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {
+      });
+    }
   };
 
 })();

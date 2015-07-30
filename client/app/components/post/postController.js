@@ -95,14 +95,17 @@
     $(document).ready(function() {
       /* Shift post body back to the right when user clicks out of comments-wrapper */
       $('body').on('click', function() {
+        /* Don't shift post body when user clicks on the alert created when post is deleted */
         if ($(event.target).hasClass('action-link')) {
           event.stopPropagation();
         }
-        else if((!$(event.target).closest('.side-comment').length)) {
+        /* If user clicks on the comments button belonging to an open comment section, shift the post body */
+        else if (!$(event.target).parent().parent().find('.comments-wrapper').is(':visible')) {
           $('.post-container').animate({'margin-left': '0px'}, 100);
         }
+        /* If user clicks outside of comments div, shift post body back, unless another comments div is being opened */
         else if((!$(event.target).closest('.comments-wrapper').length)) {
-          if ($('.post-container').css('margin-left') === '-420px') {
+          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment')) {
             $('.post-container').animate({'margin-left': '0px'}, 100);
           }
         }
