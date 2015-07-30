@@ -64,7 +64,6 @@
       });
 
       /* Initialize side comment functionality.  We specify the user information and previous posts */
-      debugger;
       var sideComments = new SideComments('#commentable-area', $scope.user, $scope.postData.comments);
 
       /* When a commentPosted event is triggered, add the comment to the database */
