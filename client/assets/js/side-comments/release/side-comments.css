@@ -1,0 +1,135 @@
+/* This enables the comments to fade in/out when they are displayed in the page */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* This is necessary for having the side comment sit on the upper right corner */
+.commentable-section {
+  position: relative;
+  z-index: -10px;
+}
+/* Hide/show comment box with no comments when user mouses over paragraph */
+.commentable-section:hover .side-comment .marker {
+  display: block;
+}
+
+.side-comment .hide {
+  display: none;
+}
+.side-comment {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  min-height: 18px;
+ /* height: 100%;*/
+}
+
+
+/*.side-comment * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}*/
+
+
+/* Formatting for the comment icon's bottom part */
+.side-comment .marker {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.side-comment .marker span {
+  display: none;
+}
+
+/* Always show comment box if there are comments on the paragrah */
+.side-comment.active .marker,
+.side-comment.has-comments .marker,
+.side-comment.has-comments ul.comments {
+  display: block;
+}
+.side-comment .add-comment {
+  display: none;
+}
+.side-comment.has-comments .add-comment,
+.side-comment.no-current-user .add-comment {
+  display: block;
+}
+.side-comment.no-current-user .add-comment {
+  margin-top: 20px;
+}
+.side-comment.has-comments .marker:before {
+  content: "";
+}
+.side-comment.has-comments .marker span {
+  display: block;
+}
+.side-comment.has-comments .add-comment.hide {
+  display: none;
+}
+.side-comment.has-comments .comment-form {
+  display: none;
+}
+.side-comment .comments-wrapper {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 400px;
+}
+.side-comment .comments {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  width: 100%;
+}
+.side-comment .comments li {
+  width: 100%;
+  overflow: hidden;
+}
+.side-comment .comment,
+.side-comment .comment-box,
+.side-comment .actions {
+  margin: 0;
+}
+.side-comment .actions,
+.side-comment .delete {
+  margin-left: 42px;
+}
+.side-comment .add-comment.active {
+  display: block;
+}
+.side-comment .comment-form {
+  overflow: hidden;
+}
+.side-comment .comment-form.active {
+  display: block;
+}
+.side-comment.active .comments-wrapper {
+  display: block;
+  font-family: 'Merriweather',sans-serif;
+}
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+}
