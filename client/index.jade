@@ -13,10 +13,11 @@ html(ng-app="codesnap" lang="en")
     //fastclick -- removes click delay on touch devices
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
 
-    //side comments
-    script(src="assets/js/side-comments/release/side-comments.js")
 
     <!-- build:js(./client/) assets/js/app.min.js -->
+    //side comments
+    script(src="assets/js/side-comments.min.js")
+        
     script(src="app/app.js")
 
     //---COMPONENTS---
@@ -98,8 +99,6 @@ html(ng-app="codesnap" lang="en")
     <!-- build:css(./client/) assets/css/styles.min.css -->
     //styles
     link(href="assets/css/styles.min.css" rel="stylesheet")
-    link(href="assets/js/side-comments/release/side-comments.css" rel="stylesheet")
-    link(href="assets/js/side-comments/release/themes/default-theme.css" rel="stylesheet")
     <!-- endbuild -->
 
     //code highlighter
@@ -114,4 +113,3 @@ html(ng-app="codesnap" lang="en")
     cr-navbar
     ui-view(name="subnav")
     ui-view.page-content(name="content")
-

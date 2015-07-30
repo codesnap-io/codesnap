@@ -27,7 +27,7 @@ var paths = {
   'client/assets/lib/angular-ui-select/dist/select.min.js', "client/assets/lib/angular-sanitize/angular-sanitize.min.js",
   "client/assets/lib/angular-local-storage/dist/angular-local-storage.min.js", "client/assets/lib/semantic-ui-dropdown/dropdown.min.js",
   "client/assets/lib/semantic-ui-transition/transition.min.js", 'client/assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
-  "client/assets/lib/semantic-ui-api/api.min.js", "client/assets/lib/semantic-ui-search/search.min.js"],
+  "client/assets/lib/semantic-ui-api/api.min.js", "client/assets/lib/semantic-ui-search/search.min.js", "client/assets/js/side-comments.js"],
   css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
   html: ['client/**/*.html', '!client/assets/lib/**/*.html']
