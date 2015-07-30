@@ -63,6 +63,13 @@
       });
   };
 
+  Post.getPostByUrl = function(postUrl) {
+    var post = new Post({
+      'url': postUrl
+    })
+    return post.fetch()
+  };
+
   Post.postInfo = function(postId, callback) {
     new Post({
         'id': postId

@@ -20,19 +20,19 @@
     $scope.user = userFactory.getUserInfo();
 
     /* If post data is successfully retrieved, get the markdown file at it's specified url */
-    postFactory.getPostMarkdown($scope.postData.post_url)
-    .then(function (post, err) {
-      if (err) {
-        console.log(err);
-      } else {
-        /* Set scope post equal to the markdown content retrieved from Github */
-        $scope.post = post;
+    postFactory.getPostMarkdown($scope.postData.post_url, $rootScope.loggedIn, $scope.postData, $scope.user)
+      .then(function (post, err) {
+        if (err) {
+          console.log(err);
+        } else {
+          /* Set scope post equal to the markdown content retrieved from Github */
+          $scope.post = post;
 
-        /* Assign paragraph attributes. Use set timeout to give page time load post data to page */
-        setTimeout(function() {
-          addSideComments();
-        });
-      }
+          /* Assign paragraph attributes. Use set timeout to give page time load post data to page */
+          setTimeout(function() {
+            addSideComments();
+          });
+        }
     });
 
 

@@ -46,6 +46,29 @@
     return rp(options);
   };
 
+  //get file CONTENTS from GH's API
+  exports.getGHFileContentsFromApi = function(postPath, username) {
+    var options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'CodeSnap'
+      },
+      params: {
+        "client_id": "7d292489ff2489c0dc96",
+        "client_secret": "d3ca1aa8a19339272e0425026b581e2e6294e2f9"
+      },
+      uri: "https://api.github.com/repos/" + username + "/codesnap.io/contents/" + postPath
+    };
+
+    return rp(options)
+      .then(function(resp) {
+        var b64Content = JSON.parse(resp).content;
+        var content = new Buffer(b64Content, 'base64');
+        return content.toString();
+      });
+  };
+
   //get file through GH's API
   exports.getFileFromGHAPI = function(token, uri) {
     var options = {
@@ -66,6 +89,7 @@
       url: "https://api.github.com/users/" + username,
       method: 'GET',
       headers: {
+        'Authorization': 'token ' + process.env.MICHAELTOKEN,
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
       }
@@ -157,7 +181,6 @@
       });
   };
 
-
   exports.parseParagraphs = function(file, postId) {
     var array = file.match(/^.*([\n\r]+|$)/gm);
     array = removeExtraLineSpace(array);
@@ -175,7 +198,7 @@
       }
 
       /* If the previous line ended with a new line character, this must be the start of a new paragraph */
-      else if(startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
+      else if (startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
         paragraphArray.push(index);
       }
 
@@ -208,7 +231,7 @@
   var removeExtraLineSpace = function(array) {
     for (var i = 0; i < array.length; i++) {
       if (!headerCheck(array[i]) && !yamlCheck(array[i])) {
-         array[i] = array[i].replace(/\n$/, "");
+        array[i] = array[i].replace(/\n$/, "");
       }
     }
     return array;
@@ -245,12 +268,12 @@
 
   /* Checks to see if a string is the beginning or end of a code block (```) */
   var codeBlockCheck = function(string) {
-     return /^```/.test(string);
+    return /^```/.test(string);
   };
 
   /* Checks to see if a string is a header.  We don't want to count headers as paragraphs */
   var headerCheck = function(string) {
-   return /^#/.test(string);
+    return /^#/.test(string);
   };
 
   /* Returns true if string is blank */
@@ -261,8 +284,7 @@
   /* Add paragraphs to database */
   var addParagraphsToDb = function(array, postId) {
     for (var i = 0; i < array.length; i++) {
-      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {
-      });
+      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {});
     }
   };
 

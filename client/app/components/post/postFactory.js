@@ -3,7 +3,7 @@
 
   angular.module('postFactory', [])
 
-  .factory('postFactory', function ($http, $state) {
+  .factory('postFactory', function($http, $state) {
     var currentPost = {};
     var currentPostComments = [];
     var liked;
@@ -14,7 +14,7 @@
         return $http({
           method: 'GET',
           url: '/post/top'
-        }).then(function (resp) {
+        }).then(function(resp) {
           return resp.data;
         });
       },
@@ -24,7 +24,7 @@
         return $http({
           method: 'GET',
           url: '/post/recent'
-        }).then(function (resp) {
+        }).then(function(resp) {
           return resp.data;
         });
       },
@@ -50,7 +50,7 @@
           params: {
             post_id: id
           }
-        }).then(function (resp) {
+        }).then(function(resp) {
           /* If post id is invalid, redirect to home page */
           if (!resp.data) {
             $state.go('home');
@@ -62,13 +62,31 @@
       },
 
       /* Download post markdown content from Github */
-      getPostMarkdown: function(url) {
-        return $http({
-          method: 'GET',
-          url: url
-        }).then(function (resp) {
-          return resp.data;
-        });
+      getPostMarkdown: function(url, loggedIn, postData, user) {
+
+        if (!loggedIn) {
+          return $http({
+            method: 'GET',
+            url: url
+          }).then(function(resp) {
+            return resp.data;
+          });
+        } else if (!!loggedIn) {
+
+          var username = postData.username;
+          var filename = postData.file;
+          var token = user.token;
+
+          return $http({
+            method: 'GET',
+            headers: {
+              "Authorization": "token " + token
+            },
+            url: "https://api.github.com/repos/" + username + "/codesnap.io/contents/" + filename
+          }).then(function(resp) {
+            return window.atob(resp.data.content);
+          });
+        }
       },
 
       /* Returns true if user likes post after toggle, otherwise returns false. */
@@ -80,7 +98,7 @@
             user_id: userId,
             post_id: postId
           }
-        }).then(function (resp) {
+        }).then(function(resp) {
           return resp;
         });
       },
@@ -94,7 +112,7 @@
             user_id: userId,
             post_id: postId
           }
-        }).then(function (resp) {
+        }).then(function(resp) {
           liked = resp.data;
           return resp.data;
         });

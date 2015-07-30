@@ -16,6 +16,9 @@
           callback(paragraph);
         });
       } else {
+        paragraph.set('number', paragraphNum);
+        paragraph.set('line', lineNum);
+        paragraph.save();
         callback(paragraph);
       }
     });
