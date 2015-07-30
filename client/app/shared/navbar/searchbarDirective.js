@@ -44,7 +44,7 @@
                 url: 'search/?q={query}'
               },
               type: 'category',
-              searchDelay: 500,
+              searchDelay: 0,
               cache: true,
               minCharacters: 2
             });
