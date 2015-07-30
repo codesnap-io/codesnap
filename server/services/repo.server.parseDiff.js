@@ -100,11 +100,11 @@
     if (callback && typeof callback == 'function') {
       callback(diffs);
     }
-  };
+  }
 
   function splitLines(text) {
     return text.match(/^.*([\n\r]+|$)/gm);
-  };
+  }
 
   // exports.parseDiffFromUrl('https://github.com/m-arnold/codesnap.io/commit/de726fb139345ed2691c47e69a1ef96fe0392742.diff', function(data){
   //   console.log(data['posts/parsetest.md']);
