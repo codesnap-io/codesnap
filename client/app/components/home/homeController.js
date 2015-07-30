@@ -7,7 +7,6 @@
 
     //for new post link
     $scope.user = $rootScope.user;
-    console.log($scope.user);
     $scope.newPostUrl = "/post/add?username=" + "fakeusername";
 
     $scope.posts = [];
@@ -20,7 +19,6 @@
           console.log("Error: ", err);
         } else {
           $scope.posts = posts;
-          console.log($scope.posts);
         }
       });
 

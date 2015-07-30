@@ -21,5 +21,18 @@
     });
   };
 
+  /* Returns a list of paragraphs for a given post */
+  Paragraph.postParagraphs = function(postId) {
+    return db.knex.raw(' \
+         SELECT \
+           id, \
+           number, \
+           line \
+         FROM paragraphs \
+         WHERE \
+           post_id = ' + postId);
+  };
+
   module.exports = Paragraph;
+
 })();
