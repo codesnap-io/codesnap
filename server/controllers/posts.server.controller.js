@@ -46,7 +46,7 @@
           .then(function(rawFile) {
             // retreive front-matter metadata
             var metadata = exports.getMetadata(rawFile);
-            var summary = exports.getSummary(rawFile);
+            var summary = exports.getSummary(rawFile).replace(/#/g, '');
 
             /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
             if (metadata.published !== undefined) {
@@ -237,7 +237,6 @@
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);
-    console.log(data.attributes);
     return data.attributes;
   };
 
@@ -320,27 +319,27 @@
   };
 
   /* Dummy Data */
-  // if (process.env.NODE_ENV === 'development') {
-  //   var req = {};
-  //   var res = {
-  //     sendStatus: function() {
-  //       return;
-  //     }
-  //   };
-  //   req.body = {
-  //     repository: {
-  //       name: 'codesnap.io',
-  //       owner: {
-  //         name: 'bdstein33'
-  //       }
-  //     },
-  //     head_commit: {
-  //       added: ['posts/bookshelf.md'],
-  //       removed: [],
-  //       modified: []
-  //     }
-  //   };
-  //   exports.postReceive(req, res);
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    var req = {};
+    var res = {
+      sendStatus: function() {
+        return;
+      }
+    };
+    req.body = {
+      repository: {
+        name: 'codesnap.io',
+        owner: {
+          name: 'bdstein33'
+        }
+      },
+      head_commit: {
+        added: ['posts/bookshelf.md'],
+        removed: [],
+        modified: []
+      }
+    };
+    exports.postReceive(req, res);
+  }
 
 })();
