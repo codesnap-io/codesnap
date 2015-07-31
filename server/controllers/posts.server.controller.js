@@ -237,6 +237,7 @@
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);
+    console.log(data.attributes);
     return data.attributes;
   };
 
@@ -334,7 +335,7 @@
   //       }
   //     },
   //     head_commit: {
-  //       added: ['posts/js_instantiation_patterns.md'],
+  //       added: ['posts/bookshelf.md'],
   //       removed: [],
   //       modified: []
   //     }
