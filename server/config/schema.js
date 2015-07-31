@@ -177,7 +177,7 @@
           comment.string('text', 2000);
           comment.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
           comment.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
-          comment.integer('paragraph');
+          comment.integer('paragraph_id').unsigned().references('paragraphs.id').onDelete('CASCADE');
           comment.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
           console.log('Created Comments Table');
@@ -287,9 +287,13 @@
 
   var Paragraph = exports.Paragraph = db.Model.extend({
     tableName: 'paragraphs',
-    posts: function(){
+    posts: function() {
       return this.belongsTo(Post, 'post_id');
+    },
+    comments: function() {
+      return this.hasMany(Comment);
     }
+
   });
 
   var Comment = exports.Comment = db.Model.extend({
@@ -299,6 +303,9 @@
     },
     post: function() {
       return this.belongsTo(Post, 'post_id');
+    },
+    paragraph: function() {
+      return this.belongsto(Paragraph, 'paragraph_id');
     }
   });
 

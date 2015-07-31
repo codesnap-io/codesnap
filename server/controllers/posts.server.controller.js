@@ -321,27 +321,27 @@
   };
 
   /* Dummy Data */
-  if (process.env.NODE_ENV === 'development') {
-    var req = {};
-    var res = {
-      sendStatus: function() {
-        return;
-      }
-    };
-    req.body = {
-      repository: {
-        name: 'codesnap.io',
-        owner: {
-          name: 'bdstein33'
-        }
-      },
-      head_commit: {
-        added: ['posts/bookshelf.md'],
-        removed: [],
-        modified: []
-      }
-    };
-    exports.postReceive(req, res);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   var req = {};
+  //   var res = {
+  //     sendStatus: function() {
+  //       return;
+  //     }
+  //   };
+  //   req.body = {
+  //     repository: {
+  //       name: 'codesnap.io',
+  //       owner: {
+  //         name: 'bdstein33'
+  //       }
+  //     },
+  //     head_commit: {
+  //       added: ['posts/bookshelf.md'],
+  //       removed: [],
+  //       modified: []
+  //     }
+  //   };
+  //   exports.postReceive(req, res);
+  // }
 
 })();

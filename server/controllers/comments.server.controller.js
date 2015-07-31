@@ -12,8 +12,7 @@
       text: req.body.text
     };
 
-    Comment.add(commentInfo)
-    .then(function() {
+    Comment.add(commentInfo, function() {
       res.json("Post successfully added.");
     });
   };
