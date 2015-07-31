@@ -110,9 +110,9 @@
     };
 
     var firstImagePath = {
-      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/sample.jpg',
+      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/snapper.svg',
       message: "(init) add first image",
-      serverPath: "./server/assets/sample.jpg"
+      serverPath: "./server/assets/snapper.svg"
     };
 
     var readmePath = {
@@ -131,23 +131,24 @@
     rp(addRepoOptions)
       /* Add various files to the repo */
       .then(function(body) {
-        /* Add first post in posts folder */
-        console.log("FIRST POST ADDED");
-        module.exports.addFileToGHRepo(token, username, firstPostPath)
+        /* Set up webhook so we receive notification when changes are made to repo */
+        console.log("WEB HOOK ADDED");
+        return rp(addWebhookOptions);
       }).then(function(body) {
         /* Add first image in images folder */
         console.log("FIRST IMAGE ADDED");
-        module.exports.addFileToGHRepo(token, username, firstImagePath)
+        return module.exports.addFileToGHRepo(token, username, firstImagePath);
       }).then(function(body) {
         /* Add readme to main repo */
         console.log("README ADDED");
-        module.exports.addFileToGHRepo(token, username, readmePath)
+        return module.exports.addFileToGHRepo(token, username, readmePath);
       }).then(function(body) {
         console.log("BIO ADDED");
-        module.exports.addFileToGHRepo(token, username, bioPath)
+        return module.exports.addFileToGHRepo(token, username, bioPath);
       }).then(function(body) {
-        /* Set up webhook so we receive notification when changes are made to repo */
-        rp(addWebhookOptions);
+        /* Add first post in posts folder */
+        console.log("FIRST POST ADDED");
+        return module.exports.addFileToGHRepo(token, username, firstPostPath);
       })
       .catch(function(e) {
         if (e.statusCode !== 422) {
