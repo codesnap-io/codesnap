@@ -21,7 +21,7 @@ div.ui.message.floating.info.firsttime-message(ng-show="newUser")
             img.profile-github-logo(src="assets/img/github.svg" alt="Github icon")
             span.username {{user.username}}
     p.profile-bio(ng-show="bio") {{bio}}
-    a.button(href="{{editUrl}}" target="_blank" ng-show="bio && isOwner")
+    a.button(href="{{editBioUrl}}" target="_blank" ng-show="bio && isOwner")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
       span.edit-bio Edit Bio
     h4.commonly-used Commonly Used Tags
@@ -35,16 +35,13 @@ div.ui.message.floating.info.firsttime-message(ng-show="newUser")
           p.day {{post.created_date | date:"dd"}}
           p.year {{post.created_date | date:"yyyy"}}
 
-      .post-content-container
-        a.clickable(ui-sref="post({id: post.post_id })" ng-show="post.published")
+      .post-content-container(ng-show="post.published || isOwner")
+        a.clickable(ui-sref="post({id: post.post_id })")
           h2.title {{post.post_title}}
-        h2.title(ng-hide="post.published") {{post.post_title}}
-        a(ui-sref="post({id: post.post_id })" ng-show="post.published")
-          p.summary {{post.summary}}...
-        p.summary(ng-hide="post.published" ) {{post.summary}}...
+        p.summary {{post.summary}}...
         .profile-post-links
           .link-div(ng-show="isOwner")
-              a(href="{{githubUrl}}" target="_blank")
+              a(href="https://www.github.com/{{user.username}}/codesnap.io/edit/master/{{post.file}}" target="_blank")
                 img(src="assets/img/Edit.svg" alt="Edit Post")
                 span Edit
           .link-div

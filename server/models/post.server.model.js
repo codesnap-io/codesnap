@@ -199,6 +199,7 @@
         posts.created_at AS created_date, \
         posts.summary AS summary, \
         posts.published AS published, \
+        posts.file AS file, \
         COUNT(likes.id) AS likes, \
         COUNT(views.post_id) AS views, \
         users.name AS author, \
