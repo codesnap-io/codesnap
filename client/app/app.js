@@ -38,9 +38,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
   function config($stateProvider, $urlRouterProvider, $locationProvider) {
-
-
-
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
     //TODO: html5mode?
@@ -133,7 +130,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           searchResults: function(searchFactory, $rootScope) {
             //empty out search bar
             $('.search-box input').val('');
-            return searchFactory.searchPosts($rootScope.searchQuery, $rootScope.searchType);
+            return searchFactory.searchPostsByTag($rootScope.searchQuery);
           }
         }
       })
@@ -161,7 +158,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           //empty out search bar
           $('.search-box input').val('');
 
-          return searchFactory.searchPosts($stateParams.name, 'tag')
+          return searchFactory.searchPostsByTag($stateParams.name)
             .then(function(posts) {
               tagFactory.setPostResult(posts);
             });
