@@ -68,9 +68,7 @@
         'id': postId
       })
       .fetch()
-      /* .fetch() returns a promise so we call .then() */
       .then(function(post) {
-        /* If the post doesn't exist, return error message. Otherwise return profile information */
         if (!post) {
           callback("Invalid post id.");
         } else {
@@ -81,15 +79,16 @@
             posts.url AS post_url, \
             posts.file AS file, \
             posts.created_at AS created_date, \
-            COUNT(posts.id) AS post_views, \
+            COUNT(likes.id) AS likes, \
+            COUNT(views.post_id) AS post_views, \
             users.name AS author, \
             users.username AS username, \
             users.profile_photo_url AS profile_photo_url \
-          FROM posts, users, views \
-          WHERE views.post_id = posts.id \
-            AND posts.user_id = users.id \
-            AND posts.published = true \
-            AND posts.id = ' + postId)
+          FROM \
+            users INNER JOIN posts ON users.id = posts.user_id \
+            LEFT JOIN likes ON posts.id = likes.post_id \
+            LEFT JOIN views ON posts.id = views.post_id \
+          WHERE posts.id = ' + postId)
             .then(function(data) {
               var postData = data[0][0];
               if (!postData) {
@@ -106,21 +105,13 @@
                     AND posts.id = ' + postId)
                   .then(function(data) {
                     postData.tags = data[0];
-                    db.knex('likes').where({
-                        post_id: postId
-                      }).count()
-                      .then(function(countData) {
-                        postData.likes = countData[0]['count(*)'];
-
-                        Comment.postComments(postId, function(comments) {
-                          postData.comments = comments;
-                          postData.commentCount = 0;
-                          comments.forEach(function(paragraph) {
-                            postData.commentCount += paragraph.comments.length;
-                          });
-                          callback(null, postData);
+                      Comment.postComments(postId, function(comments) {
+                        postData.comments = comments;
+                        postData.commentCount = 0;
+                        comments.forEach(function(paragraph) {
+                          postData.commentCount += paragraph.comments.length;
                         });
-
+                        callback(null, postData);
                       });
                   });
               }

@@ -237,6 +237,7 @@
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);
+    console.log(data.attributes);
     return data.attributes;
   };
 
@@ -319,27 +320,27 @@
   };
 
   /* Dummy Data */
-  // if (process.env.NODE_ENV === 'development') {
-  //   var req = {};
-  //   var res = {
-  //     sendStatus: function() {
-  //       return;
-  //     }
-  //   };
-  //   req.body = {
-  //     repository: {
-  //       name: 'codesnap.io',
-  //       owner: {
-  //         name: 'bdstein33'
-  //       }
-  //     },
-  //     head_commit: {
-  //       added: ['posts/js_instantiation_patterns.md'],
-  //       removed: [],
-  //       modified: []
-  //     }
-  //   };
-  //   exports.postReceive(req, res);
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    var req = {};
+    var res = {
+      sendStatus: function() {
+        return;
+      }
+    };
+    req.body = {
+      repository: {
+        name: 'codesnap.io',
+        owner: {
+          name: 'bdstein33'
+        }
+      },
+      head_commit: {
+        added: ['posts/bookshelf.md'],
+        removed: [],
+        modified: []
+      }
+    };
+    exports.postReceive(req, res);
+  }
 
 })();
