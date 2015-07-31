@@ -476,6 +476,16 @@ code {
   margin: 1.11111111rem;
   height: 8.413340525rem;
   width: 13.61111111rem;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+
+  &:hover {
+    -webkit-box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    transform: translate(-.2em, -.2em);
+  }
 }
 
 .discover-large {
@@ -483,6 +493,15 @@ code {
   margin: 1.11111111rem;
   height: 8.413340525rem;
   width: 29.44444444rem;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  &:hover {
+    -webkit-box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 7px 5px 21px 0px rgba(50, 50, 50, 0.75);
+    transform: translate(-.2em, -.2em);
+  }
 }
 
 //.content {

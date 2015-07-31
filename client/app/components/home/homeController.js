@@ -3,11 +3,32 @@
 
   angular.module('homeController', [])
 
-  .controller('homeController', function($scope, $rootScope, postFactory, tagFactory) {
+  .controller('homeController', function($scope, $rootScope, postFactory, tagFactory, userFactory, $window) {
 
     //for new post link
-    $scope.user = $rootScope.user;
-    $scope.newPostUrl = "/post/add?username=" + "fakeusername";
+    $scope.user = userFactory.getUserInfo();
+
+    if ($scope.user) {
+      $scope.newPostUrl = "/post/add?username=" + $scope.user.username + "&token=" + $scope.user.token;
+    }
+
+
+
+    // click new post results in either: go to github new post page in new window, or
+    // "you must log in to do that" drop down
+    $scope.newPost = function() {
+      $scope.loggedIn = $rootScope.loggedIn;
+      if ($scope.loggedIn) {
+        //go to new post url in new window
+        $window.open($scope.newPostUrl);
+      } else {
+        console.log("new post click no login");
+          /* If user tries to like post without being logged in, show a pop up telling them that they need to log in */
+        $("body").scrollTop(0);
+        $('#post-error-container').slideDown(300);
+      }
+    };
+
 
     $scope.posts = [];
     $scope.busy = false;

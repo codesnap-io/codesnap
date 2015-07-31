@@ -2,9 +2,10 @@
   'use strict';
   angular.module('profileController', ['userFactory', 'tagFactory', 'postFactory'])
   .controller('profileController', function ($scope, $rootScope, userFactory, tagFactory, postFactory, $stateParams) {
-    
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
+
+
 
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {
@@ -25,6 +26,8 @@
 
     //check to see if user is coming for the first time
     $scope.onFirstVisit = $stateParams.first;
+    // if ($scope.onFirstVisit) {
+    // }
 
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)
@@ -37,11 +40,8 @@
           $scope.isOwner = false;
         } else {
           userFactory.ownsProfile(window.localStorage.jwtToken, user.username)
-          .then(function(data) {
-            $scope.isOwner = data.owner;
-            $scope.newUser = data.newUser;
-            $scope.newUser = true;
-            console.log($scope.newUser);
+          .then(function(ownerStatus) {
+            $scope.isOwner = ownerStatus;
           });
         }
 
@@ -58,6 +58,7 @@
             } else {
               /* Set scope post equal to the markdown content retrieved from Github */
               $scope.bio = bio;
+
             }
           });
       });
@@ -67,5 +68,12 @@
       .then(function(tags) {
         $scope.tags = tags;
       });
+
+
+    if ($rootScope.newUser === true) {
+      $rootScope.newUser = false;
+    }
+
+
   });
 })();

@@ -9,7 +9,7 @@
             method: 'GET',
             url: '/search/tag',
             params: {
-              tag: tag,
+              tag: tag
             }
           }).then(function(resp) {
             console.log(resp.data);
