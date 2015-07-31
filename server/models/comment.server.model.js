@@ -3,9 +3,24 @@
 
   var db = require('../config/db');
   var Comment = require('../config/schema').Comment;
+  var Paragraph = require('./paragraph.server.model');
 
-  Comment.add = function(commentData) {
-    return new Comment(commentData).save();
+
+  Comment.add = function(commentData, callback) {
+    /* First we find the paragraph this comment belongs to so we can use it's id as a foreign key in the comment table */
+    new Paragraph({'number': commentData.paragraph, 'post_id': commentData.post_id})
+      .fetch()
+      .then(function(paragraph) {
+        /* Once we find the paragraph, delete the paragraph key from commentData and add paragraph_id so that the object can be used to create a new comment */
+        delete commentData.paragraph;
+        commentData.paragraph_id = paragraph.get('id');
+        new Comment(commentData)
+        .save()
+        .then(function(comment) {
+          callback(comment);
+        });
+       
+      });
   };
 
   /* This function creates a formatted array of post comments.  This function is called in the Post model */
@@ -16,11 +31,12 @@
           comments.text AS comment, \
           users.name AS authorName, \
           users.profile_photo_url AS authorAvatarUrl, \
-          comments.paragraph AS sectionId, \
+          paragraphs.number AS sectionId, \
           users.username AS authorUsername \
-        FROM comments, users \
+        FROM comments, users, paragraphs \
         WHERE \
           comments.user_id = users.id AND \
+          comments.paragraph_id = paragraphs.id AND \
           comments.post_id = ' + postId)
    .then(function(results) {
       var data = results[0] || [];
