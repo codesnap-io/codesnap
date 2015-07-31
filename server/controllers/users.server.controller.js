@@ -10,7 +10,6 @@
       .fetch()
       .then(function(user) {
         var createdAt = user.get('created_at');
-        console.log("CREATED AT: ", createdAt);
           /* If user is logging in for the first time, redirect them to their profile page.
                We determine if user is logging in for the first time by checking to see if account was created in the past 2 minutes */
           if((new Date() - createdAt) / (1000 * 60) < 2 ) {

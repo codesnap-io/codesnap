@@ -6,7 +6,7 @@
     $scope.posts = userFactory.getPostResult();
     console.log($scope.posts);
 
-
+    
 
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {

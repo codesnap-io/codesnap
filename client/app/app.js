@@ -89,11 +89,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
               return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
             }
           },
-          // getUserInfo: function($rootScope, userFactory) {
-          //   if ($rootScope.loggedIn) {
-          //     return userFactory.setUserInfo();
-          //   }
-          // }
         }
       })
       .state('signup', {
@@ -178,7 +173,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         subnav: {
           templateUrl: 'app/shared/subnavs/profileSubnav.html'
-          // controller: 'profileController'
         }
       },
       resolve: {
@@ -193,9 +187,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
                 }
               });
           }
+          $location.url($location.path());
         },
         fetchRecentPosts: function(userFactory, $stateParams) {
-          //empty out search bar
+          /* Empty out search bar */
           $('.search-box input').val('');
           return userFactory.getRecentUserPosts($stateParams.username)
           .then(function(posts) {
