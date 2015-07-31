@@ -24,7 +24,7 @@
         } else {
           /* Otherwise don't create a new view */
           callback(false);
-        }        
+        }
       });
   };
 
