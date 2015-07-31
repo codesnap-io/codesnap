@@ -33,7 +33,6 @@
               addTag();
             });
           }
-          
           /* If the result does not meet our matching standard, create new PostTagJoin with new tag */
           else {
             PostTagJoin.createOrAdd(postId, tag, function(join) {

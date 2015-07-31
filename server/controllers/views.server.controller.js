@@ -5,8 +5,8 @@
 
   exports.addView = function(req, res) {
     /* Get address infomration from request.  Not all request will provide the same information */
-    var address = req.headers['x-forwarded-for'] || 
-     req.connection.remoteAddress || 
+    var address = req.headers['x-forwarded-for'] ||
+     req.connection.remoteAddress ||
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress;
 
