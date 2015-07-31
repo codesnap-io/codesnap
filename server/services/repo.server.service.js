@@ -129,42 +129,29 @@
 
     /* Create repo if user signs up and repo doesn't already exist */
     rp(addRepoOptions)
-      .then(function(body) {
-      })
       /* Add various files to the repo */
       .then(function(body) {
         /* Add first post in posts folder */
         console.log("FIRST POST ADDED");
-        module.exports.addFileToGHRepo(token, username, firstPostPath);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-           /* Add first image in images folder */
-           console.log("FIRST IMAGE ADDED");
-          module.exports.addFileToGHRepo(token, username, firstImagePath);
-        }, 500);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-          /* Add readme to main repo */
-          console.log("README ADDED");
-          module.exports.addFileToGHRepo(token, username, readmePath);
-        }, 500);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-          /* Add readme to main repo */
-          console.log("BIO ADDED");
-          module.exports.addFileToGHRepo(token, username, bioPath);
-        }, 500);
-      })
-      .then(function(body) {
+        module.exports.addFileToGHRepo(token, username, firstPostPath)
+      }).then(function(body) {
+        /* Add first image in images folder */
+        console.log("FIRST IMAGE ADDED");
+        module.exports.addFileToGHRepo(token, username, firstImagePath)
+      }).then(function(body) {
+        /* Add readme to main repo */
+        console.log("README ADDED");
+        module.exports.addFileToGHRepo(token, username, readmePath)
+      }).then(function(body) {
+        console.log("BIO ADDED");
+        module.exports.addFileToGHRepo(token, username, bioPath)
+      }).then(function(body) {
         /* Set up webhook so we receive notification when changes are made to repo */
         rp(addWebhookOptions);
       })
       .catch(function(e) {
         if (e.statusCode !== 422) {
-          console.error("Error in addGHRepo: ");
+          console.error("Error in addGHRepo: ", e);
         }
       });
   };
