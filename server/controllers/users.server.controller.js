@@ -6,7 +6,6 @@
 
   exports.githubRedirect = function(req, res) {
     req.session.user = req.user;
-    var createdAt = req.session.user.get('created_at');
     new User({id: req.session.user.get('id')})
       .fetch()
       .then(function(user) {
