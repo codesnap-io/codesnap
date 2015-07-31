@@ -4,26 +4,18 @@
   angular.module('searchFactory', [])
     .factory('searchFactory', function($http) {
       return {
-        searchPosts: function(searchQuery, searchType) {
-          console.log('searching posts with ' + searchQuery + " and " + searchType);
+        searchPostsByTag: function(tag) {
           return $http({
             method: 'GET',
-            url: '/search/results',
+            url: '/search/tag',
             params: {
-              searchQuery: searchQuery,
-              searchType: searchType
+              tag: tag,
             }
           }).then(function(resp) {
+            console.log(resp.data);
             return resp.data;
           });
         }
-
-        // getAllData: function(callback) {
-        //   return $http({
-        //     method: 'GET',
-        //     url: 'search/all'
-        //   });
-        // }
       };
     });
 

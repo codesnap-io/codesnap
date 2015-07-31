@@ -7,10 +7,6 @@
        Data returned: post_id, post_title, post_url, post_author */
     app.get('/post/info', posts.postInfo);
 
-    /* Paramenters: none
-       Data returned: post_id, post_title, post_url, post_author */
-    app.get('/post/all', posts.allPostsInfo);
-
     app.get('/post/top', posts.topPosts);
 
     app.get('/post/recent', posts.recentPosts);
@@ -21,7 +17,7 @@
 
     //parameters: a specific post
     //data returned: 20 posts after
-    app.get('/post/more', posts.getMorePosts);
+    app.get('/post/more/recent', posts.getMoreRecentPosts);
     /* Parameters: username
        Returns 20 most recent posts */
     app.get('/post/user/recent', posts.recentUserPosts);
@@ -29,8 +25,6 @@
     /* Parameters: username
        Returns 20 most popular posts */
     app.get('/post/user/top', posts.topUserPosts);
-
-    //app.post('/post/edit', posts.editPost);
   };
 
 })();

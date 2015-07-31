@@ -22,11 +22,10 @@
         }
       });
 
-    //add more posts on scroll--takes post to get more after
+    /* This function fetches more posts when user scrolls down to bottom of post-list div.  This function takes in the last post.  We then take the post id from this post and fetch the next posts with a lower post_id (created before the last post) */
     $scope.addMorePosts = function(lastPost) {
-      console.log("getting more posts...");
       $scope.busy = true;
-      postFactory.getMorePosts(lastPost)
+      postFactory.getMorePosts(lastPost.post_id)
         .then(function(resp, err) {
           var posts = resp.data;
           $scope.busy = false;
@@ -38,7 +37,6 @@
             });
           } else if (resp.status === 204) {
             $scope.busy = true;
-            console.log("no more posts to display");
           }
         });
     };

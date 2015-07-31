@@ -234,17 +234,6 @@
     }
   };
 
-  exports.allPostsInfo = function(req, res) {
-    Post.getAllPosts(function(error, posts) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.json(posts);
-      }
-    });
-  };
-
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);
@@ -272,9 +261,9 @@
       });
   };
 
-  exports.getMorePosts = function(req, res) {
-    if (req.query.lastPost) {
-      Post.getMorePosts(req.query.lastPost)
+  exports.getMoreRecentPosts = function(req, res) {
+    if (req.query.last_post_id) {
+      Post.getMoreRecentPosts(req.query.last_post_id)
         .then(function(posts) {
           if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
             res.json(posts[0]);

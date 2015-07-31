@@ -9,16 +9,6 @@
     var liked;
 
     return {
-      /* Retrieves data about all posts from server */
-      getPostsData: function() {
-        return $http({
-          method: 'GET',
-          url: '/post/all'
-        }).then(function (resp) {
-          return resp.data;
-        });
-      },
-
       /* Retrieves 20 posts with the most likes */
       getTopPosts: function() {
         return $http({
@@ -40,14 +30,14 @@
       },
 
       //get 20 posts after lastPost
-      getMorePosts: function(lastPost) {
+      getMorePosts: function(lastPostId) {
         //TODO: instead of sending back entire last post in params, only send back relevant part
         // var param = lastPost[query];
         return $http({
           method: 'GET',
-          url: 'post/more',
+          url: 'post/more/recent',
           params: {
-            lastPost: lastPost
+            last_post_id: lastPostId
           }
         });
       },
@@ -146,12 +136,12 @@
         });
       },
 
-
-      //allow current posts and likes to be accessible by controllers
+      /* Sets current post when in resolve, before user reaches a post page. Allow current posts and likes to be accessible by controllers. */
       getCurrentPost: function() {
         return currentPost;
       },
 
+      /* Used to retrieve post information when set in resolve once user views post page */
       getCurrentLike: function() {
         return liked;
       }
