@@ -234,17 +234,6 @@
     }
   };
 
-  exports.allPostsInfo = function(req, res) {
-    Post.getAllPosts(function(error, posts) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.json(posts);
-      }
-    });
-  };
-
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);

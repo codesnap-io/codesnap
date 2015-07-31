@@ -64,9 +64,6 @@
   };
 
   Post.postInfo = function(postId, callback) {
-    /* Create a post object which we call
-    .fetch() on to search the database to see
-    if that post already exists */
     new Post({
         'id': postId
       })
@@ -133,7 +130,7 @@
   };
 
 
-
+  /* Gets all titls based on what user types into the search box.  */
   Post.getTitlesByQuery = function(query, callback) {
     db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.published AS published',
         'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
@@ -144,50 +141,50 @@
       });
   };
 
+  // /* Fetches results based on search result */
+  // Post.getPostsOnQuery = function(query, queryType, callback) {
+  //   if (queryType === 'tag') {
+  //     // get all posts that have a given tag
+  //     db.knex.raw('\
+  //       SELECT \
+  //         posts.id AS post_id, \
+  //         posts.title AS post_title, \
+  //         posts.url AS post_url, \
+  //         posts.created_at AS created_date, \
+  //         posts.summary AS summary, \
+  //         users.name AS author, \
+  //         users.username AS username, \
+  //         posts.published AS published, \
+  //         COUNT(likes.id) AS likes, \
+  //         users.profile_photo_url AS profile_photo_url \
+  //       FROM \
+  //         users INNER JOIN posts ON users.id = posts.user_id \
+  //         INNER JOIN post_tag_join ON posts.id = post_tag_join.post_id \
+  //         INNER JOIN tags ON post_tag_join.tag_id = tags.id \
+  //         LEFT JOIN likes ON posts.id = likes.post_id \
+  //       WHERE \
+  //         posts.published = true AND \
+  //         tags.title = "' + query + '" \
+  //       GROUP BY posts.id \
+  //        ORDER BY created_date DESC, likes DESC \
+  //       LIMIT 50')
+  //       .then(function(data) {
+  //         callback(null, data[0]);
+  //       });
+  //   } else {
+  //     db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary', 'posts.created_at AS created_date', 'posts.published AS published',
+  //         'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
+  //       .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
+  //       .then(function(data) {
+  //         callback(null, data);
+  //       });
+  //   }
 
-  Post.getPostsOnQuery = function(query, queryType, callback) {
-    if (queryType === 'tag') {
-      // get all posts that have a given tag
-      db.knex.raw('\
-        SELECT \
-          posts.id AS post_id, \
-          posts.title AS post_title, \
-          posts.url AS post_url, \
-          posts.created_at AS created_date, \
-          posts.summary AS summary, \
-          posts.created_at AS post_date, \
-          users.name AS author, \
-          users.username AS username, \
-          posts.published AS published, \
-          COUNT(likes.id) AS likes, \
-          users.profile_photo_url AS profile_photo_url \
-        FROM \
-          users INNER JOIN posts ON users.id = posts.user_id \
-          INNER JOIN post_tag_join ON posts.id = post_tag_join.post_id \
-          INNER JOIN tags ON post_tag_join.tag_id = tags.id \
-          LEFT JOIN likes ON posts.id = likes.post_id \
-        WHERE \
-          posts.published = true AND \
-          tags.title = "' + query + '" \
-        GROUP BY posts.id \
-         ORDER BY created_date DESC, likes DESC \
-        LIMIT 50')
-        .then(function(data) {
-          callback(null, data[0]);
-        });
-    } else {
-      db.knex.select('posts.id AS post_id', 'posts.title AS post_title', 'posts.summary AS summary', 'posts.created_at AS created_date', 'posts.published AS published',
-          'posts.url AS post_url', 'users.name AS author', 'users.profile_photo_url AS profile_photo_url')
-        .from('posts').where(queryType, 'like', '%' + query + '%').leftOuterJoin('users', 'posts.user_id', 'users.id')
-        .then(function(data) {
-          callback(null, data);
-        });
-    }
+  // };
 
-  };
-
-  Post.getAllPosts = function(callback, options) {
-    db.knex.raw(' \
+  /* Fetches results based on search result */
+  Post.getPostsByTag = function(tag, callback) {
+    db.knex.raw('\
       SELECT \
         posts.id AS post_id, \
         posts.title AS post_title, \
@@ -196,17 +193,28 @@
         posts.summary AS summary, \
         users.name AS author, \
         users.username AS username, \
+        posts.published AS published, \
+        COUNT(likes.id) AS likes, \
+        COUNT(views.post_id) AS views, \
         users.profile_photo_url AS profile_photo_url \
-      FROM posts, users \
-      WHERE posts.user_id = users.id \
-      AND posts.published = true')
+      FROM \
+        users INNER JOIN posts ON users.id = posts.user_id \
+        INNER JOIN post_tag_join ON posts.id = post_tag_join.post_id \
+        INNER JOIN tags ON post_tag_join.tag_id = tags.id \
+        LEFT JOIN likes ON posts.id = likes.post_id \
+        LEFT JOIN views ON posts.id = views.post_id \
+      WHERE \
+        posts.published = true AND \
+        tags.title = "' + tag + '" \
+      GROUP BY posts.id \
+       ORDER BY likes DESC, created_date DESC \
+      LIMIT 50')
       .then(function(data) {
         callback(null, data[0]);
       });
+    
+
   };
-
-
-
 
   //takes a post and returns 20 posts that were created earlier than it
   Post.getMorePosts = function(lastPost) {
@@ -276,29 +284,6 @@
   //   select: 'title,'
   // }); //should return 20 posts, unordered
 
-  Post.getAllTitles = function() {
-    return db.knex
-      .distinct()
-      .select('title', 'id').from('posts').distinct('id');
-  };
-
-  Post.getAllAuthors = function() {
-    return db.knex
-      .distinct()
-      .select('name', 'username').from('users').distinct('name');
-  };
-
-  // Post.addView = function(postId) {
-  //   new Post({
-  //       id: postId
-  //     })
-  //     .fetch()
-  //     .then(function(post) {
-  //       post.set('views', post.get('views') + 1);
-  //       post.save();
-  //     });
-  // };
-
   /* For profile page */
   Post.recentUserPosts = function(username) {
     return db.knex.raw('\
@@ -308,15 +293,16 @@
         posts.url AS post_url, \
         posts.created_at AS created_date, \
         posts.summary AS summary, \
-        posts.views AS views, \
         posts.published AS published, \
         COUNT(likes.id) AS likes, \
+        COUNT(views.post_id) AS views, \
         users.name AS author, \
         users.username AS username, \
         users.profile_photo_url AS profile_photo_url \
       FROM \
       users INNER JOIN posts ON users.id = posts.user_id \
       LEFT JOIN likes ON posts.id = likes.post_id \
+      LEFT JOIN views ON posts.id = views.post_id \
       WHERE \
         users.username = "' + username + '" \
       GROUP BY posts.id \
@@ -333,15 +319,16 @@
         posts.url AS post_url, \
         posts.created_at AS created_date, \
         posts.summary AS summary, \
-        posts.views AS views, \
         posts.published AS published, \
         COUNT(likes.id) AS likes, \
+        COUNT(views.post_id) AS views, \
         users.name AS author, \
         users.username AS username, \
         users.profile_photo_url AS profile_photo_url \
       FROM \
       users INNER JOIN posts ON users.id = posts.user_id \
       LEFT JOIN likes ON posts.id = likes.post_id \
+      LEFT JOIN views ON posts.id = views.post_id \
       WHERE \
         users.username = "' + username + '" \
       GROUP BY posts.id \
@@ -349,7 +336,7 @@
       LIMIT 20');
   };
 
-  /* For home page */
+  /* Returns most recent posts from all posts.  This is used on the home page. */
   Post.getRecentPosts = function() {
     return db.knex.raw(' \
       SELECT \
@@ -358,8 +345,8 @@
         posts.url AS post_url, \
         posts.created_at AS created_date, \
         posts.summary AS summary, \
-        posts.views AS views, \
         posts.published AS published, \
+        COUNT(views.post_id) AS views, \
         COUNT(likes.id) AS likes, \
         users.name AS author, \
         users.username AS username, \
@@ -367,14 +354,15 @@
       FROM \
       users INNER JOIN posts ON users.id = posts.user_id \
       LEFT JOIN likes ON posts.id = likes.post_id \
+      LEFT JOIN views ON posts.id = views.post_id \
       WHERE posts.published = true \
       GROUP BY posts.id \
       ORDER BY created_date DESC, likes DESC \
-      LIMIT 10');
+      LIMIT 20');
   };
 
 
-  /* For home page */
+  /* Returns top posts from all posts.  This is used on the home page. */
   Post.getTopPosts = function() {
     return db.knex.raw('\
       SELECT \
@@ -383,8 +371,8 @@
         posts.url AS post_url, \
         posts.created_at AS created_date, \
         posts.summary AS summary, \
-        posts.views AS views, \
         posts.published AS published, \
+        COUNT(views.post_id) AS views, \
         COUNT(likes.id) AS likes, \
         users.name AS author, \
         users.username AS username, \
@@ -392,7 +380,8 @@
       FROM \
       users INNER JOIN posts ON users.id = posts.user_id \
       LEFT JOIN likes ON posts.id = likes.post_id \
-       WHERE posts.published = true \
+      LEFT JOIN views ON posts.id = views.post_id \
+      WHERE posts.published = true \
       GROUP BY posts.id \
       ORDER BY likes DESC, views DESC\
       LIMIT 20');
