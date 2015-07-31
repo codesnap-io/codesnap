@@ -8,7 +8,6 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
     $scope.postData = postFactory.getCurrentPost();
-    console.log($scope.postData);
     $scope.postData.editUrl = "https://github.com/" + $scope.postData.username + "/codesnap.io/edit/master/" + $scope.postData.file;
 
     /* Equals true if the user has already liked the post.  This is used to color in the heart icon */
@@ -105,7 +104,6 @@
         }
         /* If user clicks outside of comments div, shift post body back, unless another comments div is being opened */
         else if((!$(event.target).closest('.comments-wrapper').length)) {
-          console.log("C");
           if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment') && !$(event.target).hasClass('marker')) {
             $('.post-container').animate({'margin-left': '0px'}, 100);
           }

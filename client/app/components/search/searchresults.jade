@@ -20,7 +20,7 @@
         .profile-post-links
           a.link-div(ui-sref="profile({username: post.username })")
             .link-div
-              img.profile-pic(src="{{post.profile_photo_url}}")
+              img.profile-pic(ng-src="{{post.profile_photo_url}}")
             .link-div
               span.author-name {{post.author}}
           .link-div
