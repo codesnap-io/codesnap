@@ -9,13 +9,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'ui.router',
       //markdown parser
       'mdParserDirective',
-      //select for search
-      'ui.select',
-      'ngSanitize',
       //infinite scroll
       'infinite-scroll',
-      //localStorage
-      'LocalStorageModule',
       //components
       'homeController',
       'signupController',
@@ -97,11 +92,11 @@ Handle setup of app, load in Angular dependencies, routing, etc.
               return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
             }
           },
-          getUserInfo: function($rootScope, userFactory) {
-            if ($rootScope.loggedIn) {
-              return userFactory.setUserInfo();
-            }
-          }
+          // getUserInfo: function($rootScope, userFactory) {
+          //   if ($rootScope.loggedIn) {
+          //     return userFactory.setUserInfo();
+          //   }
+          // }
         }
       })
       .state('signup', {

@@ -41,6 +41,7 @@
                 return resp.data;
               })
               .then(function(user) {
+                userFactory.setUserInfo(user);
                 $rootScope.user = user;
                 $scope.loggedIn = !!user;
                 $scope.newPostUrl = "/post/add?username=" + user.username + "&token=" + user.token;
