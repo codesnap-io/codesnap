@@ -88,7 +88,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             if ($rootScope.loggedIn) {
               return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
             }
-          },
+          }
         }
       })
       .state('signup', {
