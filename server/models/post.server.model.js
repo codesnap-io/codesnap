@@ -84,12 +84,13 @@
             posts.url AS post_url, \
             posts.file AS file, \
             posts.created_at AS created_date, \
-            posts.views AS post_views, \
+            COUNT(posts.id) AS post_views, \
             users.name AS author, \
             users.username AS username, \
             users.profile_photo_url AS profile_photo_url \
-          FROM posts, users \
-          WHERE posts.user_id = users.id \
+          FROM posts, users, views \
+          WHERE views.post_id = posts.id \
+            AND posts.user_id = users.id \
             AND posts.published = true \
             AND posts.id = ' + postId)
             .then(function(data) {
@@ -155,7 +156,6 @@
           posts.created_at AS created_date, \
           posts.summary AS summary, \
           posts.created_at AS post_date, \
-          posts.views AS views, \
           users.name AS author, \
           users.username AS username, \
           posts.published AS published, \
@@ -288,16 +288,16 @@
       .select('name', 'username').from('users').distinct('name');
   };
 
-  Post.addView = function(postId) {
-    new Post({
-        id: postId
-      })
-      .fetch()
-      .then(function(post) {
-        post.set('views', post.get('views') + 1);
-        post.save();
-      });
-  };
+  // Post.addView = function(postId) {
+  //   new Post({
+  //       id: postId
+  //     })
+  //     .fetch()
+  //     .then(function(post) {
+  //       post.set('views', post.get('views') + 1);
+  //       post.save();
+  //     });
+  // };
 
   /* For profile page */
   Post.recentUserPosts = function(username) {

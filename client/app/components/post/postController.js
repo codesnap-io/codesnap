@@ -15,7 +15,7 @@
     $scope.like = postFactory.getCurrentLike();
 
     /* Adds one view count to the databsae for this post */
-    postFactory.addPostView($scope.post_id);
+    postFactory.addPostView($scope.post_id, window.localStorage.codeSnapJwtToken);
 
      /* This contains the user information needed to add comments */
     $scope.user = userFactory.getUserInfo();
@@ -105,7 +105,8 @@
         }
         /* If user clicks outside of comments div, shift post body back, unless another comments div is being opened */
         else if((!$(event.target).closest('.comments-wrapper').length)) {
-          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment')) {
+          console.log("C");
+          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment') && !$(event.target).hasClass('marker')) {
             $('.post-container').animate({'margin-left': '0px'}, 100);
           }
         }
