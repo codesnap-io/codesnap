@@ -8,7 +8,7 @@ section.subnav.sticky(post-subnav ng-show="postData")
       .post-author-date
         span.author(ui-sref="profile({username: postData.username})") {{postData.author}}
         span.date {{postData.created_date | date:"MMM dd, yyyy"}}
-      a.icon(ng-click="toggleLike()")
+      a.icon(ng-click="toggleLike()" class="pointer")
         img.heart(src="assets/img/heart-full.png" alt="New Post Icon" ng-show="isLiked")
         img.heart(src="assets/img/heart-empty.png" alt="Likes Icon" ng-hide="isLiked")
         span {{postData.likes}}
