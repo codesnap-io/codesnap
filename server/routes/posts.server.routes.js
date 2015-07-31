@@ -17,7 +17,7 @@
 
     //parameters: a specific post
     //data returned: 20 posts after
-    app.get('/post/more', posts.getMorePosts);
+    app.get('/post/more/recent', posts.getMoreRecentPosts);
     /* Parameters: username
        Returns 20 most recent posts */
     app.get('/post/user/recent', posts.recentUserPosts);
@@ -25,8 +25,6 @@
     /* Parameters: username
        Returns 20 most popular posts */
     app.get('/post/user/top', posts.topUserPosts);
-
-    //app.post('/post/edit', posts.editPost);
   };
 
 })();

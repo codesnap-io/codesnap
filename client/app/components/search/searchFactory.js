@@ -3,7 +3,6 @@
 
   angular.module('searchFactory', [])
     .factory('searchFactory', function($http) {
-      console.log("SEARCH POSTS");
       return {
         searchPostsByTag: function(tag) {
           return $http({

@@ -30,14 +30,14 @@
       },
 
       //get 20 posts after lastPost
-      getMorePosts: function(lastPost) {
+      getMorePosts: function(lastPostId) {
         //TODO: instead of sending back entire last post in params, only send back relevant part
         // var param = lastPost[query];
         return $http({
           method: 'GET',
-          url: 'post/more',
+          url: 'post/more/recent',
           params: {
-            lastPost: lastPost
+            last_post_id: lastPostId
           }
         });
       },
