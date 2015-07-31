@@ -107,7 +107,6 @@
       .then(function(user) {
         result.owner = user.get('username') === username;
         result.newUser = (new Date() - user.get('created_at')) / (1000 * 60) < 2;
-        console.log(result.newUser);
         res.json(result);
       });
   };
