@@ -58,16 +58,22 @@
   };
 
   Tag.createOrSave = function(tagTitle, callback) {
+    // console.log(tagTitle);
     new Tag({'title': tagTitle})
     .fetch()
     .then(function(tag) {
+      // console.log("A")
       if (!tag) {
+        // console.log("B")
+        // console.log("TAG DOESN'T EXIST");
         new Tag({'title': tagTitle, 'pattern': randomPattern()})
         .save()
         .then(function(tag) {
           callback(tag);
         });
       } else {
+        // console.log("C");
+        // console.log("TAG EXISTS");
         callback(tag);
       }
     });
