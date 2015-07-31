@@ -176,7 +176,6 @@
 
     /* Each index represents the paragraph numer, the value of each index represents the line at which a paragraph starts */
     var paragraphArray = [];
-    
 
     /* Remove extra white space from the end of each lines */
     var index = endYAMLIndex(array);

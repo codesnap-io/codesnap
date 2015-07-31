@@ -4,14 +4,19 @@
   var PostTagJoin = require('../config/schema').PostTagJoin;
   var Tag = require('./tag.server.model');
 
-  PostTagJoin.createOrAdd = function(postId, tagTitle) {
+  PostTagJoin.createOrAdd = function(postId, tagTitle, callback) {
     Tag.createOrSave(tagTitle, function(tag) {
       new PostTagJoin({post_id: postId, tag_id: tag.get('id')})
       .fetch()
       .then(function(join) {
         if (!join) {
           new PostTagJoin({post_id: postId, tag_id: tag.get('id')})
-          .save();
+          .save()
+          .then(function(join) {
+            callback(join);
+          });
+        } else {
+          callback(join);
         }
       });
     });
