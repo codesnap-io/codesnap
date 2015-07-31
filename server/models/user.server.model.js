@@ -22,6 +22,7 @@
         returnData.name = user.get('name');
         returnData.username = user.get('username');
         returnData.profile_photo_url = user.get('profile_photo_url');
+        returnData.token = user.get('github_token');
         db.knex.raw(' \
           SELECT \
             posts.title AS post_title, \
