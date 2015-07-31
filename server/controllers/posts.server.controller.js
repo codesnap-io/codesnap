@@ -159,8 +159,10 @@
   };
 
   exports.postReceive = function(req, res) {
-    console.log("------------Post received----------------", req.body);
+    //console.log("------------Post received----------------", req.body);
     res.sendStatus(201);
+
+    console.log("------------Post received----------------", req.body);
 
     /* The data points we're receiving from the Github webhook.  It's possible that one or many of the filename arrays will contain data */
     var username = req.body.repository.owner.name;
