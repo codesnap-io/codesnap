@@ -5,8 +5,6 @@
     $scope.username = $stateParams.username;
     $scope.posts = userFactory.getPostResult();
 
-
-
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {
       console.log(list);
@@ -50,7 +48,7 @@
         $scope.editBioUrl = "https://github.com/" + $scope.user.username + "/codesnap.io/edit/master/bio.md";
         $scope.githubUrl = "https://github.com/" + $scope.user.username;
 
-        postFactory.getPostMarkdown(bioUrl)
+        userFactory.getBio(bioUrl, $rootScope.loggedIn, $scope.user, $rootScope.user)
           .then(function (bio, err) {
             if (err) {
               /* If there is no bio file, set $scope.bio to false so that the bio and edit bio elements don't show */

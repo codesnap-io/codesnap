@@ -93,13 +93,42 @@
       This is being set in the navbar directive, as it is the first component tha is able to
       access the user token when it is available */
       setUserInfo: function(user) {
-          /* save username as id to handle comment deleting */
-          userInfo = {
-            id: window.localStorage.codeSnapJwtToken,
-            avatarUrl: user.profile_photo_url,
-            name: user.name,
-            username: user.username
-          };
+        /* save username as id to handle comment deleting */
+        userInfo = {
+          id: window.localStorage.codeSnapJwtToken,
+          avatarUrl: user.profile_photo_url,
+          name: user.name,
+          username: user.username,
+          token: user.token
+        };
+      },
+
+      /* Download post markdown content from Github */
+      getBio: function(url, loggedIn, profileUser, user) {
+
+        if (!loggedIn) {
+          return $http({
+            method: 'GET',
+            url: url
+          }).then(function(resp) {
+            return resp.data;
+          });
+        } else if (!!loggedIn) {
+
+          var username = profileUser.username;
+          var token = user.token;
+
+          return $http({
+            method: 'GET',
+            headers: {
+              "Authorization": "token " + token
+            },
+            url: "https://api.github.com/repos/" + username + "/codesnap.io/contents/bio.md"
+          }).then(function(resp) {
+            return window.atob(resp.data.content);
+          });
+
+        }
       },
 
       getUserInfo: function() {
