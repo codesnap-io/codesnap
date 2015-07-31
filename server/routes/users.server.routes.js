@@ -14,7 +14,7 @@
       the user to github.com.  After authorization, GitHubwill redirect the user
       back to this application at /auth/github/callback */
 
-    app.get('/auth/github', app.cors(),
+    app.get('/auth/github',
       passport.authenticate('github', { scope: [ 'user', 'public_repo' ] }));
 
 
@@ -23,7 +23,7 @@
       request.  If authentication fails, the user will be redirected back to the
       login page.  Otherwise, the primary route function function will be called,
       which, in this example, will redirect the user to the home page. */
-    app.get('/auth/github/callback', app.cors(),
+    app.get('/auth/github/callback',
       passport.authenticate('github', { failureRedirect: '/#/signup' }), users.githubRedirect);
 
     /* Passes encoded user id token to client if a session exists.  HTTP request is made to this url in the home page resolve if there is no jwtToken saved in localStorage.  This is a workaround for the difficulty we had passing authentication information to the client from the auth/github/callback */
