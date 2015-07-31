@@ -636,10 +636,6 @@ code {
 
 
 .ui.message.firsttime-message {
-  // position: absolute;
-  // top: 100px;
-  width: 75%;
-  margin: 0 auto;
   -webkit-animation:fadeIn ease-in 1;
   -moz-animation:fadeIn ease-in 1;
   animation:fadeIn ease-in 1;
@@ -652,6 +648,12 @@ code {
   animation-delay: 0s;
   -webkit-animation-delay: 0s;
   -moz-animation-delay: 0s;
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 25%;
+  height: 30%;
+
 }
 
 .edit-bio {

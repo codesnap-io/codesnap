@@ -79,6 +79,16 @@
         });
       },
 
+      newUser: function(username) {
+        return $http({
+          method: 'GET',
+          url: '/user/new',
+          params: {
+            username: username
+          }
+        });
+      },
+
       /* Sets the user information in the userFactory that is needed for handling comments, etc.
       This is being set in the navbar directive, as it is the first component tha is able to
       access the user token when it is available */
@@ -95,6 +105,8 @@
       getUserInfo: function() {
         return userInfo;
       },
+
+
 
       setPostResult: function(result) {
         postResults = result;

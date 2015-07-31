@@ -187,7 +187,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
                 }
               });
           }
-          $location.url($location.path());
         },
         fetchRecentPosts: function(userFactory, $stateParams) {
           /* Empty out search bar */
