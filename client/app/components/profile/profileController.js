@@ -47,7 +47,7 @@
 
         /* Set url to fetch raw bio content and edit bio */
         var bioUrl = "https://raw.githubusercontent.com/" + $scope.user.username + "/codesnap.io/master/bio.md";
-        $scope.editUrl = "https://github.com/" + $scope.user.username + "/codesnap.io/edit/master/bio.md";
+        $scope.editBioUrl = "https://github.com/" + $scope.user.username + "/codesnap.io/edit/master/bio.md";
         $scope.githubUrl = "https://github.com/" + $scope.user.username;
 
         postFactory.getPostMarkdown(bioUrl)
