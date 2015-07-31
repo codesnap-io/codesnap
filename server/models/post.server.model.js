@@ -84,12 +84,13 @@
             posts.url AS post_url, \
             posts.file AS file, \
             posts.created_at AS created_date, \
-            posts.views AS post_views, \
+            COUNT(posts.id) AS post_views, \
             users.name AS author, \
             users.username AS username, \
             users.profile_photo_url AS profile_photo_url \
-          FROM posts, users \
-          WHERE posts.user_id = users.id \
+          FROM posts, users, views \
+          WHERE users.id = posts.user_id  \
+            AND posts.id = views.post_id \
             AND posts.published = true \
             AND posts.id = ' + postId)
             .then(function(data) {

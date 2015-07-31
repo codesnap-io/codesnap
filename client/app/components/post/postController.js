@@ -15,7 +15,7 @@
     $scope.like = postFactory.getCurrentLike();
 
     /* Adds one view count to the databsae for this post */
-    postFactory.addPostView($scope.post_id);
+    postFactory.addPostView($scope.post_id, window.localStorage.codeSnapJwtToken);
 
      /* This contains the user information needed to add comments */
     $scope.user = userFactory.getUserInfo();
