@@ -33,6 +33,11 @@
            post_id = ' + postId);
   };
 
+  Paragraph.remove = function(paragraphId) {
+    return db.knex('paragraphs').where('id', paragraphId)
+      .del();
+  };
+
   module.exports = Paragraph;
 
 })();

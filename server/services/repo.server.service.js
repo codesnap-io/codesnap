@@ -163,7 +163,6 @@
 
     /* Each index represents the paragraph numer, the value of each index represents the line at which a paragraph starts */
     var paragraphArray = [];
-    
 
     /* Remove extra white space from the end of each lines */
     var index = endYAMLIndex(array);
@@ -207,11 +206,17 @@
   /* All lines have a \n at the end, even those that shouldn't.  Lines that have new paragraphs after have multiple \n's.  By removing the last \n, only remaining \n's should denote new paragraphs. Don't remove line breaks at the end of paragraphs */
   var removeExtraLineSpace = function(array) {
     for (var i = 0; i < array.length; i++) {
-      if (!headerCheck(array[i])) {
+      if (!headerCheck(array[i]) && !yamlCheck(array[i])) {
          array[i] = array[i].replace(/\n$/, "");
       }
     }
     return array;
+  };
+
+  var yamlCheck = function(string) {
+    if (/^---/.test(string)) {
+      return true;
+    }
   };
 
   /* Return the first index after the YAML or 0 */

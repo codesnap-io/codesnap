@@ -48,6 +48,7 @@
     require('../routes/tags.server.routes')(app);
     require('../routes/likes.server.routes')(app);
     require('../routes/comments.server.routes')(app);
+    require('../routes/views.server.routes')(app);
     require('../routes/search.server.routes')(app);
     require('../routes/githubWebhooks.server.routes')(app);
 
