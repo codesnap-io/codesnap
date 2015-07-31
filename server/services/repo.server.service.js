@@ -227,7 +227,7 @@
   };
 
   var yamlCheck = function(string) {
-    if (/^---/.test(array[index])) {
+    if (/^---/.test(string)) {
       return true;
     }
   };

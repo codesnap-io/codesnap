@@ -16,11 +16,9 @@
       .then(function(data) {
         /* If no view exists or if the most recent view was at least an hour ago, create a new view */
         if (data[0].length === 0 || ((new Date() - data[0][0].date) / (1000 * 60)) >= 60) {
-          console.log(viewData);
           new View(viewData)
           .save()
           .then(function(view) {
-            console.log(view);
             callback(true);
           });
         } else {
