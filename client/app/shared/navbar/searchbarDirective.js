@@ -12,9 +12,9 @@
                 url: 'search/?q={query}'
               },
               type: 'category',
-              searchDelay: 0,
+              searchDelay: 100,
               cache: true,
-              minCharacters: 2
+              minCharacters: 1
             });
         }
       };
