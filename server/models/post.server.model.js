@@ -120,8 +120,6 @@
                           comments.forEach(function(paragraph) {
                             postData.commentCount += paragraph.comments.length;
                           });
-                          
-                          
                           callback(null, postData);
                         });
 

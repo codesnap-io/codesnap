@@ -306,7 +306,7 @@
       serverPath: "./server/assets/postTemplate.md"
     };
     /* Create new post file from template */
-    service.addFileToGHRepo(process.env.githubAccessToken, req.query.username, path).then(function(data) {
+    service.addFileToGHRepo(req.query.token, req.query.username, path).then(function(data) {
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
       res.redirect('https://github.com/' + req.query.username + '/codesnap.io/edit/master/' + repoPath);
@@ -354,4 +354,3 @@
   // }
 
 })();
-

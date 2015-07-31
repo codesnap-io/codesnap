@@ -7,7 +7,7 @@
     return {
       restrict: "E",
       templateUrl: "app/shared/navbar/navbar.html",
-      controller: function($scope, $rootScope, authFactory, userFactory) {
+      controller: function($scope, $rootScope, authFactory, userFactory, $window) {
         $scope.logout = function() {
           authFactory.logout();
         };
@@ -43,7 +43,7 @@
               .then(function(user) {
                 $rootScope.user = user;
                 $scope.loggedIn = !!user;
-                $scope.newPostUrl = "/post/add?username=" + user.username;
+                $scope.newPostUrl = "/post/add?username=" + user.username + "&token=" + user.token;
               });
           }
         });
@@ -55,7 +55,7 @@
             //go to new post url in new window
             $window.open($scope.newPostUrl);
           } else {
-            console.log("new post click no login")
+            console.log("new post click no login");
               /* If user tries to like post without being logged in, show a pop up telling them that they need to log in */
             $("body").scrollTop(0);
             $('#post-error-container').slideDown(300);
@@ -72,7 +72,16 @@
         setTimeout(function() {
           $('.ui.dropdown')
             .dropdown();
+
+          //initialize popup
+          // $('.newpost-btn')
+          // .popup({
+          //   hoverable: true,
+          //   inline: true,
+          //   position: 'bottom left'
+          // });
         }, 100);
+
       }
     };
   });
