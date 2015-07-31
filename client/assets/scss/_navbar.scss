@@ -1,0 +1,61 @@
+
+// *** Header ***
+header {
+  border-bottom: 1px solid $accent-200;
+}
+
+.site-title {
+  font-family: "Raleway";
+  font-weight: 300;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: $site-title-color;
+}
+
+// Main Nav Bar
+.nav-links {
+  margin: 2rem;
+}
+
+.nav-links a {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  margin: 0.5rem;
+  font-size: 1rem;
+  color: $accent-800;
+  text-decoration: none;
+}
+
+.nav-right {
+  @include flex-child;
+  @include flex-container-row;
+  flex: 0 1 auto;
+  margin: 1rem;
+}
+
+.ui.dropdown {
+  a {
+    text-decoration: none;
+  }
+}
+
+.search-box {
+  width: 100%;
+    .ui.icon.input {
+      width: 100%;
+    }
+    .content {
+      display: block;
+    }
+
+    // hack for fixing category result
+    .ui.category.search>.results {
+      .result {
+        overflow: inherit;
+      }
+      .category .result {
+        margin-left: 100px;
+      }
+    }
+}

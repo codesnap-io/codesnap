@@ -1,0 +1,191 @@
+
+.profile-github-logo {
+  max-height: 0.7rem;
+}
+.post-item {
+  @include flex-child;
+  @include flex-container-col;
+  flex-direction: row;
+  align-items: flex-start;
+  border-bottom: 1px solid $accent-200;
+  padding: 1.4rem 0;
+  width: 100%;
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    &:hover {
+      color: $highlight;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .title {
+    margin: 0;
+  }
+
+  .summary {
+    color: $accent-800;
+    margin: 0.6rem 0;
+  }
+}
+
+
+.post-date {
+  @include flex-child;
+  flex: 1 0 3rem;
+  margin-top: 0.4rem;
+  .date {
+    border: 1px solid $accent-300;
+    width: 3em;
+    height: 3em;
+    border-radius: 0.25rem;
+    p {
+      text-align: center;
+      color: $accent-500;
+    }
+    .month {
+      line-height: 0;
+      margin-top: 0.5rem;
+      margin-bottom: -0.2rem;
+    }
+    .day {
+      line-height: 0;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    .year {
+      margin-top: -0.3rem;
+    }
+
+  }
+}
+.post-content-container {
+  @include flex-child;
+  // @include flex-container-row;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  font-weight: 300;
+  color: $accent-1000;
+  a {
+    @include flex-child;
+  }
+
+  .profile-post-links {
+    @include flex-child;
+    @include flex-container-col;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .link-div {
+      @include flex-child;
+      @include flex-container-row;
+      flex: 0 1 auto;
+      margin-right: 1.5rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+
+      color: $accent-300;
+      a {
+        color: $accent-300;
+      }
+
+      img {
+        max-height: 0.7rem;
+        margin-right: 0.5rem;
+      }
+
+      .profile-pic {
+        max-height: 1.5rem;
+        border-radius: 100%;
+      }
+
+      .author-name{
+          margin-left: -1.5rem;
+          margin-right: -1.5rem;
+        }
+
+      .published {
+        color: white;
+        background-color: $positive;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+
+      .unpublished {
+        color: white;
+        background-color: $negative;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}
+
+
+.ui.message.firsttime-message {
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 25%;
+  height: 30%;
+
+}
+
+.edit-bio {
+  font-weight: 600;
+  font-size: 0.8rem;
+
+  color: $accent-300
+}
+
+
+
+
+.commonly-used {
+  margin: 1.6rem 0 0.4rem 0;
+}
+
+.user-info {
+  @include flex-child;
+  @include flex-container-row;
+}
+
+.user-info-profile {
+  @include flex-child;
+  @include flex-container-row;
+  justify-content: flex-start;
+}
+
+.profile-bio {
+  color: $accent-800;
+  font-weight: 300;
+  margin: 1.6rem 0 1rem 0;
+}
+
+.tag-list {
+  @include flex-container-row;
+  flex: 1 1 auto;
+  padding: .5rem 0;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  align-self: stretch;
+}
