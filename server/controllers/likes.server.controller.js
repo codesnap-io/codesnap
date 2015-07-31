@@ -5,7 +5,6 @@
   var jwt = require('jwt-simple');
 
   exports.checkLike = function(req, res) {
-    console.log(req.query.user_id);
     var userId = jwt.decode(req.query.user_id, process.env.jwtSecret);
     var postId = req.query.post_id;
 

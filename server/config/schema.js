@@ -58,7 +58,6 @@
           post.string('file', 255);
           post.string('url', 255);
           post.boolean('published').defaultTo(true);
-          post.integer('views').defaultTo(0);
           post.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
           post.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
         }).then(function(table) {
@@ -207,9 +206,39 @@
           vote.increments('id').primary();
           vote.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
           vote.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
-          vote.timestamps(); /* Creates created_at, updated_at */
         }).then(function(table) {
           console.log('Created Likes Table');
+        });
+      }
+    });
+  })
+
+
+
+  //////////////////////////////////////////////
+  // Views Table Schema
+  //////////////////////////////////////////////
+
+  .then(function() {
+    db.knex.schema.hasTable('views').then(function(exists) {
+
+      // /* Drops the table if it exists.  This is useful to uncomment when you are working on editing the schema */
+      // if (exists) {
+      //   db.knex.schema.dropTable('votes').then(function() {
+      //     console.log("Removed Votes Table");
+      //   });
+      //   exists = false;
+      // }
+
+      if (!exists) {
+        db.knex.schema.createTable('views', function(view) {
+          view.increments('id').primary();
+          view.string('address', 50);
+          view.integer('post_id').unsigned().references('posts.id').onDelete('CASCADE');
+          view.integer('user_id');
+          view.timestamp('created_at').notNullable().defaultTo(db.knex.raw('now()'));
+        }).then(function(table) {
+          console.log('Created Views Table');
         });
       }
     });
@@ -249,6 +278,9 @@
     },
     paragraphs: function() {
       return this.hasMany(Paragraph);
+    },
+    views: function() {
+      return this.hasMany(View);
     }
   });
 
@@ -288,5 +320,12 @@
 
   var PostTagJoin = exports.PostTagJoin = db.Model.extend({
     tableName: 'post_tag_join'
+  });
+
+  var View = exports.View = db.Model.extend({
+    tableName: 'views',
+    post: function() {
+      this.belongsTo(Post, 'post_id');
+    }
   });
 })();

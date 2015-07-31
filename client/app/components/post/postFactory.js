@@ -111,12 +111,14 @@
       },
 
       /* Adds 1 view to the post's view count in the database */
-      addPostView: function(postId) {
+      addPostView: function(postId, userId) {
         return $http({
-          method: 'GET',
-          url: '/post/addview',
-          params: {
-            post_id: postId
+          method: 'POST',
+          url: '/view/add',
+          data: {
+            post_id: postId,
+            user_id: userId
+
           }
         });
       },
