@@ -16,19 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular-mocks": "~1.4.2",
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
-    "highlightjs": "~8.6.0",
     "marked": "~0.3.3",
-    "jquery": "~2.1.4",
-    "semantic-ui-dropdown": "~2.0.5",
-    "semantic-ui-transition": "~2.0.5",
-    "semantic-ui-search": "~2.0.7",
-    "ngInfiniteScroll": "~1.2.1",
-    "semantic-ui-icon": "~2.0.7",
-    "semantic-ui-api": "~2.0.7",
-    "semantic-ui-input": "~2.0.7",
-    "semantic-ui-message": "~2.0.7"
+    "ngInfiniteScroll": "~1.2.1"
   },
   "resolutions": {
     "angular": "1.4.3"
