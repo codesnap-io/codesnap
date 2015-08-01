@@ -7,10 +7,50 @@
 
     //for new post link
     $scope.user = userFactory.getUserInfo();
-
     if ($scope.user) {
       $scope.newPostUrl = "/post/add?username=" + $scope.user.username + "&token=" + $scope.user.token;
     }
+
+    //sort categories
+    $scope.category = 'top';
+
+    $scope.updateCategory = function(category) {
+      if ($scope.category !== category) {
+        $scope.category = category;
+        getPostsInCategory(category);
+      }
+    };
+
+    var getPostsInCategory = function(category) {
+      if (category === 'top') {
+        postFactory.getTopPosts()
+          .then(function(posts, err) {
+            if (err) {
+              console.log("Error: ", err);
+            } else {
+              $scope.posts = posts;
+              console.log(posts);
+            }
+        });
+      } else if (category === 'recent') {
+        postFactory.getRecentPosts()
+          .then(function(posts, err) {
+            if (err) {
+              console.log("Error: ", err);
+            } else {
+              $scope.posts = posts;
+              console.log(posts);
+            }
+        });
+      } else {
+        $scope.posts = [];
+      }
+    }
+
+
+    /* Load recent posts to page when page first loads */
+    getPostsInCategory('top');
+
 
 
 
@@ -29,24 +69,17 @@
       }
     };
 
-
-    $scope.posts = [];
     $scope.busy = false;
 
-    /* Load recent posts to page when page first loads */
-    postFactory.getRecentPosts()
-      .then(function(posts, err) {
-        if (err) {
-          console.log("Error: ", err);
-        } else {
-          $scope.posts = posts;
-        }
-      });
+
+
 
     /* This function fetches more posts when user scrolls down to bottom of post-list div.  This function takes in the last post.  We then take the post id from this post and fetch the next posts with a lower post_id (created before the last post) */
     $scope.addMorePosts = function(lastPost) {
       $scope.busy = true;
-      postFactory.getMorePosts(lastPost.post_id)
+      // deliver last like if relevant to scroll
+      var lastLike = ($scope.category === "top") ? lastPost.likes : null;
+      postFactory.getMorePosts(lastPost.post_id, lastLike)
         .then(function(resp, err) {
           var posts = resp.data;
           $scope.busy = false;
@@ -56,6 +89,7 @@
             posts.forEach(function(post) {
               $scope.posts.push(post);
             });
+            console.log(posts);
           } else if (resp.status === 204) {
             $scope.busy = true;
           }
@@ -78,6 +112,7 @@
             if (err) {
               console.log("Error: ", err);
             } else {
+              console.log(posts);
               $scope.posts = posts;
             }
           });

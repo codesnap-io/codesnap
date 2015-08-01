@@ -30,16 +30,28 @@
       },
 
       //get 20 posts after lastPost
-      getMorePosts: function(lastPostId) {
+      getMorePosts: function(lastPostId, lastLike) {
         //TODO: instead of sending back entire last post in params, only send back relevant part
         // var param = lastPost[query];
-        return $http({
-          method: 'GET',
-          url: 'post/more/recent',
-          params: {
-            last_post_id: lastPostId
-          }
-        });
+        //determine whether asking for top or recent posts
+        if (lastLike !== 'undefined' && lastLike !== null) {
+          return $http({
+            method: 'GET',
+            url: 'post/more/top',
+            params: {
+              last_post_id: lastPostId,
+              last_like: lastLike
+            }
+          });
+        } else {
+          return $http({
+            method: 'GET',
+            url: 'post/more/recent',
+            params: {
+              last_post_id: lastPostId
+            }
+          });
+        }
       },
 
       /* Retrieves data for one post (based on given post id) */
