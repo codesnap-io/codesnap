@@ -117,7 +117,7 @@
     var addWebhookOptions = {
       url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
       method: 'POST',
-      body: '{ "name": "web", "events": "push", "config": {"url": "' + process.env.githubCallbackUrl + '", "content_type": "json"} }',
+      body: '{ "name": "web", "events": "push", "config": {"url": "' + process.env.githubPostReceiveUrl + '", "content_type": "json"} }',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
