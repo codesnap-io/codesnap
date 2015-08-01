@@ -86,9 +86,12 @@
       url: "https://api.github.com/users/" + username,
       method: 'GET',
       headers: {
-        'Authorization': 'token ' + process.env.MICHAELTOKEN,
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
+      },
+      params: {
+        'client_id': '7d292489ff2489c0dc96',
+        'client_secret': 'd3ca1aa8a19339272e0425026b581e2e6294e2f9'
       }
     };
     return rp(options);
