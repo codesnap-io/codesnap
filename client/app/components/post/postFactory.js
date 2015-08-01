@@ -132,15 +132,18 @@
 
       /* Adds 1 view to the post's view count in the database */
       addPostView: function(postId, userId) {
-        return $http({
-          method: 'POST',
-          url: '/view/add',
-          data: {
-            post_id: postId,
-            user_id: userId
-
-          }
-        });
+        $.get("http://ipinfo.io", function (response) {
+            return $http({
+              method: 'POST',
+              url: '/view/add',
+              data: {
+                post_id: postId,
+                user_id: userId,
+                address: response.ip
+              }
+            });
+        }, "jsonp");
+        
       },
 
       addComment: function(post_id, paragraph, user_id, text) {
