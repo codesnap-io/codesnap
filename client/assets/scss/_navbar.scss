@@ -64,8 +64,16 @@ header {
   margin-left: 10px;
 }
 
-
 //fix for dropdown menu to be above tooltip
 .ui.top.left.pointing.dropdown>.menu {
   z-index: 2000;
 }
+
+// footer {
+//   width: 100%;
+//   background-color: black;
+//   height: 30px;
+//   position: absolute;
+//   bottom: 0px;
+// }
+
