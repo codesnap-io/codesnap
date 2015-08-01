@@ -3,11 +3,11 @@ div.ui.message.floating.info.firsttime-message(ng-show="newUser")
   .header
     | Welcome to CodeSnap!
   p We created a new repository called 'codesnap.io' in your Github account.. 
-    a(href="https://www.github.com/{{user.username}}/codesnap.io")  Check it out here.
+    a(href="https://www.github.com/{{user.username}}/codesnap.io" target="_blank")  Check it out here.
   p We also created a markdown post for you called 
-    a(href="https://www.github.com/{{user.username}}/codesnap.io/posts/myFirstPost.md") myFirstPost.md, 
+    a(href="https://www.github.com/{{user.username}}/codesnap.io/tree/master/posts/myFirstPost.md" target="_blank") myFirstPost.md, 
     | but don't worry, it's not published yet! You can publish the post by changing the front-matter of the markdown file. 
-    a(ui-sref="faq") Visit our FAQ page
+    a(ui-sref="faq") Visit our FAQ page 
     | to learn more about codesnapping like a pro.
     
 .content.align-top

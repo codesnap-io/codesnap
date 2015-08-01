@@ -11,6 +11,7 @@ angular.module('userController', ['userFactory'])
   $scope.removeUser = function() {
     userFactory.removeUser();
     delete window.localStorage.codeSnapJwtToken;
+    $rootScope.$broadcast('deletedUser');
     delete $rootScope.user;
     $state.go('signup');
   };
