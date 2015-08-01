@@ -215,59 +215,59 @@
     //SHA of post-commits file
     var afterSha = req.body.after;
 
-    var filesModifiedIds = [];
-    var paragraphs = {};
-    //get postIDs of all files modified so that we can get paragraphs for each modified file by postId
-    filesModified.forEach(function(file) {
-      filesModifiedIds.push(Post.getPostByUrl(downloadUrl(file, username, repoName))
-        .then(function(fileObj) {
-          return fileObj.attributes.id;
-        }));
-    });
+    // var filesModifiedIds = [];
+    // var paragraphs = {};
+    // //get postIDs of all files modified so that we can get paragraphs for each modified file by postId
+    // filesModified.forEach(function(file) {
+    //   filesModifiedIds.push(Post.getPostByUrl(downloadUrl(file, username, repoName))
+    //     .then(function(fileObj) {
+    //       return fileObj.attributes.id;
+    //     }));
+    // });
 
-    var postIds;
-    //wait for all filesModifiedIds to come back before taking next step
-    Promise.all(filesModifiedIds)
-      .then(function(completeModdedPostIds) {
-        //set this to wider scoped variable for later access
-        postIds = completeModdedPostIds;
-        //get obj whose keys are postIds and whose values are arrays of Paragraphs for each modified file
-        completeModdedPostIds.forEach(function(postId) {
-          paragraphs[postId] = Paragraph.postParagraphs(postId)
-            .then(function(paragraphs) {
-              return paragraphs[0];
-            });
-        });
-      })
-      //wait for all paragraphs to come back before taking next step
-      .then(function() {
-        Promise.props(paragraphs)
-          .then(function(completeParagraphs) {
+  //   var postIds;
+  //   //wait for all filesModifiedIds to come back before taking next step
+  //   Promise.all(filesModifiedIds)
+  //     .then(function(completeModdedPostIds) {
+  //       //set this to wider scoped variable for later access
+  //       postIds = completeModdedPostIds;
+  //       //get obj whose keys are postIds and whose values are arrays of Paragraphs for each modified file
+  //       completeModdedPostIds.forEach(function(postId) {
+  //         paragraphs[postId] = Paragraph.postParagraphs(postId)
+  //           .then(function(paragraphs) {
+  //             return paragraphs[0];
+  //           });
+  //       });
+  //     })
+  //     //wait for all paragraphs to come back before taking next step
+  //     .then(function() {
+  //       Promise.props(paragraphs)
+  //         .then(function(completeParagraphs) {
 
-            var diffUrl = "https://github.com/" + username + "/" + repoName + "/compare/" + beforeSha + "..." + afterSha + ".diff";
+  //           var diffUrl = "https://github.com/" + username + "/" + repoName + "/compare/" + beforeSha + "..." + afterSha + ".diff";
 
-            //parse head_commit diff
-            parseDiff.parseDiffFromUrl(diffUrl, function(data) {
-              //returns "new" and "old" objs for each filePath changed in commit
-              for (var postPath in data) {
-                postIds.forEach(function(postId) {
-                  var parsedPostDiff = data[postPath];
-                  // adjust paragraph ordinal numbers for given post
-                  var adjustedParagraphs = adjustParagraphs(parsedPostDiff, completeParagraphs[postId]);
-                  // save adj paras to db
-                  adjustedParagraphs.forEach(function(paraObj) {
-                    Paragraph.edit(paraObj.id, paraObj.number, paraObj.line);
-                  })
-                  // give adjusted paragraphs correct first line #s
-                  // service.getGHFileContentsFromApi(postPath, username)
-                  //   .then(function(content) {
-                  //     service.parseParagraphs(content, postId);
-                  //   });
-                });
-              }
-            });
-          });
-      });
+  //           //parse head_commit diff
+  //           parseDiff.parseDiffFromUrl(diffUrl, function(data) {
+  //             //returns "new" and "old" objs for each filePath changed in commit
+  //             for (var postPath in data) {
+  //               postIds.forEach(function(postId) {
+  //                 var parsedPostDiff = data[postPath];
+  //                 // adjust paragraph ordinal numbers for given post
+  //                 var adjustedParagraphs = adjustParagraphs(parsedPostDiff, completeParagraphs[postId]);
+  //                 // save adj paras to db
+  //                 adjustedParagraphs.forEach(function(paraObj) {
+  //                   Paragraph.edit(paraObj.id, paraObj.number, paraObj.line);
+  //                 })
+  //                 // give adjusted paragraphs correct first line #s
+  //                 // service.getGHFileContentsFromApi(postPath, username)
+  //                 //   .then(function(content) {
+  //                 //     service.parseParagraphs(content, postId);
+  //                 //   });
+  //               });
+  //             }
+  //           });
+  //         });
+  //     });
 
     /* Get github userId from username */
     service.getGHUser(username)
