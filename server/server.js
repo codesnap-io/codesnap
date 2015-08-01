@@ -7,6 +7,8 @@
   var express = require('./config/express');
   var app = express();
 
+
+  //host established for proxy
   var host = process.env.HOSTNAME || null;
 
   app.listen(process.env.PORT, host);
