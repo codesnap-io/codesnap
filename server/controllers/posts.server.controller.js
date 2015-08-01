@@ -101,7 +101,6 @@
 
   exports.modifyPostsInDb = function(filesToModify, username, repoName) {
     filesToModify.forEach(function(file) {
-      console.log(file);
       var url = downloadUrl(file, username, repoName);
       service.getGHFileContentsFromApi(file, username)
         .then(function(rawFile) {
@@ -122,7 +121,6 @@
             published: metadata.published,
             summary: summary
           };
-          console.log(postData);
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error, post) {
