@@ -96,7 +96,7 @@
       /* Shift post body back to the right when user clicks out of comments-wrapper */
       $('body').on('click', function() {
         /* Don't shift post body when user clicks on the alert created when post is deleted */
-        if ($(event.target).hasClass('action-link')) {
+        if ($(event.target).hasClass('action-link') || $(event.target).hasClass('comment-box')) {
           event.stopPropagation();
         }
         /* If user clicks on the comments button belonging to an open comment section, shift the post body */
