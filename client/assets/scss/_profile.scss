@@ -71,6 +71,7 @@
   flex: 0 1 auto;
   font-weight: 300;
   color: $accent-1000;
+  width: 100%;
   a {
     @include flex-child;
   }

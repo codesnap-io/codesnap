@@ -22,11 +22,6 @@
     });
 
 
-    //check to see if user is coming for the first time
-    $scope.onFirstVisit = $stateParams.first;
-    // if ($scope.onFirstVisit) {
-    // }
-
     /* Retrieves user information and tag information by passing in username.  username must be unique because it is tied to Github */
     userFactory.getUserByUsername($scope.username)
       .then(function(user) {
@@ -38,8 +33,9 @@
           $scope.isOwner = false;
         } else {
           userFactory.ownsProfile(window.localStorage.jwtToken, user.username)
-          .then(function(ownerStatus) {
-            $scope.isOwner = ownerStatus;
+          .then(function(data) {
+            $scope.isOwner = data.owner;
+            $scope.newUser = data.newUser;
           });
         }
 
