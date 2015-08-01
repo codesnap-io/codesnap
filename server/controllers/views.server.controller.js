@@ -4,9 +4,6 @@
   var jwt = require('jwt-simple');
 
   exports.addView = function(req, res) {
-    /* Get address infomration from request.  Not all request will provide the same information */
-      console.log(req.body.address);
-
     /* Create object which will be passed in to attemp new view creation */
     var viewData = {
       post_id: req.body.post_id,
