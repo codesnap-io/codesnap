@@ -31,7 +31,6 @@ header {
   @include flex-child;
   @include flex-container-row;
   flex: 0 1 auto;
-  margin: 1rem;
 }
 
 .ui.dropdown {

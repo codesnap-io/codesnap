@@ -23,10 +23,10 @@ header(ng-show="showNav")
             a.item(ui-sref="profile({username: user.username })") My Blog
             a.item(ui-sref="account") My Account
             a.item(ng-click="logout()") Logout
-        a.ui.newpost-btn.button(ng-click="newPost()" href="#" data-content="Create a new markdown file in your repository")
+        a.ui.newpost-btn.button.margin1(ng-click="newPost()" href="#" data-content="Create a new markdown file in your repository" ng-if="loggedIn")
           img(src="assets/img/Plus.svg" alt="New Post Icon")
           | New Post
-      .nav-right(ng-if="!loggedIn")
-        a.button#signup-btn(ui-sref="signup")
+        a.button.margin1#signup-btn(ui-sref="signup" ng-if="!loggedIn")
           span Signup / Login
+
 //- load semantic ui elements

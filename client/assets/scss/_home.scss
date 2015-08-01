@@ -6,6 +6,10 @@
   padding: 2rem 0;
 }
 
+.discover-container h2 {
+  font-weight: 400;
+}
+
 .discover-small {
   @include flex-child;
   margin: 1.11111111rem;
