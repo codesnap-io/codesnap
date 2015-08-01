@@ -19,7 +19,6 @@
         .then(function(comment) {
           callback(comment);
         });
-       
       });
   };
 
