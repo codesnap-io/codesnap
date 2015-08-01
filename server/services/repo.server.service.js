@@ -51,7 +51,7 @@
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
       },
-      params: {
+      qs: {
         "client_id": process.env.githubClientID,
         "client_secret": process.env.githubClientSecret
       },
@@ -89,7 +89,7 @@
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
       },
-      params: {
+      qs: {
         'client_id': process.env.githubClientID,
         'client_secret': process.env.githubClientSecret
       }
