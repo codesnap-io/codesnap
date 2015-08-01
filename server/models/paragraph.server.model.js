@@ -5,33 +5,21 @@
   var Paragraph = require('../config/schema').Paragraph;
 
   /* If like exists, unlike, if like doesn't exist, add it */
-  Paragraph.addOrEdit = function(paragraphNum, lineNum, postId, callback) {
+  Paragraph.add = function(paragraphNum, lineNum, postId, callback) {
     new Paragraph({'number': paragraphNum, 'line': lineNum, 'post_id': postId})
-    .fetch()
+    .save()
     .then(function(paragraph) {
-      if (!paragraph) {
-        new Paragraph({'number': paragraphNum, 'line': lineNum, 'post_id': postId})
-        .save()
-        .then(function(paragraph) {
-          callback(paragraph);
-        });
-      } else {
-        paragraph.set('number', paragraphNum);
-        paragraph.set('line', lineNum);
-        paragraph.save();
-        callback(paragraph);
-      }
+      callback(paragraph);
     });
   };
 
-  Paragraph.edit = function(paragraph_id, newParagraphNum, newLineNum, callback) {
+  Paragraph.edit = function(paragraph_id, newParagraphNum, newLineNum) {
     new Paragraph({'id': paragraph_id})
     .fetch()
     .then(function(paragraph) {
-      paragraph.set('number', paragraphNum);
-      paragraph.set('line', lineNum);
+      paragraph.set('number', newParagraphNum);
+      paragraph.set('line', newLineNum);
       paragraph.save();
-      callback(paragraph);
     });
   };
 

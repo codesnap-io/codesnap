@@ -52,8 +52,8 @@
         'User-Agent': 'CodeSnap'
       },
       params: {
-        "client_id": "7d292489ff2489c0dc96",
-        "client_secret": "d3ca1aa8a19339272e0425026b581e2e6294e2f9"
+        "client_id": process.env.githubClientID,
+        "client_secret": process.env.githubClientSecret
       },
       uri: "https://api.github.com/repos/" + username + "/codesnap.io/contents/" + postPath
     };
@@ -86,9 +86,12 @@
       url: "https://api.github.com/users/" + username,
       method: 'GET',
       headers: {
-        'Authorization': 'token ' + process.env.MICHAELTOKEN,
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
+      },
+      params: {
+        'client_id': process.env.githubClientID,
+        'client_secret': process.env.githubClientSecret
       }
     };
     return rp(options);
@@ -114,7 +117,7 @@
     var addWebhookOptions = {
       url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
       method: 'POST',
-      body: '{ "name": "web", "events": "push", "config": {"url": "http://www.codesnap.io/postreceive/github", "content_type": "json"} }',
+      body: '{ "name": "web", "events": "push", "config": {"url": "' + process.env.githubCallbackUrl + '", "content_type": "json"} }',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
@@ -280,7 +283,7 @@
   /* Add paragraphs to database */
   var addParagraphsToDb = function(array, postId) {
     for (var i = 0; i < array.length; i++) {
-      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {});
+      Paragraph.add(i, array[i], postId, function(paragraph) {});
     }
   };
 
