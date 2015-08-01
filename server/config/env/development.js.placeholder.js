@@ -1,4 +1,5 @@
 //NOTE: change this file to development.js to use in dev environment
+//DO NOT HARDCODE ANY OF THESE VALUES INTO THE CODEBASE. USE VARIABLE NAMES.
 
 (function () {
   'use strict';
