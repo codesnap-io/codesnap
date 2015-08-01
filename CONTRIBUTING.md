@@ -81,7 +81,7 @@
   - Replace the word "pick" with "squash" on commits you want to merge with the commit above
   - For additional reference, check out this article:
 
-  https://github.com/ginatrapani/todo.txt-android/wiki/Squash-All-Commits-Related-to-a-Single-Issue-into-a-Single-Commit
+  [Check this out for instructions on squashing commits.](https://github.com/ginatrapani/todo.txt-android/wiki/Squash-All-Commits-Related-to-a-Single-Issue-into-a-Single-Commit)
 
 
 5) Rebase upstream changes into your branch
@@ -91,7 +91,7 @@
   changes to the master branch into yours by running this command
   from your branch:
 
-  git pull --rebase upstream master 
+  git pull --rebase upstream master
 
   This will start the rebase process. You must commit all of your changes
   before doing this. If there are no conflicts, this should just roll all

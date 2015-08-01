@@ -1,3 +1,5 @@
+//NOTE: change this file to development.js to use in dev environment
+
 (function () {
   'use strict';
 
@@ -12,5 +14,6 @@
   process.env.githubCallbackUrl = "FILL THIS IN";
   process.env.jwtSecret = "FILL THIS IN";
   process.env.CLIENT_FILES = "FILL THIS IN";
+  process.env.SESSION_SECRET = 'FILL THIS IN';
 
 })();
