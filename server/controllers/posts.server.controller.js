@@ -101,8 +101,9 @@
 
   exports.modifyPostsInDb = function(filesToModify, username, repoName) {
     filesToModify.forEach(function(file) {
+      console.log(file);
       var url = downloadUrl(file, username, repoName);
-      service.getRawGHFile(url)
+      service.getGHFileContentsFromApi(file, username)
         .then(function(rawFile) {
           // retreive front-matter metadata
           var metadata = exports.getMetadata(rawFile);
@@ -121,6 +122,7 @@
             published: metadata.published,
             summary: summary
           };
+          console.log(postData);
 
           /* Add post to the database.  Log an error if there was a problem. */
           Post.modify(postData, function(error, post) {
@@ -208,6 +210,7 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
+    console.log("FILES MODIFIED: ", filesModified);
     //SHA of pre-commits file
     var beforeSha = req.body.before;
     //SHA of post-commits file
@@ -277,6 +280,8 @@
       .then(function(user) {
 
         var githubUserId = JSON.parse(user).id;
+        console.log(user);
+        console.log(githubUserId);
         //find user by github userId and add/remove/modify as needed
         User.findByGithubId(githubUserId, function(error, user) {
           if (error) {
@@ -426,13 +431,13 @@
   //     repository: {
   //       name: 'codesnap.io',
   //       owner: {
-  //         name: 'm-arnold'
+  //         name: 'bdstein33'
   //       }
   //     },
   //     head_commit: {
   //       added: [],
   //       removed: [],
-  //       modified: ['posts/parsetest.md']
+  //       modified: ['posts/myFirstPost.md']
   //     }
   //   };
   //   exports.postReceive(req, res);
