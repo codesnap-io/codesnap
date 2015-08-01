@@ -21,7 +21,7 @@
     //go to URI of each file, add title to db
     filesToAdd.forEach(function(file) {
       // make sure file is in posts and is markdown
-      if (file.slice(0, 6) === 'posts/' && file.slice(-3).toLowerCase() === '.md') {
+      if (file.slice(0, 6) === 'posts/' && (file.slice(-3).toLowerCase() === '.md' || file.slice(-9).toLowerCase() === '.markdown')) {
         var url = downloadUrl(file, username, repoName);
         // get the raw file from the the url of the post
         service.getRawGHFile(url)
