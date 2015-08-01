@@ -194,7 +194,7 @@
       }
 
       /* If the previous line ended with a new line character, this must be the start of a new paragraph */
-      else if (startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
+      else if ((startNewParagraph(array[index - 1]) || yamlCheck(array[index - 1])) && !headerCheck(array[index]) && !blankCheck(array[index])) {
         paragraphArray.push(index);
       }
 
@@ -226,7 +226,7 @@
   /* All lines have a \n at the end, even those that shouldn't.  Lines that have new paragraphs after have multiple \n's.  By removing the last \n, only remaining \n's should denote new paragraphs. Don't remove line breaks at the end of paragraphs */
   var removeExtraLineSpace = function(array) {
     for (var i = 0; i < array.length; i++) {
-      if (!headerCheck(array[i]) && !yamlCheck(array[i])) {
+      if (!headerCheck(array[i])) {
         array[i] = array[i].replace(/\n$/, "");
       }
     }

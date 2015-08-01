@@ -4,7 +4,6 @@
   var Post = require('../config/schema').Post;
   var Comment = require('../models/comment.server.model');
 
-
   Post.add = function(postData, callback) {
     new Post(postData)
       .save()
