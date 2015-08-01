@@ -24,6 +24,17 @@
     });
   };
 
+  Paragraph.edit = function(paragraph_id, newParagraphNum, newLineNum, callback) {
+    new Paragraph({'id': paragraph_id})
+    .fetch()
+    .then(function(paragraph) {
+      paragraph.set('number', paragraphNum);
+      paragraph.set('line', lineNum);
+      paragraph.save();
+      callback(paragraph);
+    });
+  };
+
   /* Returns a list of paragraphs for a given post */
   Paragraph.postParagraphs = function(postId) {
     return db.knex.raw(' \
