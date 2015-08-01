@@ -37,10 +37,10 @@
               console.log(authorResults);
               var authorObj = authorResults.map(function(author) {
                 return {
-                  title: author.username,
+                  title: author.name,
                   url: "#/profile/" + author.username,
                   image: author.profile_photo_url,
-                  description: author.name
+                  description: author.username
                 };
               });
               response.results.authors = {

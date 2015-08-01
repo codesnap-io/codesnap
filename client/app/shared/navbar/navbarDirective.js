@@ -86,7 +86,7 @@
             inline: true,
             position: 'bottom left'
           });
-        }, 100);
+        }, 400);
 
       }
     };

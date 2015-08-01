@@ -27,7 +27,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'userController',
       'userFactory',
       'searchbarDirective',
-      'homeSubnavDirective',
       'postSubnavDirective',
       'profileSubnavDirective',
       'navbarDirective'
