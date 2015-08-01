@@ -23,19 +23,28 @@ GitHub-based technical blogging platform. This repository includes the entire co
 
 
 To run end-to-end [Protractor](https://angular.github.io/protractor/#/) tests:
+
 1. `npm install -g protractor`
+ 
 2. `webdriver-manager update`
+ 
 3. `webdriver-manager start`
+ 
 4. `gulp protractor`
 
 
 ## Contributing
 
 A couple of commands to get you started:
+
 1. `npm install -g bower`
+ 
 2. `npm install -g gulp`
+
 3. `npm install`
+
 4. `bower update && bower install`
+
 5. `gulp watch`
 
 Requests for app-specific secrets or questions about setting up dev environment can be directed to [us@codesnap.io](mailto:us@codesnap.io), though we have a placeholder env file [here](server/config/env/development.js.placeholder.js). If you are cool, we'd like your help.
