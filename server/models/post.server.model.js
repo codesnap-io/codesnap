@@ -188,6 +188,7 @@
         users INNER JOIN posts ON users.id = posts.user_id \
         LEFT JOIN likes ON posts.id = likes.post_id \
         LEFT JOIN views ON posts.id = views.post_id \
+        WHERE posts.published = true \
         HAVING posts.id < ' + lastPostId + ' \
         ORDER BY posts.id DESC \
         LIMIT 5');
@@ -216,6 +217,7 @@
         users INNER JOIN posts ON users.id = posts.user_id \
         LEFT JOIN likes ON posts.id = likes.post_id \
         LEFT JOIN views ON posts.id = views.post_id \
+        WHERE posts.published = true \
         GROUP BY posts.id \
         HAVING likes < ' + lastLikeCount + ' OR (likes = '+ lastLikeCount +' AND posts.id < "' + lastPostId + '")  \
         ORDER BY likes DESC, posts.id DESC\
