@@ -18,9 +18,7 @@
   }
   */
   exports.addFileToGHRepo = function(token, username, path) {
-    // console.log("in addFileToGHRepo...");
     var file = fs.readFileSync(path.serverPath);
-    // console.log("file read...");
     var content = file.toString('base64');
     var options = {
       uri: path.repoPath,
@@ -32,7 +30,6 @@
         'User-Agent': 'CodeSnap'
       }
     };
-    // console.log("options created, uri is: ", options.uri);
     return rp(options);
   };
 
@@ -98,7 +95,6 @@
   };
 
   exports.addGHRepo = function(token, username) {
-
     /* These are the details for the repo that's created */
     var repoName = 'codesnap.io';
     var homepage = 'http://www.codesnap.io';
