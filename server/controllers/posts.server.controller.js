@@ -143,22 +143,29 @@
   //helper function to adjust comment line #s based on diff
   var adjustParagraphs = function(parsedDiff, paragraphs) {
 
+    console.log(parsedDiff);
+
     var oldLines = parsedDiff.old;
     var newLines = parsedDiff.new;
 
     //loop thru post Paragraphs
     paragraphs.forEach(function(p) {
-      var paragraphFirstLine = p.line;
-      var paragraphNumber = p.number;
+      var currentParaFirstLine = p.line;
+      var currentParaNumber = p.number;
       //loop thru old
       for (var line in oldLines) {
         //is paragraph first line # removed?
         if ((line === p.line) && (oldLines[line][1] === "removed")) {
           //if yes, is whole paragraph below removed as well? (did removal meet a blank line?)
-          for (var belowIndex = p.line + 1; oldLines[belowIndex][1] === "removed"; belowIndex++) {
-            if (oldLines[belowIndex][0] === "") {
-              //if yes, delete paragraph and decrement all below paragraph's order #s
-              Paragraph.removeParagraph(p.id);
+          for (var belowIndex = p.line; oldLines[belowIndex][1] === "removed"; belowIndex++) {
+            if (oldLines[belowIndex + 1][0] === "") {
+              //if yes, delete paragraph and decrement all later paragraphs' order #s
+              Paragraph.remove(p.id);
+              paragraphs.forEach(function(para) {
+                if (para.number > currentParaNumber) {
+                  para.number--;
+                }
+              });
             }
           }
         }
@@ -166,12 +173,12 @@
       //loop thru new
       for (var line in newLines) {
         //do any line additions begin @ or above paragraph first line #?
-        if ((line === p.line) && (oldLines[line][1] === "added")) {
+        if ((line === p.line) && (newLines[line][1] === "added")) {
           for (var aboveIndex = p.line - 1; newLines.hasOwnProperty(aboveIndex - 1); aboveIndex--) {
             if (newLines[aboveIndex][1] === "added") {
               var blankLineGroups = 0;
               //if yes, loop down from that line addition and ask: does any consecutive line addition contain a blank line?
-              for (var belowIndex = p.line + 1; newLines[belowIndex + 1][1] === "removed"; belowIndex++) {
+              for (var belowIndex = p.line + 1; newLines[belowIndex + 1][1] === "added"; belowIndex++) {
                 //if yes, how many groups of blank lines exist in the current consecutive addition?
                 if (newLines[belowIndex][0] === '') {
                   blankLineGroups++;
@@ -179,7 +186,7 @@
               }
               //if yes, increment all paragraph order #s after this by the number of groups of blank lines
               paragraphs.forEach(function(para) {
-                if (para.number > paragraphNumber) {
+                if (para.number > currentParaNumber) {
                   para.number += blankLineGroups;
                 }
               });
@@ -222,6 +229,7 @@
     //wait for all filesModifiedIds to come back before taking next step
     Promise.all(filesModifiedIds)
       .then(function(completeModdedPostIds) {
+        //set this to wider scoped variable for later access
         postIds = completeModdedPostIds;
         //get obj whose keys are postIds and whose values are arrays of Paragraphs for each modified file
         completeModdedPostIds.forEach(function(postId) {
@@ -244,15 +252,17 @@
               for (var postPath in data) {
                 postIds.forEach(function(postId) {
                   var parsedPostDiff = data[postPath];
-                  // do paragraph line adjustments / deletions for given post
-                  console.log(completeParagraphs['1']);
+                  // adjust paragraph ordinal numbers for given post
                   var adjustedParagraphs = adjustParagraphs(parsedPostDiff, completeParagraphs[postId]);
-                  console.log(adjustedParagraphs);
-                  // reindex adj paras to proper paragraphs
-                  service.getGHFileContentsFromApi(postPath, username)
-                    .then(function(content){
-                      service.parseParagraphs(content, postId);
-                    });
+                  // save adj paras to db
+                  adjustedParagraphs.forEach(function(paraObj) {
+                    Paragraph.edit(paraObj.id, paraObj.number, paraObj.line);
+                  })
+                  // give adjusted paragraphs correct first line #s
+                  // service.getGHFileContentsFromApi(postPath, username)
+                  //   .then(function(content) {
+                  //     service.parseParagraphs(content, postId);
+                  //   });
                 });
               }
             });
@@ -401,7 +411,7 @@
       });
   };
 
-  // /* Dummy Data */
+  /* Dummy Data */
   // if (process.env.NODE_ENV === 'development') {
   //   var req = {};
   //   var res = {
@@ -420,9 +430,7 @@
   //       added: [],
   //       removed: [],
   //       modified: ['posts/parsetest.md']
-  //     },
-  //     before: "ffeb1a3a44b8bbe447a3e02498c3c34bfae30e69",
-  //     after: "de726fb139345ed2691c47e69a1ef96fe0392742"
+  //     }
   //   };
   //   exports.postReceive(req, res);
   // }
