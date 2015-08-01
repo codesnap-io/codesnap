@@ -34,7 +34,6 @@
             console.log(error);
             res.send(error);
           } else {
-              console.log(authorResults);
               var authorObj = authorResults.map(function(author) {
                 return {
                   title: author.name,
