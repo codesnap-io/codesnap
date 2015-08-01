@@ -18,9 +18,7 @@
   }
   */
   exports.addFileToGHRepo = function(token, username, path) {
-    // console.log("in addFileToGHRepo...");
     var file = fs.readFileSync(path.serverPath);
-    // console.log("file read...");
     var content = file.toString('base64');
     var options = {
       uri: path.repoPath,
@@ -32,7 +30,6 @@
         'User-Agent': 'CodeSnap'
       }
     };
-    // console.log("options created, uri is: ", options.uri);
     return rp(options);
   };
 
@@ -98,7 +95,6 @@
   };
 
   exports.addGHRepo = function(token, username) {
-
     /* These are the details for the repo that's created */
     var repoName = 'codesnap.io';
     var homepage = 'http://www.codesnap.io';
@@ -118,7 +114,7 @@
     var addWebhookOptions = {
       url: 'https://api.github.com/repos/' + username + '/' + repoName + '/hooks',
       method: 'POST',
-      body: '{ "name": "web", "events": ["push", "delete"], "config": {"url": "http://www.codesnap.io/postreceive/github", "content_type": "json"} }',
+      body: '{ "name": "web", "events": "push", "config": {"url": "http://www.codesnap.io/postreceive/github", "content_type": "json"} }',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': 'token ' + token,
@@ -198,7 +194,7 @@
       }
 
       /* If the previous line ended with a new line character, this must be the start of a new paragraph */
-      else if (startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
+      else if ((startNewParagraph(array[index - 1]) || yamlCheck(array[index - 1])) && !headerCheck(array[index]) && !blankCheck(array[index])) {
         paragraphArray.push(index);
       }
 
@@ -230,7 +226,7 @@
   /* All lines have a \n at the end, even those that shouldn't.  Lines that have new paragraphs after have multiple \n's.  By removing the last \n, only remaining \n's should denote new paragraphs. Don't remove line breaks at the end of paragraphs */
   var removeExtraLineSpace = function(array) {
     for (var i = 0; i < array.length; i++) {
-      if (!headerCheck(array[i]) && !yamlCheck(array[i])) {
+      if (!headerCheck(array[i])) {
         array[i] = array[i].replace(/\n$/, "");
       }
     }

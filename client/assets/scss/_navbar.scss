@@ -31,7 +31,6 @@ header {
   @include flex-child;
   @include flex-container-row;
   flex: 0 1 auto;
-  margin: 1rem;
 }
 
 .ui.dropdown {
@@ -58,4 +57,15 @@ header {
         margin-left: 100px;
       }
     }
+}
+
+
+.newpost-btn {
+  margin-left: 10px;
+}
+
+
+//fix for dropdown menu to be above tooltip
+.ui.top.left.pointing.dropdown>.menu {
+  z-index: 2000;
 }

@@ -19,6 +19,6 @@ section.subnav.sticky(post-subnav ng-show="postData")
           img(src="assets/img/Comment.svg" alt="Comment Icon")
           span {{postData.commentCount}}
     .right-icons
-      a.button(href="{{postData.editUrl}}", target="_blank")
+      a.button.propose-change-btn(href="{{postData.editUrl}}" data-content="Fork this post in Github and make a pull request" target="_blank")
         img(src="assets/img/Edit.svg" alt="Edit Post")
         span Propose Change

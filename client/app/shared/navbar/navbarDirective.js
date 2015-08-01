@@ -63,6 +63,11 @@
           }
         };
 
+        //listen for deleted user
+        $rootScope.$on('deletedUser', function() {
+          $scope.deletedUser = true;
+        })
+
       },
       link: function() {
         /* Hide post error container when user clicks it */
@@ -75,13 +80,13 @@
             .dropdown();
 
           //initialize popup
-          // $('.newpost-btn')
-          // .popup({
-          //   hoverable: true,
-          //   inline: true,
-          //   position: 'bottom left'
-          // });
-        }, 100);
+          $('.newpost-btn')
+          .popup({
+            hoverable: true,
+            inline: true,
+            position: 'bottom left'
+          });
+        }, 400);
 
       }
     };

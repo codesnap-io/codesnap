@@ -4,7 +4,6 @@
   var Post = require('../config/schema').Post;
   var Comment = require('../models/comment.server.model');
 
-
   Post.add = function(postData, callback) {
     new Post(postData)
       .save()
@@ -66,8 +65,8 @@
   Post.getPostByUrl = function(postUrl) {
     var post = new Post({
       'url': postUrl
-    })
-    return post.fetch()
+    });
+    return post.fetch();
   };
 
   Post.postInfo = function(postId, callback) {

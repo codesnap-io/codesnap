@@ -40,6 +40,13 @@
           $('#post-error-container').click(function() {
             $(this).hide();
           });
+
+          $('.propose-change-btn')
+          .popup({
+            hoverable: true,
+            inline: true,
+            position: 'bottom left'
+          });
         }
       };
     });

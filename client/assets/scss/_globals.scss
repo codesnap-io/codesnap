@@ -78,6 +78,10 @@ body {
   margin: 0;
 }
 
+.margin1 {
+  margin: 1rem;
+}
+
 .logo {
   font-family: "Raleway";
   font-weight: 300;
@@ -155,7 +159,7 @@ body {
 }
 
 .button {
-  padding: 0.2rem;
+  padding: 0.6rem;
   border: 1px solid transparent;
   border-radius: 2px;
   font-weight: 300;
@@ -165,7 +169,8 @@ body {
 }
 
 .button:hover {
-  border: 1px solid $accent-200;
+  //border: 1px solid $accent-200;
+  background-color: $accent-100;
   border-radius: 2px;
 }
 
@@ -217,4 +222,25 @@ body {
 .result-text {
   color: $highlight;
   font-weight: bold;
+}
+
+
+.ui.message.firsttime-message, .ui.message.deleted-message {
+  -webkit-animation:fadeIn ease-in;
+  -moz-animation:fadeIn ease-in;
+  animation:fadeIn ease-in;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 12%;
+  z-index: 50;
 }

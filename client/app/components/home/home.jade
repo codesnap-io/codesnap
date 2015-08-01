@@ -1,7 +1,7 @@
 .subnav
   .discover-container
     h1 Welcome to &lt;code&gt;snap.
-    h2.no-margin Discover the latest technical posts from engineers like you, or 
+    h2.margin1 Discover the latest technical posts from engineers like you, or 
       a(href="#" ng-click="newPost()").result-text write your own.
     .center
       a.discover-large.radius(ui-sref="tag({name: tags[0].title})" class="pattern-{{tags[0].pattern}}")
@@ -26,9 +26,9 @@
 .content.align-top  
   .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0" infinite-scroll-immediate-check="false")
     ul.category-list
-        a(ng-click="updateCategory('top')", ng-class="{underscore: category==='top'}")
+        a.recent-posts-btn(href="#" ng-click="updateCategory('top')", ng-class="{underscore: category==='top'}")
             li Top Posts
-        a(ng-click="updateCategory('recent')", ng-class="{underscore: category==='recent'}")
+        a.top-posts-btn(href="#" ng-click="updateCategory('recent')", ng-class="{underscore: category==='recent'}")
             li Recent Posts
     .post-item(ng-repeat="post in posts")
       .post-date
