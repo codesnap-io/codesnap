@@ -63,3 +63,17 @@
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
+
+.post-item {
+  opacity: 0;
+  -webkit-animation:fadeIn ease-in;
+  -moz-animation:fadeIn ease-in;
+  animation:fadeIn ease-in;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.3s;
+  -moz-animation-duration:0.3s;
+  animation-duration:0.3s;
+}

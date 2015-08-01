@@ -7,4 +7,6 @@ Below are a few instructions and other information about your CodeSnap.
 
 ![Sample photo](images/snapper.svg)
 
+* We have an FAQ about markdown, front-matter, and the codesnap workflow 
+
 * Have any questions about codesnap.io, or any cool nifty ideas for codesnap.io? Email us at us@codesnap.io. Seriously, email us.

@@ -226,9 +226,9 @@ body {
 
 
 .ui.message.firsttime-message, .ui.message.deleted-message {
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
+  -webkit-animation:fadeIn ease-in;
+  -moz-animation:fadeIn ease-in;
+  animation:fadeIn ease-in;
   -webkit-animation-fill-mode:forwards;
   -moz-animation-fill-mode:forwards;
   animation-fill-mode:forwards;
