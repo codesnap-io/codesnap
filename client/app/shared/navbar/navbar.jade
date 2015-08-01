@@ -1,6 +1,11 @@
 #post-error-container
   #post-error-text Please #[strong(ui-sref="signup") log in] to add a new post
   img#post-error-x(src="../../../assets/img/x.png")
+.ui.message.floating.negative.deleted-message(ng-show="deletedUser")
+  i.close.icon(ng-click="deletedUser = false")
+  p Your account has been deleted. 
+
+
 header(ng-show="showNav")
   .content
     .left
@@ -28,5 +33,3 @@ header(ng-show="showNav")
           | New Post
         a.button.margin1#signup-btn(ui-sref="signup" ng-if="!loggedIn")
           span Signup / Login
-
-//- load semantic ui elements
