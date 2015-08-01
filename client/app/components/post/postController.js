@@ -8,32 +8,31 @@
     /* Set scope id equal to the id passed in as parameter */
     $scope.post_id = $stateParams.id;
     $scope.postData = postFactory.getCurrentPost();
-    console.log($scope.postData);
     $scope.postData.editUrl = "https://github.com/" + $scope.postData.username + "/codesnap.io/edit/master/" + $scope.postData.file;
 
     /* Equals true if the user has already liked the post.  This is used to color in the heart icon */
     $scope.like = postFactory.getCurrentLike();
 
     /* Adds one view count to the databsae for this post */
-    postFactory.addPostView($scope.post_id);
+    postFactory.addPostView($scope.post_id, window.localStorage.codeSnapJwtToken);
 
      /* This contains the user information needed to add comments */
     $scope.user = userFactory.getUserInfo();
 
     /* If post data is successfully retrieved, get the markdown file at it's specified url */
-    postFactory.getPostMarkdown($scope.postData.post_url)
-    .then(function (post, err) {
-      if (err) {
-        console.log(err);
-      } else {
-        /* Set scope post equal to the markdown content retrieved from Github */
-        $scope.post = post;
+    postFactory.getPostMarkdown($scope.postData.post_url, $rootScope.loggedIn, $scope.postData, $scope.user)
+      .then(function (post, err) {
+        if (err) {
+          console.log(err);
+        } else {
+          /* Set scope post equal to the markdown content retrieved from Github */
+          $scope.post = post;
 
-        /* Assign paragraph attributes. Use set timeout to give page time load post data to page */
-        setTimeout(function() {
-          addSideComments();
-        });
-      }
+          /* Assign paragraph attributes. Use set timeout to give page time load post data to page */
+          setTimeout(function() {
+            addSideComments();
+          });
+        }
     });
 
 
@@ -63,8 +62,8 @@
         counter++;
       });
 
+      console.log($scope.postData.comments);
       /* Initialize side comment functionality.  We specify the user information and previous posts */
-      debugger;
       var sideComments = new SideComments('#commentable-area', $scope.user, $scope.postData.comments);
 
       /* When a commentPosted event is triggered, add the comment to the database */
@@ -106,7 +105,7 @@
         }
         /* If user clicks outside of comments div, shift post body back, unless another comments div is being opened */
         else if((!$(event.target).closest('.comments-wrapper').length)) {
-          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment')) {
+          if ($('.post-container').css('margin-left') === '-420px' && !$(event.target).parent().parent().hasClass('side-comment') && !$(event.target).hasClass('marker')) {
             $('.post-container').animate({'margin-left': '0px'}, 100);
           }
         }

@@ -8,15 +8,15 @@ section.subnav.sticky(post-subnav ng-show="postData")
       .post-author-date
         span.author(ui-sref="profile({username: postData.username})") {{postData.author}}
         span.date {{postData.created_date | date:"MMM dd, yyyy"}}
-      a.icon(ng-click="toggleLike()")
-        img(src="assets/img/heart-full.svg" width="21px" alt="New Post Icon" ng-show="isLiked")
-        img(src="assets/img/heart-empty.svg" alt="New Post Icon" ng-hide="isLiked")
+      a.icon(ng-click="toggleLike()" class="pointer")
+        img.heart(src="assets/img/heart-full.png" alt="New Post Icon" ng-show="isLiked")
+        img.heart(src="assets/img/heart-empty.png" alt="Likes Icon" ng-hide="isLiked")
         span {{postData.likes}}
       a.icon
-          img(src="assets/img/views.svg" alt="New Post Icon")
+          img(src="assets/img/views.svg" alt="Views Icon")
           span {{postData.post_views}}
       a.icon
-          img(src="assets/img/comment.svg" alt="New Post Icon")
+          img(src="assets/img/Comment.svg" alt="Comment Icon")
           span {{postData.commentCount}}
     .right-icons
       a.button(href="{{postData.editUrl}}", target="_blank")

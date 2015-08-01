@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/BlaseBallerina/codesnap.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/codesnap)
+[![Circle CI](https://circleci.com/gh/codesnap-io/codesnap.svg?style=svg)](https://circleci.com/gh/BlaseBallerina/codesnap)
 
 # CodeSnap
 GitHub-based technical blogging platform

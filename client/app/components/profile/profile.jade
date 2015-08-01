@@ -1,14 +1,14 @@
-div.ui.message.floating.info.firsttime-message(ng-show="onFirstVisit")
-  i.close.icon(ng-click="onFirstVisit = false")
+div.ui.message.floating.info.firsttime-message(ng-show="newUser")
+  i.close.icon(ng-click="newUser = false")
   .header
-    | Welcome to &lt;code&gt;snap.
-  p First timer, eh? We've created a new repository called 'codesnap.io' on your Github profile. 
+    | Welcome to CodeSnap!
+  p We created a new repository called 'codesnap.io' in your Github account.. 
     a(href="https://www.github.com/{{user.username}}/codesnap.io")  Check it out here.
-  p We've also created a markdown post for you called 
+  p We also created a markdown post for you called 
     a(href="https://www.github.com/{{user.username}}/codesnap.io/posts/myFirstPost.md") myFirstPost.md, 
     | but don't worry, it's not published yet! You can publish the post by changing the front-matter of the markdown file. 
-    a(ui-sref="faq") Visit our how-to
-    |  to learn more about codesnapping like a pro.
+    a(ui-sref="faq") Visit our FAQ page
+    | to learn more about codesnapping like a pro.
     
 .content.align-top
   .small-child.pad2.align-top
@@ -21,7 +21,7 @@ div.ui.message.floating.info.firsttime-message(ng-show="onFirstVisit")
             img.profile-github-logo(src="assets/img/github.svg" alt="Github icon")
             span.username {{user.username}}
     p.profile-bio(ng-show="bio") {{bio}}
-    a.button(href="{{editUrl}}" target="_blank" ng-show="bio && isOwner")
+    a.button(href="{{editBioUrl}}" target="_blank" ng-show="bio && isOwner")
       img(src="assets/img/Edit.svg" alt="Edit Bio")
       span.edit-bio Edit Bio
     h4.commonly-used Commonly Used Tags
@@ -35,16 +35,13 @@ div.ui.message.floating.info.firsttime-message(ng-show="onFirstVisit")
           p.day {{post.created_date | date:"dd"}}
           p.year {{post.created_date | date:"yyyy"}}
 
-      .post-content-container
-        a.clickable(ui-sref="post({id: post.post_id })" ng-show="post.published")
+      .post-content-container(ng-show="post.published || isOwner")
+        a.clickable(ui-sref="post({id: post.post_id })")
           h2.title {{post.post_title}}
-        h2.title(ng-hide="post.published") {{post.post_title}}
-        a(ui-sref="post({id: post.post_id })" ng-show="post.published")
-          p.summary {{post.summary}}...
-        p.summary(ng-hide="post.published" ) {{post.summary}}...
+        p.summary {{post.summary}}...
         .profile-post-links
           .link-div(ng-show="isOwner")
-              a(href="{{githubUrl}}" target="_blank")
+              a(href="https://www.github.com/{{user.username}}/codesnap.io/edit/master/{{post.file}}" target="_blank")
                 img(src="assets/img/Edit.svg" alt="Edit Post")
                 span Edit
           .link-div

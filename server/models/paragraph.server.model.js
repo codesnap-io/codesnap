@@ -16,10 +16,31 @@
           callback(paragraph);
         });
       } else {
+        paragraph.set('number', paragraphNum);
+        paragraph.set('line', lineNum);
+        paragraph.save();
         callback(paragraph);
       }
     });
   };
 
+  /* Returns a list of paragraphs for a given post */
+  Paragraph.postParagraphs = function(postId) {
+    return db.knex.raw(' \
+         SELECT \
+           id, \
+           number, \
+           line \
+         FROM paragraphs \
+         WHERE \
+           post_id = ' + postId);
+  };
+
+  Paragraph.remove = function(paragraphId) {
+    return db.knex('paragraphs').where('id', paragraphId)
+      .del();
+  };
+
   module.exports = Paragraph;
+
 })();

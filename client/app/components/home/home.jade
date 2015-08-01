@@ -2,7 +2,7 @@
   .discover-container
     h1 Welcome to &lt;code&gt;snap.
     h2.no-margin Discover the latest technical posts from engineers like you, or 
-      a(href="{{newPostUrl}}").result-text write your own.
+      a(href="#" ng-click="newPost()").result-text write your own.
     .center
       a.discover-large.radius(ui-sref="tag({name: tags[0].title})" class="pattern-{{tags[0].pattern}}")
         .darken.radius
@@ -23,9 +23,13 @@
       a.discover-small.radius(ui-sref="tag({name: tags[5].title})" class="pattern-{{tags[5].pattern}}")
         .darken.radius
           h3 {{tags[5].title}}
-.content.align-top
-
+.content.align-top  
   .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0" infinite-scroll-immediate-check="false")
+    ul.category-list
+        a(ng-click="updateCategory('top')", ng-class="{underscore: category==='top'}")
+            li Top Posts
+        a(ng-click="updateCategory('recent')", ng-class="{underscore: category==='recent'}")
+            li Recent Posts
     .post-item(ng-repeat="post in posts")
       .post-date
         .date
@@ -41,7 +45,7 @@
         .profile-post-links
           a.link-div(ui-sref="profile({username: post.username })")
             .link-div
-              img.profile-pic(src="{{post.profile_photo_url}}")
+              img.profile-pic(ng-src="{{post.profile_photo_url}}")
             .link-div
               span.author-name {{post.author}}
           .link-div
@@ -50,7 +54,3 @@
           .link-div
             img(src="assets/img/views.svg" alt="Post View Count")
             span {{post.views}}
-
-  //- .small-child.tag-list
-  //-   .small-child.tag-list.sticky(offset="67px")
-  //-     p.tag(ng-repeat="tag in tags" tag-id="{{tag.id}}" ui-sref="tag({name: tag.title })") {{tag.title}}

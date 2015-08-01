@@ -19,20 +19,30 @@
       for (var i = 0; i < tags.length; i++) {
         tagArray.add(tags[i].title);
       }
-      /* Match each incoming post tag to an existing tag or create a new one */
-      for (var j = 0; j < postTags.length; j++) {
-        /* Set results equal to fuzzy serch results in order from best to worst match */
-        var results = tagArray.get(postTags[j]);
 
-        /* Check to see if the first (best) result meets our matching standards.  If it does we create a new PostTagJoin with matching tag*/
-        if (results && results[0][0] >= matchThreshold) {
-          PostTagJoin.createOrAdd(postId, results[0][1]);
+      /* Match each incoming post tag to an existing tag or create a new one */
+      var addTag = function() {
+        if (postTags.length > 0) {
+          var tag = postTags.pop();
+          /* Set results equal to fuzzy serch results in order from best to worst match */
+          var results = tagArray.get(tag);
+
+          /* Check to see if the first (best) result meets our matching standards.  If it does we create a new PostTagJoin with matching tag*/
+          if (results && results[0][0] >= matchThreshold) {
+            PostTagJoin.createOrAdd(postId, results[0][1], function(join) {
+              addTag();
+            });
+          }
+          /* If the result does not meet our matching standard, create new PostTagJoin with new tag */
+          else {
+            PostTagJoin.createOrAdd(postId, tag, function(join) {
+              addTag();
+            });
+          }
         }
-        /* If the result does not meet our matching standard, create new PostTagJoin with new tag */
-        else {
-          PostTagJoin.createOrAdd(postId, postTags[j]);
-        }
-      }
+      };
+
+      addTag();
     });
   };
 

@@ -1,0 +1,131 @@
+
+// *** Subnav ***
+.subnav {
+  border-bottom: 1px solid $accent-200;
+  background: #f4f4f4;
+  opacity: .98;
+  width: 100%;
+}
+
+.stuck-subnav {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  height: 46px;
+  justify-content: center;
+}
+
+.post-author-date {
+  @include flex-container-row;
+  flex-direction: column;
+  margin: 0 1rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.author {
+  color: $accent-800;
+}
+
+.profile-name {
+  color: $accent-800;
+  font-size: 1.75rem;
+}
+
+.date {
+  font-weight: 300;
+  color: $accent-300;
+  font-size: 0.75rem;
+}
+
+.username {
+  padding-left: 3px;
+  line-height: 20px;
+  font-weight: 300;
+  color: $accent-300;
+  font-size: 0.8rem;
+}
+
+#post-error-container {
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0px;
+  border: 1px solid #E0B4B4;
+  background-color: #FFF6F6;
+  color: #912D2B;
+  height: 50px;
+  cursor: pointer;
+  display: none;
+  #post-error-text {
+    line-height: 50px;
+    text-align: center;
+  }
+  #post-error-x {
+    width: 10px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+  }
+}
+
+
+.comment .right-of-avatar{
+  width: 200px;
+  background-color: yellow;
+}
+
+.subnav {
+  z-index: 100;
+}
+.subnav .left-icons {
+  @include flex-child;
+  @include flex-container-row;
+  width: 21px;
+  height: 21px;
+  justify-content: flex-start;
+}
+
+.icon {
+  img {
+    max-width: 25px;
+  }
+}
+
+.subnav .right-icons {
+  @include flex-child;
+  @include flex-container-row;
+  justify-content: flex-end;
+}
+
+
+// *** Home Subnav ***
+.category-list {
+  padding: 0;
+  list-style-type: none;
+  .underscore {
+    border-bottom: 2px solid $accent-300;
+  }
+}
+
+.category-list a {
+  text-decoration: none;
+  color: $accent-800;
+  padding: 1rem;
+}
+
+.category-list a:hover {
+  cursor: pointer;
+  border-bottom: 2px solid $accent-300;
+}
+
+.category-list li {
+  display: inline;
+  border: none;
+  overflow: hidden;
+}

@@ -14,12 +14,14 @@ html(ng-app="codesnap" lang="en")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js")
 
 
+
     //semantic ui
     script(src='http://oss.maxcdn.com/semantic-ui/2.0.7/components/search.min.js')
     script(src='http://oss.maxcdn.com/semantic-ui/2.0.7/components/api.min.js')
     script(src='http://oss.maxcdn.com/semantic-ui/2.0.7/components/transition.min.js')
     script(src='http://oss.maxcdn.com/semantic-ui/2.0.7/components/dropdown.min.js')
-
+    script(src='http://oss.maxcdn.com/semantic-ui/2.0.7/components/popup.min.js')
+      
     <!-- build:js(./client/) assets/js/app.min.js -->      
     //side comments
     script(src="assets/js/side-comments.js")
@@ -78,24 +80,8 @@ html(ng-app="codesnap" lang="en")
     //markdown parser libs
     script(src="assets/lib/marked/lib/marked.js")
 
-    //- search autocomplete dependencies
-    script(src="assets/lib/angular-ui-select/dist/select.min.js")
-    script(src="assets/lib/angular-sanitize/angular-sanitize.min.js")
-    //- local storage module for search autocomplete and potentially tokens
-    script(src="assets/lib/angular-local-storage/dist/angular-local-storage.min.js")
-
-
-    //semantic ui elements
-    //- dropdown menus
-    //- script(src="assets/lib/semantic-ui-dropdown/dropdown.min.js")
-    //- script(src="assets/lib/semantic-ui-transition/transition.min.js")
-    //- script(src="assets/lib/semantic-ui-search/search.min.js")
-
     //infinite scroll
     script(src="assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
-      
-    //api for search
-    //- script(src="assets/lib/semantic-ui-api/api.min.js")
 
     <!-- endbuild -->
 
@@ -119,3 +105,4 @@ html(ng-app="codesnap" lang="en")
     cr-navbar
     ui-view(name="subnav")
     ui-view.page-content(name="content")
+    cr-footer

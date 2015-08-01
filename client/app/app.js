@@ -9,13 +9,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'ui.router',
       //markdown parser
       'mdParserDirective',
-      //select for search
-      'ui.select',
-      'ngSanitize',
       //infinite scroll
       'infinite-scroll',
-      //localStorage
-      'LocalStorageModule',
       //components
       'homeController',
       'signupController',
@@ -43,9 +38,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
   function config($stateProvider, $urlRouterProvider, $locationProvider) {
-
-
-
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
     //TODO: html5mode?
@@ -96,11 +88,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
             if ($rootScope.loggedIn) {
               return postFactory.getLikeStatus(localStorage.codeSnapJwtToken, $stateParams.id);
             }
-          },
-          getUserInfo: function($rootScope, userFactory) {
-            if ($rootScope.loggedIn) {
-              return userFactory.setUserInfo();
-            }
           }
         }
       })
@@ -138,7 +125,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           searchResults: function(searchFactory, $rootScope) {
             //empty out search bar
             $('.search-box input').val('');
-            return searchFactory.searchPosts($rootScope.searchQuery, $rootScope.searchType);
+            return searchFactory.searchPostsByTag($rootScope.searchQuery);
           }
         }
       })
@@ -166,7 +153,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           //empty out search bar
           $('.search-box input').val('');
 
-          return searchFactory.searchPosts($stateParams.name, 'tag')
+          return searchFactory.searchPostsByTag($stateParams.name)
             .then(function(posts) {
               tagFactory.setPostResult(posts);
             });
@@ -186,7 +173,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         },
         subnav: {
           templateUrl: 'app/shared/subnavs/profileSubnav.html'
-          // controller: 'profileController'
         }
       },
       resolve: {
@@ -203,7 +189,7 @@ Handle setup of app, load in Angular dependencies, routing, etc.
           }
         },
         fetchRecentPosts: function(userFactory, $stateParams) {
-          //empty out search bar
+          /* Empty out search bar */
           $('.search-box input').val('');
           return userFactory.getRecentUserPosts($stateParams.username)
           .then(function(posts) {

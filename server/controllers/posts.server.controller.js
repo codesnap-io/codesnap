@@ -8,30 +8,12 @@
   var User = require('../models/user.server.model');
   var tagHandler = require('../services/tagHandler');
   var parseDiff = require('../services/repo.server.parseDiff.js');
-  var Comment = require('../config/schema').Comment;
+  var Paragraph = require('../config/schema').Paragraph;
+  var Promise = require('bluebird');
 
   /* Helper function that returns the download URL for a particular file.  This url will ultimately be saved into the url column of the posts table. */
   var downloadUrl = function(file, username, repoName) {
     return "https://raw.githubusercontent.com/" + username + "/" + repoName + "/master/" + file;
-  };
-
-  //helper function to adjust comment line #s based on diff
-  var adjustComments = function(postPath, postComments) {
-    //loop thru post comments
-      //loop thru old
-        //is comment line # removed?
-          //if yes, is whole paragraph below it removed?
-            //if yes, remove comment
-          //if no, iterate line number down to bottom of chunk (i.e. the place where the next line is more than 1 away)
-            //count # of removals and subtract from comment line #
-      //loop thru new
-        //does add begin @ or lower than comment line #?
-          //if yes, count # of consecutive additions and add them to comment line #
-  };
-
-  //helper function to reindex adj coms to proper paragraphs
-  var indexComments = function(postPath, adjustedComments) {
-    //use .md of postPath to connect adjusted line #s of comments to correct paragraphs
   };
 
   //adds posts to db
@@ -46,7 +28,7 @@
           .then(function(rawFile) {
             // retreive front-matter metadata
             var metadata = exports.getMetadata(rawFile);
-            var summary = exports.getSummary(rawFile);
+            var summary = exports.getSummary(rawFile).replace(/#/g, '');
 
             /* Convert published from boolean to number (0 or 1) so it can be saved into database properly) */
             if (metadata.published !== undefined) {
@@ -158,9 +140,62 @@
     });
   };
 
+  //helper function to adjust comment line #s based on diff
+  var adjustParagraphs = function(parsedDiff, paragraphs) {
+
+    var oldLines = parsedDiff.old;
+    var newLines = parsedDiff.new;
+
+    //loop thru post Paragraphs
+    paragraphs.forEach(function(p) {
+      var paragraphFirstLine = p.line;
+      var paragraphNumber = p.number;
+      //loop thru old
+      for (var line in oldLines) {
+        //is paragraph first line # removed?
+        if ((line === p.line) && (oldLines[line][1] === "removed")) {
+          //if yes, is whole paragraph below removed as well? (did removal meet a blank line?)
+          for (var belowIndex = p.line + 1; oldLines[belowIndex][1] === "removed"; belowIndex++) {
+            if (oldLines[belowIndex][0] === "") {
+              //if yes, delete paragraph and decrement all below paragraph's order #s
+              Paragraph.removeParagraph(p.id);
+            }
+          }
+        }
+      }
+      //loop thru new
+      for (var line in newLines) {
+        //do any line additions begin @ or above paragraph first line #?
+        if ((line === p.line) && (oldLines[line][1] === "added")) {
+          for (var aboveIndex = p.line - 1; newLines.hasOwnProperty(aboveIndex - 1); aboveIndex--) {
+            if (newLines[aboveIndex][1] === "added") {
+              var blankLineGroups = 0;
+              //if yes, loop down from that line addition and ask: does any consecutive line addition contain a blank line?
+              for (var belowIndex = p.line + 1; newLines[belowIndex + 1][1] === "removed"; belowIndex++) {
+                //if yes, how many groups of blank lines exist in the current consecutive addition?
+                if (newLines[belowIndex][0] === '') {
+                  blankLineGroups++;
+                }
+              }
+              //if yes, increment all paragraph order #s after this by the number of groups of blank lines
+              paragraphs.forEach(function(para) {
+                if (para.number > paragraphNumber) {
+                  para.number += blankLineGroups;
+                }
+              });
+            }
+          }
+        }
+      }
+    });
+    return paragraphs;
+  };
+
   exports.postReceive = function(req, res) {
-    console.log("------------Post received----------------", req.body);
+
     res.sendStatus(201);
+
+    console.log("------------Post received----------------", req.body);
 
     /* The data points we're receiving from the Github webhook.  It's possible that one or many of the filename arrays will contain data */
     var username = req.body.repository.owner.name;
@@ -171,32 +206,65 @@
     var filesRemoved = req.body.head_commit.removed;
     /* An array of the names of files that were modified in a user's repo */
     var filesModified = req.body.head_commit.modified;
+    //SHA of pre-commits file
+    var beforeSha = req.body.before;
+    //SHA of post-commits file
+    var afterSha = req.body.after;
 
-    // //create collection of all comments for all posts (TODO: get IDs for all filesMod'd)
-    // var postComments = Comment.postComments(filesModified("GET IDS FOR EACH OF THESE SOMEHOW"), function(commentsObj) {
-    //   return commentsObj;
-    // });
+    var filesModifiedIds = [];
+    var paragraphs = {};
+    //get postIDs of all files modified so that we can get paragraphs for each modified file by postId
+    filesModified.forEach(function(file) {
+      filesModifiedIds.push(Post.getPostByUrl(downloadUrl(file, username, repoName))
+        .then(function(fileObj) {
+          return fileObj.attributes.id;
+        }));
+    });
+
+    var postIds;
+    //wait for all filesModifiedIds to come back before taking next step
+    Promise.all(filesModifiedIds)
+      .then(function(completeModdedPostIds) {
+        postIds = completeModdedPostIds;
+        //get obj whose keys are postIds and whose values are arrays of Paragraphs for each modified file
+        completeModdedPostIds.forEach(function(postId) {
+          paragraphs[postId] = Paragraph.postParagraphs(postId)
+            .then(function(paragraphs) {
+              return paragraphs[0];
+            });
+        });
+      })
+      //wait for all paragraphs to come back before taking next step
+      .then(function() {
+        Promise.props(paragraphs)
+          .then(function(completeParagraphs) {
+
+            var diffUrl = "https://github.com/" + username + "/" + repoName + "/compare/" + beforeSha + "..." + afterSha + ".diff";
+
+            //parse head_commit diff
+            parseDiff.parseDiffFromUrl(diffUrl, function(data) {
+              //returns "new" and "old" objs for each filePath changed in commit
+              for (var postPath in data) {
+                postIds.forEach(function(postId) {
+                  var parsedPostDiff = data[postPath];
+                  // do paragraph line adjustments / deletions for given post
+                  console.log(completeParagraphs['1']);
+                  var adjustedParagraphs = adjustParagraphs(parsedPostDiff, completeParagraphs[postId]);
+                  console.log(adjustedParagraphs);
+                  // reindex adj paras to proper paragraphs
+                  service.getGHFileContentsFromApi(postPath, username)
+                    .then(function(content){
+                      service.parseParagraphs(content, postId);
+                    });
+                });
+              }
+            });
+          });
+      });
 
     /* Get github userId from username */
     service.getGHUser(username)
       .then(function(user) {
-
-        // //update comments
-        // //somehow get url of head_commit diff...add ".diff" to commit url
-        // var diffUrl = "";
-
-        // //parse head_commit diff
-        // parseDiff.parseDiffFromUrl(diffUrl, function(data) {
-        //   //returns "new" and "old" objs for each filePath changed in commit
-        //   for (var postPath in data) {
-        //     //do comment line adjustments / deletions for given post
-        //     var adjustedComments = adjustComments(postPath, postComments);
-        //     //reindex adj coms to proper paragraphs
-        //     var indexedComments = indexComments(postPath, adjustedComments);
-        //     //update comments in db with new line and paragraph #s
-        //     Comment.updateCommentLinesAndParagraphs(indexedComments);
-        //   }
-        // });
 
         var githubUserId = JSON.parse(user).id;
         //find user by github userId and add/remove/modify as needed
@@ -234,17 +302,6 @@
     }
   };
 
-  exports.allPostsInfo = function(req, res) {
-    Post.getAllPosts(function(error, posts) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.json(posts);
-      }
-    });
-  };
-
   /* Parses metadata from markdown file using the front-matter library. */
   exports.getMetadata = function(file) {
     var data = fm(file);
@@ -272,9 +329,27 @@
       });
   };
 
-  exports.getMorePosts = function(req, res) {
-    if (req.query.lastPost) {
-      Post.getMorePosts(req.query.lastPost)
+
+  exports.getMoreTopPosts = function(req, res) {
+    if (req.query.last_post_id && req.query.last_like) {
+      Post.getMoreTopPosts(req.query.last_post_id, req.query.last_like)
+        .then(function(posts) {
+          if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
+            res.json(posts[0]);
+          } else {
+            res.status(204).send("no more posts");
+          }
+        });
+    } else {
+      res.status(400).send("no lastPost or lastlike provided");
+    }
+  };
+
+
+
+  exports.getMoreRecentPosts = function(req, res) {
+    if (req.query.last_post_id) {
+      Post.getMoreRecentPosts(req.query.last_post_id)
         .then(function(posts) {
           if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
             res.json(posts[0]);
@@ -306,7 +381,7 @@
       serverPath: "./server/assets/postTemplate.md"
     };
     /* Create new post file from template */
-    service.addFileToGHRepo(process.env.githubAccessToken, req.query.username, path).then(function(data) {
+    service.addFileToGHRepo(req.query.token, req.query.username, path).then(function(data) {
       var repoPath = JSON.parse(data).content.path;
       /* Redirect to the edit page for the new file */
       res.redirect('https://github.com/' + req.query.username + '/codesnap.io/edit/master/' + repoPath);
@@ -329,7 +404,7 @@
       });
   };
 
-  /* Dummy Data */
+  // /* Dummy Data */
   // if (process.env.NODE_ENV === 'development') {
   //   var req = {};
   //   var res = {
@@ -341,17 +416,18 @@
   //     repository: {
   //       name: 'codesnap.io',
   //       owner: {
-  //         name: 'bdstein33'
+  //         name: 'm-arnold'
   //       }
   //     },
   //     head_commit: {
-  //       added: ['posts/js_instantiation_patterns.md'],
+  //       added: [],
   //       removed: [],
-  //       modified: []
-  //     }
+  //       modified: ['posts/parsetest.md']
+  //     },
+  //     before: "ffeb1a3a44b8bbe447a3e02498c3c34bfae30e69",
+  //     after: "de726fb139345ed2691c47e69a1ef96fe0392742"
   //   };
   //   exports.postReceive(req, res);
   // }
 
 })();
-

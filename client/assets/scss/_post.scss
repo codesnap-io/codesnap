@@ -1,0 +1,69 @@
+// *** Content ***
+.post-content {
+  font-family: 'Merriweather', sans-serif;
+  font-weight: 300;
+  color: $accent-800;
+  letter-spacing: 0.02272727273rem;
+  line-height: 1.7272727273rem;
+}
+
+pre {
+  font-size: 90%;
+  line-height: 1.2rem;
+  font-family: "Courier 10 Pitch", Courier, monospace;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  display: block;
+  word-wrap: break-word;
+  clear: both;
+  color: #555555;
+  padding: 1rem 1rem;
+  background: #f4f4f4;
+  border: solid 1px #e1e1e1
+}
+
+code {
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  font-weight: 400;
+  color: #464646;
+  background: #f4f4f4;
+  border-style: none;
+  padding: .125rem .3125rem .0625rem;
+}
+
+.left-icons .icon {
+  //margin: 0.rem;
+  padding: 0.2rem;
+  font-weight: 300;
+  color: $accent-300;
+  text-decoration: none;
+}
+
+.left-icons .icon:hover {}
+
+.left-icons .icon * {
+  padding: 0 0.3rem;
+}
+
+.left-icons .icon img {
+  height: 1rem;
+}
+
+.tag {
+  @include flex-child;
+  flex: 0 1 auto;
+  font-size: 0.8rem;
+  border: 1px solid $accent-800;
+  color: $accent-800;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px 8px 5px 8px;
+}
+
+.tag:hover {
+  cursor: pointer;
+  color: $highlight;
+  border: 1px solid $highlight;
+}

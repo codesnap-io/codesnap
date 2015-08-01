@@ -23,7 +23,6 @@ exports.githubStrategy = function() {
             //finish auth
             return done(null, user);
           }
-          //if user does not exist
           /* If user does not exist, create user */
           if (!user) {
             User.forge({
@@ -43,8 +42,10 @@ exports.githubStrategy = function() {
                   })
                   .then(function(repos) {
                     // search through all user repos for codesnap.io repo
+                    var hasRepo = false;
                     repos.forEach(function(repo) {
                       if (repo.name === "codesnap.io") {
+                        hasRepo = true;
                         //get all user posts
                         repoService.getFileFromGHAPI(accessToken, repo.url + '/contents/posts')
                           .then(function(posts) {
@@ -79,11 +80,12 @@ exports.githubStrategy = function() {
                             repoService.addFileToGHRepo(accessToken, profile.username, firstImagePath);
 
                           });
-                      } else {
-                        //if no codesnap.io repo, create repo, readme, image, posts, etc.
-                        repoService.addGHRepo(accessToken, profile.username);
                       }
                     });
+                    if (!hasRepo) {
+                      //if no codesnap.io repo, create repo, readme, image, posts, etc.
+                      repoService.addGHRepo(accessToken, profile.username);
+                    }
                   });
                 return done(null, newUser);
               });

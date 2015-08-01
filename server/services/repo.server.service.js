@@ -46,6 +46,29 @@
     return rp(options);
   };
 
+  //get file CONTENTS from GH's API
+  exports.getGHFileContentsFromApi = function(postPath, username) {
+    var options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'CodeSnap'
+      },
+      params: {
+        "client_id": "7d292489ff2489c0dc96",
+        "client_secret": "d3ca1aa8a19339272e0425026b581e2e6294e2f9"
+      },
+      uri: "https://api.github.com/repos/" + username + "/codesnap.io/contents/" + postPath
+    };
+
+    return rp(options)
+      .then(function(resp) {
+        var b64Content = JSON.parse(resp).content;
+        var content = new Buffer(b64Content, 'base64');
+        return content.toString();
+      });
+  };
+
   //get file through GH's API
   exports.getFileFromGHAPI = function(token, uri) {
     var options = {
@@ -66,6 +89,7 @@
       url: "https://api.github.com/users/" + username,
       method: 'GET',
       headers: {
+        'Authorization': 'token ' + process.env.MICHAELTOKEN,
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'CodeSnap'
       }
@@ -110,9 +134,9 @@
     };
 
     var firstImagePath = {
-      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/sample.jpg',
+      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/snapper.svg',
       message: "(init) add first image",
-      serverPath: "./server/assets/sample.jpg"
+      serverPath: "./server/assets/snapper.svg"
     };
 
     var readmePath = {
@@ -129,46 +153,33 @@
 
     /* Create repo if user signs up and repo doesn't already exist */
     rp(addRepoOptions)
-      .then(function(body) {
-      })
       /* Add various files to the repo */
       .then(function(body) {
+        /* Set up webhook so we receive notification when changes are made to repo */
+        console.log("WEB HOOK ADDED");
+        return rp(addWebhookOptions);
+      }).then(function(body) {
+        /* Add first image in images folder */
+        console.log("FIRST IMAGE ADDED");
+        return module.exports.addFileToGHRepo(token, username, firstImagePath);
+      }).then(function(body) {
+        /* Add readme to main repo */
+        console.log("README ADDED");
+        return module.exports.addFileToGHRepo(token, username, readmePath);
+      }).then(function(body) {
+        console.log("BIO ADDED");
+        return module.exports.addFileToGHRepo(token, username, bioPath);
+      }).then(function(body) {
         /* Add first post in posts folder */
         console.log("FIRST POST ADDED");
-        module.exports.addFileToGHRepo(token, username, firstPostPath);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-           /* Add first image in images folder */
-           console.log("FIRST IMAGE ADDED");
-          module.exports.addFileToGHRepo(token, username, firstImagePath);
-        }, 500);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-          /* Add readme to main repo */
-          console.log("README ADDED");
-          module.exports.addFileToGHRepo(token, username, readmePath);
-        }, 500);
-      })
-      .then(function(body) {
-        setTimeout(function(){
-          /* Add readme to main repo */
-          console.log("BIO ADDED");
-          module.exports.addFileToGHRepo(token, username, bioPath);
-        }, 500);
-      })
-      .then(function(body) {
-        /* Set up webhook so we receive notification when changes are made to repo */
-        rp(addWebhookOptions);
+        return module.exports.addFileToGHRepo(token, username, firstPostPath);
       })
       .catch(function(e) {
         if (e.statusCode !== 422) {
-          console.error("Error in addGHRepo: ");
+          console.error("Error in addGHRepo: ", e);
         }
       });
   };
-
 
   exports.parseParagraphs = function(file, postId) {
     var array = file.match(/^.*([\n\r]+|$)/gm);
@@ -176,7 +187,6 @@
 
     /* Each index represents the paragraph numer, the value of each index represents the line at which a paragraph starts */
     var paragraphArray = [];
-    
 
     /* Remove extra white space from the end of each lines */
     var index = endYAMLIndex(array);
@@ -188,7 +198,7 @@
       }
 
       /* If the previous line ended with a new line character, this must be the start of a new paragraph */
-      else if(startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
+      else if (startNewParagraph(array[index - 1]) && !headerCheck(array[index]) && !blankCheck(array[index])) {
         paragraphArray.push(index);
       }
 
@@ -220,11 +230,17 @@
   /* All lines have a \n at the end, even those that shouldn't.  Lines that have new paragraphs after have multiple \n's.  By removing the last \n, only remaining \n's should denote new paragraphs. Don't remove line breaks at the end of paragraphs */
   var removeExtraLineSpace = function(array) {
     for (var i = 0; i < array.length; i++) {
-      if (!headerCheck(array[i])) {
-         array[i] = array[i].replace(/\n$/, "");
+      if (!headerCheck(array[i]) && !yamlCheck(array[i])) {
+        array[i] = array[i].replace(/\n$/, "");
       }
     }
     return array;
+  };
+
+  var yamlCheck = function(string) {
+    if (/^---/.test(string)) {
+      return true;
+    }
   };
 
   /* Return the first index after the YAML or 0 */
@@ -252,12 +268,12 @@
 
   /* Checks to see if a string is the beginning or end of a code block (```) */
   var codeBlockCheck = function(string) {
-     return /^```/.test(string);
+    return /^```/.test(string);
   };
 
   /* Checks to see if a string is a header.  We don't want to count headers as paragraphs */
   var headerCheck = function(string) {
-   return /^#/.test(string);
+    return /^#/.test(string);
   };
 
   /* Returns true if string is blank */
@@ -268,8 +284,7 @@
   /* Add paragraphs to database */
   var addParagraphsToDb = function(array, postId) {
     for (var i = 0; i < array.length; i++) {
-      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {
-      });
+      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {});
     }
   };
 
