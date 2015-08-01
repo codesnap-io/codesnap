@@ -280,7 +280,7 @@
   /* Add paragraphs to database */
   var addParagraphsToDb = function(array, postId) {
     for (var i = 0; i < array.length; i++) {
-      Paragraph.addOrEdit(i, array[i], postId, function(paragraph) {});
+      Paragraph.add(i, array[i], postId, function(paragraph) {});
     }
   };
 
