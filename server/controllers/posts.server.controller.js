@@ -290,7 +290,7 @@
       .catch(function(error) {
         console.error("Error in getGHUser: ", error);
       });
-  // };
+  };
 
   /* Return information needed for post page */
   exports.postInfo = function(req, res) {
