@@ -269,27 +269,27 @@
   //         });
   //     });
 
-  //   /* Get github userId from username */
-  //   service.getGHUser(username)
-  //     .then(function(user) {
+    /* Get github userId from username */
+    service.getGHUser(username)
+      .then(function(user) {
 
-  //       var githubUserId = JSON.parse(user).id;
-  //       //find user by github userId and add/remove/modify as needed
-  //       User.findByGithubId(githubUserId, function(error, user) {
-  //         if (error) {
-  //           console.log("ERROR: ", error, " with id: ", githubUserId);
-  //         } else {
-  //           console.log("user found, adding / removing / modifying files");
-  //           exports.addPostsToDb(filesAdded, username, user.id, repoName);
-  //           exports.removePostsfromDb(filesRemoved, username, repoName);
-  //           exports.modifyPostsInDb(filesModified, username, repoName);
-  //         }
-  //       });
+        var githubUserId = JSON.parse(user).id;
+        //find user by github userId and add/remove/modify as needed
+        User.findByGithubId(githubUserId, function(error, user) {
+          if (error) {
+            console.log("ERROR: ", error, " with id: ", githubUserId);
+          } else {
+            console.log("user found, adding / removing / modifying files");
+            exports.addPostsToDb(filesAdded, username, user.id, repoName);
+            exports.removePostsfromDb(filesRemoved, username, repoName);
+            exports.modifyPostsInDb(filesModified, username, repoName);
+          }
+        });
 
-  //     })
-  //     .catch(function(error) {
-  //       console.error("Error in getGHUser: ", error);
-  //     });
+      })
+      .catch(function(error) {
+        console.error("Error in getGHUser: ", error);
+      });
   // };
 
   /* Return information needed for post page */
