@@ -29,7 +29,8 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       'searchbarDirective',
       'postSubnavDirective',
       'profileSubnavDirective',
-      'navbarDirective'
+      'navbarDirective',
+      'footerDirective'
     ])
     .config(config)
     .run(run);

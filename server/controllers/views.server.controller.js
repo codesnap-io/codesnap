@@ -5,15 +5,12 @@
 
   exports.addView = function(req, res) {
     /* Get address infomration from request.  Not all request will provide the same information */
-    var address = req.headers['x-forwarded-for'] ||
-     req.connection.remoteAddress ||
-     req.socket.remoteAddress ||
-     req.connection.socket.remoteAddress;
+      console.log(req.body.address);
 
     /* Create object which will be passed in to attemp new view creation */
     var viewData = {
       post_id: req.body.post_id,
-      address: address
+      address: req.body.address
     };
 
     /* If user_id is passed in the request, include it in viewData option.  user_id is optional because we will want to count views if the viewer is not logged in */
