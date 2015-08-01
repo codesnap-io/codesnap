@@ -18,6 +18,7 @@
     //parameters: a specific post
     //data returned: 20 posts after
     app.get('/post/more/recent', posts.getMoreRecentPosts);
+    app.get('/post/more/top', posts.getMoreTopPosts);
     /* Parameters: username
        Returns 20 most recent posts */
     app.get('/post/user/recent', posts.recentUserPosts);

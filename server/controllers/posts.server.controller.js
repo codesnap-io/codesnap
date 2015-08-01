@@ -329,6 +329,24 @@
       });
   };
 
+
+  exports.getMoreTopPosts = function(req, res) {
+    if (req.query.last_post_id && req.query.last_like) {
+      Post.getMoreTopPosts(req.query.last_post_id, req.query.last_like)
+        .then(function(posts) {
+          if (posts[0][0] && posts[0][0].hasOwnProperty("post_title")) {
+            res.json(posts[0]);
+          } else {
+            res.status(204).send("no more posts");
+          }
+        });
+    } else {
+      res.status(400).send("no lastPost or lastlike provided");
+    }
+  };
+
+
+
   exports.getMoreRecentPosts = function(req, res) {
     if (req.query.last_post_id) {
       Post.getMoreRecentPosts(req.query.last_post_id)

@@ -189,10 +189,37 @@
         users INNER JOIN posts ON users.id = posts.user_id \
         LEFT JOIN likes ON posts.id = likes.post_id \
         LEFT JOIN views ON posts.id = views.post_id \
-        WHERE \
-          posts.id < "' + lastPostId + '" \
+        HAVING posts.id < ' + lastPostId + ' \
+        ORDER BY posts.id DESC \
+        LIMIT 5');
+  };
+
+
+  // less likes than last like count
+  // equal like AND id is less than last id
+
+
+  Post.getMoreTopPosts = function(lastPostId, lastLikeCount) {
+      return db.knex.raw('\
+        SELECT \
+          posts.id AS post_id, \
+          posts.title AS post_title, \
+          posts.url AS post_url, \
+          posts.created_at AS created_date, \
+          posts.summary AS summary, \
+          posts.published AS published, \
+          COUNT(likes.id) AS likes, \
+          COUNT(views.post_id) AS views, \
+          users.name AS author, \
+          users.username AS username, \
+          users.profile_photo_url AS profile_photo_url \
+        FROM \
+        users INNER JOIN posts ON users.id = posts.user_id \
+        LEFT JOIN likes ON posts.id = likes.post_id \
+        LEFT JOIN views ON posts.id = views.post_id \
         GROUP BY posts.id \
-        ORDER BY created_date DESC \
+        HAVING likes < ' + lastLikeCount + ' OR (likes = '+ lastLikeCount +' AND posts.id < "' + lastPostId + '")  \
+        ORDER BY likes DESC, posts.id DESC\
         LIMIT 5');
   };
 
@@ -219,7 +246,7 @@
       WHERE \
         users.username = "' + username + '" \
       GROUP BY posts.id \
-      ORDER BY created_date DESC \
+      ORDER BY posts.id DESC \
       LIMIT 20');
   };
 
@@ -296,7 +323,7 @@
       LEFT JOIN views ON posts.id = views.post_id \
       WHERE posts.published = true \
       GROUP BY posts.id \
-      ORDER BY likes DESC, views DESC\
+      ORDER BY likes DESC, posts.id DESC \
       LIMIT 10');
   };
 
