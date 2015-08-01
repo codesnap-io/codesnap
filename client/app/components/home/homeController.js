@@ -45,7 +45,7 @@
       } else {
         $scope.posts = [];
       }
-    }
+    };
 
 
     /* Load recent posts to page when page first loads */

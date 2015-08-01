@@ -78,6 +78,10 @@ body {
   margin: 0;
 }
 
+.margin1 {
+  margin: 1rem;
+}
+
 .logo {
   font-family: "Raleway";
   font-weight: 300;
@@ -155,7 +159,7 @@ body {
 }
 
 .button {
-  padding: 0.2rem;
+  padding: 0.6rem;
   border: 1px solid transparent;
   border-radius: 2px;
   font-weight: 300;
@@ -165,7 +169,8 @@ body {
 }
 
 .button:hover {
-  border: 1px solid $accent-200;
+  //border: 1px solid $accent-200;
+  background-color: $accent-100;
   border-radius: 2px;
 }
 
