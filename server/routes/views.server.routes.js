@@ -7,7 +7,7 @@
 
     /* Parameters: post_id, address
        Data returned: true or false depending on whether new view was added */
-    app.post('/view/add', views.addView);
+    app.post('/api/view/add', views.addView);
   };
 
 

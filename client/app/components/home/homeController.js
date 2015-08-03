@@ -8,7 +8,7 @@
     //for new post link
     $scope.user = userFactory.getUserInfo();
     if ($scope.user) {
-      $scope.newPostUrl = "/post/add?username=" + $scope.user.username + "&token=" + $scope.user.token;
+      $scope.newPostUrl = "api/post/add?username=" + $scope.user.username + "&token=" + $scope.user.token;
     }
 
     //sort categories

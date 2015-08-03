@@ -21,7 +21,7 @@
         var tagObj = tagResults.map(function(tag) {
           return {
             title: tag.title,
-            url: "#/tag/" + tag.title
+            url: "/tag/" + tag.title
           };
         });
         response.results.tags = {
@@ -37,7 +37,7 @@
               var authorObj = authorResults.map(function(author) {
                 return {
                   title: author.name,
-                  url: "#/profile/" + author.username,
+                  url: "/profile/" + author.username,
                   image: author.profile_photo_url,
                   description: author.username
                 };
@@ -55,7 +55,7 @@
                 var titleObj = titleResults.map(function(post) {
                   return {
                     title: post.post_title,
-                    url: "#/post/" + post.post_id,
+                    url: "/post/" + post.post_id,
                     description: post.author
                   };
                 });

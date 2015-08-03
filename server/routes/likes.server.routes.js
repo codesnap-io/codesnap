@@ -6,9 +6,9 @@
   module.exports = function(app) {
 
     /* Respons with all tags from database */
-    app.get('/like/toggle', likes.toggleLike);
+    app.get('/api/like/toggle', likes.toggleLike);
 
-    app.get('/like/status', likes.checkLike);
+    app.get('/api/like/status', likes.checkLike);
 
   };
 

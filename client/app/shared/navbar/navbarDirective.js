@@ -44,7 +44,7 @@
                 userFactory.setUserInfo(user);
                 $rootScope.user = user;
                 $scope.loggedIn = !!user;
-                $scope.newPostUrl = "/post/add?username=" + user.username + "&token=" + user.token;
+                $scope.newPostUrl = "api/post/add?username=" + user.username + "&token=" + user.token;
               });
           }
         });

@@ -13,7 +13,7 @@
       getTopPosts: function() {
         return $http({
           method: 'GET',
-          url: '/post/top'
+          url: 'api/post/top'
         }).then(function(resp) {
           return resp.data;
         });
@@ -23,7 +23,7 @@
       getRecentPosts: function() {
         return $http({
           method: 'GET',
-          url: '/post/recent'
+          url: 'api/post/recent'
         }).then(function(resp) {
           return resp.data;
         });
@@ -37,7 +37,7 @@
         if (lastLike !== 'undefined' && lastLike !== null) {
           return $http({
             method: 'GET',
-            url: 'post/more/top',
+            url: 'api/post/more/top',
             params: {
               last_post_id: lastPostId,
               last_like: lastLike
@@ -46,7 +46,7 @@
         } else {
           return $http({
             method: 'GET',
-            url: 'post/more/recent',
+            url: 'api/post/more/recent',
             params: {
               last_post_id: lastPostId
             }
@@ -58,7 +58,7 @@
       getPostData: function(id) {
         return $http({
           method: 'GET',
-          url: '/post/info',
+          url: 'api/post/info',
           params: {
             post_id: id
           }
@@ -105,7 +105,7 @@
       toggleLike: function(userId, postId) {
         return $http({
           method: 'GET',
-          url: '/like/toggle',
+          url: 'api/like/toggle',
           params: {
             user_id: userId,
             post_id: postId
@@ -119,7 +119,7 @@
       getLikeStatus: function(userId, postId) {
         return $http({
           method: 'GET',
-          url: '/like/status',
+          url: 'api/like/status',
           params: {
             user_id: userId,
             post_id: postId
@@ -135,7 +135,7 @@
         $.get("http://ipinfo.io", function (response) {
             return $http({
               method: 'POST',
-              url: '/view/add',
+              url: 'api/view/add',
               data: {
                 post_id: postId,
                 user_id: userId,
@@ -143,13 +143,13 @@
               }
             });
         }, "jsonp");
-        
+
       },
 
       addComment: function(post_id, paragraph, user_id, text) {
         return $http({
           method: 'POST',
-          url: '/comment/add',
+          url: 'api/comment/add',
           data: {
             post_id: post_id,
             paragraph: paragraph,
@@ -162,7 +162,7 @@
       deleteComment: function(comment_id) {
         return $http({
           method: 'DELETE',
-          url: '/comment/delete',
+          url: 'api/comment/delete',
           params: {
             comment_id: comment_id
           }

@@ -11,7 +11,7 @@
       getUser: function() {
         return $http({
           method: 'GET',
-          url: '/user/info/',
+          url: 'api/user/info/',
           params: {
             user_id: window.localStorage.codeSnapJwtToken
           }
@@ -21,7 +21,7 @@
       getUserByUsername: function(username) {
         return $http({
           method: 'GET',
-          url: '/user/profile/',
+          url: 'api/user/profile/',
           params: {
             username: username
           }
@@ -34,7 +34,7 @@
       removeUser: function() {
         return $http({
           method: 'DELETE',
-          url: '/user/info/',
+          url: 'api/user/info/',
           params: {
             user_id: localStorage.codeSnapJwtToken
           }
@@ -45,7 +45,7 @@
       ownsProfile: function(jwtToken, username) {
         return $http({
           method: 'GET',
-          url: '/user/profile/owner',
+          url: 'api/user/profile/owner',
           params: {
             username: username,
             user_id: localStorage.codeSnapJwtToken
@@ -58,7 +58,7 @@
       getTopUserPosts: function(username) {
         return $http({
           method: 'GET',
-          url: '/post/user/top',
+          url: 'api/post/user/top',
           params: {
             username: username
           }
@@ -70,7 +70,7 @@
       getRecentUserPosts: function(username) {
         return $http({
           method: 'GET',
-          url: '/post/user/recent',
+          url: 'api/post/user/recent',
           params: {
             username: username
           }
@@ -82,7 +82,7 @@
       newUser: function(username) {
         return $http({
           method: 'GET',
-          url: '/user/new',
+          url: 'api/user/new',
           params: {
             username: username
           }

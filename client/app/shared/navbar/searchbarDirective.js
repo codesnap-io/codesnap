@@ -9,7 +9,7 @@
           $('.ui.search')
             .search({
               apiSettings: {
-                url: 'search/?q={query}'
+                url: 'api/search/?q={query}'
               },
               type: 'category',
               searchDelay: 100,
