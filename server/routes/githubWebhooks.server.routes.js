@@ -4,7 +4,7 @@
 
   module.exports = function(app) {
     /* Receives Github webhooks containing information on which posts have been added, edited and deleted. */
-    app.post('/api/postreceive/github', postCtrl.postReceive);
+    app.post('/postreceive/github', postCtrl.postReceive);
   };
 
 })();
