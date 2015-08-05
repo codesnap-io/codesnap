@@ -199,10 +199,9 @@ Handle setup of app, load in Angular dependencies, routing, etc.
       }
     });
 
-    // $locationProvider.html5Mode({
-    //   enabled: true,
-    //   requireBase: false
-    // });
+
+    // enable html5 mode to eliminate hashbang
+    // $locationProvider.html5Mode(true);
 
   }
 

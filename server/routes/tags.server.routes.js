@@ -6,15 +6,15 @@
   module.exports = function(app) {
 
     /* Responds with all tags from database */
-    app.get('/tags', tags.getTags);
+    app.get('/api/tags', tags.getTags);
 
     /* Responds with top tags from database */
-    app.get('/tags/popular', tags.getPopularTags);
+    app.get('/api/tags/popular', tags.getPopularTags);
 
     /* Responds a list of tags assigned to a users published post */
-    app.get('/tags/user', tags.getUserTags);
+    app.get('/api/tags/user', tags.getUserTags);
 
-    app.get('/tags/pattern', tags.getTagPattern);
+    app.get('/api/tags/pattern', tags.getTagPattern);
   };
 
 

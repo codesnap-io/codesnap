@@ -5,10 +5,10 @@
   module.exports = function(app) {
 
     /* Adds comment to database */
-    app.post('/comment/add', comments.addComment);
+    app.post('/api/comment/add', comments.addComment);
 
     /* Remove comment from database */
-    app.delete('/comment/delete', comments.deleteComment);
+    app.delete('/api/comment/delete', comments.deleteComment);
   };
 
 })();
