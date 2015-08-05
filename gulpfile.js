@@ -19,6 +19,7 @@ var gulp = require('gulp'),
   del = require('del'),
   imagemin = require('gulp-imagemin'),
   webdriver_standalone = require("gulp-protractor").webdriver_standalone,
+  autoprefixer = require('gulp-autoprefixer'),
   protractor = require("gulp-protractor").protractor;
 
 /* asset paths */
@@ -95,6 +96,10 @@ gulp.task('sass', function () {
   return gulp.src(paths.css)
     .pipe(sourcemaps.init())
     .pipe(sass())
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
     .pipe(minifyCss())
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
