@@ -85,6 +85,10 @@ gulp.task('css', ['sass'], function () {
   return gulp.src(paths.css)
     .pipe(sourcemaps.init())
     .pipe(sass())
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
     .pipe(minifyCss())
     .pipe(concatCss("styles.min.css"))
     .pipe(sourcemaps.write())
