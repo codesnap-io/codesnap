@@ -26,9 +26,9 @@
 .content.align-top  
   .large-child.post-list(infinite-scroll="addMorePosts(posts[posts.length-1])" infinite-scroll-disabled="busy" infinite-scroll-distance="0" infinite-scroll-immediate-check="false")
     ul.category-list
-        a.recent-posts-btn(href="#" ng-click="updateCategory('top')", ng-class="{underscore: category==='top'}")
+        a.recent-posts-btn(href="/#/#" ng-click="updateCategory('top')", ng-class="{underscore: category==='top'}")
             li Top Posts
-        a.top-posts-btn(href="#" ng-click="updateCategory('recent')", ng-class="{underscore: category==='recent'}")
+        a.top-posts-btn(href="/#/#" ng-click="updateCategory('recent')", ng-class="{underscore: category==='recent'}")
             li Recent Posts
     .post-item(ng-repeat="post in posts")
       .post-date

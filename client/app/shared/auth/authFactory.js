@@ -6,7 +6,7 @@
       checkAuth: function(callback) {
         return $http({
           method: 'GET',
-          url: 'auth/checkauth'
+          url: 'api/auth/checkauth'
         });
       },
       /* Returns true or false depending on whether the current user is logged in. */
@@ -23,7 +23,7 @@
       logout: function() {
         $http({
           method: 'GET',
-          url: 'auth/logout'
+          url: 'api/auth/logout'
         }).then(function(res) {
           delete window.localStorage.codeSnapJwtToken;
           $state.go('signup');

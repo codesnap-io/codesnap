@@ -23,10 +23,24 @@
     app.use(bodyParser.json());
 
     /* Tell express where to look for static files.  The file listed becomes the root directory for static files. */
-    app.use(express.static(process.env.CLIENT_FILES));
+    app.use('/', express.static(process.env.CLIENT_FILES));
+    // app.all(['/', '/profile/*', '/tag/*', '/post/*', '/signup', '/faq', '/account'], function(req, res, next) {
+    //   // Just send the index.html for other files to support HTML5Mode
+    //   res.sendFile('index.html', { root: __dirname + "../../../" + process.env.CLIENT_FILES });
+    // });
+
+
 
     /* Initialize passport for authentication */
     app.use(passport.initialize());
+
+
+    // routing for html5 mode
+    // app.all('/*', function(req, res, next) {
+    //   // Just send the index.html for other files to support HTML5Mode
+    //   res.sendFile('index.html', { root: __dirname });
+    // });
+
 
     /* Required Routes */
     require('../routes/posts.server.routes')(app);

@@ -7,7 +7,7 @@
         searchPostsByTag: function(tag) {
           return $http({
             method: 'GET',
-            url: '/search/tag',
+            url: 'api/search/tag',
             params: {
               tag: tag
             }

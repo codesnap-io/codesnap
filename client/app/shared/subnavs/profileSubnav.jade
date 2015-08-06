@@ -3,9 +3,9 @@ section.subnav.sticky(profile-subnav)
         .small-child
         .large-child
             ul.category-list
-                a( href="#" ng-click="updateProfilePosts('recent')", ng-class="{underscore: category==='recent'}")
+                a( href="#/#" ng-click="updateProfilePosts('recent')", ng-class="{underscore: category==='recent'}")
                     li Recent Posts
-                a(href="#" ng-click="updateProfilePosts('top')", ng-class="{underscore: category==='top'}")
+                a(href="#/#" ng-click="updateProfilePosts('top')", ng-class="{underscore: category==='top'}")
                     li Top Posts
-                a(href="#" ng-click="updateProfilePosts('unpublished')", ng-class="{underscore: category==='unpublished'}" ng-show="isCurrentUser")
+                a(href="#/#" ng-click="updateProfilePosts('unpublished')", ng-class="{underscore: category==='unpublished'}" ng-show="isCurrentUser")
                     li Unpublished

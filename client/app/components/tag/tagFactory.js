@@ -8,7 +8,7 @@
       getTags: function() {
         return $http({
         method: 'GET',
-        url: '/tags'
+        url: 'api/tags'
         }).then(function(resp) {
           return resp.data;
         });
@@ -16,7 +16,7 @@
       getPopularTags: function() {
         return $http({
           method: 'GET',
-          url: '/tags/popular'
+          url: 'api/tags/popular'
         }).then(function(resp) {
           return resp.data;
         });
@@ -25,7 +25,7 @@
       getUserTags: function(username){
         return $http({
           method: 'GET',
-          url: '/tags/user',
+          url: 'api/tags/user',
           params: {
             username: username
           }
@@ -42,7 +42,7 @@
       getTagPattern: function(tagName) {
         return $http({
           method: 'GET',
-          url: '/tags/pattern',
+          url: 'api/tags/pattern',
           params: {
             tagName: tagName
           }

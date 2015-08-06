@@ -5,9 +5,9 @@
   module.exports = function(app) {
 
     /* autocomplete results */
-    app.get('/search', search.findAutocompletePosts);
+    app.get('/api/search', search.findAutocompletePosts);
     /*search results for tags, authors, and all */
-    app.get('/search/tag', search.findPostsByTag);
+    app.get('/api/search/tag', search.findPostsByTag);
   };
 
 })();
