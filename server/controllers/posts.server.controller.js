@@ -405,6 +405,7 @@
     var username = req.query.username;
     Post.recentUserPosts(username)
       .then(function(posts) {
+        console.log(posts[0])
         res.json(posts[0]);
       });
   };
@@ -429,13 +430,13 @@
   //     repository: {
   //       name: 'codesnap.io',
   //       owner: {
-  //         name: 'bdstein33'
+  //         name: 'Dianna'
   //       }
   //     },
   //     head_commit: {
   //       added: [],
   //       removed: [],
-  //       modified: ['posts/myFirstPost.md']
+  //       modified: ['posts/2015-08-01-20:14:54.md']
   //     }
   //   };
   //   exports.postReceive(req, res);
