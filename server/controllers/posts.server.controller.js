@@ -405,6 +405,7 @@
     var username = req.query.username;
     Post.recentUserPosts(username)
       .then(function(posts) {
+        console.log(posts[0])
         res.json(posts[0]);
       });
   };
@@ -418,27 +419,27 @@
   };
 
   /* Dummy Data */
-  if (process.env.NODE_ENV === 'development') {
-    var req = {};
-    var res = {
-      sendStatus: function() {
-        return;
-      }
-    };
-    req.body = {
-      repository: {
-        name: 'codesnap.io',
-        owner: {
-          name: 'Dianna'
-        }
-      },
-      head_commit: {
-        added: [],
-        removed: [],
-        modified: ['posts/2015-08-01-20:14:54.md']
-      }
-    };
-    exports.postReceive(req, res);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   var req = {};
+  //   var res = {
+  //     sendStatus: function() {
+  //       return;
+  //     }
+  //   };
+  //   req.body = {
+  //     repository: {
+  //       name: 'codesnap.io',
+  //       owner: {
+  //         name: 'Dianna'
+  //       }
+  //     },
+  //     head_commit: {
+  //       added: [],
+  //       removed: [],
+  //       modified: ['posts/2015-08-01-20:14:54.md']
+  //     }
+  //   };
+  //   exports.postReceive(req, res);
+  // }
 
 })();
