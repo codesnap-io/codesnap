@@ -44,5 +44,3 @@
 //   runScraper();
 
 // })();
-
-function(initlaUrl, )
