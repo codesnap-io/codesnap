@@ -40,6 +40,10 @@ Handle setup of app, load in Angular dependencies, routing, etc.
   function config($stateProvider, $urlRouterProvider, $locationProvider) {
     // Default to the index view if the URL loaded is not found
     $urlRouterProvider.otherwise('/');
+    //
+    // $locationProvider.html5Mode({
+    //   enabled:true
+    // });
     //TODO: html5mode?
     $stateProvider
       .state('home', {
@@ -198,10 +202,6 @@ Handle setup of app, load in Angular dependencies, routing, etc.
         }
       }
     });
-
-
-    // enable html5 mode to eliminate hashbang
-    // $locationProvider.html5Mode(true);
 
   }
 

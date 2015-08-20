@@ -36,9 +36,16 @@
 
 
     // routing for html5 mode
-    // app.all('/*', function(req, res, next) {
-    //   // Just send the index.html for other files to support HTML5Mode
-    //   res.sendFile('index.html', { root: __dirname });
+
+    //still trying to configure for copying and pasting of links.
+    // app.all(/^((?!api).)*$/, function(req, res, next) {
+    //
+    //     // if (/a/.test(req.originalUrl) )
+    //     //
+    //     //
+    //     // console.log('lookin it up:\n', req);
+    //     // Just send the index.html for other files to support HTML5Mode
+    //     res.sendFile('index.html', { root: path.join(__dirname, '../../', process.env.CLIENT_FILES) });
     // });
 
 
