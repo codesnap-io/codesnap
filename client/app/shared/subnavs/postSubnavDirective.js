@@ -4,7 +4,7 @@
     .directive('postSubnav', function(postFactory, userFactory) {
       return {
         restrict: 'A',
-        controller: function ($scope, $rootScope, postFactory) {
+        controller: function ($scope, $rootScope, postFactory, $window) {
           // loads post data retrieved by post factory.
           $scope.postData = postFactory.getCurrentPost();
           $scope.loggedIn = $rootScope.loggedIn;
@@ -26,9 +26,19 @@
             } else {
               /* If user tries to like post without being logged in, show a pop up telling them that they need to log in */
               $("body").scrollTop(0);
-              $('#post-error-container').slideDown(300);
+              $('#like-error-container').slideDown(300);
             }
           };
+
+          $scope.proposeChange = function() {
+            if($scope.loggedIn) {
+              $window.location.href = $scope.postData.editUrl;
+            } else {
+              $("body").scrollTop(0);
+              $('#like-error-container').slideDown(300);
+            }
+
+          }
 
           $rootScope.$on('updateComments', function(event, change) {
             $scope.postData.commentCount += change;
@@ -36,8 +46,8 @@
         },
         link: function(scope, elem, attr) {
           /* Hide post error container when user clicks it */
-          $('#post-error-container').click(function() {
-            $(this).hide();
+          $('#like-error-container').click(function() {
+            $(this).fadeOut(200);
           });
 
           $('.propose-change-btn')
