@@ -60,6 +60,7 @@ code {
   border-radius: 5px;
   margin: 2px;
   padding: 5px 8px 5px 8px;
+  transition: color 0.5s, border 0.5s;
 }
 
 .tag:hover {

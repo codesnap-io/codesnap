@@ -166,6 +166,7 @@ body {
   color: $accent-300;
   text-decoration: none;
   transition: border 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-radius 0.3s ease-in-out;
 }
 
 .button:hover {

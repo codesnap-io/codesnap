@@ -29,7 +29,6 @@
               console.log("Error: ", err);
             } else {
               $scope.posts = posts;
-              console.log(posts);
             }
         });
       } else if (category === 'recent') {
@@ -39,7 +38,6 @@
               console.log("Error: ", err);
             } else {
               $scope.posts = posts;
-              console.log(posts);
             }
         });
       } else {
@@ -89,7 +87,6 @@
             posts.forEach(function(post) {
               $scope.posts.push(post);
             });
-            console.log(posts);
           } else if (resp.status === 204) {
             $scope.busy = true;
           }
@@ -112,7 +109,6 @@
             if (err) {
               console.log("Error: ", err);
             } else {
-              console.log(posts);
               $scope.posts = posts;
             }
           });

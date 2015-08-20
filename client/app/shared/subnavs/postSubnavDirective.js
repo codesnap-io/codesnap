@@ -31,7 +31,6 @@
           };
 
           $rootScope.$on('updateComments', function(event, change) {
-            console.log(change);
             $scope.postData.commentCount += change;
           });
         },
