@@ -1,1 +1,1 @@
-A codesnap user.
+A CodeSnap user.
