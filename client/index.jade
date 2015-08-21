@@ -77,7 +77,7 @@ html(ng-app="codesnap" lang="en")
 
 
     //markdown parser libs
-    script(src="assets/lib/marked/lib/marked.js")
+    script(src="assets/js/marked.js")
 
     //infinite scroll
     script(src="assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
@@ -99,6 +99,10 @@ html(ng-app="codesnap" lang="en")
     title CodeSnap
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    //- base(href="/")
+    //mobile viewport hack
+    meta(name="viewport" content="width=device-width, initial-scale=1")
 
   body
     cr-navbar

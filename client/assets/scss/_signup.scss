@@ -10,6 +10,7 @@
 
 .intro-content {
   @include flex-container-col;
+  max-width: none;
   height: 100%;
   background-color: $secondary-highlight;
 }

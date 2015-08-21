@@ -62,7 +62,6 @@
         counter++;
       });
 
-      console.log($scope.postData.comments);
       /* Initialize side comment functionality.  We specify the user information and previous posts */
       var sideComments = new SideComments('#commentable-area', $scope.user, $scope.postData.comments);
 

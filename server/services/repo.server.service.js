@@ -133,9 +133,9 @@
     };
 
     var firstImagePath = {
-      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/snapper.svg',
+      repoPath: 'https://api.github.com/repos/' + username + '/' + repoName + '/contents/images/snapper.jpg',
       message: "(init) add first image",
-      serverPath: "./server/assets/snapper.svg"
+      serverPath: "./server/assets/snapper.jpg"
     };
 
     var readmePath = {

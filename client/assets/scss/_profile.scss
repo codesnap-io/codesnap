@@ -1,4 +1,18 @@
 
+.content.profile-content {
+  @media screen and (max-width: $tablet-max) {
+    flex-wrap: wrap;
+    justify-content: center;
+    .user-info-profile, .tag-list {
+      justify-content: center;
+    }
+    .commonly-used {
+      text-align: center;
+    }
+  }
+}
+
+
 .profile-github-logo {
   max-height: 0.7rem;
 }
@@ -9,7 +23,9 @@
   align-items: flex-start;
   border-bottom: 1px solid $accent-200;
   padding: 1.4rem 0;
-  width: 100%;
+  @media screen and (max-width: $tablet-max) {
+    width: 100%;
+  }
   a {
     text-decoration: none;
     cursor: pointer;
@@ -77,15 +93,8 @@
   }
 
   .profile-post-links {
-    @include flex-child;
-    @include flex-container-col;
-    flex-direction: row;
-    justify-content: flex-start;
-
     .link-div {
-      @include flex-child;
-      @include flex-container-row;
-      flex: 0 1 auto;
+      float: left;
       margin-right: 1.5rem;
       font-weight: 600;
       font-size: 0.8rem;
@@ -146,6 +155,7 @@
   @include flex-child;
   @include flex-container-row;
 }
+
 
 .user-info-profile {
   @include flex-child;

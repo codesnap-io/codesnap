@@ -14,7 +14,7 @@
               type: 'category',
               searchDelay: 100,
               cache: true,
-              minCharacters: 1
+              minCharacters: 2
             });
         }
       };

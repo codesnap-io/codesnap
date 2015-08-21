@@ -17,7 +17,6 @@
   ],
   "dependencies": {
     "css3-social-signin-buttons": "necolas/css3-social-signin-buttons",
-    "marked": "~0.3.3",
     "ngInfiniteScroll": "~1.2.1",
     "highlightjs": "~8.6.0"
   }
