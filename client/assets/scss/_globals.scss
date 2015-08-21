@@ -12,6 +12,13 @@ $logo-color: #ffffff;
 $positive: #95d8b0;
 $negative: #fda6a7;
 $light: #ffffff;
+
+// media query widths
+$mobile-max: 480px;
+$tablet-max: 768px;
+$medium-max: 992px;
+
+
 // *** Mixins ***
 @mixin flex-container-row {
   display: flex;
@@ -19,6 +26,8 @@ $light: #ffffff;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @mixin flex-container-col {
@@ -27,6 +36,9 @@ $light: #ffffff;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
 }
 
 @mixin flex-child {
