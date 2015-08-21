@@ -10,6 +10,9 @@ Along with the repo, we create two folders: **/posts** and **/images**. *Any* .m
 
 You can of course, choose to add and edit markdown files whatever way you find easiest, on your local machine or through Github's in-app editor. Doing either assumes that you have a basic understanding of [how Git and Github work](https://help.github.com/) as well as [how to write markdown](https://daringfireball.net/projects/markdown/basics).
 
+Check out this video for a quick tutorial:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GBRMF1nKXpg" frameborder="0" allowfullscreen></iframe>
 
 ### How do I add images?
 
@@ -38,7 +41,9 @@ published: true
 ---'
 
 **title** - the title of your posts.
+
 **tags** - a comma-separated list of tags you want to be associated with your post.
+
 **published** - true or false depending on whether the post should be published on our site (if you do not include a line for published in the metadata, automatically assume the value of published should be true
 
 It's important to pay close attention to your metadata so that your posts will be viewed by people who search for related content. Make sure not to include  any punctuation after the colon of the metadata section. For example "title: my first post: hello", would cause an error.
