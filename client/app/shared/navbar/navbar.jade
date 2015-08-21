@@ -10,9 +10,6 @@ header(ng-show="showNav")
   .content
     .left
       a.site-title(ui-sref="home") &lt;code&gt;snap
-      //.nav-links
-      //  a(ui-sref="home") Home
-      //  a(ui-sref="home") Discover
     .center
       .search-box
         .ui.category.search(cr-searchbar)
@@ -36,3 +33,9 @@ header(ng-show="showNav")
           span Signup / Login
         a.button.margin1(ui-sref="faq" ng-if="!loggedIn")
           span How it Works
+  .search-box-small
+    .ui.category.search(cr-searchbar)
+      .ui.icon.input
+        input.prompt(type="text" placeholder="Search Codesnap...")
+        i.search.icon
+      .results
