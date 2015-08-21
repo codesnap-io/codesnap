@@ -1,6 +1,6 @@
-#post-error-container
-  #post-error-text Please #[strong(ui-sref="signup") log in] to like or contribute to post
-  img#post-error-x(src="../../../assets/img/x.png")
+#like-error-container
+  #like-error-text Please #[strong(ui-sref="signup") log in] to like or contribute to post
+  img#like-error-x(src="../../../assets/img/x.png")
 section.subnav.sticky(post-subnav ng-show="postData")
   .content.pad-half
     img.profile-picture(src="{{postData.profile_photo_url}}" alt="profile photo" ui-sref="profile({username: postData.username})")
@@ -19,6 +19,6 @@ section.subnav.sticky(post-subnav ng-show="postData")
           img(src="assets/img/Comment.svg" alt="Comment Icon")
           span {{postData.commentCount}}
     .right-icons
-      a.button.propose-change-btn(href="{{postData.editUrl}}" data-content="Fork this post in Github and make a pull request" target="_blank")
+      a.button.propose-change-btn.pointer(ng-click="proposeChange()" data-content="Fork this post in Github and make a pull request" target="_blank")
         img(src="assets/img/Edit.svg" alt="Edit Post")
         span Propose Change

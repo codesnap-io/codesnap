@@ -72,7 +72,7 @@
       link: function() {
         /* Hide post error container when user clicks it */
         $('#post-error-container').click(function() {
-          $(this).hide();
+          $(this).fadeOut(200);
         });
         //load semantic ui dropdown
         setTimeout(function() {

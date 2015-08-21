@@ -7,7 +7,6 @@
 
     /* Listens for events triggered in profileSubNavDirective to update the list of posts shown */
     $rootScope.$on('changeProfilePostList', function(event, list) {
-      console.log(list);
       if (list === 'recent') {
         userFactory.getRecentUserPosts($stateParams.username)
           .then(function(posts) {

@@ -4,7 +4,7 @@
   var Tag = require('../config/schema').Tag;
 
   /* Here are a list of background patterns for title */
-  var patterns = ["half-rombes", "arrows", "zigzag", "weave", "argyle", "waves", "cross", "brady-bunch", "microbial-mat", "upholstery", "steps", "shippo", "stars", "japanese-cube", "seigaiha", "bricks", "polka-dots", "tartan", "madras", "blueprint", "tablecloth", "cicada-stripes", "diagonal-stripes", "vertical-stripes", "horizontal-stripes"];
+  var patterns = ["half-rombes", "arrows", "zigzag", "weave", "argyle", "waves", "cross", "brady-bunch", "microbial-mat", "upholstery", "steps", "shippo", "stars", "japanese-cube", "seigaiha", "bricks", "polka-dot", "tartan", "madras", "blueprint", "tablecloth", "cicada-stripes", "diagonal-stripes", "vertical-stripes", "horizontal-stripes"];
 
   /* Randomly assign a background pattern to tag */
   var randomPattern = function() {

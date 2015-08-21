@@ -12,6 +12,13 @@ $logo-color: #ffffff;
 $positive: #95d8b0;
 $negative: #fda6a7;
 $light: #ffffff;
+
+// media query widths
+$mobile-max: 480px;
+$tablet-max: 768px;
+$medium-max: 992px;
+
+
 // *** Mixins ***
 @mixin flex-container-row {
   display: flex;
@@ -19,6 +26,8 @@ $light: #ffffff;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @mixin flex-container-col {
@@ -27,6 +36,9 @@ $light: #ffffff;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
 }
 
 @mixin flex-child {
@@ -121,6 +133,10 @@ body {
   @include flex-container-row;
   width: 100%;
   margin: 0;
+  max-width:none;
+  .darken {
+      max-width: none;
+  }
 }
 
 .flex-start {
@@ -166,6 +182,7 @@ body {
   color: $accent-300;
   text-decoration: none;
   transition: border 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-radius 0.3s ease-in-out;
 }
 
 .button:hover {
@@ -248,5 +265,11 @@ body {
   }
   .header {
     margin-bottom: 1rem;
+  }
+}
+
+.hide-small {
+  @media screen and (max-width: $tablet-max) {
+    display: none;
   }
 }

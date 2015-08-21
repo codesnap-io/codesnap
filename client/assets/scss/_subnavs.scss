@@ -50,7 +50,7 @@
   font-size: 0.8rem;
 }
 
-#post-error-container {
+#post-error-container, #like-error-container {
   z-index: 99999;
   position: absolute;
   top: 0;
@@ -62,11 +62,11 @@
   height: 50px;
   cursor: pointer;
   display: none;
-  #post-error-text {
+  #post-error-text, #like-error-text {
     line-height: 50px;
     text-align: center;
   }
-  #post-error-x {
+  #post-error-x, #like-error-x {
     width: 10px;
     position: absolute;
     top: 8px;

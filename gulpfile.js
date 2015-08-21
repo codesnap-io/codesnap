@@ -24,7 +24,7 @@ var gulp = require('gulp'),
 
 /* asset paths */
 var paths = {
-  scripts: ['client/assets/js/side-comments.js', "client/assets/lib/marked/lib/marked.js",
+  scripts: ['client/assets/js/side-comments.js', "client/assets/js/marked.js",
   'client/assets/lib/ngInfiniteScroll/build/ng-infinite-scroll.js', '!client/lib/**/*', 'client/app/**/*.js'],
   css: ['client/assets/scss/*.scss'],
   jade: ['client/**/*.jade'],
