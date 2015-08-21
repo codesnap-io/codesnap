@@ -133,6 +133,10 @@ body {
   @include flex-container-row;
   width: 100%;
   margin: 0;
+  max-width:none;
+  .darken {
+      max-width: none;
+  }
 }
 
 .flex-start {
@@ -261,5 +265,11 @@ body {
   }
   .header {
     margin-bottom: 1rem;
+  }
+}
+
+.hide-small {
+  @media screen and (max-width: $tablet-max) {
+    display: none;
   }
 }

@@ -2,6 +2,13 @@
 .content.profile-content {
   @media screen and (max-width: $tablet-max) {
     flex-wrap: wrap;
+    justify-content: center;
+    .user-info-profile, .tag-list {
+      justify-content: center;
+    }
+    .commonly-used {
+      text-align: center;
+    }
   }
 }
 
@@ -86,8 +93,6 @@
   }
 
   .profile-post-links {
-
-
     .link-div {
       float: left;
       margin-right: 1.5rem;
