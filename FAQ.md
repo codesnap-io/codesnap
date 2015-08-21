@@ -28,9 +28,13 @@ Github automatically makes a patch of the other user's repo, and deletes said pa
 When you create a new account, we create a starter post for you (don't worry, it's not published).  This file, as well as all posts you write, must be .md or .markdown filetypes.  The top of each file should contain the post's metadata (without the added quotes):
 
 '---
+
 title: This is my blog post
+
 tags: Markdown, YAML, CodeSnap
+
 published: true
+
 ---'
 
 **title** - the title of your posts.
